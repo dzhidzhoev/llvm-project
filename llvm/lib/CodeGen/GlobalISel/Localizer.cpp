@@ -179,8 +179,19 @@ bool Localizer::localizeIntraBlock(LocalizedSetVecT &LocalizedInstrs) {
                       << '\n');
 
     MI->removeFromParent();
-    MBB.insert(II, MI);
+    auto NewMI = MBB.insert(II, MI);
     Changed = true;
+
+    // If the instruction (constant) being localized has single user, we can
+    // propagate debug location from user.
+    if (Users.size() == 1) {
+      const auto &DefDL = NewMI->getDebugLoc();
+      const auto &UserDL = (*Users.begin())->getDebugLoc();
+
+      if (!(DefDL && DefDL.getLine() != 0) && UserDL && UserDL.getLine() != 0) {
+        NewMI->setDebugLoc(UserDL);
+      }
+    }
   }
   return Changed;
 }
