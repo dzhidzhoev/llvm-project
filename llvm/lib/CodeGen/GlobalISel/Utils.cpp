@@ -13,11 +13,13 @@
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/APInt.h"
 #include "llvm/ADT/Optional.h"
+#include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/CodeGen/GlobalISel/GISelChangeObserver.h"
 #include "llvm/CodeGen/GlobalISel/GISelKnownBits.h"
 #include "llvm/CodeGen/GlobalISel/GenericMachineInstrs.h"
 #include "llvm/CodeGen/GlobalISel/LostDebugLocObserver.h"
 #include "llvm/CodeGen/GlobalISel/MIPatternMatch.h"
+#include "llvm/CodeGen/GlobalISel/MachineIRBuilder.h"
 #include "llvm/CodeGen/MachineInstr.h"
 #include "llvm/CodeGen/MachineInstrBuilder.h"
 #include "llvm/CodeGen/MachineOptimizationRemarkEmitter.h"
@@ -27,9 +29,11 @@
 #include "llvm/CodeGen/StackProtector.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
 #include "llvm/CodeGen/TargetLowering.h"
+#include "llvm/CodeGen/TargetOpcodes.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/IR/Constants.h"
+#include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Transforms/Utils/SizeOpts.h"
 
@@ -1334,4 +1338,102 @@ void llvm::eraseInstrs(ArrayRef<MachineInstr *> DeadInstrs,
 void llvm::eraseInstr(MachineInstr &MI, MachineRegisterInfo &MRI,
                       LostDebugLocObserver *LocObserver) {
   return eraseInstrs({&MI}, MRI, LocObserver);
+}
+
+static MachineOperand *getSalvageOpsForCopy(const MachineRegisterInfo &MRI,
+                                            MachineInstr &Copy) {
+  assert(Copy.getOpcode() == TargetOpcode::COPY && "Must be a COPY");
+
+  return &Copy.getOperand(1);
+}
+
+static MachineOperand *getSalvageOpsForTrunc(const MachineRegisterInfo &MRI,
+                                             MachineInstr &Trunc,
+                                             SmallVectorImpl<uint64_t> &Ops) {
+  assert(Trunc.getOpcode() == TargetOpcode::G_TRUNC && "Must be a G_TRUNC");
+
+  const auto FromLLT = MRI.getType(Trunc.getOperand(1).getReg());
+  const auto ToLLT = MRI.getType(Trunc.defs().begin()->getReg());
+
+  // TODO: Support non-scalar types.
+  if (!FromLLT.isScalar()) {
+    return nullptr;
+  }
+
+  auto ExtOps = DIExpression::getExtOps(FromLLT.getSizeInBits(),
+                                        ToLLT.getSizeInBits(), false);
+  Ops.append(ExtOps.begin(), ExtOps.end());
+  return &Trunc.getOperand(1);
+}
+
+static MachineOperand *salvageDebugInfoImpl(const MachineRegisterInfo &MRI,
+                                            MachineInstr &MI,
+                                            SmallVectorImpl<uint64_t> &Ops) {
+  switch (MI.getOpcode()) {
+  case TargetOpcode::G_TRUNC:
+    return getSalvageOpsForTrunc(MRI, MI, Ops);
+  case TargetOpcode::COPY:
+    return getSalvageOpsForCopy(MRI, MI);
+  default:
+    return nullptr;
+  }
+}
+
+void llvm::salvageDebugInfoForDbgValue(const MachineRegisterInfo &MRI,
+                                       MachineInstr &MI,
+                                       ArrayRef<MachineOperand *> DbgUsers) {
+  // These are arbitrary chosen limits on the maximum number of values and the
+  // maximum size of a debug expression we can salvage up to, used for
+  // performance reasons.
+  const unsigned MaxExpressionSize = 128;
+
+  for (auto *DefMO : DbgUsers) {
+    MachineInstr *DbgMI = DefMO->getParent();
+    int UseMOIdx = DbgMI->findRegisterUseOperandIdx(DefMO->getReg());
+
+    assert(UseMOIdx != -1 && DbgMI->hasDebugOperandForReg(DefMO->getReg()) &&
+           "Must use salvaged instruction as its location");
+
+    // TODO: Support DBG_VALUE_LIST.
+    if (DbgMI->getOpcode() != TargetOpcode::DBG_VALUE) {
+      assert(DbgMI->getOpcode() == TargetOpcode::DBG_VALUE_LIST &&
+             "Must be either DBG_VALUE or DBG_VALUE_LIST");
+      continue;
+    }
+
+    const DIExpression *SalvagedExpr = DbgMI->getDebugExpression();
+
+    SmallVector<uint64_t, 16> Ops;
+    auto Op0 = salvageDebugInfoImpl(MRI, MI, Ops);
+    if (!Op0)
+      continue;
+    SalvagedExpr = DIExpression::appendOpsToArg(SalvagedExpr, Ops, 0, true);
+
+    bool IsValidSalvageExpr =
+        SalvagedExpr->getNumElements() <= MaxExpressionSize;
+    if (IsValidSalvageExpr) {
+      auto &UseMO = DbgMI->getOperand(UseMOIdx);
+      UseMO.setReg(Op0->getReg());
+      UseMO.setSubReg(Op0->getSubReg());
+      DbgMI->getDebugExpressionOp().setMetadata(SalvagedExpr);
+
+      LLVM_DEBUG(dbgs() << "SALVAGE: " << *DbgMI << '\n');
+    }
+  }
+}
+
+void llvm::salvageDebugInfo(const MachineRegisterInfo &MRI, MachineInstr &MI) {
+  for (auto &Def : MI.defs()) {
+    assert(Def.isReg() && "Must be a reg");
+
+    SmallVector<MachineOperand *, 16> DbgUsers;
+    for (auto &MOUse : MRI.use_operands(Def.getReg())) {
+      if (MOUse.getParent()->isNonListDebugValue())
+        DbgUsers.push_back(&MOUse);
+    }
+
+    if (!DbgUsers.empty()) {
+      salvageDebugInfoForDbgValue(MRI, MI, DbgUsers);
+    }
+  }
 }
