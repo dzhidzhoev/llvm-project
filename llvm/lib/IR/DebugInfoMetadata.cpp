@@ -1451,6 +1451,7 @@ static ScopeT getRawRetainedNodeScopeInternal(NodeT *N) {
 
   return DISubprogram::visitRetainedNode<ScopeT>(
       N, getScope, getScope, getScope, getScope,
+      [](auto *GVE) { return GVE->getVariable()->getScope(); },
       [](auto *N) { return nullptr; });
 }
 
@@ -1473,7 +1474,7 @@ DILocalScope *DISubprogram::getRetainedNodeScope(MDNode *N) {
 void DISubprogram::cleanupRetainedNodes() {
   // Checks if a metadata node from retainedTypes is a type not belonging to
   // this subprogram.
-  auto IsAlienType = [this](DINode *N) {
+  auto IsAlienType = [this](MDNode *N) {
     auto *T = dyn_cast_or_null<DIType>(N);
     if (!T)
       return false;
@@ -1486,26 +1487,7 @@ void DISubprogram::cleanupRetainedNodes() {
     return this != TypeSP;
   };
 
-  // As this is expected to be called during module loading, before
-  // stripping old or incorrect debug info, perform minimal sanity check.
-  if (!isa_and_present<MDTuple>(getRawRetainedNodes()))
-    return;
-
-  MDTuple *RetainedNodes = cast<MDTuple>(getRawRetainedNodes());
-  SmallVector<Metadata *> MDs;
-  MDs.reserve(RetainedNodes->getNumOperands());
-  for (const MDOperand &Node : RetainedNodes->operands()) {
-    // Ignore malformed retainedNodes.
-    if (Node && !isa<DINode>(Node))
-      return;
-
-    auto *N = cast_or_null<DINode>(Node);
-    if (!IsAlienType(N))
-      MDs.push_back(N);
-  }
-
-  if (MDs.size() != RetainedNodes->getNumOperands())
-    replaceRetainedNodes(MDNode::get(getContext(), MDs));
+  cleanupRetainedNodes(IsAlienType);
 }
 
 DILexicalBlockBase::DILexicalBlockBase(LLVMContext &C, unsigned ID,

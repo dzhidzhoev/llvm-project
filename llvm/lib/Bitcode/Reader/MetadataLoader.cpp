@@ -545,10 +545,8 @@ class MetadataLoader::MetadataLoaderImpl {
                llvm::dyn_cast_or_null<DISubprogram>(S);
   }
 
-  /// Move local imports from DICompileUnit's 'imports' field to
-  /// DISubprogram's retainedNodes.
-  /// Move function-local enums from DICompileUnit's enums
-  /// to DISubprogram's retainedNodes.
+  /// Move function-local entities from DICompileUnit's 'imports',
+  /// 'enums', and 'globals' fields to DISubprogram's retainedNodes.
   void upgradeCULocals() {
     NamedMDNode *CUNodes = TheModule.getNamedMetadata("llvm.dbg.cu");
     if (!CUNodes)
@@ -579,6 +577,14 @@ class MetadataLoader::MetadataLoaderImpl {
         continue;
 
       SetVector<Metadata *> MetadataToRemove;
+      // Collect globals to be moved.
+      if (CU->getRawGlobalVariables())
+        for (Metadata *Op : CU->getGlobalVariables()->operands()) {
+          auto *GVE = cast<DIGlobalVariableExpression>(Op);
+          if (isa_and_nonnull<DILocalScope>(GVE->getVariable()->getScope()))
+            MetadataToRemove.insert(GVE);
+        }
+
       // Collect imported entities to be moved.
       if (CU->getRawImportedEntities())
         for (Metadata *Op : CU->getImportedEntities()->operands()) {
@@ -586,6 +592,7 @@ class MetadataLoader::MetadataLoaderImpl {
           if (isa_and_nonnull<DILocalScope>(IE->getScope()))
             MetadataToRemove.insert(IE);
         }
+
       // Collect enums to be moved.
       if (CU->getRawEnumTypes())
         for (Metadata *Op : CU->getEnumTypes()->operands()) {
@@ -596,6 +603,11 @@ class MetadataLoader::MetadataLoaderImpl {
 
       if (MetadataToRemove.empty())
         continue;
+
+      // Remove globals with local scope from CU.
+      if (CU->getRawGlobalVariables())
+        CU->replaceGlobalVariables(
+            FilterTuple(CU->getGlobalVariables().get(), MetadataToRemove));
 
       // Remove entities with local scope from CU.
       if (CU->getRawImportedEntities())
@@ -611,7 +623,7 @@ class MetadataLoader::MetadataLoaderImpl {
       SmallDenseMap<DISubprogram *, SmallVector<Metadata *>> SPToEntities;
       for (auto *I : MetadataToRemove) {
         DILocalScope *Scope =
-            DISubprogram::getRetainedNodeScope(cast<DINode>(I));
+            DISubprogram::getRetainedNodeScope(cast<MDNode>(I));
         if (auto *SP = findEnclosingSubprogram(Scope))
           SPToEntities[SP].push_back(I);
       }
