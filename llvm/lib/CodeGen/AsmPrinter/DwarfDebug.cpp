@@ -1180,27 +1180,6 @@ void DwarfDebug::beginModule(Module *M) {
   // address table (.debug_addr) header.
   AddrPool.setLabel(Asm->createTempSymbol("addr_table_base"));
   DebugLocs.setSym(Asm->createTempSymbol("loclists_table_base"));
-
-  for (DICompileUnit *CUNode : M->debug_compile_units()) {
-    if (CUNode->getImportedEntities().empty() &&
-        CUNode->getEnumTypes().empty() && CUNode->getRetainedTypes().empty() &&
-        CUNode->getGlobalVariables().empty() && CUNode->getMacros().empty())
-      continue;
-
-    DwarfCompileUnit &CU = getOrCreateDwarfCompileUnit(CUNode);
-
-    for (auto *Ty : CUNode->getEnumTypes()) {
-      assert(!isa_and_nonnull<DILocalScope>(Ty->getScope()) &&
-             "Unexpected function-local entity in 'enums' CU field.");
-      CU.getOrCreateTypeDIE(cast<DIType>(Ty));
-    }
-
-    for (auto *Ty : CUNode->getRetainedTypes()) {
-      if (DIType *RT = dyn_cast<DIType>(Ty))
-        // There is no point in force-emitting a forward declaration.
-        CU.getOrCreateTypeDIE(RT);
-    }
-  }
 }
 
 void DwarfDebug::finishEntityDefinitions() {
@@ -1425,6 +1404,16 @@ void DwarfDebug::endModule() {
              "Unexpected function-local entity in 'globals' CU field.");
       if (Processed.insert(GV).second)
         CU->getOrCreateGlobalVariableDIE(GV, sortGlobalExprs(GVMap[GV]));
+    }
+
+    // Emit types.
+    for (auto *Ty : CUNode->getEnumTypes())
+      CU->getOrCreateTypeDIE(cast<DIType>(Ty));
+
+    for (auto *Ty : CUNode->getRetainedTypes()) {
+      if (DIType *RT = dyn_cast<DIType>(Ty))
+        // There is no point in force-emitting a forward declaration.
+        CU->getOrCreateTypeDIE(RT);
     }
 
     // Emit imported entities.
