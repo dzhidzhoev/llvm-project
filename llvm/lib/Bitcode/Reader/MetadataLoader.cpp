@@ -548,10 +548,8 @@ class MetadataLoader::MetadataLoaderImpl {
     return ParentSubprogram[InitialScope];
   }
 
-  /// Move local imports from DICompileUnit's 'imports' field to
-  /// DISubprogram's retainedNodes.
-  /// Move function-local enums from DICompileUnit's enums
-  /// to DISubprogram's retainedNodes.
+  /// Move function-local entities from DICompileUnit's 'imports',
+  /// 'enums', and 'globals' fields to DISubprogram's retainedNodes.
   void upgradeCULocals() {
     if (NamedMDNode *CUNodes = TheModule.getNamedMetadata("llvm.dbg.cu")) {
       for (MDNode *N : CUNodes->operands()) {
@@ -575,6 +573,15 @@ class MetadataLoader::MetadataLoaderImpl {
               MetadataToRemove.insert(Enum);
           }
 
+        // Collect globals to be moved.
+        if (CU->getRawGlobalVariables())
+          for (Metadata *Op : CU->getGlobalVariables()->operands()) {
+            auto *GVE = cast<DIGlobalVariableExpression>(Op);
+            if (dyn_cast_or_null<DILocalScope>(
+                    GVE->getVariable()->getScope()))
+              MetadataToRemove.insert(GVE);
+          }
+
         if (!MetadataToRemove.empty()) {
           // Make a new list of CU's 'imports'.
           SmallVector<Metadata *> NewImports;
@@ -590,6 +597,13 @@ class MetadataLoader::MetadataLoaderImpl {
               if (!MetadataToRemove.contains(Op))
                 NewEnums.push_back(Op);
 
+          // Make a new list of CU's 'globals'.
+          SmallVector<Metadata *> NewGVEs;
+          if (CU->getRawGlobalVariables())
+            for (Metadata *Op : CU->getGlobalVariables()->operands())
+              if (!MetadataToRemove.contains(Op))
+                NewGVEs.push_back(Op);
+
           // Find DISubprogram corresponding to each entity.
           std::map<DISubprogram *, SmallVector<Metadata *>> SPToEntities;
           for (auto *I : MetadataToRemove) {
@@ -598,6 +612,8 @@ class MetadataLoader::MetadataLoaderImpl {
               Scope = cast<DILocalScope>(Entity->getScope());
             else if (auto *Enum = dyn_cast<DICompositeType>(I))
               Scope = cast<DILocalScope>(Enum->getScope());
+            else if (auto *GVE = dyn_cast<DIGlobalVariableExpression>(I))
+              Scope = cast<DILocalScope>(GVE->getVariable()->getScope());
 
             if (auto *SP = findEnclosingSubprogram(Scope))
               SPToEntities[SP].push_back(I);
@@ -619,6 +635,9 @@ class MetadataLoader::MetadataLoaderImpl {
           // Remove enums with local scope from CU.
           if (CU->getRawEnumTypes())
             CU->replaceEnumTypes(MDTuple::get(Context, NewEnums));
+          // Remove globals with local scope from CU.
+          if (CU->getRawGlobalVariables())
+            CU->replaceGlobalVariables(MDTuple::get(Context, NewGVEs));
         }
       }
     }

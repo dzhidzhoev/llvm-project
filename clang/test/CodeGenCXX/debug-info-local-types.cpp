@@ -33,12 +33,12 @@
 
 // CHECK: ![[FILENUM:[0-9]+]] = !DIFile(filename: "{{.*}}debug-info-local-types.cpp",
 
-// CHECK: ![[BARSTRUCT:[0-9]+]] = distinct !DICompositeType(tag: DW_TAG_class_type, name: "bar", scope: ![[FOOFUNC:[0-9]+]], file: ![[FILENUM]],
-// CHECK-SAME: identifier: "_ZTSZ3foovE3bar")
-
-// CHECK: ![[FOOFUNC]] = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: ![[FILENUM]], file: ![[FILENUM]], 
+// CHECK: ![[FOOFUNC:[0-9]+]] = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: ![[FILENUM]], file: ![[FILENUM]], 
 //// Test to ensure that this is _not_ a definition, therefore a decl.
 // CHECK-SAME: spFlags: 0)
+
+// CHECK: ![[BARSTRUCT:[0-9]+]] = distinct !DICompositeType(tag: DW_TAG_class_type, name: "bar", scope: ![[FOOFUNC]], file: ![[FILENUM]],
+// CHECK-SAME: identifier: "_ZTSZ3foovE3bar")
 
 // CHECK: ![[GETADECL:[0-9]+]] = !DISubprogram(name: "get_a", scope: ![[BARSTRUCT]], file: ![[FILENUM]], 
 //// Test to ensure that this is _not_ a definition, therefore a decl.

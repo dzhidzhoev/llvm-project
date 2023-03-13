@@ -32,12 +32,12 @@
 
 ; CHECK: ![[FILENUM:[0-9]+]] = !DIFile(filename: "{{.*}}debug-info-local-types.cpp",
 
-; CHECK: ![[BARSTRUCT:[0-9]+]] = distinct !DICompositeType(tag: DW_TAG_class_type, name: "bar", scope: ![[FOOFUNC:[0-9]+]], file: ![[FILENUM]],
-; CHECK-SAME: identifier: "_ZTSZ3foovE3bar")
-
-; CHECK: ![[FOOFUNC]] = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: ![[FILENUM]], file: ![[FILENUM]], 
+; CHECK: ![[FOOFUNC:[0-9]+]] = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: ![[FILENUM]], file: ![[FILENUM]], 
 ;; Test to ensure that this is _not_ a definition, therefore a decl.
 ; CHECK-SAME: spFlags: 0)
+
+; CHECK: ![[BARSTRUCT:[0-9]+]] = distinct !DICompositeType(tag: DW_TAG_class_type, name: "bar", scope: ![[FOOFUNC]], file: ![[FILENUM]],
+; CHECK-SAME: identifier: "_ZTSZ3foovE3bar")
 
 ; CHECK: ![[GETADECL:[0-9]+]] = !DISubprogram(name: "get_a", scope: ![[BARSTRUCT]], file: ![[FILENUM]], 
 ;; Test to ensure that this is _not_ a definition, therefore a decl.
@@ -90,14 +90,14 @@ entry:
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "baz", scope: !2, file: !3, line: 71, type: !13, isLocal: false, isDefinition: true)
-!2 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 51, type: !4, scopeLine: 51, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !7, declaration: !14)
+!2 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 51, type: !4, scopeLine: 51, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !7, declaration: !14, retainedNodes: !9)
 !3 = !DIFile(filename: "debug-info-local-types.cpp", directory: ".")
 !4 = !DISubroutineType(types: !5)
 !5 = !{!6}
 !6 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-!7 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !8, producer: "clang", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, globals: !9, splitDebugInlining: false, nameTableKind: None)
+!7 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !8, producer: "clang", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !8 = !DIFile(filename: "<stdin>", directory: ".")
-!9 = !{!0, !10}
+!9 = !{!0}
 !10 = !DIGlobalVariableExpression(var: !11, expr: !DIExpression())
 !11 = distinct !DIGlobalVariable(name: "xyzzy", scope: !12, file: !3, line: 66, type: !22, isLocal: false, isDefinition: true)
 !12 = distinct !DISubprogram(name: "get_a", linkageName: "_ZZ3foovEN3bar5get_aEv", scope: !13, file: !3, line: 56, type: !18, scopeLine: 56, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !7, declaration: !17, retainedNodes: !21)
@@ -109,7 +109,7 @@ entry:
 !18 = !DISubroutineType(types: !19)
 !19 = !{!6, !20}
 !20 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !13, size: 64, flags: DIFlagArtificial | DIFlagObjectPointer)
-!21 = !{}
+!21 = !{!10}
 !22 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "baz", scope: !17, file: !3, line: 57, size: 32, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !23, identifier: "_ZTSZZ3foovEN3bar5get_aEvE3baz")
 !23 = !{!24, !25}
 !24 = !DIDerivedType(tag: DW_TAG_member, name: "b", scope: !22, file: !3, line: 59, baseType: !6, size: 32)

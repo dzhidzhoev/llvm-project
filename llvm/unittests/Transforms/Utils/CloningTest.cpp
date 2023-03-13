@@ -1135,6 +1135,15 @@ TEST_F(CloneModule, Subprogram) {
   EXPECT_EQ(SP->getName(), "f");
   EXPECT_EQ(SP->getFile()->getFilename(), "filename.c");
   EXPECT_EQ(SP->getLine(), (unsigned)4);
+
+  // Check static locals.
+  MDNodeArray LocalDeclsArray = SP->getRetainedNodes();
+  EXPECT_EQ(LocalDeclsArray.size(), 2U);
+  for (auto *Node : LocalDeclsArray) {
+    auto *GVExpr = cast<DIGlobalVariableExpression>(Node);
+    DIGlobalVariable *GV = GVExpr->getVariable();
+    EXPECT_EQ(GV->getScope(), SP);
+  }
 }
 
 TEST_F(CloneModule, FunctionDeclarationMetadata) {
@@ -1192,14 +1201,6 @@ TEST_F(CloneModule, CompileUnit) {
   DISubprogram *SP = NewM->getFunction("f")->getSubprogram();
   EXPECT_TRUE(SP != nullptr);
   EXPECT_EQ(SP->getUnit(), CU);
-
-  // Check globals listed in CU have the correct scope
-  DIGlobalVariableExpressionArray GlobalArray = CU->getGlobalVariables();
-  EXPECT_EQ(GlobalArray.size(), 2U);
-  for (DIGlobalVariableExpression *GVExpr : GlobalArray) {
-    DIGlobalVariable *GV = GVExpr->getVariable();
-    EXPECT_EQ(GV->getScope(), SP);
-  }
 }
 
 TEST_F(CloneModule, Comdat) {

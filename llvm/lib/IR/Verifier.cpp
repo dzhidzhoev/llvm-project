@@ -1412,6 +1412,10 @@ void Verifier::visitDICompileUnit(const DICompileUnit &N) {
       auto *Enum = dyn_cast_or_null<DICompositeType>(Op);
       CheckDI(Enum && Enum->getTag() == dwarf::DW_TAG_enumeration_type,
               "invalid enum type", &N, N.getEnumTypes(), Op);
+      if (Enum->getScope())
+        CheckDI(!isa<DILocalScope>(Enum->getScope()),
+                "function-local enum in a DICompileUnit's enum list", &N,
+                N.getEnumTypes(), Op);
     }
   }
   if (auto *Array = N.getRawRetainedTypes()) {
@@ -1426,15 +1430,25 @@ void Verifier::visitDICompileUnit(const DICompileUnit &N) {
   if (auto *Array = N.getRawGlobalVariables()) {
     CheckDI(isa<MDTuple>(Array), "invalid global variable list", &N, Array);
     for (Metadata *Op : N.getGlobalVariables()->operands()) {
-      CheckDI(Op && (isa<DIGlobalVariableExpression>(Op)),
-              "invalid global variable ref", &N, Op);
+      auto *GVE = dyn_cast_or_null<DIGlobalVariableExpression>(Op);
+      CheckDI(GVE, "invalid global variable ref", &N, Op);
+      if (GVE->getVariable()->getScope())
+        CheckDI(!isa<DILocalScope>(GVE->getVariable()->getScope()),
+                "function-local variable in a DICompileUnit's global variables "
+                "list",
+                &N, Op);
     }
   }
   if (auto *Array = N.getRawImportedEntities()) {
     CheckDI(isa<MDTuple>(Array), "invalid imported entity list", &N, Array);
     for (Metadata *Op : N.getImportedEntities()->operands()) {
-      CheckDI(Op && isa<DIImportedEntity>(Op), "invalid imported entity ref",
-              &N, Op);
+      auto *IE = dyn_cast_or_null<DIImportedEntity>(Op);
+      CheckDI(IE, "invalid imported entity ref", &N, Op);
+      if (IE->getScope())
+        CheckDI(
+            !isa<DILocalScope>(IE->getScope()),
+            "function-local import in a DICompileUnit's imported entities list",
+            &N, Op);
     }
   }
   if (auto *Array = N.getRawMacros()) {
@@ -1467,9 +1481,10 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
     CheckDI(Node, "invalid retained nodes list", &N, RawNode);
     for (Metadata *Op : Node->operands()) {
       CheckDI(Op && (isa<DILocalVariable>(Op) || isa<DILabel>(Op) ||
-                     isa<DIImportedEntity>(Op) || isa<DIType>(Op)),
+                     isa<DIImportedEntity>(Op) || isa<DIType>(Op) ||
+                     isa<DIGlobalVariableExpression>(Op)),
               "invalid retained nodes, expected DILocalVariable, DILabel, "
-              "DIImportedEntity or DIType",
+              "DIImportedEntity, DIType or DIGlobalVariableExpression",
               &N, Node, Op);
     }
   }
