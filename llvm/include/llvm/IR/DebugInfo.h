@@ -104,7 +104,7 @@ public:
   void processInstruction(const Module &M, const Instruction &I);
 
   /// Process a DILocalVariable.
-  void processVariable(const Module &M, const DILocalVariable *DVI);
+  void processVariable(const DILocalVariable *DVI);
   /// Process debug info location.
   void processLocation(const Module &M, const DILocation *Loc);
   // Process a DPValue, much like a DbgVariableIntrinsic.
@@ -120,6 +120,7 @@ private:
   void processCompileUnit(DICompileUnit *CU);
   void processScope(DIScope *Scope);
   void processType(DIType *DT);
+  void processLocalVariable(DILocalVariable *DV);
   bool addCompileUnit(DICompileUnit *CU);
   bool addGlobalVariable(DIGlobalVariableExpression *DIG);
   bool addScope(DIScope *Scope);
