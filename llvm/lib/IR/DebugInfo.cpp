@@ -293,9 +293,10 @@ void DebugInfoFinder::processSubprogram(DISubprogram *SP) {
   }
 }
 
-void DebugInfoFinder::processVariable(const DILocalVariable *DV) {
+void DebugInfoFinder::processVariable(DILocalVariable *DV) {
   if (!NodesSeen.insert(DV).second)
     return;
+  LVs.push_back(DV);
   processScope(DV->getScope());
   processType(DV->getType());
 }

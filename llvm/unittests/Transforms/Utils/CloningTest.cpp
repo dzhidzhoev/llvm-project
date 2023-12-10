@@ -807,6 +807,7 @@ TEST(CloneFunction, CloneFunctionWithRetainedNodes) {
 
     define void @test() !dbg !3 {
       call void @llvm.dbg.declare(metadata i8* undef, metadata !5, metadata !DIExpression()), !dbg !7
+      call void @llvm.dbg.declare(metadata i8* undef, metadata !25, metadata !DIExpression()), !dbg !7
       ret void
     }
 
@@ -823,7 +824,7 @@ TEST(CloneFunction, CloneFunctionWithRetainedNodes) {
     !6 = distinct !DILexicalBlock(scope: !4, file: !1, line: 1)
     !7 = !DILocation(line: 1, scope: !6, inlinedAt: !8)
     !8 = !DILocation(line: 10, scope: !3)
-    !9 = !{!15, !17, !18}
+    !9 = !{!15, !17, !18, !23}
     !14 = distinct !DICompositeType(tag: DW_TAG_enumeration_type, scope: !0, file: !1, line: 13, size: 200, elements: !{})
     !15 = !DILocalVariable(name: "a", scope: !3)
     !16 = distinct !DICompositeType(tag: DW_TAG_enumeration_type, scope: !3, file: !1, line: 13, size: 208, elements: !{})
@@ -832,6 +833,8 @@ TEST(CloneFunction, CloneFunctionWithRetainedNodes) {
     !22 = !DIBasicType(name: "real", size: 32, align: 32, encoding: DW_ATE_float)
     !23 = !DIDerivedType(name: "local_float", tag: DW_TAG_const_type, baseType: !22, scope: !3)
     !float_type = !{!23}
+    !25 = !DILocalVariable(name: "inlined2", scope: !4, type: !23)
+    !inlined2 = !{!25}
   )";
 
   LLVMContext Context;
@@ -859,7 +862,7 @@ TEST(CloneFunction, CloneFunctionWithRetainedNodes) {
   DISubprogram *ClonedSP = ClonedFunc->getSubprogram();
   EXPECT_NE(FuncSP, nullptr);
   EXPECT_NE(ClonedSP, nullptr);
-  EXPECT_EQ(FuncSP->getRetainedNodes().size(), 3u);
+  EXPECT_EQ(FuncSP->getRetainedNodes().size(), 4u);
   EXPECT_EQ(FuncSP->getRetainedNodes().size(),
             ClonedSP->getRetainedNodes().size());
   for (unsigned I = 0; I < FuncSP->getRetainedNodes().size(); ++I) {
@@ -880,6 +883,10 @@ TEST(CloneFunction, CloneFunctionWithRetainedNodes) {
       auto *IECopy = dyn_cast<DIImportedEntity>(Copy);
       EXPECT_NE(IECopy, nullptr);
       EXPECT_EQ(IE->getName(), IECopy->getName());
+    } else if (auto *Ty = dyn_cast<DIType>(Node)) {
+      auto *TyCopy = dyn_cast<DIType>(Copy);
+      EXPECT_NE(TyCopy, nullptr);
+      EXPECT_EQ(Ty->getName(), TyCopy->getName());
     }
 
     // Check that node was copied
@@ -891,6 +898,12 @@ TEST(CloneFunction, CloneFunctionWithRetainedNodes) {
   EXPECT_EQ(FloatType->getName(), "local_float");
   EXPECT_TRUE(VMap.MD().contains(FloatType));
   EXPECT_NE(FloatType, VMap.MD()[FloatType]);
+
+  auto *Inlined2 = dyn_cast<DILocalVariable>(
+      ImplModule->getNamedMetadata("inlined2")->getOperand(0));
+  EXPECT_EQ(Inlined2->getName(), "inlined2");
+  EXPECT_TRUE(VMap.MD().contains(Inlined2));
+  EXPECT_EQ(Inlined2, VMap.MD()[Inlined2]);
 }
 
 TEST(CloneFunction, CloneFunctionWithInlinedSubprograms) {

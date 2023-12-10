@@ -238,6 +238,13 @@ void llvm::CloneFunctionInto(Function *NewFunc, const Function *OldFunc,
       }
     }
 
+    // Avoid cloning local variables of subprograms that won't be cloned.
+    for (DILocalVariable *DV : DIFinder->local_variables())
+      if (auto *S = dyn_cast_or_null<DILocalScope>(DV->getScope()))
+        if (DISubprogram *SP = S->getSubprogram())
+          if (MappedToSelfSPs.contains(SP))
+            mapToSelfIfNew(DV);
+
     // If a subprogram isn't going to be cloned skip its lexical blocks as well.
     for (DIScope *S : DIFinder->scopes()) {
       auto *LScope = dyn_cast<DILocalScope>(S);
