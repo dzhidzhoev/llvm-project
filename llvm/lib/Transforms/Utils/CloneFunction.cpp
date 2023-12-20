@@ -232,6 +232,7 @@ void llvm::CloneFunctionInto(Function *NewFunc, const Function *OldFunc,
     // Avoid cloning types, compile units, and (other) subprograms.
     SmallPtrSet<const DISubprogram *, 16> MappedToSelfSPs;
     for (DISubprogram *ISP : DIFinder->subprograms()) {
+      // Don't clone inlined subprograms.
       if (ISP != SPClonedWithinModule) {
         mapToSelfIfNew(ISP);
         MappedToSelfSPs.insert(ISP);

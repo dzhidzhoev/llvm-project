@@ -69,9 +69,9 @@ void DIBuilder::finalize() {
   }
 
   if (!EnumTypes.empty())
-    CUNode->replaceEnumTypes(MDTuple::get(
-        VMContext, SmallVector<Metadata *, 16>(EnumTypes.begin(),
-                                               EnumTypes.end())));
+    CUNode->replaceEnumTypes(
+        MDTuple::get(VMContext, SmallVector<Metadata *, 16>(EnumTypes.begin(),
+                                                            EnumTypes.end())));
 
   SmallVector<Metadata *, 16> RetainValues;
   // Declarations and definitions of the same type may be retained. Some

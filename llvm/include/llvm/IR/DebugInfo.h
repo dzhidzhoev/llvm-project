@@ -135,7 +135,8 @@ public:
       SmallVectorImpl<DIGlobalVariableExpression *>::const_iterator;
   using type_iterator = SmallVectorImpl<DIType *>::const_iterator;
   using scope_iterator = SmallVectorImpl<DIScope *>::const_iterator;
-  using local_variable_iterator = SmallVectorImpl<DILocalVariable *>::const_iterator;
+  using local_variable_iterator =
+      SmallVectorImpl<DILocalVariable *>::const_iterator;
 
   iterator_range<compile_unit_iterator> compile_units() const {
     return make_range(CUs.begin(), CUs.end());
