@@ -225,8 +225,31 @@ LexicalScopes::getOrCreateAbstractScope(const DILocalScope *Scope) {
                                std::forward_as_tuple(Scope),
                                std::forward_as_tuple(Parent, Scope,
                                                      nullptr, true)).first;
-  if (isa<DISubprogram>(Scope))
+  if (const DISubprogram *SP = dyn_cast<DISubprogram>(Scope)) {
     AbstractScopesList.push_back(&I->second);
+
+    // Tolerate incorrect incorrect retained nodes that point to
+    // another subprogram.
+    for (const DINode *DN : SP->getRetainedNodes()) {
+      if (const DILocalVariable *LV = dyn_cast<DILocalVariable>(DN)) {
+        if (LV->getScope())
+          if (const DISubprogram *NodeSP = LV->getScope()->getSubprogram())
+            if (NodeSP != SP)
+              getOrCreateAbstractScope(NodeSP);
+      } else if (const DILabel *Label = dyn_cast<DILabel>(DN)) {
+        if (Label->getScope())
+          if (const DISubprogram *NodeSP = Label->getScope()->getSubprogram())
+            if (NodeSP != SP)
+              getOrCreateAbstractScope(NodeSP);
+      } else if (const DIType *Type = dyn_cast<DIType>(DN)) {
+        if (const DILocalScope *LS =
+                dyn_cast_or_null<DILocalScope>(Type->getScope()))
+          if (const DISubprogram *NodeSP = LS->getSubprogram())
+            if (LS != SP)
+              getOrCreateAbstractScope(NodeSP);
+      }
+    }
+  }
   return &I->second;
 }
 
