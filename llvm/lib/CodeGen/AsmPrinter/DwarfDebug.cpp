@@ -1515,20 +1515,20 @@ void DwarfDebug::ensureAbstractEntityIsCreatedIfScoped(DwarfCompileUnit &CU,
 }
 
 static const DILocalScope *getRetainedNodeScope(const MDNode *N) {
-  const DIScope *S;
+  const DILocalScope *S;
   if (const auto *LV = dyn_cast<DILocalVariable>(N))
     S = LV->getScope();
   else if (const auto *L = dyn_cast<DILabel>(N))
     S = L->getScope();
   else if (const auto *IE = dyn_cast<DIImportedEntity>(N))
-    S = IE->getScope();
+    S = dyn_cast_or_null<DILocalScope>(IE->getScope());
   else if (const auto *T = dyn_cast<DIType>(N))
-    S = T->getScope();
+    S = dyn_cast_or_null<DILocalScope>(T->getScope());
   else
     llvm_unreachable("Unexpected retained node!");
 
   // Ensure the scope is not a DILexicalBlockFile.
-  return cast<DILocalScope>(S)->getNonLexicalBlockFileScope();
+  return S ? S->getNonLexicalBlockFileScope() : nullptr;
 }
 
 // Collect variable information from side table maintained by MF.
@@ -1991,6 +1991,8 @@ void DwarfDebug::collectEntityInfo(DwarfCompileUnit &TheCU,
   // Collect info for retained nodes.
   for (const DINode *DN : SP->getRetainedNodes()) {
     const auto *LS = getRetainedNodeScope(DN);
+    if (!LS)
+      continue;
     if (isa<DILocalVariable>(DN) || isa<DILabel>(DN)) {
       if (!Processed.insert(InlinedEntity(DN, nullptr)).second)
         continue;
@@ -2320,6 +2322,8 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
     const auto *SP = cast<DISubprogram>(AScope->getScopeNode());
     for (const DINode *DN : SP->getRetainedNodes()) {
       const auto *LS = getRetainedNodeScope(DN);
+      if (!LS)
+        continue;
       // Ensure LexicalScope is created for the scope of this node.
       auto *LexS = LScopes.getOrCreateAbstractScope(LS);
       assert(LexS && "Expected the LexicalScope to be created.");
