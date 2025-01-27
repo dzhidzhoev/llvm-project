@@ -118,30 +118,27 @@ DILocation *DILocation::getMergedLocations(ArrayRef<DILocation *> Locs) {
   return Merged;
 }
 
-DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
-  if (!LocA || !LocB)
-    return nullptr;
-
-  if (LocA == LocB)
-    return LocA;
-
-  LLVMContext &C = LocA->getContext();
-
+template <typename LocationKey, typename GetLocationKeyFn,
+          typename ShouldStopFn, typename NextLocFn, typename MergeLocPairFn>
+static DILocation *PopulateLocations(GetLocationKeyFn GetLocationKey,
+                                     ShouldStopFn ShouldStop, NextLocFn NextLoc,
+                                     MergeLocPairFn MergeLocPair,
+                                     DILocation *LocA, DILocation *LocB) {
   using LocVec = SmallVector<const DILocation *>;
   LocVec ALocs;
   LocVec BLocs;
-  SmallDenseMap<std::pair<const DISubprogram *, const DILocation *>, unsigned,
-                4>
-      ALookup;
 
-  // Walk through LocA and its inlined-at locations, populate them in ALocs and
-  // save the index for the subprogram and inlined-at pair, which we use to find
+  LLVMContext &C = LocA->getContext();
+
+  SmallDenseMap<LocationKey, unsigned, 4> ALookup;
+  // Walk through LocA, populate them in ALocs and
+  // save the index, which we use to find
   // a matching starting location in LocB's chain.
-  for (auto [L, I] = std::make_pair(LocA, 0U); L; L = L->getInlinedAt(), I++) {
+  for (auto [L, I] = std::make_pair(LocA, 0U); ShouldStop(L);
+       L = NextLoc(L), I++) {
     ALocs.push_back(L);
-    auto Res = ALookup.try_emplace(
-        {L->getScope()->getSubprogram(), L->getInlinedAt()}, I);
-    assert(Res.second && "Multiple <SP, InlinedAt> pairs in a location chain?");
+    auto Res = ALookup.try_emplace(GetLocationKey(L), I);
+    assert(Res.second && "Multiple pairs in a location chain?");
     (void)Res;
   }
 
@@ -149,17 +146,18 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
   LocVec::reverse_iterator BRIt = BLocs.rend();
 
   // Populate BLocs and look for a matching starting location, the first
-  // location with the same subprogram and inlined-at location as in LocA's
-  // chain. Since the two locations have the same inlined-at location we do
+  // location with the same key as in LocA's
+  // chain. Since the two locations have the same key we do
   // not need to look at those parts of the chains.
-  for (auto [L, I] = std::make_pair(LocB, 0U); L; L = L->getInlinedAt(), I++) {
+  for (auto [L, I] = std::make_pair(LocB, 0U); ShouldStop(L);
+       L = NextLoc(L), I++) {
     BLocs.push_back(L);
 
     if (ARIt != ALocs.rend())
       // We have already found a matching starting location.
       continue;
 
-    auto IT = ALookup.find({L->getScope()->getSubprogram(), L->getInlinedAt()});
+    auto IT = ALookup.find(GetLocationKey(L));
     if (IT == ALookup.end())
       continue;
 
@@ -173,6 +171,39 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
     // invalidate the iterator that we initialized here.
     break;
   }
+
+  DILocation *Result = ARIt != ALocs.rend() ? NextLoc(*ARIt) : nullptr;
+
+  // If we have found a common starting location, walk up the chains
+  // and try to produce common locations.
+  for (; ARIt != ALocs.rend() && BRIt != BLocs.rend(); ++ARIt, ++BRIt) {
+    DILocation *Tmp = MergeLocPair(*ARIt, *BRIt, Result);
+
+    if (!Tmp)
+      // We have walked up to a point in the chains where the two locations
+      // are irreconsilable. At this point Result contains the nearest common
+      // location in the location chains of LocA and LocB, so we break here.
+      break;
+
+    Result = Tmp;
+  }
+
+  if (Result)
+    return Result;
+
+  // We ended up with LocA and LocB as irreconsilable locations. Produce a
+  // location at 0:0 with one of the locations' scope.
+  return DILocation::get(C, 0, 0, LocA->getScope(), nullptr);
+}
+
+DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
+  if (!LocA || !LocB)
+    return nullptr;
+
+  if (LocA == LocB)
+    return LocA;
+
+  LLVMContext &C = LocA->getContext();
 
   // Merge the two locations if possible, using the supplied
   // inlined-at location for the created location.
@@ -217,31 +248,19 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
     return DILocation::get(C, Line, Col, Scope, InlinedAt);
   };
 
-  DILocation *Result = ARIt != ALocs.rend() ? (*ARIt)->getInlinedAt() : nullptr;
-
-  // If we have found a common starting location, walk up the inlined-at chains
-  // and try to produce common locations.
-  for (; ARIt != ALocs.rend() && BRIt != BLocs.rend(); ++ARIt, ++BRIt) {
-    DILocation *Tmp = MergeLocPair(*ARIt, *BRIt, Result);
-
-    if (!Tmp)
-      // We have walked up to a point in the chains where the two locations
-      // are irreconsilable. At this point Result contains the nearest common
-      // location in the inlined-at chains of LocA and LocB, so we break here.
-      break;
-
-    Result = Tmp;
-  }
-
-  if (Result)
-    return Result;
-
-  // We ended up with LocA and LocB as irreconsilable locations. Produce a
-  // location at 0:0 with one of the locations' scope. The function has
-  // historically picked A's scope, and a nullptr inlined-at location, so that
-  // behavior is mimicked here but I am not sure if this is always the correct
-  // way to handle this.
-  return DILocation::get(C, 0, 0, LocA->getScope(), nullptr);
+  // Walk through LocA and its inlined-at locations, populate them in ALocs and
+  // save the index for the subprogram and inlined-at pair, which we use to find
+  // a matching starting location in LocB's chain.
+  using InlinedAtLookupKey =
+      std::pair<const DISubprogram *, const DILocation *>;
+  return PopulateLocations<InlinedAtLookupKey>(
+      [](const DILocation *L) {
+        return InlinedAtLookupKey(L->getScope()->getSubprogram(),
+                                  L->getInlinedAt());
+      },
+      [](const DILocation *L) { return L; },
+      [](const DILocation *L) { return L->getInlinedAt(); }, MergeLocPair, LocA,
+      LocB);
 }
 
 std::optional<unsigned>
