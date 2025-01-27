@@ -118,30 +118,28 @@ DILocation *DILocation::getMergedLocations(ArrayRef<DILocation *> Locs) {
   return Merged;
 }
 
-DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
-  if (!LocA || !LocB)
-    return nullptr;
-
-  if (LocA == LocB)
-    return LocA;
+template <typename LocationKey, typename GetLocationKeyFn,
+          typename ShouldStopFn, typename NextLocFn, typename MergeLocPairFn>
+static DILocation *MergeNestedLocations(GetLocationKeyFn GetLocationKey,
+                                     ShouldStopFn ShouldStop, NextLocFn NextLoc,
+                                     MergeLocPairFn MergeLocPair,
+                                     DILocation *LocA, DILocation *LocB) {
+  using LocVec = SmallVector<MDNode *>;
+  LocVec ALocs;
+  LocVec BLocs;
 
   LLVMContext &C = LocA->getContext();
 
-  using LocVec = SmallVector<const DILocation *>;
-  LocVec ALocs;
-  LocVec BLocs;
-  SmallDenseMap<std::pair<const DISubprogram *, const DILocation *>, unsigned,
-                4>
-      ALookup;
-
-  // Walk through LocA and its inlined-at locations, populate them in ALocs and
-  // save the index for the subprogram and inlined-at pair, which we use to find
+  SmallDenseMap<LocationKey, unsigned, 4> ALookup;
+  // Walk through LocA, populate them in ALocs and
+  // save the index, which we use to find
   // a matching starting location in LocB's chain.
-  for (auto [L, I] = std::make_pair(LocA, 0U); L; L = L->getInlinedAt(), I++) {
+  using iter_t = std::pair<MDNode *, unsigned>;
+  for (auto [L, I] = iter_t(LocA, 0U); ShouldStop(L);
+       L = NextLoc(L), I++) {
     ALocs.push_back(L);
-    auto Res = ALookup.try_emplace(
-        {L->getScope()->getSubprogram(), L->getInlinedAt()}, I);
-    assert(Res.second && "Multiple <SP, InlinedAt> pairs in a location chain?");
+    auto Res = ALookup.try_emplace(GetLocationKey(L), I);
+    assert(Res.second && "Multiple pairs in a location chain?");
     (void)Res;
   }
 
@@ -149,17 +147,18 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
   LocVec::reverse_iterator BRIt = BLocs.rend();
 
   // Populate BLocs and look for a matching starting location, the first
-  // location with the same subprogram and inlined-at location as in LocA's
-  // chain. Since the two locations have the same inlined-at location we do
+  // location with the same key as in LocA's
+  // chain. Since the two locations have the same key we do
   // not need to look at those parts of the chains.
-  for (auto [L, I] = std::make_pair(LocB, 0U); L; L = L->getInlinedAt(), I++) {
+  for (auto [L, I] = iter_t(LocB, 0U); ShouldStop(L);
+       L = NextLoc(L), I++) {
     BLocs.push_back(L);
 
     if (ARIt != ALocs.rend())
       // We have already found a matching starting location.
       continue;
 
-    auto IT = ALookup.find({L->getScope()->getSubprogram(), L->getInlinedAt()});
+    auto IT = ALookup.find(GetLocationKey(L));
     if (IT == ALookup.end())
       continue;
 
@@ -174,10 +173,94 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
     break;
   }
 
+  MDNode *Result = ARIt != ALocs.rend() ? NextLoc(*ARIt) : nullptr;
+
+  // If we have found a common starting location, walk up the chains
+  // and try to produce common locations.
+  for (; ARIt != ALocs.rend() && BRIt != BLocs.rend(); ++ARIt, ++BRIt) {
+    DILocation *Tmp = MergeLocPair(*ARIt, *BRIt, Result);
+
+    if (!Tmp)
+      // We have walked up to a point in te chains where the two locations
+      // are irreconsilable. At this point Result contains the nearest common
+      // location in the location chains of LocA and LocB, so we break here.
+      break;
+
+    Result = Tmp;
+  }
+
+  if (auto *ResultL = dyn_cast_if_present<DILocation>(Result))
+    return ResultL;
+
+  // We ended up with LocA and LocB as irreconsilable locations. Produce a
+  // location at 0:0 with one of the locations' scope.
+  return DILocation::get(C, 0, 0, LocA->getScope(), nullptr);
+}
+
+// Return the nearest common scope inside a subprogram and whether DILexicalBlockFile
+// was encountered on path to it.
+static std::pair<DIScope *, bool> GetNearestCommonScope(DIScope *S1, DIScope *S2) {
+  SmallPtrSet<DIScope *, 8> Scopes;
+  for (; S1; S1 = S1->getScope()) {
+    Scopes.insert(S1);
+    if (isa<DISubprogram>(S1))
+      break;
+  }
+
+  bool FileChanged = false;
+  for (; S2; S2 = S2->getScope()) {
+    if (Scopes.count(S2))
+      return std::make_pair(S2, FileChanged);
+    if (isa<DILexicalBlockFile>(S2))
+      FileChanged = true;
+    if (isa<DISubprogram>(S2))
+      break;
+  }
+
+  return std::make_pair(nullptr, FileChanged);
+}
+
+static DILexicalBlockFile *GetEnclosingLexicalBlockFile(MDNode *LocOrBlock) {
+  assert((isa<DILocation>(LocOrBlock) || isa<DILocalScope>(LocOrBlock)) && "DILocation or DILocalScope expected");
+
+  DIScope *S = nullptr;
+  if (auto *Loc = dyn_cast<DILocation>(LocOrBlock)) {
+    S = Loc->getScope();
+  } else {
+    S = dyn_cast<DILocalScope>(LocOrBlock);
+  }
+
+  while (isa_and_present<DILocalScope>(S) && !isa<DISubprogram>(S)) {
+    S = S->getScope();
+    if (auto *LexicalBlockFile = dyn_cast_if_present<DILexicalBlockFile>(S)) {
+      S = LexicalBlockFile->getScope();
+      // Only consider DILexicalBlockFile's that have DILexicalBlock parent,
+      // since it contains location.
+      if (isa_and_present<DILexicalBlock>(S))
+        return LexicalBlockFile;
+    }
+  }
+
+  return nullptr;
+}
+
+DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
+  if (!LocA || !LocB)
+    return nullptr;
+
+  if (LocA == LocB)
+    return LocA;
+
+  LLVMContext &C = LocA->getContext();
+
   // Merge the two locations if possible, using the supplied
   // inlined-at location for the created location.
-  auto MergeLocPair = [&C](const DILocation *L1, const DILocation *L2,
-                           DILocation *InlinedAt) -> DILocation * {
+  auto MergeInlinedLocations = [&C](MDNode *N1, MDNode *N2, MDNode *UpperLoc) -> DILocation * {
+    auto *L1 = cast<DILocation>(N1);
+    auto *L2 = cast<DILocation>(N2);
+    auto *InlinedAt = dyn_cast_if_present<DILocation>(UpperLoc);
+    assert(L1->getScope()->getSubprogram() == L2->getScope()->getSubprogram() && "Locations from different subprograms?");
+
     if (L1 == L2)
       return DILocation::get(C, L1->getLine(), L1->getColumn(), L1->getScope(),
                              InlinedAt);
@@ -187,61 +270,71 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
     if (L1->getScope()->getSubprogram() != L2->getScope()->getSubprogram())
       return nullptr;
 
-    // Return the nearest common scope inside a subprogram.
-    auto GetNearestCommonScope = [](DIScope *S1, DIScope *S2) -> DIScope * {
-      SmallPtrSet<DIScope *, 8> Scopes;
-      for (; S1; S1 = S1->getScope()) {
-        Scopes.insert(S1);
-        if (isa<DISubprogram>(S1))
-          break;
-      }
-
-      for (; S2; S2 = S2->getScope()) {
-        if (Scopes.count(S2))
-          return S2;
-        if (isa<DISubprogram>(S2))
-          break;
-      }
-
-      return nullptr;
+    // We should traverse DILocation's and their DILexicalBlocks enclosing
+    // DILexicalBlockFile's.
+    using LexicalBlockFileLocationKey = std::pair<MDNode *, DILexicalBlock *>;
+    auto GetKey = [] (MDNode *LocOrBlock) -> LexicalBlockFileLocationKey {
+      if (auto *LBF = dyn_cast<DILexicalBlockFile>(LocOrBlock))
+        return std::make_pair(LBF, cast<DILexicalBlock>(LBF->getScope()));
+      else
+        return std::make_pair(LocOrBlock, nullptr);
     };
+    auto MergeTextualInclusions = [&C, InlinedAt] (MDNode *LocOrBlock1, MDNode *LocOrBlock2, MDNode *UpperBlock) -> DILocation * {
+      assert((!UpperBlock || isa<DILexicalBlockFile>(UpperBlock)) && "Upper block must always be a DILexicalBlockFile");
+      assert((isa_and_present<DILocation>(LocOrBlock1) || isa_and_present<DILexicalBlockFile>(LocOrBlock1)) && "Incorrect nested location type");
+      assert((isa_and_present<DILocation>(LocOrBlock2) || isa_and_present<DILexicalBlockFile>(LocOrBlock2)) && "Incorrect nested location type");
 
-    auto Scope = GetNearestCommonScope(L1->getScope(), L2->getScope());
-    assert(Scope && "No common scope in the same subprogram?");
+      DILocation *L1 = nullptr;
+      DILocation *L2 = nullptr;
+      if (!isa<DILexicalBlockFile>(LocOrBlock1)) {
+        L1 = cast<DILocation>(LocOrBlock1);
+        L2 = cast<DILocation>(LocOrBlock2);
+      } else {
+        auto *Block1 = cast<DILexicalBlock>(cast<DILexicalBlockFile>(LocOrBlock1)->getScope());
+        auto *Block2 = cast<DILexicalBlock>(cast<DILexicalBlockFile>(LocOrBlock2)->getScope());
+        L1 = DILocation::get(C, Block1->getLine(), Block1->getColumn(), Block1, InlinedAt);
+        L2 = DILocation::get(C, Block2->getLine(), Block2->getColumn(), Block2, InlinedAt);
+      }
 
-    bool SameLine = L1->getLine() == L2->getLine();
-    bool SameCol = L1->getColumn() == L2->getColumn();
-    unsigned Line = SameLine ? L1->getLine() : 0;
-    unsigned Col = SameLine && SameCol ? L1->getColumn() : 0;
+      if (L1 == L2)
+        return DILocation::get(C, L1->getLine(), L1->getColumn(), L1->getScope(), InlinedAt);
 
-    return DILocation::get(C, Line, Col, Scope, InlinedAt);
+      auto [Scope, FileChanged] = GetNearestCommonScope(L1->getScope(), L2->getScope());
+      assert(Scope && "No common scope in the same subprogram?");
+
+      if (FileChanged) {
+        return nullptr;
+      }
+
+      bool SameLine = L1->getLine() == L2->getLine();
+      bool SameCol = L1->getColumn() == L2->getColumn();
+      unsigned Line = SameLine ? L1->getLine() : 0;
+      unsigned Col = SameLine && SameCol ? L1->getColumn() : 0;
+
+      return DILocation::get(C, Line, Col, Scope, InlinedAt);
+    };
+    auto Identity = [] (MDNode *L) { return L; };
+    return MergeNestedLocations<LexicalBlockFileLocationKey>(GetKey, Identity, GetEnclosingLexicalBlockFile, MergeTextualInclusions, L1, L2);
   };
 
-  DILocation *Result = ARIt != ALocs.rend() ? (*ARIt)->getInlinedAt() : nullptr;
-
-  // If we have found a common starting location, walk up the inlined-at chains
-  // and try to produce common locations.
-  for (; ARIt != ALocs.rend() && BRIt != BLocs.rend(); ++ARIt, ++BRIt) {
-    DILocation *Tmp = MergeLocPair(*ARIt, *BRIt, Result);
-
-    if (!Tmp)
-      // We have walked up to a point in the chains where the two locations
-      // are irreconsilable. At this point Result contains the nearest common
-      // location in the inlined-at chains of LocA and LocB, so we break here.
-      break;
-
-    Result = Tmp;
-  }
-
-  if (Result)
-    return Result;
-
-  // We ended up with LocA and LocB as irreconsilable locations. Produce a
-  // location at 0:0 with one of the locations' scope. The function has
-  // historically picked A's scope, and a nullptr inlined-at location, so that
-  // behavior is mimicked here but I am not sure if this is always the correct
-  // way to handle this.
-  return DILocation::get(C, 0, 0, LocA->getScope(), nullptr);
+  // Walk through LocA and its inlined-at locations, populate them in ALocs and
+  // save the index for the subprogram and inlined-at pair, which we use to find
+  // a matching starting location in LocB's chain.
+  using InlinedAtLookupKey =
+      std::pair<DISubprogram *, DILocation *>;
+  return MergeNestedLocations<InlinedAtLookupKey>(
+      [](MDNode *N) {
+        auto *L = cast<DILocation>(N);
+        return InlinedAtLookupKey(L->getScope()->getSubprogram(),
+                                  L->getInlinedAt());
+      },
+      [](MDNode *N) { return N; },
+      [](MDNode *N) {
+        auto *L = cast<DILocation>(N);
+        return L->getInlinedAt();
+      },
+      MergeInlinedLocations,
+      LocA, LocB);
 }
 
 std::optional<unsigned>
