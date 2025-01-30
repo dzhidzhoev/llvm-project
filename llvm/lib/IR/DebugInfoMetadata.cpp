@@ -259,7 +259,6 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
     auto *L1 = cast<DILocation>(N1);
     auto *L2 = cast<DILocation>(N2);
     auto *InlinedAt = dyn_cast_if_present<DILocation>(UpperLoc);
-    assert(L1->getScope()->getSubprogram() == L2->getScope()->getSubprogram() && "Locations from different subprograms?");
 
     if (L1 == L2)
       return DILocation::get(C, L1->getLine(), L1->getColumn(), L1->getScope(),
@@ -277,8 +276,11 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       if (auto *LBF = dyn_cast<DILexicalBlockFile>(LocOrBlock))
         return std::make_pair(LBF, cast<DILexicalBlock>(LBF->getScope()));
       else
-        return std::make_pair(LocOrBlock, nullptr);
+        // Consider all DILocation's received from MergeInlinedLocations
+        // as equal.
+        return std::make_pair(nullptr, nullptr);
     };
+
     auto MergeTextualInclusions = [&C, InlinedAt] (MDNode *LocOrBlock1, MDNode *LocOrBlock2, MDNode *UpperBlock) -> DILocation * {
       assert((!UpperBlock || isa<DILexicalBlockFile>(UpperBlock)) && "Upper block must always be a DILexicalBlockFile");
       assert((isa_and_present<DILocation>(LocOrBlock1) || isa_and_present<DILexicalBlockFile>(LocOrBlock1)) && "Incorrect nested location type");
@@ -295,6 +297,8 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
         L1 = DILocation::get(C, Block1->getLine(), Block1->getColumn(), Block1, InlinedAt);
         L2 = DILocation::get(C, Block2->getLine(), Block2->getColumn(), Block2, InlinedAt);
       }
+
+      assert(L1->getScope()->getSubprogram() == L2->getScope()->getSubprogram() && "Locations from different subprograms?");
 
       if (L1 == L2)
         return DILocation::get(C, L1->getLine(), L1->getColumn(), L1->getScope(), InlinedAt);
