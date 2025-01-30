@@ -276,9 +276,7 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       if (auto *LBF = dyn_cast<DILexicalBlockFile>(LocOrBlock))
         return std::make_pair(LBF, cast<DILexicalBlock>(LBF->getScope()));
       else
-        // Consider all DILocation's received from MergeInlinedLocations
-        // as equal.
-        return std::make_pair(nullptr, nullptr);
+        return std::make_pair(GetEnclosingLexicalBlockFile(LocOrBlock), nullptr);
     };
 
     auto MergeTextualInclusions = [&C, InlinedAt] (MDNode *LocOrBlock1, MDNode *LocOrBlock2, MDNode *UpperBlock) -> DILocation * {
@@ -318,7 +316,13 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       return DILocation::get(C, Line, Col, Scope, InlinedAt);
     };
     auto Identity = [] (MDNode *L) { return L; };
-    return MergeNestedLocations<LexicalBlockFileLocationKey>(GetKey, Identity, GetEnclosingLexicalBlockFile, MergeTextualInclusions, L1, L2);
+    return MergeNestedLocations<LexicalBlockFileLocationKey>(
+        GetKey,
+        Identity,
+        GetEnclosingLexicalBlockFile,
+        MergeTextualInclusions,
+        L1,
+        L2);
   };
 
   // Walk through LocA and its inlined-at locations, populate them in ALocs and
