@@ -237,19 +237,25 @@ static DIScope *GetNearestCommonScope(DILocation *L1, DILocation *L2) {
   return nullptr;
 }
 
-static DILocalScope *GetEnclosingLexicalBlock(MDNode *LocOrBlock) {
+static DILocalScope *NextBlockWithDifferentFile(MDNode *LocOrBlock) {
   assert((isa<DILocation>(LocOrBlock) || isa<DILocalScope>(LocOrBlock)) && "DILocation or DILocalScope expected");
 
   DIScope *S = nullptr;
+  DIFile *F = nullptr;
   if (auto *Loc = dyn_cast<DILocation>(LocOrBlock)) {
     S = Loc->getScope();
+    F = Loc->getFile();
   } else {
-    S = dyn_cast<DILocalScope>(LocOrBlock)->getScope();
+    auto *LS = dyn_cast<DILocalScope>(LocOrBlock);
+    S = LS->getScope();
+    F = LS->getFile();
   }
 
   while (isa_and_present<DILocalScope>(S) && !isa<DISubprogram>(S)) {
     if (auto *LB = dyn_cast_if_present<DILexicalBlock>(S)) {
-      return LB;
+      if (F != LB->getFile()) {
+        return LB;
+      }
     }
     S = S->getScope();
   }
@@ -286,6 +292,10 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
 
   if (LocA == LocB)
     return LocA;
+
+  llvm::errs() << "getMergedLocation\n";
+  LocA->dump();
+  LocB->dump();
 
   LLVMContext &C = LocA->getContext();
 
@@ -347,6 +357,9 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
 
       if (Scope->getFile() != F1 ||
           Scope->getFile() != F2) {
+        Scope->getFile()->dump();
+        F1->dump();
+        F2->dump();
         return nullptr;
       }
 
@@ -360,12 +373,11 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       Result->dump();
       return Result;
     };
-    auto Identity = [] (MDNode *L) { return L; };
     llvm::errs() << "Calling MergeNestedLocations<LexicalBlockFileLocationKey>\n";
     return MergeNestedLocations<LexicalBlockFileLocationKey>(
-        Identity,
         GetKey,
-        GetEnclosingLexicalBlock,
+        [] (MDNode *L) -> bool { return L; },
+        NextBlockWithDifferentFile,
         MergeTextualInclusions,
         [] (MDNode *N) { return nullptr; },
         L1,

@@ -85,9 +85,9 @@ protected:
     return DISubroutineType::getDistinct(Context, DINode::FlagZero, 0,
                                          getNode(nullptr));
   }
-  DISubprogram *getSubprogram() {
+  DISubprogram *getSubprogram(DIFile *F = nullptr) {
     return DISubprogram::getDistinct(
-        Context, nullptr, "", "", nullptr, 0, nullptr, 0, nullptr, 0, 0,
+        Context, nullptr, "", "", F, 0, nullptr, 0, nullptr, 0, 0,
         DINode::FlagZero, DISubprogram::SPFlagZero, nullptr);
   }
   DIFile *getFile() {
@@ -918,8 +918,9 @@ TEST_F(MDNodeTest, deleteTemporaryWithTrackingRef) {
 typedef MetadataTest DILocationTest;
 
 TEST_F(DILocationTest, Merge) {
-  DISubprogram *N = getSubprogram();
-  DIScope *S = DILexicalBlock::get(Context, N, getFile(), 3, 4);
+  DIFile *F = getFile();
+  DISubprogram *N = getSubprogram(F);
+  DIScope *S = DILexicalBlock::get(Context, N, F, 3, 4);
 
   {
     // Identical.
