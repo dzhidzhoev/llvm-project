@@ -431,6 +431,52 @@ public:
   std::optional<uint64_t>
   evaluateMemoryOperandAddress(const MCInst &Inst, const MCSubtargetInfo *STI,
                                uint64_t Addr, uint64_t Size) const override;
+
+  std::vector<std::pair<uint64_t, uint64_t>>
+  findPltEntries(uint64_t PltSectionVA, ArrayRef<uint8_t> PltContents,
+                 const Triple &TargetTriple, std::optional<llvm::endianness> InstrEndianness) const override {
+    llvm::endianness Endianness = TargetTriple.isLittleEndian() ? endianness::little : endianness::big;
+    if (InstrEndianness) {
+      Endianness = *InstrEndianness;
+    }
+
+    std::vector<std::pair<uint64_t, uint64_t>> Result;
+    // Do a lightweight parsing of PLT entries.
+    for (uint64_t Byte = 0, End = PltContents.size(); Byte + 12 < End;
+         Byte += 4) {
+      uint32_t Insn = support::endian::read32(PltContents.data() + Byte, Endianness);
+
+      // Is it a long entry?
+      if (Insn == 0xe59fc004) {
+        // Check for add
+        if (support::endian::read32(PltContents.data() + Byte + 4, Endianness) != 0xe08cc00f)
+          continue;
+        // Check for ldr
+        if (support::endian::read32(PltContents.data() + Byte + 8, Endianness) != 0xe59cf000)
+          continue;
+        uint64_t Offset = (PltSectionVA + Byte + 12) + support::endian::read32(PltContents.data() + Byte + 12, Endianness);
+        Result.emplace_back(PltSectionVA + Byte, Offset);
+        Byte += 12;
+      } else {
+        // Check for first add
+        if ((Insn & 0xe28fc600) != 0xe28fc600)
+          continue;
+        uint32_t Insn2 = support::endian::read32(PltContents.data() + Byte + 4, Endianness);
+        // Check for second add
+        if ((Insn2 & 0xe28cca00) != 0xe28cca00)
+          continue;
+        uint32_t Insn3 = support::endian::read32(PltContents.data() + Byte + 8, Endianness);
+        // Check for ldr
+        if ((Insn3 & 0xe5bcf000) != 0xe5bcf000)
+          continue;
+
+        uint64_t Offset = (PltSectionVA + Byte + 8) + ((Insn & 0xff) << 20) + ((Insn2 & 0xff) << 12) + (Insn3 & 0xfff);
+        Result.emplace_back(PltSectionVA + Byte, Offset);
+        Byte += 8;
+      }
+    }
+    return Result;
+  }
 };
 
 } // namespace

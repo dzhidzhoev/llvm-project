@@ -15,6 +15,7 @@
 #define LLVM_MC_MCINSTRANALYSIS_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/ADT/bit.h"
 #include "llvm/MC/MCInst.h"
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/MC/MCInstrInfo.h"
@@ -195,7 +196,7 @@ public:
   /// Returns (PLT virtual address, GOT virtual address) pairs for PLT entries.
   virtual std::vector<std::pair<uint64_t, uint64_t>>
   findPltEntries(uint64_t PltSectionVA, ArrayRef<uint8_t> PltContents,
-                 const Triple &TargetTriple) const {
+                 const Triple &TargetTriple, std::optional<llvm::endianness> InstrEndianness) const {
     return {};
   }
 };
