@@ -233,19 +233,19 @@ _start:
 // CHECKLONG-NEXT:     2018:       d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKLONG-NEXT:     201c:       d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKLONG-EMPTY:
-// CHECKLONG-NEXT: <func1>:
+// CHECKLONG-NEXT: <func1@plt>:
 // CHECKLONG-NEXT:     2020:       ldr     r12, [pc, #4]
 // CHECKLONG-NEXT:     2024:       add     r12, r12, pc
 // CHECKLONG-NEXT:     2028:       ldr     pc, [r12]
 // CHECKLONG-NEXT:     202c:       e0 f0 10 11     .word   0x1110f0e0
 // CHECKLONG-EMPTY:
-// CHECKLONG-NEXT: <func2>:
+// CHECKLONG-NEXT: <func2@plt>:
 // CHECKLONG-NEXT:     2030:       ldr     r12, [pc, #4]
 // CHECKLONG-NEXT:     2034:       add     r12, r12, pc
 // CHECKLONG-NEXT:     2038:       ldr     pc, [r12]
 // CHECKLONG-NEXT:     203c:       d4 f0 10 11     .word   0x1110f0d4
 // CHECKLONG-EMPTY:
-// CHECKLONG-NEXT: <func3>:
+// CHECKLONG-NEXT: <func3@plt>:
 // CHECKLONG-NEXT:     2040:       ldr     r12, [pc, #4]
 // CHECKLONG-NEXT:     2044:       add     r12, r12, pc
 // CHECKLONG-NEXT:     2048:       ldr     pc, [r12]
@@ -275,14 +275,20 @@ _start:
 // CHECKLONG-EB-NEXT:                 d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKLONG-EB-NEXT:                 d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKLONG-EB-NEXT:                 d4 d4 d4 d4     .word   0xd4d4d4d4
+// CHECKLONG-EB-EMPTY:
+// CHECKLONG-EB-NEXT: <func1@plt>:
 // CHECKLONG-EB-NEXT:     2020:       ldr     r12, [pc, #4]
 // CHECKLONG-EB-NEXT:                 add     r12, r12, pc
 // CHECKLONG-EB-NEXT:                 ldr     pc, [r12]
 // CHECKLONG-EB-NEXT:                 11 10 f0 e0     .word   0x1110f0e0
+// CHECKLONG-EB-EMPTY:
+// CHECKLONG-EB-NEXT: <func2@plt>:
 // CHECKLONG-EB-NEXT:     2030:       ldr     r12, [pc, #4]
 // CHECKLONG-EB-NEXT:                 add     r12, r12, pc
 // CHECKLONG-EB-NEXT:                 ldr     pc, [r12]
 // CHECKLONG-EB-NEXT:                 11 10 f0 d4     .word   0x1110f0d4
+// CHECKLONG-EB-EMPTY:
+// CHECKLONG-EB-NEXT: <func3@plt>:
 // CHECKLONG-EB-NEXT:     2040:       ldr     r12, [pc, #4]
 // CHECKLONG-EB-NEXT:                 add     r12, r12, pc
 // CHECKLONG-EB-NEXT:                 ldr     pc, [r12]
@@ -344,6 +350,8 @@ _start:
 // CHECKMIX-NEXT:     2014:     d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKMIX-NEXT:     2018:     d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKMIX-NEXT:     201c:     d4 d4 d4 d4     .word   0xd4d4d4d4
+// CHECKMIX-EMPTY:
+// CHECKMIX-NEXT:     <func1@plt>:
 // CHECKMIX-NEXT:     2020:       ldr     r12, [pc, #4]
 // CHECKMIX-NEXT:     2024:       add     r12, r12, pc
 // CHECKMIX-NEXT:     2028:       ldr     pc, [r12]
@@ -385,6 +393,8 @@ _start:
 // CHECKMIX-EB-NEXT:                 d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKMIX-EB-NEXT:                 d4 d4 d4 d4     .word   0xd4d4d4d4
 // CHECKMIX-EB-NEXT:                 d4 d4 d4 d4     .word   0xd4d4d4d4
+// CHECKMIX-EB-EMPTY:
+// CHECKMIX-EB-NEXT:     <func1@plt>:
 // CHECKMIX-EB-NEXT:     2020:       ldr     r12, [pc, #4]
 // CHECKMIX-EB-NEXT:                 add     r12, r12, pc
 // CHECKMIX-EB-NEXT:                 ldr     pc, [r12]

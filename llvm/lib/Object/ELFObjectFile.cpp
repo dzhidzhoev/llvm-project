@@ -801,6 +801,8 @@ std::vector<ELFPltEntry> ELFObjectFileBase::getPltEntries() const {
       break;
     case Triple::arm:
     case Triple::armeb:
+    case Triple::thumb:
+    case Triple::thumbeb:
       JumpSlotReloc = ELF::R_ARM_JUMP_SLOT;
       break;
     case Triple::hexagon:
