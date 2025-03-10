@@ -514,7 +514,7 @@ public:
                             APInt &Mask) const override;
   std::vector<std::pair<uint64_t, uint64_t>>
   findPltEntries(uint64_t PltSectionVA, ArrayRef<uint8_t> PltContents,
-                 const Triple &TargetTriple, std::optional<llvm::endianness> InstrEndianness) const override;
+                 const Triple &TargetTriple, std::optional<llvm::endianness> InstrEndiannessHint) const override;
 
   bool evaluateBranch(const MCInst &Inst, uint64_t Addr, uint64_t Size,
                       uint64_t &Target) const override;
