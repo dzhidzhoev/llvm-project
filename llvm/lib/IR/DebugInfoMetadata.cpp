@@ -24,6 +24,7 @@
 
 #include <numeric>
 #include <optional>
+#include <utility>
 
 using namespace llvm;
 
@@ -118,6 +119,22 @@ DILocation *DILocation::getMergedLocations(ArrayRef<DILocation *> Locs) {
   return Merged;
 }
 
+using LocationKey = std::pair<unsigned /* Line */, unsigned /* Column */>;
+
+LocationKey getLSLocationKey(DIScope *S, LocationKey Underlying) {
+  if (isa<DILexicalBlockFile>(S)) {
+    return Underlying;
+  }
+  if (auto *LB = dyn_cast<DILexicalBlock>(S)) {
+    return std::make_pair(LB->getLine(), LB->getColumn());
+  }
+  if (auto *SP = dyn_cast<DISubprogram>(S)) {
+    return std::make_pair(SP->getLine(), 0u);
+  }
+
+  llvm_unreachable("DILocalScope expected");
+}
+
 DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
   if (!LocA || !LocB)
     return nullptr;
@@ -188,17 +205,35 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       return nullptr;
 
     // Return the nearest common scope inside a subprogram.
-    auto GetNearestCommonScope = [](DIScope *S1, DIScope *S2) -> DIScope * {
-      SmallPtrSet<DIScope *, 8> Scopes;
+    auto GetNearestCommonScope = [](const DILocation *L1,
+                                    const DILocation *L2) -> DIScope * {
+      DIScope *S1 = L1->getScope();
+      DIScope *S2 = L2->getScope();
+
+      SmallDenseMap<DIFile *,
+                    SmallDenseMap<LocationKey, SmallPtrSet<DIScope *, 1>, 8>, 1>
+          Scopes;
+      LocationKey Loc1(L1->getLine(), L1->getColumn());
       for (; S1; S1 = S1->getScope()) {
-        Scopes.insert(S1);
+        Loc1 = getLSLocationKey(S1, Loc1);
+        Scopes[S1->getFile()][Loc1].insert(S1);
+
         if (isa<DISubprogram>(S1))
           break;
       }
 
+      LocationKey Loc2(L2->getLine(), L2->getColumn());
       for (; S2; S2 = S2->getScope()) {
-        if (Scopes.count(S2))
-          return S2;
+        Loc2 = getLSLocationKey(S2, Loc2);
+        const auto &ScopesWithSameLoc = Scopes[S2->getFile()][Loc2];
+
+        const auto &ExactScope = ScopesWithSameLoc.find(S2);
+        if (ExactScope != ScopesWithSameLoc.end())
+          return *ExactScope;
+
+        if (!ScopesWithSameLoc.empty())
+          return *ScopesWithSameLoc.begin();
+
         if (isa<DISubprogram>(S2))
           break;
       }
@@ -206,8 +241,14 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       return nullptr;
     };
 
-    auto Scope = GetNearestCommonScope(L1->getScope(), L2->getScope());
+    auto *Scope = GetNearestCommonScope(L1, L2);
     assert(Scope && "No common scope in the same subprogram?");
+
+    if (Scope->getFile() != L1->getFile() || L1->getFile() != L2->getFile()) {
+      auto [Line, Column] = getLSLocationKey(
+          Scope, std::make_pair(L1->getLine(), L2->getColumn()));
+      return DILocation::get(C, Line, Column, Scope, InlinedAt);
+    }
 
     bool SameLine = L1->getLine() == L2->getLine();
     bool SameCol = L1->getColumn() == L2->getColumn();
