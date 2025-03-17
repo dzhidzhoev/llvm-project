@@ -13,6 +13,7 @@
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "LLVMContextImpl.h"
 #include "MetadataImpl.h"
+#include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/ADT/StringSwitch.h"
 #include "llvm/BinaryFormat/Dwarf.h"
@@ -205,13 +206,15 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
       return nullptr;
 
     // Return the nearest common scope inside a subprogram.
-    auto GetNearestCommonScope = [](const DILocation *L1,
-                                    const DILocation *L2) -> DIScope * {
+    auto GetNearestCommonScope =
+        [](const DILocation *L1,
+           const DILocation *L2) -> std::pair<DIScope *, LocationKey> {
       DIScope *S1 = L1->getScope();
       DIScope *S2 = L2->getScope();
 
       SmallDenseMap<DIFile *,
-                    SmallDenseMap<LocationKey, SmallPtrSet<DIScope *, 1>, 8>, 1>
+                    SmallDenseMap<LocationKey, SmallSetVector<DIScope *, 8>, 8>,
+                    1>
           Scopes;
       LocationKey Loc1(L1->getLine(), L1->getColumn());
       for (; S1; S1 = S1->getScope()) {
@@ -227,27 +230,28 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
         Loc2 = getLSLocationKey(S2, Loc2);
         const auto &ScopesWithSameLoc = Scopes[S2->getFile()][Loc2];
 
-        const auto &ExactScope = ScopesWithSameLoc.find(S2);
-        if (ExactScope != ScopesWithSameLoc.end())
-          return *ExactScope;
+        if (ScopesWithSameLoc.contains(S2))
+          return std::make_pair(S2, Loc2);
 
         if (!ScopesWithSameLoc.empty())
-          return *ScopesWithSameLoc.begin();
+          return std::make_pair(*ScopesWithSameLoc.begin(), Loc2);
 
         if (isa<DISubprogram>(S2))
           break;
       }
 
-      return nullptr;
+      return std::make_pair(nullptr,
+                            LocationKey(L2->getLine(), L2->getColumn()));
     };
 
-    auto *Scope = GetNearestCommonScope(L1, L2);
+    auto [Scope, ScopeLoc] = GetNearestCommonScope(L1, L2);
     assert(Scope && "No common scope in the same subprogram?");
 
     if (Scope->getFile() != L1->getFile() || L1->getFile() != L2->getFile()) {
-      auto [Line, Column] = getLSLocationKey(
-          Scope, std::make_pair(L1->getLine(), L2->getColumn()));
-      return DILocation::get(C, Line, Column, Scope, InlinedAt);
+      // TODO test this (test that it has correct location even with
+      // DILexicalBlockFile
+      return DILocation::get(C, ScopeLoc.first, ScopeLoc.second, Scope,
+                             InlinedAt);
     }
 
     bool SameLine = L1->getLine() == L2->getLine();
