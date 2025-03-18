@@ -934,6 +934,18 @@ TEST_F(DILocationTest, Merge) {
   }
 
   {
+    // Identical, inside DILexicalBlockFile.
+    auto *OtherF = DIFile::getDistinct(Context, "file1.c", "/path/to/dir");
+    auto *LBF = DILexicalBlockFile::get(Context, S, OtherF, 0);
+    auto *A = DILocation::get(Context, 2, 7, LBF);
+    auto *B = DILocation::get(Context, 2, 7, LBF);
+    auto *M = DILocation::getMergedLocation(A, B);
+    EXPECT_EQ(2u, M->getLine());
+    EXPECT_EQ(7u, M->getColumn());
+    EXPECT_EQ(LBF, M->getScope());
+  }
+
+  {
     // Identical, different scopes.
     auto *A = DILocation::get(Context, 2, 7, N);
     auto *B = DILocation::get(Context, 2, 7, S);
@@ -957,6 +969,21 @@ TEST_F(DILocationTest, Merge) {
   }
 
   {
+    // Same line, different column, same DILexicalBlockFile scope.
+    auto *OtherF = DIFile::getDistinct(Context, "file1.c", "/path/to/dir");
+    auto *LBF = DILexicalBlockFile::get(Context, S, OtherF, 0);
+    auto *A = DILocation::get(Context, 2, 7, LBF);
+    auto *B = DILocation::get(Context, 2, 10, LBF);
+    auto *M0 = DILocation::getMergedLocation(A, B);
+    auto *M1 = DILocation::getMergedLocation(B, A);
+    for (auto *M : {M0, M1}) {
+      EXPECT_EQ(2u, M->getLine());
+      EXPECT_EQ(0u, M->getColumn());
+      EXPECT_EQ(LBF, M->getScope());
+    }
+  }
+
+  {
     // Different lines, same scopes.
     auto *A = DILocation::get(Context, 1, 6, N);
     auto *B = DILocation::get(Context, 2, 7, N);
@@ -964,6 +991,28 @@ TEST_F(DILocationTest, Merge) {
     EXPECT_EQ(0u, M->getLine());
     EXPECT_EQ(0u, M->getColumn());
     EXPECT_EQ(N, M->getScope());
+  }
+
+  {
+    // Different lines, same DILexicalBlockFile scopes.
+    auto *OtherF = DIFile::getDistinct(Context, "file1.c", "/path/to/dir");
+    auto *LBF = DILexicalBlockFile::get(Context, S, OtherF, 0);
+    auto *A = DILocation::get(Context, 1, 6, LBF);
+    auto *B = DILocation::get(Context, 2, 7, LBF);
+    auto *M = DILocation::getMergedLocation(A, B);
+    EXPECT_EQ(3u, M->getLine());
+    EXPECT_EQ(4u, M->getColumn());
+    EXPECT_EQ(S, M->getScope());
+  }
+
+  {
+    // Different lines, same DILexicalBlock scopes.
+    auto *A = DILocation::get(Context, 1, 6, S);
+    auto *B = DILocation::get(Context, 2, 7, S);
+    auto *M = DILocation::getMergedLocation(A, B);
+    EXPECT_EQ(0u, M->getLine());
+    EXPECT_EQ(0u, M->getColumn());
+    EXPECT_EQ(S, M->getScope());
   }
 
   {
