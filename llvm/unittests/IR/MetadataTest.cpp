@@ -984,7 +984,7 @@ TEST_F(DILocationTest, Merge) {
   }
 
   {
-    // Different lines, same scopes.
+    // Different lines, same DISubprogram scopes.
     auto *A = DILocation::get(Context, 1, 6, N);
     auto *B = DILocation::get(Context, 2, 7, N);
     auto *M = DILocation::getMergedLocation(A, B);
