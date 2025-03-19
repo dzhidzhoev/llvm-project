@@ -1107,7 +1107,7 @@ TEST_F(DILocationTest, Merge) {
   }
 
   {
-    // Different locations from different files having common lexical blocks
+    // Different locations from different files included from the same block.
     auto *F1 = DIFile::getDistinct(Context, "file1.c", "/path/to/dir");
     DISubprogram *N = getSubprogram(F1);
 
@@ -1131,6 +1131,39 @@ TEST_F(DILocationTest, Merge) {
     EXPECT_EQ(5u, M->getLine());
     EXPECT_EQ(9u, M->getColumn());
     EXPECT_EQ(LBCommon, M->getScope());
+  }
+
+  {
+    // Different locations from different files having common include parent.
+    auto *LBCommon = DILexicalBlock::getDistinct(Context, N, F, 4, 1);
+
+    // Different scopes.
+    DILexicalBlock *Block[2] = {};
+    Block[0] = DILexicalBlock::get(Context, LBCommon, F, 10, 2);
+    Block[1] = DILexicalBlock::get(Context, LBCommon, F, 20, 3);
+
+    // Includes of the same file.
+    auto *F1 = DIFile::getDistinct(Context, "file1.inc", "/path/to/dir");
+    DILexicalBlock *Block1[2] = {};
+    Block1[0] = DILexicalBlock::get(Context, DILexicalBlockFile::get(Context, Block[0], F1, 0), F1, 30, 4);
+    Block1[1] = DILexicalBlock::get(Context, DILexicalBlockFile::get(Context, Block[1], F1, 0), F1, 30, 4);
+
+    // Different sub-includes.
+    DIFile *F2[2] = {};
+    DILexicalBlock *Block2[2] = {};
+
+    F2[0] = DIFile::getDistinct(Context, "file2_a.inc", "/path/to/dir");
+    Block2[0] = DILexicalBlock::get(Context, DILexicalBlockFile::get(Context, Block1[0], F2[0], 0), F2[0], 40, 5);
+
+    F2[1] = DIFile::getDistinct(Context, "file2_b.inc", "/path/to/dir");
+    Block2[1] = DILexicalBlock::get(Context, DILexicalBlockFile::get(Context, Block1[1], F2[1], 0), F2[1], 50, 6);
+
+    auto *A = DILocation::get(Context, 41, 7, Block2[0]);
+    auto *B = DILocation::get(Context, 51, 8, Block2[1]);
+    auto *M = DILocation::getMergedLocation(A, B);
+    EXPECT_EQ(30u, M->getLine());
+    EXPECT_EQ(4u, M->getColumn());
+    EXPECT_EQ(Block1[0], M->getScope());
   }
 
   {
