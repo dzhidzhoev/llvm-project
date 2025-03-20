@@ -123,8 +123,8 @@ attributes #2 = { nounwind }
 !llvm.module.flags = !{!2, !3, !4, !5, !6, !7}
 !llvm.ident = !{!8}
 
-!0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 20.0.0git (git@github.com:llvm/llvm-project.git c8ee1164bd6ae2f0a603c53d1d29ad5a3225c5cd)", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
-!1 = !DIFile(filename: "repro.c", directory: "", checksumkind: CSK_MD5, checksum: "51454d2babc57d5ea92df6734236bd39")
+!0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 20.0.0git", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
+!1 = !DIFile(filename: "repro.c", directory: "")
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 1, !"wchar_size", i32 4}
