@@ -13326,10 +13326,9 @@ define <16 x i8> @test_v16i8_post_reg_ld1lane(ptr %bar, ptr %ptr, i64 %inc, <16 
 ;
 ; CHECK-GI-LABEL: test_v16i8_post_reg_ld1lane:
 ; CHECK-GI:       ; %bb.0:
-; CHECK-GI-NEXT:    ldr b1, [x0]
+; CHECK-GI-NEXT:    ld1.b { v0 }[1], [x0]
 ; CHECK-GI-NEXT:    add x8, x0, x2
 ; CHECK-GI-NEXT:    str x8, [x1]
-; CHECK-GI-NEXT:    mov.b v0[1], v1[0]
 ; CHECK-GI-NEXT:    ret
   %tmp1 = load i8, ptr %bar
   %tmp2 = insertelement <16 x i8> %A, i8 %tmp1, i32 1
@@ -13373,11 +13372,10 @@ define <8 x i8> @test_v8i8_post_reg_ld1lane(ptr %bar, ptr %ptr, i64 %inc, <8 x i
 ;
 ; CHECK-GI-LABEL: test_v8i8_post_reg_ld1lane:
 ; CHECK-GI:       ; %bb.0:
-; CHECK-GI-NEXT:    ldr b1, [x0]
 ; CHECK-GI-NEXT:    ; kill: def $d0 killed $d0 def $q0
 ; CHECK-GI-NEXT:    add x8, x0, x2
+; CHECK-GI-NEXT:    ld1.b { v0 }[1], [x0]
 ; CHECK-GI-NEXT:    str x8, [x1]
-; CHECK-GI-NEXT:    mov.b v0[1], v1[0]
 ; CHECK-GI-NEXT:    ; kill: def $d0 killed $d0 killed $q0
 ; CHECK-GI-NEXT:    ret
   %tmp1 = load i8, ptr %bar
@@ -13908,23 +13906,15 @@ define void  @test_ld1lane_build_i8(ptr %a, ptr %b, ptr %c, ptr %d, ptr %e, ptr 
 ;
 ; CHECK-GI-LABEL: test_ld1lane_build_i8:
 ; CHECK-GI:       ; %bb.0:
-; CHECK-GI-NEXT:    ldr b1, [x0]
-; CHECK-GI-NEXT:    ldr b2, [x1]
+; CHECK-GI-NEXT:    ld1.b { v1 }[0], [x0]
 ; CHECK-GI-NEXT:    ldr x8, [sp]
-; CHECK-GI-NEXT:    mov.b v1[0], v1[0]
-; CHECK-GI-NEXT:    mov.b v1[1], v2[0]
-; CHECK-GI-NEXT:    ldr b2, [x2]
-; CHECK-GI-NEXT:    mov.b v1[2], v2[0]
-; CHECK-GI-NEXT:    ldr b2, [x3]
-; CHECK-GI-NEXT:    mov.b v1[3], v2[0]
-; CHECK-GI-NEXT:    ldr b2, [x4]
-; CHECK-GI-NEXT:    mov.b v1[4], v2[0]
-; CHECK-GI-NEXT:    ldr b2, [x5]
-; CHECK-GI-NEXT:    mov.b v1[5], v2[0]
-; CHECK-GI-NEXT:    ldr b2, [x6]
-; CHECK-GI-NEXT:    mov.b v1[6], v2[0]
-; CHECK-GI-NEXT:    ldr b2, [x7]
-; CHECK-GI-NEXT:    mov.b v1[7], v2[0]
+; CHECK-GI-NEXT:    ld1.b { v1 }[1], [x1]
+; CHECK-GI-NEXT:    ld1.b { v1 }[2], [x2]
+; CHECK-GI-NEXT:    ld1.b { v1 }[3], [x3]
+; CHECK-GI-NEXT:    ld1.b { v1 }[4], [x4]
+; CHECK-GI-NEXT:    ld1.b { v1 }[5], [x5]
+; CHECK-GI-NEXT:    ld1.b { v1 }[6], [x6]
+; CHECK-GI-NEXT:    ld1.b { v1 }[7], [x7]
 ; CHECK-GI-NEXT:    sub.8b v0, v1, v0
 ; CHECK-GI-NEXT:    str d0, [x8]
 ; CHECK-GI-NEXT:    ret

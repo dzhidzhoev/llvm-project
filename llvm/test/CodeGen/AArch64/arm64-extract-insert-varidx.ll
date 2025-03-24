@@ -92,8 +92,8 @@ define <8 x i8> @test_varidx_extract_v16s8(<16 x i8> %x, i32 %idx) {
 ; CHECK-GISEL-NEXT:    mov b3, v0.b[2]
 ; CHECK-GISEL-NEXT:    lsl x10, x9, #1
 ; CHECK-GISEL-NEXT:    sub x9, x10, x9
-; CHECK-GISEL-NEXT:    ldr b1, [x8, x9]
-; CHECK-GISEL-NEXT:    mov v1.b[0], v1.b[0]
+; CHECK-GISEL-NEXT:    add x8, x8, x9
+; CHECK-GISEL-NEXT:    ld1 { v1.b }[0], [x8]
 ; CHECK-GISEL-NEXT:    mov v1.b[1], v2.b[0]
 ; CHECK-GISEL-NEXT:    mov b2, v0.b[3]
 ; CHECK-GISEL-NEXT:    mov v1.b[2], v3.b[0]

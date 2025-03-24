@@ -8663,10 +8663,17 @@ def : Pat<(v4bf16 (AArch64dup (bf16 (load GPR64sp:$Rn)))),
 def : Pat<(v8bf16 (AArch64dup (bf16 (load GPR64sp:$Rn)))),
           (LD1Rv8h GPR64sp:$Rn)>;
 
+class vec_ins_val_arg<dag sdag, ValueType STy> :
+  PatFrags<(ops node:$src),
+          [sdag,
+           (STy (load node:$src)),
+           (i64 (anyext (STy (load node:$src)))),
+          ]>;
+
 class Ld1Lane128Pat<SDPatternOperator scalar_load, Operand VecIndex,
                     ValueType VTy, ValueType STy, Instruction LD1>
   : Pat<(vector_insert (VTy VecListOne128:$Rd),
-           (STy (scalar_load GPR64sp:$Rn)), (i64 VecIndex:$idx)),
+           (vec_ins_val_arg<(STy (scalar_load GPR64sp:$Rn)), VTy.ElementType> GPR64sp:$Rn), (i64 VecIndex:$idx)),
         (LD1 VecListOne128:$Rd, VecIndex:$idx, GPR64sp:$Rn)>;
 
 def : Ld1Lane128Pat<extloadi8,  VectorIndexB, v16i8, i32, LD1i8>;
@@ -8733,10 +8740,11 @@ let Predicates = [HasNEON] in {
   def : Ld1Lane128FirstElm<v2i32, v16i8, extloadi8, LD1i8>;
   def : Ld1Lane128FirstElm<v4i16, v16i8, extloadi8, LD1i8>;
 }
+
 class Ld1Lane64Pat<SDPatternOperator scalar_load, Operand VecIndex,
-                   ValueType VTy, ValueType STy, Instruction LD1>
+                   VTVec VTy, ValueType STy, Instruction LD1>
   : Pat<(vector_insert (VTy VecListOne64:$Rd),
-           (STy (scalar_load GPR64sp:$Rn)), (i64 VecIndex:$idx)),
+           (vec_ins_val_arg<(STy (scalar_load GPR64sp:$Rn)), VTy.ElementType> GPR64sp:$Rn), (i64 VecIndex:$idx)),
         (EXTRACT_SUBREG
             (LD1 (SUBREG_TO_REG (i32 0), VecListOne64:$Rd, dsub),
                           VecIndex:$idx, GPR64sp:$Rn),
