@@ -1891,6 +1891,8 @@ MVT::SimpleValueType SDNodeInfo::getKnownType(unsigned ResNo) const {
 
 static unsigned GetNumNodeResults(const Record *Operator,
                                   CodeGenDAGPatterns &CDP) {
+  llvm::errs() << "Dumping: ";
+  Operator->dump();
   if (Operator->getName() == "set")
     return 0; // All return nothing.
 
@@ -2989,13 +2991,15 @@ TreePatternNodePtr TreePattern::ParseTreePattern(const Init *TheInit,
   }
 
   // Verify that this is something that makes sense for an operator.
+  Operator->dump();
   if (!Operator->isSubClassOf("PatFrags") &&
       !Operator->isSubClassOf("SDNode") &&
       !Operator->isSubClassOf("Instruction") &&
       !Operator->isSubClassOf("SDNodeXForm") &&
       !Operator->isSubClassOf("Intrinsic") &&
-      !Operator->isSubClassOf("ComplexPattern") && Operator->getName() != "set")
+      !Operator->isSubClassOf("ComplexPattern") && Operator->getName() != "set") {
     error("Unrecognized node '" + Operator->getName() + "'!");
+  }
 
   //  Check to see if this is something that is illegal in an input pattern.
   if (isInputPattern) {
