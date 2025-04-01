@@ -594,11 +594,11 @@ class Ld1Lane128PatGISel<Operand VecIndex, ValueType VTy,
 // SelectionDAG analogues only select insertelt with i32 indices.
 let Predicates = [OnlyGISel] in {
   def : Ld1Lane64PatGISel<load, VectorIndexB,    v8i8,  i8, LD1i8>;
-  def : Ld1Lane64PatGISel<load, VectorIndexB32b, v8i8,  i8, LD1i8>;
-  def : Ld1Lane64PatGISel<load, VectorIndexH,    v4i16, i16, LD1i16>;
-  def : Ld1Lane64PatGISel<load, VectorIndexH32b, v4i16, i16, LD1i16>;
-  def : Ld1Lane64PatGISel<load, VectorIndexS,    v2i32, i32, LD1i32>;
-  def : Ld1Lane64PatGISel<load, VectorIndexS32b, v2i32, i32, LD1i32>;
+  // def : Ld1Lane64PatGISel<load, VectorIndexB32b, v8i8,  i8, LD1i8>;
+  // def : Ld1Lane64PatGISel<load, VectorIndexH,    v4i16, i16, LD1i16>;
+  // def : Ld1Lane64PatGISel<load, VectorIndexH32b, v4i16, i16, LD1i16>;
+  // def : Ld1Lane64PatGISel<load, VectorIndexS,    v2i32, i32, LD1i32>;
+  // def : Ld1Lane64PatGISel<load, VectorIndexS32b, v2i32, i32, LD1i32>;
 
   def : Ld1Lane128PatGISel<VectorIndexB, v16i8, i8, LD1i8>;
   def : Ld1Lane128PatGISel<VectorIndexB32b, v16i8, i8, LD1i8>;
