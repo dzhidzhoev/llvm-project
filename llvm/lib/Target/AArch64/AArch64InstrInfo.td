@@ -1087,6 +1087,8 @@ let RecomputePerFunction = 1 in {
 
   def SLSBLRMitigation : Predicate<[{ MF->getSubtarget<AArch64Subtarget>().hardenSlsBlr() }]>;
   def NoSLSBLRMitigation : Predicate<[{ !MF->getSubtarget<AArch64Subtarget>().hardenSlsBlr() }]>;
+  // Toggles patterns which are used only by GlobalISel.
+  def OnlyGISel : Predicate<"!MF->getProperties().hasProperty(MachineFunctionProperties::Property::FailedISel) && MF->getProperties().hasProperty(MachineFunctionProperties::Property::Legalized)">;
   // Toggles patterns which aren't beneficial in GlobalISel when we aren't
   // optimizing. This allows us to selectively use patterns without impacting
   // SelectionDAG's behaviour.
