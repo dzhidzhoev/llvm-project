@@ -203,8 +203,24 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
     if (L1->getScope()->getSubprogram() != L2->getScope()->getSubprogram())
       return nullptr;
 
+   auto GetNearestCommonScope = [](DIScope *S1, DIScope *S2) -> DIScope * {
+     SmallPtrSet<DIScope *, 8> Scopes;
+      for (; S1; S1 = S1->getScope()) {
+        Scopes.insert(S1);
+        if (isa<DISubprogram>(S1))
+          break;
+      }
+      for (; S2; S2 = S2->getScope()) {
+        if (Scopes.count(S2))
+          return S2;
+        if (isa<DISubprogram>(S2))
+          break;
+      }
+      return nullptr;
+    };
+
     // Return the nearest common scope inside a subprogram.
-    auto GetNearestCommonScope =
+    auto GetNearestCommonScope2 =
         [](const DILocation *L1,
            const DILocation *L2) -> std::pair<DIScope *, LineColumn> {
       DIScope *S1 = L1->getScope();
@@ -256,12 +272,25 @@ DILocation *DILocation::getMergedLocation(DILocation *LocA, DILocation *LocB) {
                             LineColumn(L2->getLine(), L2->getColumn()));
     };
 
-    auto [Scope, ScopeLoc] = GetNearestCommonScope(L1, L2);
+    auto Scope = GetNearestCommonScope(L1->getScope(), L2->getScope());
     assert(Scope && "No common scope in the same subprogram?");
 
-    // Use inclusion location if files are different.
+    // Use common inclusion scope if files are different.
     if (Scope->getFile() != L1->getFile() || L1->getFile() != L2->getFile()) {
-      return DILocation::get(C, ScopeLoc.first, ScopeLoc.second, Scope,
+      llvm::errs() << "Multifile\n";
+      auto [Scope2, ScopeLoc2] = GetNearestCommonScope2(L1, L2);
+      Scope2->dump();
+      const auto *LBB = dyn_cast<DILexicalBlockBase>(Scope2);
+      if (LBB && LBB != Scope2) {
+        TempMDNode ClonedScope = LBB->clone();
+        cast<DILexicalBlockBase>(*ClonedScope).replaceScope(Scope);
+        Scope2 = cast<DIScope>(MDNode::replaceWithPermanent(std::move(ClonedScope)));
+      }
+      Scope = Scope2;
+
+      // Use inclusion location if files are still different.
+      if (Scope->getFile() != L1->getFile() || L1->getFile() != L2->getFile())
+        return DILocation::get(C, ScopeLoc2.first, ScopeLoc2.second, Scope2,
                              InlinedAt);
     }
 
