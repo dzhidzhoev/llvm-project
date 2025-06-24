@@ -1998,33 +1998,36 @@ Error MetadataLoader::MetadataLoaderImpl::parseOneMetadata(
       HasAnnotations = Record.size() >= 19;
       HasTargetFuncName = Record.size() >= 20;
     }
+
+    Metadata *Scope = getDITypeRefOrNull(Record[1]);
+    MDString *Name = getMDString(Record[2]);
+    MDString *LinkageName = getMDString(Record[3]);
+    Metadata *File = getMDOrNull(Record[4]);
+    unsigned Line = Record[5];
+    Metadata *Type = getMDOrNull(Record[6]);
+    unsigned ScopeLine = Record[7 + OffsetA];
+    Metadata *ContainingType = getDITypeRefOrNull(Record[8 + OffsetA]);
+    unsigned VirtualIndex = Record[10 + OffsetA];
+    int ThisAdjustment = HasThisAdj ? Record[16 + OffsetB] : 0;
     Metadata *CUorFn = getMDOrNull(Record[12 + OffsetB]);
-    DISubprogram *SP = GET_OR_DISTINCT(
-        DISubprogram,
-        (Context,
-         getDITypeRefOrNull(Record[1]),           // scope
-         getMDString(Record[2]),                  // name
-         getMDString(Record[3]),                  // linkageName
-         getMDOrNull(Record[4]),                  // file
-         Record[5],                               // line
-         getMDOrNull(Record[6]),                  // type
-         Record[7 + OffsetA],                     // scopeLine
-         getDITypeRefOrNull(Record[8 + OffsetA]), // containingType
-         Record[10 + OffsetA],                    // virtualIndex
-         HasThisAdj ? Record[16 + OffsetB] : 0,   // thisAdjustment
-         Flags,                                   // flags
-         SPFlags,                                 // SPFlags
-         HasUnit ? CUorFn : nullptr,              // unit
-         getMDOrNull(Record[13 + OffsetB]),       // templateParams
-         getMDOrNull(Record[14 + OffsetB]),       // declaration
-         getMDOrNull(Record[15 + OffsetB]),       // retainedNodes
-         HasThrownTypes ? getMDOrNull(Record[17 + OffsetB])
-                        : nullptr, // thrownTypes
-         HasAnnotations ? getMDOrNull(Record[18 + OffsetB])
-                        : nullptr, // annotations
-         HasTargetFuncName ? getMDString(Record[19 + OffsetB])
-                           : nullptr // targetFuncName
-         ));
+    Metadata *Unit = HasUnit ? CUorFn : nullptr;
+    Metadata *TemplateParams = getMDOrNull(Record[13 + OffsetB]);
+    Metadata *Declaration = getMDOrNull(Record[14 + OffsetB]);
+    Metadata *RetainedNodes = getMDOrNull(Record[15 + OffsetB]);
+    Metadata *ThrownTypes = HasThrownTypes ? getMDOrNull(Record[17 + OffsetB]) : nullptr;
+    Metadata *Annotations = HasAnnotations ? getMDOrNull(Record[18 + OffsetB]) : nullptr;
+    MDString *TargetFuncName = HasTargetFuncName ? getMDString(Record[19 + OffsetB]) : nullptr;
+
+    DISubprogram *SP = nullptr;
+
+    // TODO remove curly braces around if body
+    if (IsDistinct && LinkageName) {
+      SP = DISubprogram::buildODRSubprogram(Context, Scope, Name, LinkageName, File, Line, Type, ScopeLine, ContainingType, VirtualIndex, ThisAdjustment, Flags, SPFlags, Unit, TemplateParams, Declaration, RetainedNodes, ThrownTypes, Annotations, TargetFuncName);
+    }
+
+    if (!SP)
+      SP = GET_OR_DISTINCT(DISubprogram, (Context, Scope, Name, LinkageName, File, Line, Type, ScopeLine, ContainingType, VirtualIndex, ThisAdjustment, Flags, SPFlags, Unit, TemplateParams, Declaration, RetainedNodes, ThrownTypes, Annotations, TargetFuncName));
+
     MetadataList.assignValue(SP, NextMetadataNo);
     NextMetadataNo++;
 

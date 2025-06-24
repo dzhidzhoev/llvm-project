@@ -1686,8 +1686,12 @@ public:
   DenseSet<CLASS *, CLASS##Info> CLASS##s;
 #include "llvm/IR/Metadata.def"
 
-  // Optional map for looking up composite types by identifier.
-  std::optional<DenseMap<const MDString *, DICompositeType *>> DITypeMap;
+  // Optional maps for looking up subprograms/composite types by identifier.
+  struct ODRInfoTy {
+    DenseMap<const MDString *, DICompositeType *> DITypeMap;
+    DenseMap<const MDString *, DISubprogram *> DISubprogramMap;
+  };
+  std::optional<ODRInfoTy> ODRInfo;
 
   // MDNodes may be uniqued or not uniqued.  When they're not uniqued, they
   // aren't in the MDNodeSet, but they're still shared between objects, so no

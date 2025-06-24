@@ -2333,6 +2333,18 @@ public:
        VirtualIndex, ThisAdjustment, Flags, SPFlags, Unit, TemplateParams,
        Declaration, RetainedNodes, ThrownTypes, Annotations, TargetFuncName))
 
+  /// Build a distinct DISubprogram with the given ODR identifier.
+  ///
+  /// Looks up the mapped DISubprogram for the given ODR \c Identifier.  If
+  /// it doesn't exist, creates a new one.  If it does exist,
+  /// mutates the subprogram in place to add new retainedNodes.
+  /// In either case, returns the subprogram.
+  ///
+  /// If not \a LLVMContext::isODRUniquingDebugTypes(), or SPFlagDefinition
+  /// is not set, this function returns nullptr.
+  LLVM_ABI static DISubprogram *
+  buildODRSubprogram(LLVMContext &Context, Metadata *Scope, MDString *Name, MDString *LinkageName, Metadata *File, unsigned Line, Metadata *Type, unsigned ScopeLine, Metadata *ContainingType, unsigned VirtualIndex, int ThisAdjustment, DIFlags Flags, DISPFlags SPFlags, Metadata *Unit, Metadata *TemplateParams, Metadata *Declaration, Metadata *RetainedNodes, Metadata *ThrownTypes, Metadata *Annotations, MDString *TargetFuncName);
+
   TempDISubprogram clone() const { return cloneImpl(); }
 
   /// Returns a new temporary DISubprogram with updated Flags

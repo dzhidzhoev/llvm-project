@@ -331,16 +331,16 @@ bool LLVMContext::shouldDiscardValueNames() const {
   return pImpl->DiscardValueNames;
 }
 
-bool LLVMContext::isODRUniquingDebugTypes() const { return !!pImpl->DITypeMap; }
+bool LLVMContext::isODRUniquingDebugTypes() const { return !!pImpl->ODRInfo; }
 
 void LLVMContext::enableDebugTypeODRUniquing() {
-  if (pImpl->DITypeMap)
+  if (pImpl->ODRInfo)
     return;
 
-  pImpl->DITypeMap.emplace();
+  pImpl->ODRInfo.emplace();
 }
 
-void LLVMContext::disableDebugTypeODRUniquing() { pImpl->DITypeMap.reset(); }
+void LLVMContext::disableDebugTypeODRUniquing() { pImpl->ODRInfo.reset(); }
 
 void LLVMContext::setDiscardValueNames(bool Discard) {
   pImpl->DiscardValueNames = Discard;

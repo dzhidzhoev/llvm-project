@@ -1067,7 +1067,7 @@ DICompositeType *DICompositeType::buildODRType(
   assert(!Identifier.getString().empty() && "Expected valid identifier");
   if (!Context.isODRUniquingDebugTypes())
     return nullptr;
-  auto *&CT = (*Context.pImpl->DITypeMap)[&Identifier];
+  auto *&CT = Context.pImpl->ODRInfo->DITypeMap[&Identifier];
   if (!CT)
     return CT = DICompositeType::getDistinct(
                Context, Tag, Name, File, Line, Scope, BaseType, SizeInBits,
@@ -1111,7 +1111,7 @@ DICompositeType *DICompositeType::getODRType(
   assert(!Identifier.getString().empty() && "Expected valid identifier");
   if (!Context.isODRUniquingDebugTypes())
     return nullptr;
-  auto *&CT = (*Context.pImpl->DITypeMap)[&Identifier];
+  auto *&CT = Context.pImpl->ODRInfo->DITypeMap[&Identifier];
   if (!CT) {
     CT = DICompositeType::getDistinct(
         Context, Tag, Name, File, Line, Scope, BaseType, SizeInBits,
@@ -1131,7 +1131,7 @@ DICompositeType *DICompositeType::getODRTypeIfExists(LLVMContext &Context,
   assert(!Identifier.getString().empty() && "Expected valid identifier");
   if (!Context.isODRUniquingDebugTypes())
     return nullptr;
-  return Context.pImpl->DITypeMap->lookup(&Identifier);
+  return Context.pImpl->ODRInfo->DITypeMap.lookup(&Identifier);
 }
 DISubroutineType::DISubroutineType(LLVMContext &C, StorageType Storage,
                                    DIFlags Flags, uint8_t CC,
@@ -1428,6 +1428,32 @@ DISubprogram *DISubprogram::getImpl(
       DISubprogram,
       (Line, ScopeLine, VirtualIndex, ThisAdjustment, Flags, SPFlags), Ops,
       Ops.size());
+}
+
+DISubprogram *DISubprogram::buildODRSubprogram(LLVMContext &Context, Metadata *Scope, MDString *Name, MDString *LinkageName, Metadata *File, unsigned Line, Metadata *Type, unsigned ScopeLine, Metadata *ContainingType, unsigned VirtualIndex, int ThisAdjustment, DIFlags Flags, DISPFlags SPFlags, Metadata *Unit, Metadata *TemplateParams, Metadata *Declaration, Metadata *RetainedNodes, Metadata *ThrownTypes, Metadata *Annotations, MDString *TargetFuncName) {
+  if (!Context.isODRUniquingDebugTypes() || !(SPFlags & SPFlagDefinition))
+    return nullptr;
+
+  auto *&SP = Context.pImpl->ODRInfo->DISubprogramMap[LinkageName];
+  // TODO remove curly braces around if body
+  if (!SP)
+    return SP = DISubprogram::getDistinct(Context, Scope, Name, LinkageName, File, Line, Type, ScopeLine, ContainingType, VirtualIndex, ThisAdjustment, Flags, SPFlags, Unit, TemplateParams, Declaration, RetainedNodes, ThrownTypes, Annotations, TargetFuncName);
+
+  SmallVector<Metadata *, 16> NewRetainedNodes;
+  if (SP->getRetainedNodes())
+    NewRetainedNodes.insert(NewRetainedNodes.end(), SP->getRetainedNodes().begin(), SP->getRetainedNodes().end());
+
+  if (auto RetainedNodesTuple = dyn_cast<MDTuple>(RetainedNodes)) {
+    SmallPtrSet<Metadata *, 16> RetainSet(NewRetainedNodes.begin(), NewRetainedNodes.end());
+    for (auto *N : DINodeArray(RetainedNodesTuple))
+      if (RetainSet.insert(N).second)
+        NewRetainedNodes.push_back(N);
+  }
+
+  if (!NewRetainedNodes.empty())
+    SP->replaceRetainedNodes(MDNode::get(Context, NewRetainedNodes));
+
+  return SP;
 }
 
 bool DISubprogram::describes(const Function *F) const {
