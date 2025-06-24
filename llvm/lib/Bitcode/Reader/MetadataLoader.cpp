@@ -2021,7 +2021,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseOneMetadata(
     DISubprogram *SP = nullptr;
 
     // TODO remove curly braces around if body
-    if (IsDistinct && LinkageName) {
+    if (LinkageName) {
       SP = DISubprogram::buildODRSubprogram(Context, Scope, Name, LinkageName, File, Line, Type, ScopeLine, ContainingType, VirtualIndex, ThisAdjustment, Flags, SPFlags, Unit, TemplateParams, Declaration, RetainedNodes, ThrownTypes, Annotations, TargetFuncName);
     }
 
