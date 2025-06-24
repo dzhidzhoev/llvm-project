@@ -1431,6 +1431,8 @@ DISubprogram *DISubprogram::getImpl(
 }
 
 DISubprogram *DISubprogram::buildODRSubprogram(LLVMContext &Context, Metadata *Scope, MDString *Name, MDString *LinkageName, Metadata *File, unsigned Line, Metadata *Type, unsigned ScopeLine, Metadata *ContainingType, unsigned VirtualIndex, int ThisAdjustment, DIFlags Flags, DISPFlags SPFlags, Metadata *Unit, Metadata *TemplateParams, Metadata *Declaration, Metadata *RetainedNodes, Metadata *ThrownTypes, Metadata *Annotations, MDString *TargetFuncName) {
+  assert(LinkageName && !LinkageName->getString().empty() && "Expected valid linkage name");
+
   if (!Context.isODRUniquingDebugTypes() || !(SPFlags & SPFlagDefinition))
     return nullptr;
 
