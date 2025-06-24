@@ -5891,7 +5891,8 @@ bool LLParser::parseDISubprogram(MDNode *&Result, bool IsDistinct) {
     if (!IsDistinct)
       return error(Loc, "missing 'distinct', required for !DISubprogram that is a Definition");
 
-    ODRSubprogram = DISubprogram::buildODRSubprogram(Context, scope.Val, name.Val, linkageName.Val, file.Val, line.Val, type.Val, scopeLine.Val, containingType.Val, virtualIndex.Val, thisAdjustment.Val, flags.Val, SPFlags, unit.Val, templateParams.Val, declaration.Val, retainedNodes.Val, thrownTypes.Val, annotations.Val, targetFuncName.Val);
+    if (linkageName.Val)
+      ODRSubprogram = DISubprogram::buildODRSubprogram(Context, scope.Val, name.Val, linkageName.Val, file.Val, line.Val, type.Val, scopeLine.Val, containingType.Val, virtualIndex.Val, thisAdjustment.Val, flags.Val, SPFlags, unit.Val, templateParams.Val, declaration.Val, retainedNodes.Val, thrownTypes.Val, annotations.Val, targetFuncName.Val);
   }
   Result = ODRSubprogram ? ODRSubprogram : GET_OR_DISTINCT(DISubprogram, (Context, scope.Val, name.Val, linkageName.Val, file.Val, line.Val, type.Val, scopeLine.Val, containingType.Val, virtualIndex.Val, thisAdjustment.Val, flags.Val, SPFlags, unit.Val, templateParams.Val, declaration.Val, retainedNodes.Val, thrownTypes.Val, annotations.Val, targetFuncName.Val));
   return false;
