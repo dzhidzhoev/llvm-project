@@ -1035,7 +1035,7 @@ Error IRLinker::linkFunctionBody(Function &Dst, Function &Src) {
   LLVMContext &C = Dst.getContext();
   StringRef SrcName = Src.getName();
   StringRef DstName = Dst.getName();
-  if (auto *SP = Dst.getSubprogram(); C.isODRUniquingDebugTypes() && SP && SP->isDefinition() && SP->getLinkageName() == SrcName && SrcName != DstName) {
+  if (auto *SP = Dst.getSubprogram(); C.isODRUniquingDebugTypes() && SP && SP->isDefinition() && SrcName != DstName) {
     DISubprogram *NewSP = MDNode::replaceWithDistinct(SP->clone());
     NewSP->replaceLinkageName(MDString::get(C, DstName));
     ValueMap.MD()[SP] = TrackingMDRef(NewSP);
