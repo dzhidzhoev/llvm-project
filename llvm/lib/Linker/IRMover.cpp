@@ -1032,13 +1032,8 @@ Error IRLinker::linkFunctionBody(Function &Dst, Function &Src) {
   // Copy over the metadata attachments without remapping.
   Dst.copyMetadata(&Src, 0);
 
-  LLVMContext &C = Dst.getContext();
-  StringRef SrcName = Src.getName();
-  StringRef DstName = Dst.getName();
-  if (auto *SP = Dst.getSubprogram(); C.isODRUniquingDebugTypes() && SP && SP->isDefinition() && SrcName != DstName) {
-    DISubprogram *NewSP = MDNode::replaceWithDistinct(SP->clone());
-    NewSP->replaceLinkageName(MDString::get(C, DstName));
-    ValueMap.MD()[SP] = TrackingMDRef(NewSP);
+  if (auto *NewSP = DISubprogram::cloneAndUpdateLinkageNameODR(Dst, Src, true)) {
+    ValueMap.MD()[Src.getSubprogram()] = TrackingMDRef(NewSP);
     // TODO what about MDNodes from inlined functions
     // that got copied before this mapping?
   }

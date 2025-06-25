@@ -2342,8 +2342,21 @@ public:
   ///
   /// If not \a LLVMContext::isODRUniquingDebugTypes(), or SPFlagDefinition
   /// is not set, this function returns nullptr.
-  LLVM_ABI static DISubprogram *
-  buildODRSubprogram(LLVMContext &Context, Metadata *Scope, MDString *Name, MDString *LinkageName, Metadata *File, unsigned Line, Metadata *Type, unsigned ScopeLine, Metadata *ContainingType, unsigned VirtualIndex, int ThisAdjustment, DIFlags Flags, DISPFlags SPFlags, Metadata *Unit, Metadata *TemplateParams, Metadata *Declaration, Metadata *RetainedNodes, Metadata *ThrownTypes, Metadata *Annotations, MDString *TargetFuncName);
+  LLVM_ABI static DISubprogram *buildODRSubprogram(LLVMContext &Context, Metadata *Scope, MDString *Name, MDString *LinkageName, Metadata *File, unsigned Line, Metadata *Type, unsigned ScopeLine, Metadata *ContainingType, unsigned VirtualIndex, int ThisAdjustment, DIFlags Flags, DISPFlags SPFlags, Metadata *Unit, Metadata *TemplateParams, Metadata *Declaration, Metadata *RetainedNodes, Metadata *ThrownTypes, Metadata *Annotations, MDString *TargetFuncName);
+
+  LLVM_ABI static DISubprogram *cloneAndUpdateLinkageNameODR(Function &Dst, Function &Src, bool IsAssigned) {
+    LLVMContext &C = Dst.getContext();
+    StringRef SrcName = Src.getName();
+    StringRef DstName = Dst.getName();
+
+    if (auto *SP = Src.getSubprogram(); SP && C.isODRUniquingDebugTypes() && SP->isDefinition() && (Dst.getSubprogram() == SP || !IsAssigned) && SrcName != DstName) {
+      DISubprogram *NewSP = MDNode::replaceWithDistinct(SP->clone());
+      NewSP->replaceLinkageName(MDString::get(C, DstName));
+      return NewSP;
+    }
+
+    return nullptr;
+  }
 
   TempDISubprogram clone() const { return cloneImpl(); }
 
