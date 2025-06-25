@@ -736,6 +736,7 @@ class MetadataLoader::MetadataLoaderImpl {
   }
 
   void cloneLocalTypes() {
+    // What about fixing references in other entities?
     for (unsigned I = 0; I < MetadataList.size(); ++I) {
       if (auto *SP = dyn_cast_or_null<DISubprogram>(MetadataList[I])) {
         auto RetainedNodes = SP->getRetainedNodes();
