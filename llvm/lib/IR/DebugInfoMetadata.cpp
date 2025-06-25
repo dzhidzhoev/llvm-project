@@ -1445,7 +1445,7 @@ DISubprogram *DISubprogram::buildODRSubprogram(LLVMContext &Context, Metadata *S
   if (SP->getRetainedNodes())
     NewRetainedNodes.insert(NewRetainedNodes.end(), SP->getRetainedNodes().begin(), SP->getRetainedNodes().end());
 
-  if (auto RetainedNodesTuple = dyn_cast<MDTuple>(RetainedNodes)) {
+  if (auto RetainedNodesTuple = dyn_cast_or_null<MDTuple>(RetainedNodes)) {
     SmallPtrSet<Metadata *, 16> RetainSet(NewRetainedNodes.begin(), NewRetainedNodes.end());
     for (auto *N : DINodeArray(RetainedNodesTuple))
       if (RetainSet.insert(N).second)
