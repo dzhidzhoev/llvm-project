@@ -297,9 +297,6 @@ class IRLinker {
   GlobalValueMaterializer GValMaterializer;
   LocalValueMaterializer LValMaterializer;
 
-  /// A metadata map that's shared between IRLinker instances.
-  MDMapT &SharedMDs;
-
   /// Mapping of values from what they used to be in Src, to what they are now
   /// in DstM.  ValueToValueMapTy is a ValueMap, which involves some overhead
   /// due to the use of Value handles which the Linker doesn't actually need,
@@ -432,24 +429,12 @@ class IRLinker {
   void updateAttributes(GlobalValue &GV);
 
 public:
-  IRLinker(Module &DstM, MDMapT &SharedMDs,
-           IRMover::IdentifiedStructTypeSet &Set, std::unique_ptr<Module> SrcM,
-           ArrayRef<GlobalValue *> ValuesToLink,
-           IRMover::LazyCallback AddLazyFor, bool IsPerformingImport)
-      : DstM(DstM), SrcM(std::move(SrcM)), AddLazyFor(std::move(AddLazyFor)),
-        TypeMap(Set), GValMaterializer(*this), LValMaterializer(*this),
-        SharedMDs(SharedMDs), IsPerformingImport(IsPerformingImport),
-        Mapper(ValueMap, RF_ReuseAndMutateDistinctMDs | RF_IgnoreMissingLocals,
-               &TypeMap, &GValMaterializer),
-        IndirectSymbolMCID(Mapper.registerAlternateMappingContext(
-            IndirectSymbolValueMap, &LValMaterializer)) {
-    ValueMap.getMDMap() = std::move(SharedMDs);
+  IRLinker(Module &DstM, IRMover::IdentifiedStructTypeSet &Set, std::unique_ptr<Module> SrcM, ArrayRef<GlobalValue *> ValuesToLink, IRMover::LazyCallback AddLazyFor, bool IsPerformingImport) : DstM(DstM), SrcM(std::move(SrcM)), AddLazyFor(std::move(AddLazyFor)), TypeMap(Set), GValMaterializer(*this), LValMaterializer(*this), IsPerformingImport(IsPerformingImport), Mapper(ValueMap, RF_ReuseAndMutateDistinctMDs | RF_IgnoreMissingLocals, &TypeMap, &GValMaterializer), IndirectSymbolMCID(Mapper.registerAlternateMappingContext(IndirectSymbolValueMap, &LValMaterializer)) {
     for (GlobalValue *GV : ValuesToLink)
       maybeAdd(GV);
     if (IsPerformingImport)
       prepareCompileUnitsForImport();
   }
-  ~IRLinker() { SharedMDs = std::move(*ValueMap.getMDMap()); }
 
   Error run();
   Value *materialize(Value *V, bool ForIndirectSymbol);
@@ -1660,18 +1645,12 @@ IRMover::IRMover(Module &M) : Composite(M) {
     else
       IdentifiedStructTypes.addNonOpaque(Ty);
   }
-  // Self-map metadatas in the destination module. This is needed when
-  // DebugTypeODRUniquing is enabled on the LLVMContext, since metadata in the
-  // destination module may be reached from the source module.
-  for (const auto *MD : StructTypes.getVisitedMetadata()) {
-    SharedMDs[MD].reset(const_cast<MDNode *>(MD));
-  }
 }
 
 Error IRMover::move(std::unique_ptr<Module> Src,
                     ArrayRef<GlobalValue *> ValuesToLink,
                     LazyCallback AddLazyFor, bool IsPerformingImport) {
-  IRLinker TheIRLinker(Composite, SharedMDs, IdentifiedStructTypes,
+  IRLinker TheIRLinker(Composite, IdentifiedStructTypes,
                        std::move(Src), ValuesToLink, std::move(AddLazyFor),
                        IsPerformingImport);
   return TheIRLinker.run();
