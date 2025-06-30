@@ -7,14 +7,12 @@
 // RUN: llvm-dis %t/odr2.bc
 // RUN: llvm-lto --save-linked-module -o %t/odr %t/odr1.bc %t/odr2.bc
 // RUN: llvm-dis %t/odr.linked.bc
-// RUN: llvm-dis -o - %t/odr.linked.bc | FileCheck %s --check-prefix=TYPE
-// RUN: llvm-dis -o - %t/odr.linked.bc | FileCheck %s --check-prefix=SP
+// RUN: llvm-dis -o - %t/odr.linked.bc | FileCheck %s
 
-// TYPE: !DICompositeType{{.*}}S_int
-// TYPE-NOT: !DICompositeType
-
-// SP: !DISubprogram{{.*}}foo
-// SP-NOT: !DISubprogram{{.*}}foo
+// CHECK-DAG: [[SP1:![0-9]+]] = distinct !DISubprogram(name: "foo"
+// CHECK-DAG: [[CT1:![0-9]+]] = {{(distinct )?}}!DICompositeType({{.*}}, name: "S_int", scope: [[SP1]]
+// CHECK-DAG: [[CT2:![0-9]+]] = {{(distinct )?}}!DICompositeType({{.*}}, name: "S_int", scope: [[SP2:![0-9]+]]
+// CHECK-DAG: [[SP2]] = distinct !DISubprogram(name: "foo"
 
 //--- odr.h
 #pragma once
