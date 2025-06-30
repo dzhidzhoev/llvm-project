@@ -13,6 +13,7 @@
 // TYPE: !DICompositeType{{.*}}S_int
 // TYPE-NOT: !DICompositeType
 
+// SP-NOT: define{{.*}}template_foo
 // SP: !DISubprogram{{.*}}template_foo
 // SP-NOT: !DISubprogram{{.*}}template_foo
 
