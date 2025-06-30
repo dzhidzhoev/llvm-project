@@ -3,6 +3,7 @@
 // RUN: split-file %s %t
 // RUN: %clang -flto=full -c -g -fstandalone-debug -O2 -o %t/odr1.bc %t/odr1.cpp
 // RUN: llvm-dis %t/odr1.bc
+// RUN: llvm-dis -o - %t/odr1.bc | FileCheck %s --check-prefix=INPUT
 // RUN: %clang -flto=full -c -g -fstandalone-debug -O2 -o %t/odr2.bc %t/odr2.cpp
 // RUN: llvm-dis %t/odr2.bc
 // RUN: llvm-lto --save-linked-module -o %t/odr %t/odr1.bc %t/odr2.bc
@@ -12,6 +13,8 @@
 
 // TYPE: !DICompositeType{{.*}}S_int
 // TYPE-NOT: !DICompositeType
+
+// INPUT-NOT: define {{.*}}template_foo
 
 // SP-NOT: define{{.*}}template_foo
 // SP: !DISubprogram{{.*}}template_foo
