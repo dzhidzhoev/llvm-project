@@ -21,6 +21,7 @@ set(CROSS_PROJECT_TEST_DEPS
   count
   llvm-dwarfdump
   llvm-config
+  llvm-lto
   llvm-objdump
   split-file
   not
