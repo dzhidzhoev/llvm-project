@@ -775,7 +775,7 @@ namespace llvm {
                          DINode::DIFlags Flags = DINode::FlagZero,
                          unsigned CC = 0);
 
-    /// Create a distinct clone of \p SP with FlagArtificial set.
+    /// Create a uniqued clone of \p SP with FlagArtificial set.
     LLVM_ABI static DISubprogram *createArtificialSubprogram(DISubprogram *SP);
 
     /// Create a uniqued clone of \p Ty with FlagArtificial set.

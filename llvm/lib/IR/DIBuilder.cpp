@@ -730,7 +730,7 @@ DICompositeType *DIBuilder::createVectorType(uint64_t Size,
 
 DISubprogram *DIBuilder::createArtificialSubprogram(DISubprogram *SP) {
   auto NewSP = SP->cloneWithFlags(SP->getFlags() | DINode::FlagArtificial);
-  return MDNode::replaceWithDistinct(std::move(NewSP));
+  return MDNode::replaceWithUniqued(std::move(NewSP));
 }
 
 static DIType *createTypeWithFlags(const DIType *Ty,
