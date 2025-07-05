@@ -1092,6 +1092,7 @@ bool DeadArgumentEliminationPass::removeDeadStuffFromFunction(Function *F) {
   if (NFTy != FTy && NF->getSubprogram()) {
     DISubprogram *SP = NF->getSubprogram();
     auto Temp = SP->getType()->cloneWithCC(llvm::dwarf::DW_CC_nocall);
+    // TODO fix this
     SP->replaceType(MDNode::replaceWithPermanent(std::move(Temp)));
   }
 

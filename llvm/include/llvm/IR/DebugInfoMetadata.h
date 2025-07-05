@@ -2427,6 +2427,8 @@ public:
   DIType *getContainingType() const {
     return cast_or_null<DIType>(getRawContainingType());
   }
+  
+  // TODO fix all usages of this
   void replaceType(DISubroutineType *Ty) {
     assert(isDistinct() && "Only distinct nodes can mutate");
     replaceOperandWith(4, Ty);
