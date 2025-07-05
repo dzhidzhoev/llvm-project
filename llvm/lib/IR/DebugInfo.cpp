@@ -599,12 +599,6 @@ public:
   MDNode *EmptySubroutineType;
 
 private:
-  /// Remember what linkage name we originally had before stripping. If we end
-  /// up making two subprograms identical who originally had different linkage
-  /// names, then we need to make one of them distinct, to avoid them getting
-  /// uniqued. Maps the new node to the old linkage name.
-  DenseMap<DISubprogram *, StringRef> NewToLinkageName;
-
   // TODO: Remember the distinct subprogram we created for a given linkage name,
   // so that we can continue to unique whenever possible. Map <newly created
   // node, old linkage name> to the first (possibly distinct) mdsubprogram
@@ -645,40 +639,12 @@ private:
     auto Variables = nullptr;
     auto TemplateParams = nullptr;
 
-    // Make a distinct DISubprogram, for situations that warrent it.
-    auto distinctMDSubprogram = [&]() {
-      return DISubprogram::getDistinct(
-          MDS->getContext(), FileAndScope, MDS->getName(), LinkageName,
-          FileAndScope, MDS->getLine(), Type, MDS->getScopeLine(),
-          ContainingType, MDS->getVirtualIndex(), MDS->getThisAdjustment(),
-          MDS->getFlags(), MDS->getSPFlags(), Unit, TemplateParams, Declaration,
-          Variables);
-    };
-
-    if (MDS->isDistinct())
-      return distinctMDSubprogram();
-
     auto *NewMDS = DISubprogram::get(
         MDS->getContext(), FileAndScope, MDS->getName(), LinkageName,
         FileAndScope, MDS->getLine(), Type, MDS->getScopeLine(), ContainingType,
         MDS->getVirtualIndex(), MDS->getThisAdjustment(), MDS->getFlags(),
         MDS->getSPFlags(), Unit, TemplateParams, Declaration, Variables);
 
-    StringRef OldLinkageName = MDS->getLinkageName();
-
-    // See if we need to make a distinct one.
-    auto OrigLinkage = NewToLinkageName.find(NewMDS);
-    if (OrigLinkage != NewToLinkageName.end()) {
-      if (OrigLinkage->second == OldLinkageName)
-        // We're good.
-        return NewMDS;
-
-      // Otherwise, need to make a distinct one.
-      // TODO: Query the map to see if we already have one.
-      return distinctMDSubprogram();
-    }
-
-    NewToLinkageName.insert({NewMDS, MDS->getLinkageName()});
     return NewMDS;
   }
 

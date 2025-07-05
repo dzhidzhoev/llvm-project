@@ -983,7 +983,7 @@ DISubprogram *DIBuilder::createFunction(
     bool UseKeyInstructions) {
   bool IsDefinition = SPFlags & DISubprogram::SPFlagDefinition;
   auto *Node = getSubprogram(
-      /*IsDistinct=*/IsDefinition, VMContext, getNonCompileUnitScope(Context),
+      /*IsDistinct=*/false, VMContext, getNonCompileUnitScope(Context),
       Name, LinkageName, File, LineNo, Ty, ScopeLine, nullptr, 0, 0, Flags,
       SPFlags, IsDefinition ? CUNode : nullptr, TParams, Decl, nullptr,
       ThrownTypes, Annotations, TargetFuncName, UseKeyInstructions);
@@ -1020,7 +1020,7 @@ DISubprogram *DIBuilder::createMethod(
   // FIXME: Do we want to use different scope/lines?
   bool IsDefinition = SPFlags & DISubprogram::SPFlagDefinition;
   auto *SP = getSubprogram(
-      /*IsDistinct=*/IsDefinition, VMContext, cast<DIScope>(Context), Name,
+      /*IsDistinct=*/false, VMContext, cast<DIScope>(Context), Name,
       LinkageName, F, LineNo, Ty, LineNo, VTableHolder, VIndex, ThisAdjustment,
       Flags, SPFlags, IsDefinition ? CUNode : nullptr, TParams, nullptr,
       nullptr, ThrownTypes, nullptr, "", IsDefinition && UseKeyInstructions);
