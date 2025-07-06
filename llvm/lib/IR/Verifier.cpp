@@ -336,9 +336,6 @@ class Verifier : public InstVisitor<Verifier>, VerifierSupport {
   /// Keep track of the metadata nodes that have been checked already.
   SmallPtrSet<const Metadata *, 32> MDNodes;
 
-  /// Keep track which DISubprogram is attached to which function.
-  DenseMap<const DISubprogram *, const Function *> DISubprogramAttachments;
-
   /// Track all DICompileUnits visited.
   SmallPtrSet<const Metadata *, 2> CUVisited;
 
@@ -483,7 +480,6 @@ public:
     verifyCompileUnits();
 
     verifyDeoptimizeCallingConvs();
-    DISubprogramAttachments.clear();
     return !Broken;
   }
 
@@ -1541,7 +1537,6 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
   auto *Unit = N.getRawUnit();
   if (N.isDefinition()) {
     // Subprogram definitions (not part of the type hierarchy).
-    CheckDI(N.isDistinct(), "subprogram definitions must be distinct", &N);
     CheckDI(Unit, "subprogram definitions must have a compile unit", &N);
     CheckDI(isa<DICompileUnit>(Unit), "invalid unit type", &N, Unit);
     // There's no good way to cross the CU boundary to insert a nested
@@ -3090,15 +3085,10 @@ void Verifier::visitFunction(const Function &F) {
                 "function must have a single !dbg attachment", &F, I.second);
         CheckDI(isa<DISubprogram>(I.second),
                 "function !dbg attachment must be a subprogram", &F, I.second);
-        CheckDI(cast<DISubprogram>(I.second)->isDistinct(),
-                "function definition may only have a distinct !dbg attachment",
+        CheckDI(cast<DISubprogram>(I.second)->isUniqued(),
+                "function definition may only have a unique !dbg attachment",
                 &F);
 
-        auto *SP = cast<DISubprogram>(I.second);
-        const Function *&AttachedTo = DISubprogramAttachments[SP];
-        CheckDI(!AttachedTo || AttachedTo == &F,
-                "DISubprogram attached to more than one function", SP, &F);
-        AttachedTo = &F;
         AllowLocs = AreDebugLocsAllowed::Yes;
         break;
       }
