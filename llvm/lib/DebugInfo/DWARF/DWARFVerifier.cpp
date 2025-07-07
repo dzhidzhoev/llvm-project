@@ -383,6 +383,7 @@ unsigned DWARFVerifier::verifyAbbrevSection(const DWARFDebugAbbrev *Abbrev) {
 
   const auto *AbbrDecls = *AbbrDeclsOrErr;
   unsigned NumErrors = 0;
+  // TODO: test that
   for (auto AbbrDecl : *AbbrDecls) {
     SmallDenseSet<uint16_t> AttributeSet;
     for (auto Attribute : AbbrDecl.attributes()) {
@@ -650,6 +651,23 @@ unsigned DWARFVerifier::verifyDieRanges(const DWARFDie &Die,
           dump(ParentRI.Die);
           dump(Die, 2) << '\n';
         });
+  }
+
+  SmallSet<dwarf::Attribute, 8> AttrNames;
+  if (!Die.isNULL()) {
+    for (auto AttrValue : Die.attributes()) {
+      // TODO: make a test for this
+      if (!AttrNames.insert(AttrValue.Attr).second) {
+        ++NumErrors;
+        ErrorCategory.Report(
+            "Two attributes with the same name in DIE", [&]() {
+              error()
+                  << "Two attributes with the same name in DIE:\n";
+              dump(Die) << '\n';
+              error() << formatv("{0}\n", AttrValue.Attr);
+            });
+      }
+    }
   }
 
   // Recursively check children.
