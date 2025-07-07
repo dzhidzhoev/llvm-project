@@ -119,7 +119,7 @@ TEST(StripTest, LoopMetadata) {
     !2 = !{}
     !3 = !{i32 1}
     !4 = !{i32 2, !"Debug Info Version", i32 3}
-    !5 = distinct !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !7)
+    !5 = !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !7)
     !6 = !DISubroutineType(types: !2)
     !7 = !{!8}
     !8 = !DILocalVariable(name: "1", scope: !5, file: !1, line: 1, type: !9)
@@ -173,7 +173,7 @@ TEST(MetadataTest, DeleteInstUsedByDbgRecord) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -216,7 +216,7 @@ TEST(MetadataTest, GlobalConstantMetadataUsedByDbgRecord) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -256,7 +256,7 @@ TEST(DbgVariableIntrinsic, EmptyMDIsKillLocation) {
     !2 = !{i32 7, !"Dwarf Version", i32 5}
     !3 = !{i32 2, !"Debug Info Version", i32 3}
     !8 = !{!"clang version 16.0.0"}
-    !9 = distinct !DISubprogram(name: "fun", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+    !9 = !DISubprogram(name: "fun", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
     !10 = !DISubroutineType(types: !11)
     !11 = !{null}
     !12 = !{!13}
@@ -298,7 +298,7 @@ TEST(MetadataTest, DeleteInstUsedByDbgVariableRecord) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -343,7 +343,7 @@ TEST(MetadataTest, OrderingOfDbgVariableRecords) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "foo", scope: !6, file: !1, line: 1, type: !10)
@@ -570,7 +570,7 @@ TEST(DbgAssignIntrinsicTest, replaceVariableLocationOp) {
     !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !1, producer: "clang version 14.0.0", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
     !1 = !DIFile(filename: "test.cpp", directory: "/")
     !3 = !{i32 2, !"Debug Info Version", i32 3}
-    !7 = distinct !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+    !7 = !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
     !8 = !DISubroutineType(types: !9)
     !9 = !{null}
     !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -662,21 +662,21 @@ TEST(AssignmentTrackingTest, Utils) {
     !4 = !{i32 2, !"Debug Info Version", i32 3}
     !5 = !{i32 1, !"wchar_size", i32 4}
     !6 = !{!"clang version 14.0.0"}
-    !7 = distinct !DISubprogram(name: "fun1", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+    !7 = !DISubprogram(name: "fun1", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
     !8 = !DISubroutineType(types: !9)
     !9 = !{null}
     !10 = !DILocalVariable(name: "local3", scope: !14, file: !1, line: 2, type: !11)
     !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
     !12 = distinct !DIAssignID()
     !13 = !DILocation(line: 5, column: 1, scope: !14, inlinedAt: !15)
-    !14 = distinct !DISubprogram(name: "inline", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+    !14 = !DISubprogram(name: "inline", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
     !15 = !DILocation(line: 3, column: 1, scope: !7)
     !16 = !DILocalVariable(name: "local1", scope: !7, file: !1, line: 2, type: !11)
-    !17 = distinct !DISubprogram(name: "fun2", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+    !17 = !DISubprogram(name: "fun2", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
     !18 = !DILocalVariable(name: "local2", scope: !17, file: !1, line: 2, type: !11)
     !19 = !DILocation(line: 4, column: 1, scope: !17)
     !20 = distinct !DIAssignID()
-    !21 = distinct !DISubprogram(name: "fun3", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+    !21 = !DISubprogram(name: "fun3", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
     !22 = !DILocalVariable(name: "local4", scope: !21, file: !1, line: 2, type: !11)
     !23 = !DILocation(line: 4, column: 1, scope: !21)
     !24 = distinct !DIAssignID()
@@ -806,7 +806,7 @@ TEST(AssignmentTrackingTest, InstrMethods) {
     !5 = !{i32 7, !"uwtable", i32 1}
     !6 = !{i32 7, !"frame-pointer", i32 2}
     !7 = !{!"clang version 14.0.0"}
-    !8 = distinct !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !11)
+    !8 = !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !11)
     !9 = !DISubroutineType(types: !10)
     !10 = !{null}
     !11 = !{}
@@ -961,7 +961,7 @@ TEST(MetadataTest, ConvertDbgToDbgVariableRecord) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1145,7 +1145,7 @@ TEST(MetadataTest, DbgVariableRecordConversionRoutines) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)

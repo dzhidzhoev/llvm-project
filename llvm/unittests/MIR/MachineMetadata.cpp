@@ -306,7 +306,7 @@ TEST_F(MachineMetadataTest, isMetaInstruction) {
   !5 = !{i32 7, !"uwtable", i32 1}
   !6 = !{i32 7, !"frame-pointer", i32 2}
   !7 = !{!""}
-  !8 = distinct !DISubprogram(name: "test0", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+  !8 = !DISubprogram(name: "test0", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
   !9 = !DISubroutineType(types: !10)
   !10 = !{null, !11}
   !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

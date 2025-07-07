@@ -63,7 +63,7 @@ TEST(DroppedVariableStatsIR, BothDeleted) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}
@@ -118,7 +118,7 @@ TEST(DroppedVariableStatsIR, DbgValLost) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}
@@ -172,7 +172,7 @@ TEST(DroppedVariableStatsIR, UnrelatedScopes) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}
@@ -181,7 +181,7 @@ TEST(DroppedVariableStatsIR, UnrelatedScopes) {
       !15 = !DILocalVariable(name: "x", arg: 1, scope: !9, file: !10, line: 1, type: !13)
       !16 = !DILocation(line: 0, scope: !9)
       !17 = !DILocation(line: 2, column: 11, scope: !18)
-      !18 = distinct !DISubprogram(name: "bar", linkageName: "_Z3bari", scope: !10, file: !10, line: 11, type: !11, scopeLine: 1,  unit: !0, retainedNodes: !14))";
+      !18 = !DISubprogram(name: "bar", linkageName: "_Z3bari", scope: !10, file: !10, line: 11, type: !11, scopeLine: 1,  unit: !0, retainedNodes: !14))";
 
   std::unique_ptr<llvm::Module> M = parseIR(C, IR);
   ASSERT_TRUE(M);
@@ -227,7 +227,7 @@ TEST(DroppedVariableStatsIR, ChildScopes) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}
@@ -282,7 +282,7 @@ TEST(DroppedVariableStatsIR, InlinedAt) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}
@@ -338,7 +338,7 @@ TEST(DroppedVariableStatsIR, InlinedAtShared) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}
@@ -394,7 +394,7 @@ TEST(DroppedVariableStatsIR, InlinedAtChild) {
       !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
       !3 = !{i32 2, !"Debug Info Version", i32 3}
       !8 = !{!"clang"}
-      !9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
+      !9 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, unit: !0, retainedNodes: !14)
       !10 = !DIFile(filename: "/tmp/code.cpp", directory: "")
       !11 = !DISubroutineType(types: !12)
       !12 = !{!13, !13}

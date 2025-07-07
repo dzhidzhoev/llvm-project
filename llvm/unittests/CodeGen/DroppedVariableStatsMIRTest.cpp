@@ -98,7 +98,7 @@ TEST(DroppedVariableStatsMIR, BothDeleted) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -247,7 +247,7 @@ TEST(DroppedVariableStatsMIR, DbgValLost) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -389,7 +389,7 @@ TEST(DroppedVariableStatsMIR, UnrelatedScopes) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -398,7 +398,7 @@ TEST(DroppedVariableStatsMIR, UnrelatedScopes) {
   !10 = !DILocalVariable(name: "x", arg: 1, scope: !4, file: !5, line: 1, type: !8)
   !11 = !DILocation(line: 0, scope: !4)
   !12 = !DILocation(line: 2, column: 11, scope: !13)
-  !13 = distinct !DISubprogram(name: "bar", linkageName: "_Z3bari", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !13 = !DISubprogram(name: "bar", linkageName: "_Z3bari", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
 
 ...
 ---
@@ -532,7 +532,7 @@ TEST(DroppedVariableStatsMIR, ChildScopes) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -676,7 +676,7 @@ TEST(DroppedVariableStatsMIR, InlinedAt) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -821,7 +821,7 @@ TEST(DroppedVariableStatsMIR, InlinedAtShared) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -966,7 +966,7 @@ TEST(DroppedVariableStatsMIR, InlinedAtChild) {
   !1 = !DIFile(filename: "/tmp/code.cpp", directory: "/")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
   !3 = !{!"clang"}
-  !4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+  !4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
   !5 = !DIFile(filename: "/tmp/code.cpp", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}

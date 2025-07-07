@@ -60,7 +60,7 @@ TEST(BasicBlockDbgInfoTest, InsertAfterSelf) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -127,7 +127,7 @@ TEST(BasicBlockDbgInfoTest, SplitBasicBlockBefore) {
     !7 = !{i32 7, !"uwtable", i32 2}
     !8 = !{i32 7, !"frame-pointer", i32 2}
     !9 = !{!"dummy"}
-    !10 = distinct !DISubprogram(name: "func", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+    !10 = !DISubprogram(name: "func", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
     !11 = !DISubroutineType(types: !12)
     !12 = !{null}
     !13 = !{}
@@ -164,7 +164,7 @@ TEST(BasicBlockDbgInfoTest, DropSourceAtomOnSplit) {
     !1 = !DIFile(filename: "dummy", directory: "dummy")
     !2 = !{i32 7, !"Dwarf Version", i32 5}
     !3 = !{i32 2, !"Debug Info Version", i32 3}
-    !10 = distinct !DISubprogram(name: "func", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13, keyInstructions: true)
+    !10 = !DISubprogram(name: "func", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13, keyInstructions: true)
     !11 = !DISubroutineType(types: !12)
     !12 = !{null}
     !13 = !{}
@@ -237,7 +237,7 @@ TEST(BasicBlockDbgInfoTest, MarkerOperations) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -365,7 +365,7 @@ TEST(BasicBlockDbgInfoTest, HeadBitOperations) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -468,7 +468,7 @@ TEST(BasicBlockDbgInfoTest, InstrDbgAccess) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -593,7 +593,7 @@ static const std::string SpliceTestIR = R"(
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1236,7 +1236,7 @@ TEST(BasicBlockDbgInfoTest, DbgSpliceTrailing) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1286,7 +1286,7 @@ TEST(BasicBlockDbgInfoTest, RemoveInstAndReinsert) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1360,7 +1360,7 @@ TEST(BasicBlockDbgInfoTest, RemoveInstAndReinsertForOneDbgVariableRecord) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1437,7 +1437,7 @@ TEST(BasicBlockDbgInfoTest, DbgSpliceToEmpty1) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1502,7 +1502,7 @@ TEST(BasicBlockDbgInfoTest, DbgSpliceToEmpty2) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1567,7 +1567,7 @@ TEST(BasicBlockDbgInfoTest, DbgMoveToEnd) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1609,7 +1609,7 @@ TEST(BasicBlockDbgInfoTest, CloneTrailingRecordsToEmptyBlock) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
