@@ -238,7 +238,7 @@ declare float @llvm.minimum.f32(float, float)
 !5 = !{i32 2, !"Debug Info Version", i32 3}
 !6 = !{!""}
 !7 = !DILocation(line: 2, column: 6, scope: !8)
-!8 = distinct !DISubprogram(name: "arst", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "arst", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null, !11}
 !11 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !12, size: 64)

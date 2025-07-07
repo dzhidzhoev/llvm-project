@@ -34,6 +34,6 @@ attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "intel
 !7 = distinct !DICompileUnit(language: DW_LANG_Fortran95, file: !4, producer: "Intel(R) Fortran 22.0-1483", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !12 = !{i32 2, !"Debug Info Version", i32 3}
 !13 = !{i32 2, !"Dwarf Version", i32 4}
-!23 = distinct !DISubprogram(name: "sub1_.t0p", linkageName: "sub1_.t0p", scope: !4, file: !4, type: !5, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !7, retainedNodes: !24, targetFuncName: "sub1_")
+!23 = !DISubprogram(name: "sub1_.t0p", linkageName: "sub1_.t0p", scope: !4, file: !4, type: !5, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !7, retainedNodes: !24, targetFuncName: "sub1_")
 !24 = !{}
 !25 = !DILocation(line: 0, scope: !23)

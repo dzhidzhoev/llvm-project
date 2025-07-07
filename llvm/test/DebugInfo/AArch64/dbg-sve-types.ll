@@ -27,7 +27,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0"}
-!7 = distinct !DISubprogram(name: "test_svint8_t", scope: !8, file: !8, line: 5, type: !9, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
+!7 = !DISubprogram(name: "test_svint8_t", scope: !8, file: !8, line: 5, type: !9, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
 !8 = !DIFile(filename: "dbg-sve-types.ll", directory: "")
 !9 = !DISubroutineType(types: !10)
 !10 = !{!11, !11}

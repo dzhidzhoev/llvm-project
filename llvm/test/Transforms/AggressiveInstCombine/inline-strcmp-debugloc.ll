@@ -44,13 +44,13 @@ declare i32 @strcmp(ptr, ptr)
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 258, column: 10, scope: !5)
-!5 = distinct !DISubprogram(name: "streq", scope: !1, file: !1, line: 257, type: !7, scopeLine: 257, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "streq", scope: !1, file: !1, line: 257, type: !7, scopeLine: 257, unit: !0, retainedNodes: !2)
 !7 = !DISubroutineType(types: !2)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: [[META2:![0-9]+]], retainedTypes: [[META2]], globals: [[META2]])
 ; CHECK: [[META1]] = !DIFile(filename: "test.c", directory: {{.*}})
 ; CHECK: [[META2]] = !{}
 ; CHECK: [[DBG4]] = !DILocation(line: 258, column: 10, scope: [[META5:![0-9]+]])
-; CHECK: [[META5]] = distinct !DISubprogram(name: "streq", scope: [[META1]], file: [[META1]], line: 257, type: [[META6:![0-9]+]], scopeLine: 257, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[META5]] = !DISubprogram(name: "streq", scope: [[META1]], file: [[META1]], line: 257, type: [[META6:![0-9]+]], scopeLine: 257, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META6]] = !DISubroutineType(types: [[META2]])
 ;.

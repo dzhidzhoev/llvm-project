@@ -120,6 +120,6 @@ v39:                                              ; preds = %v21
 !85 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "_Default_allocator_traits", scope: !22, file: !26, line: 647, size: 8, flags: DIFlagTypePassByValue, elements: !10, templateParams: !10, identifier: ".?AU?")
 !86 = !DIDerivedType(tag: DW_TAG_member, name: "_Min_buckets", scope: !81, file: !57, line: 365, baseType: !79, flags: DIFlagPublic | DIFlagStaticMember, extraData: i64 8)
 !87 = !{i32 2, !"Debug Info Version", i32 3}
-!88 = distinct !DISubprogram(name: "get", linkageName: "foo", scope: !5, file: !1, line: 32, type: !89, scopeLine: 32, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !90, retainedNodes: !10, thrownTypes: !10)
+!88 = !DISubprogram(name: "get", linkageName: "foo", scope: !5, file: !1, line: 32, type: !89, scopeLine: 32, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !90, retainedNodes: !10, thrownTypes: !10)
 !89 = !DISubroutineType(types: !10)
 !90 = !DISubprogram(name: "get", linkageName: "foo", scope: !5, file: !1, line: 32, type: !89, scopeLine: 32, spFlags: DISPFlagOptimized, thrownTypes: !10)

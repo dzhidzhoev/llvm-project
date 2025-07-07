@@ -58,7 +58,7 @@ if.end:                                           ; preds = %if.else, %if.then
 !0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 21.0.0git", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !1 = !DIFile(filename: "repro.c", directory: "")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "foo", scope: !4, file: !4, line: 1, type: !5, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !6)
+!3 = !DISubprogram(name: "foo", scope: !4, file: !4, line: 1, type: !5, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !6)
 !4 = !DIFile(filename: "1.c", directory: "")
 !5 = !DISubroutineType(types: !6)
 !6 = !{}
@@ -71,7 +71,7 @@ if.end:                                           ; preds = %if.else, %if.then
 !13 = !DILexicalBlockFile(scope: !14, file: !9, discriminator: 0)
 !14 = distinct !DILexicalBlock(scope: !11, file: !4, line: 6, column: 9)
 
-; CHECK: [[SP:![0-9]+]] = distinct !DISubprogram(name: "foo", scope: [[FILE1:![0-9]+]], file: [[FILE1]], line: 1
+; CHECK: [[SP:![0-9]+]] = !DISubprogram(name: "foo", scope: [[FILE1:![0-9]+]], file: [[FILE1]], line: 1
 ; CHECK: [[FILE1]] = !DIFile(filename: "1.c", directory: "")
 ; CHECK: [[PHILOC]] = !DILocation(line: 42, column: 3, scope: [[LBF:![0-9]+]])
 ; CHECK: [[LBF]] = !DILexicalBlockFile(scope: [[LB:![0-9]+]], file: [[FILE2:![0-9]+]], discriminator: 0)

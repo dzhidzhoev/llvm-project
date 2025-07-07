@@ -79,5 +79,5 @@ define i32 @dummy2(i32 %x, i32 %y, i32 %z) !dbg !4 {
 !1 = !DIFile(filename: "test_dir/test_file", directory: "test_dir")
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "dummy1", scope: !1, unit: !0)
+!4 = !DISubprogram(name: "dummy1", scope: !1, unit: !0)
 

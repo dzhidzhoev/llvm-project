@@ -94,7 +94,7 @@
   !8 = !{i32 8, !"sign-return-address-all", i32 0}
   !9 = !{i32 8, !"sign-return-address-with-bkey", i32 0}
   !10 = !{!"clang version 12.0.0 (https://github.com/llvm/llvm-project.git b19275ba870a06c5ef0428af6264ffd28c7cde9e)"}
-  !11 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, type: !12, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+  !11 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, type: !12, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
   !12 = !DISubroutineType(types: !13)
   !13 = !{!14, !14, !14, !21, !21, !27}
   !15 = !DIFile(filename: "lib/clang/12.0.0/include/arm_sve.h", directory: "/tmp")

@@ -63,7 +63,7 @@ attributes #1 = { "frame-pointer"="none" "no-trapping-math"="true" "stack-protec
 !14 = !{i32 2, !"Debug Info Version", i32 3}
 !15 = !{i32 1, !"wchar_size", i32 4}
 !16 = !{!"clang version 15.0.0 (https://github.com/llvm/llvm-project.git 2f52a868225755ebfa5242992d3a650ac6aadce7)"}
-!17 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !5, file: !5, line: 10, type: !18, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !20)
+!17 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !5, file: !5, line: 10, type: !18, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !20)
 !18 = !DISubroutineType(types: !19)
 !19 = !{null}
 !20 = !{}

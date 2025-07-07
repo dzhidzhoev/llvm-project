@@ -1240,7 +1240,7 @@ declare i32 @read_memory_only() readonly nounwind willreturn speculatable
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{!"clang"}
 !5 = !DIBasicType(name: "int", size: 16, encoding: DW_ATE_signed)
-!6 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, unit: !0)
+!6 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, unit: !0)
 !7 = !DILocation(line: 5, column: 7, scope: !6)
 !8 = !DILocalVariable(name: "a", scope: !6, line: 6, type: !5)
 !9 = distinct !DIAssignID()

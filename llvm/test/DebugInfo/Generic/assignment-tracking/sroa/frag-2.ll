@@ -153,7 +153,7 @@ declare dso_local void @_ZN1a1cEv(ptr) local_unnamed_addr #5
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0"}
-!7 = distinct !DISubprogram(name: "operator*", linkageName: "_ZNK1BmlERKS_", scope: !8, file: !1, line: 14, type: !33, scopeLine: 14, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !32, retainedNodes: !38)
+!7 = !DISubprogram(name: "operator*", linkageName: "_ZNK1BmlERKS_", scope: !8, file: !1, line: 14, type: !33, scopeLine: 14, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !32, retainedNodes: !38)
 !8 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "B", file: !1, line: 6, size: 160, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !9, identifier: "_ZTS1B")
 !9 = !{!10, !12, !24, !28, !32}
 !10 = !DIDerivedType(tag: DW_TAG_member, name: "g", scope: !8, file: !1, line: 11, baseType: !11, size: 32, flags: DIFlagPublic)
@@ -190,7 +190,7 @@ declare dso_local void @_ZN1a1cEv(ptr) local_unnamed_addr #5
 !41 = !DILocalVariable(arg: 2, scope: !7, file: !1, line: 14, type: !37)
 !42 = !DILocation(line: 14, column: 41, scope: !7)
 !47 = !DILocation(line: 8, column: 12, scope: !48, inlinedAt: !53)
-!48 = distinct !DISubprogram(name: "B", linkageName: "_ZN1BC2E1a", scope: !8, file: !1, line: 8, type: !25, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !24, retainedNodes: !49)
+!48 = !DISubprogram(name: "B", linkageName: "_ZN1BC2E1a", scope: !8, file: !1, line: 8, type: !25, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !24, retainedNodes: !49)
 !49 = !{!50, !52}
 !50 = !DILocalVariable(name: "this", arg: 1, scope: !48, type: !51, flags: DIFlagArtificial | DIFlagObjectPointer)
 !51 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !8, size: 64)
@@ -199,7 +199,7 @@ declare dso_local void @_ZN1a1cEv(ptr) local_unnamed_addr #5
 !54 = !DILocation(line: 14, column: 34, scope: !7)
 !55 = !DILocation(line: 8, column: 12, scope: !48)
 !56 = !DILocation(line: 8, column: 18, scope: !48)
-!57 = distinct !DISubprogram(name: "j", linkageName: "_Z1jv", scope: !1, file: !1, line: 19, type: !58, scopeLine: 19, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !60)
+!57 = !DISubprogram(name: "j", linkageName: "_Z1jv", scope: !1, file: !1, line: 19, type: !58, scopeLine: 19, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !60)
 !58 = !DISubroutineType(types: !59)
 !59 = !{null}
 !60 = !{!61, !68, !69, !70, !71, !72}
@@ -232,7 +232,7 @@ declare dso_local void @_ZN1a1cEv(ptr) local_unnamed_addr #5
 !90 = distinct !DILocation(line: 14, column: 41, scope: !7, inlinedAt: !85)
 !91 = !DILocation(line: 22, column: 3, scope: !57)
 !92 = !DILocation(line: 9, column: 19, scope: !93, inlinedAt: !96)
-!93 = distinct !DISubprogram(name: "f", linkageName: "_ZN1B1fEv", scope: !8, file: !1, line: 9, type: !29, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !28, retainedNodes: !94)
+!93 = !DISubprogram(name: "f", linkageName: "_ZN1B1fEv", scope: !8, file: !1, line: 9, type: !29, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !28, retainedNodes: !94)
 !94 = !{!95}
 !95 = !DILocalVariable(name: "this", arg: 1, scope: !93, type: !51, flags: DIFlagArtificial | DIFlagObjectPointer)
 !96 = distinct !DILocation(line: 22, column: 11, scope: !57)

@@ -36,7 +36,7 @@ attributes #0 = { noinline nounwind optnone ssp "frame-pointer"="non-leaf" "no-b
 !5 = !{i32 8, !"PIC Level", i32 2}
 !6 = !{i32 7, !"frame-pointer", i32 1}
 !7 = !{!"clang version 17.0.0 (git@github.com:llvm/llvm-project.git e734a12b608f8c4a2b03fb2f3194de1cc3b43344)"}
-!8 = distinct !DISubprogram(name: "foo", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!8 = !DISubprogram(name: "foo", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !9 = !DIFile(filename: "/tmp/test.c", directory: "")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}

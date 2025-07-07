@@ -26,7 +26,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !6 = !DIBasicType(name: "var", size: 32, encoding: DW_ATE_signed_fixed)
 !19 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DISubroutineType(types: null)
-!26 = distinct !DISubprogram(unit: !0, type: !3)
+!26 = !DISubprogram(unit: !0, type: !3)
 !37 = !DILocalVariable(name: "intercept", arg: 2, scope: !26, file: !1, line: 7, type: !6)
 !39 = !DILocation(line: 0, scope: !26)
 

@@ -40,7 +40,7 @@ attributes #0 = { "frame-pointer"="all" }
 !0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, emissionKind: FullDebug)
 !1 = !DIFile(filename: "test.c", directory: "")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 5, type: !4, scopeLine: 5, unit: !0)
+!3 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 5, type: !4, scopeLine: 5, unit: !0)
 !4 = !DISubroutineType(types: !5)
 !5 = !{null}
 !6 = !DILocation(line: 6, column: 4, scope: !3)

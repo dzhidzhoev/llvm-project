@@ -69,7 +69,7 @@ Merge:
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!""}
-!7 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !8, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !8, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !11, !11}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -88,7 +88,7 @@ Merge:
 ; CHECK: [[META4:![0-9]+]] = !{i32 2, !"Debug Info Version", i32 3}
 ; CHECK: [[META5:![0-9]+]] = !{i32 1, !"wchar_size", i32 4}
 ; CHECK: [[META6:![0-9]+]] = !{!""}
-; CHECK: [[META7:![0-9]+]] = distinct !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 3, type: [[META8:![0-9]+]], scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[META7:![0-9]+]] = !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 3, type: [[META8:![0-9]+]], scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META8]] = !DISubroutineType(types: [[META9:![0-9]+]])
 ; CHECK: [[META9]] = !{[[META10:![0-9]+]], [[META11:![0-9]+]], [[META11]]}
 ; CHECK: [[META10]] = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

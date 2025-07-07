@@ -76,7 +76,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !12 = !{i32 7, !"uwtable", i32 2}
 !13 = !{i32 1, !"MaxTLSAlign", i32 65536}
 !14 = !{!"clang version 18.0.0"}
-!15 = distinct !DISubprogram(name: "test", linkageName: "?test@@YAHXZ", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !18)
+!15 = !DISubprogram(name: "test", linkageName: "?test@@YAHXZ", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !18)
 !16 = !DISubroutineType(types: !17)
 !17 = !{!7}
 !18 = !{}

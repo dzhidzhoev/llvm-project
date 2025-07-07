@@ -29,7 +29,7 @@ entry:
 !1 = !DIFile(filename: "repro_bug.cpp", directory: "/tmp/repro", checksumkind: CSK_MD5, checksum: "74e33e88b3108a4f94403da9fdb362f5")
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "east", linkageName: "_my_test_function", scope: !6, file: !5, line: 114, type: !8, scopeLine: 114, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !9, retainedNodes: !2)
+!4 = !DISubprogram(name: "east", linkageName: "_my_test_function", scope: !6, file: !5, line: 114, type: !8, scopeLine: 114, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !9, retainedNodes: !2)
 !5 = !DIFile(filename: "repro_bug.cpp", directory: "/tmp/repro", checksumkind: CSK_MD5, checksum: "74e33e88b3108a4f94403da9fdb362f5")
 !6 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "rectangle", file: !5, line: 103, size: 256, flags: DIFlagTypePassByReference | DIFlagNonTrivial, elements: !2, vtableHolder: !7)
 !7 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "shape", file: !5, line: 58, size: 128, flags: DIFlagTypePassByReference | DIFlagNonTrivial, elements: !2, vtableHolder: !7, identifier: "_ZTS5shape")

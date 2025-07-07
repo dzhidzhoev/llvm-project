@@ -51,7 +51,7 @@ define void @main() !dbg !34 {
 !31 = !{i32 2, !"Dwarf Version", i32 4}
 !32 = !{i32 2, !"Debug Info Version", i32 3}
 !33 = !{!"clang version 3.7 (tags/RELEASE_370/final)"}
-!34 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 581, type: !35, scopeLine: 582, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!34 = !DISubprogram(name: "main", scope: !1, file: !1, line: 581, type: !35, scopeLine: 582, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !35 = !DISubroutineType(types: !36)
 !36 = !{null, !37, !58}
 !37 = !DICompositeType(tag: DW_TAG_structure_type, name: "VertexInput", file: !1, line: 254, size: 416, align: 32, elements: !38)

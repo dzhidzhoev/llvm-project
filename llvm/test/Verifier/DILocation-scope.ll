@@ -19,6 +19,6 @@ entry:
 !1 = !DIFile(filename: "t.c", directory: "/tmp")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !5, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, unit: !0)
+!4 = !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !5, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, unit: !0)
 !5 = !DISubroutineType(types: !{})
 !6 = !DILocation(line: 2, scope: !1)

@@ -41,7 +41,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !13 = !DIBasicType(name: "long int", size: 64, encoding: DW_ATE_signed)
 !14 = !{i32 2, !"Debug Info Version", i32 3}
 !15 = !{i32 7, !"uwtable", i32 1}
-!16 = distinct !DISubprogram(name: "intel_pmu_enable_bts", scope: !3, file: !3, line: 4, type: !17, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
+!16 = !DISubprogram(name: "intel_pmu_enable_bts", scope: !3, file: !3, line: 4, type: !17, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
 !17 = !DISubroutineType(types: !18)
 !18 = !{!8}
 !19 = !{!20, !21}

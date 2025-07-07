@@ -12,7 +12,7 @@
 ; CHECK-INTERESTINGNESS-DAG: [[CU]] = distinct !DICompileUnit(language: DW_LANG_C99,{{.*}}, retainedTypes: [[TYPES:![0-9]+]]
 ; CHECK-INTERESTINGNESS-DAG: [[TYPES]] = !{[[T0:![0-9]+]]
 ; CHECK-INTERESTINGNESS-DAG: [[T0]] = !DIBasicType(name: "unsigned int",
-; CHECK-INTERESTINGNESS-DAG: [[SUBPROG]] = distinct !DISubprogram(name: "test",
+; CHECK-INTERESTINGNESS-DAG: [[SUBPROG]] = !DISubprogram(name: "test",
 
 
 
@@ -25,7 +25,7 @@
 ; CHECK-DAG: [[EMPTY]] = !{}
 ; CHECK-DAG: [[TYPES]] = !{[[T0:![0-9]+]]
 ; CHECK-DAG: [[T0]] = !DIBasicType(name: "unsigned int",
-; CHECK-DAG: [[SUBPROG]] = distinct !DISubprogram(name: "test", {{.*}}retainedNodes: [[EMPTY]])
+; CHECK-DAG: [[SUBPROG]] = !DISubprogram(name: "test", {{.*}}retainedNodes: [[EMPTY]])
 
 define void @test() !dbg !17 {
   ret void
@@ -51,7 +51,7 @@ define void @test() !dbg !17 {
 !14 = !{!15}
 !15 = !DIGlobalVariableExpression(var: !16, expr: !DIExpression())
 !16 = distinct !DIGlobalVariable(scope: null, file: !3, line: 726, type: !13, isLocal: true, isDefinition: true)
-!17 = distinct !DISubprogram(name: "test", scope: !18, file: !18, line: 1839, type: !19, scopeLine: 1846, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
+!17 = !DISubprogram(name: "test", scope: !18, file: !18, line: 1839, type: !19, scopeLine: 1846, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
 !18 = !DIFile(filename: "bar.c", directory: "/tmp")
 !19 = !DISubroutineType(types: !20)
 !20 = !{null, !7}

@@ -26,11 +26,11 @@ entry:
 !1 = !DIFile(filename: "t.c", directory: "/tmp")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !5, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, unit: !0)
+!4 = !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !5, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, unit: !0)
 !5 = !DISubroutineType(types: !{})
-!6 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !5, isDefinition: false, scopeLine: 2)
+!6 = !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !5, isDefinition: false, scopeLine: 2)
 !7 = !DILocation(line: 2, scope: !6)
-!8 = distinct !DISubprogram(name: "g", scope: !1, file: !1, line: 2, type: !5, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, unit: !0)
+!8 = !DISubprogram(name: "g", scope: !1, file: !1, line: 2, type: !5, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, unit: !0)
 !9 = !DILocation(line: 2, scope: !10, inlinedAt: !11)
 !10 = !DILexicalBlockFile(scope: !6, file: !2, discriminator: 0)
 !11 = !DILocation(line: 2, scope: !8)

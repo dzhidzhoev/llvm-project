@@ -29,14 +29,14 @@ bb:
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 10, column: 1, scope: !10)
 !6 = !DIFile(filename: "debugloc-factoring-add.c", directory: "/tmp")
-!10 = distinct !DISubprogram(name: "ham", scope: !6, file: !6, line: 10, type: !11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!10 = !DISubprogram(name: "ham", scope: !6, file: !6, line: 10, type: !11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !11 = distinct !DISubroutineType(types: !12)
 !12 = !{null}
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: [[META2:![0-9]+]], retainedTypes: [[META2]], globals: [[META2]], splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "debugloc-factoring-add.c", directory: {{.*}})
 ; CHECK: [[META2]] = !{}
-; CHECK: [[DBG4]] = distinct !DISubprogram(name: "ham", scope: [[META1]], file: [[META1]], line: 10, type: [[META5:![0-9]+]], flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[DBG4]] = !DISubprogram(name: "ham", scope: [[META1]], file: [[META1]], line: 10, type: [[META5:![0-9]+]], flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META5]] = distinct !DISubroutineType(types: [[META6:![0-9]+]])
 ; CHECK: [[META6]] = !{null}
 ; CHECK: [[DBG7]] = !DILocation(line: 10, column: 1, scope: [[DBG4]])

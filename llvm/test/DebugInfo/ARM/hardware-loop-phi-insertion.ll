@@ -58,7 +58,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !15 = !{i32 7, !"frame-pointer", i32 2}
 !16 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !17 = !{!"clang version 19.0.0git"}
-!18 = distinct !DISubprogram(name: "func1", scope: !3, file: !3, line: 4, type: !19, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
+!18 = !DISubprogram(name: "func1", scope: !3, file: !3, line: 4, type: !19, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
 !19 = !DISubroutineType(types: !20)
 !20 = !{null}
 !21 = !{!23}

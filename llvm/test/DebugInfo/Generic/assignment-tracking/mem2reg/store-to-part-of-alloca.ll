@@ -67,7 +67,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !9 = !{!"clang version 17.0.0"}
-!10 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
+!10 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13}
 !13 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "Pair", file: !1, line: 1, size: 64, flags: DIFlagTypePassByValue, elements: !14, identifier: "_ZTS4Pair")

@@ -31,7 +31,7 @@ declare nonnull ptr @llvm.threadlocal.address.p0(ptr nonnull)
 !7 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !8 = !DIGlobalVariableExpression(var: !9, expr: !DIExpression())
 !9 = distinct !DIGlobalVariable(name: "TLocal", scope: !10, file: !3, line: 4, type: !7, isLocal: true, isDefinition: true)
-!10 = distinct !DISubprogram(name: "test", scope: !3, file: !3, line: 3, type: !11, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !13)
+!10 = !DISubprogram(name: "test", scope: !3, file: !3, line: 3, type: !11, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !13)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !{}

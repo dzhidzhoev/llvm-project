@@ -43,7 +43,7 @@ declare void @llvm.stackrestore(ptr) #1
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{i32 7, !"frame-pointer", i32 2}
 !9 = !{!"clang version 17.0.0"}
-!10 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!10 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !{}

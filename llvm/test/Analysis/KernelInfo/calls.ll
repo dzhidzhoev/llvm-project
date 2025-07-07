@@ -111,7 +111,7 @@ define void @i() {
 !3 = !{null}
 !4 = !{}
 
-!100 = distinct !DISubprogram(name: "h_dbg", scope: !2, file: !2, line: 13, type: !101, scopeLine: 13, flags: DIFlagArtificial | DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!100 = !DISubprogram(name: "h_dbg", scope: !2, file: !2, line: 13, type: !101, scopeLine: 13, flags: DIFlagArtificial | DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !1, retainedNodes: !4)
 !101 = distinct !DISubroutineType(types: !3)
 !102 = !DILocation(line: 16, column: 5, scope: !103)
 !103 = distinct !DILexicalBlock(scope: !100, file: !2, line: 13, column: 3)
@@ -125,7 +125,7 @@ define void @i() {
 !111 = !DILocation(line: 24, column: 5, scope: !103)
 !112 = !DILocation(line: 25, column: 5, scope: !103)
 
-!200 = distinct !DISubprogram(name: "g_dbg", scope: !2, file: !2, line: 3, type: !201, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!200 = !DISubprogram(name: "g_dbg", scope: !2, file: !2, line: 3, type: !201, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
 !201 = !DISubroutineType(types: !3)
 !202 = !DILocation(line: 6, column: 3, scope: !200)
 !203 = !DILocation(line: 7, column: 3, scope: !200)

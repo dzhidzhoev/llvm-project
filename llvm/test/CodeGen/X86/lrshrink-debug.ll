@@ -76,7 +76,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = !{}
 !16 = !{i32 2, !"Debug Info Version", i32 3}
 !17 = !DILocalVariable(name: "bitmap", scope: !18, file: !1, line: 8, type: !20)
-!18 = distinct !DISubprogram(name: "test", scope: !1, file: !1, line: 6, type: !19, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!18 = !DISubprogram(name: "test", scope: !1, file: !1, line: 6, type: !19, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !19 = !DISubroutineType(types: !2)
 !20 = !DIBasicType(name: "long long", size: 64, encoding: DW_ATE_signed)
 !21 = !DILocation(line: 0, scope: !18)

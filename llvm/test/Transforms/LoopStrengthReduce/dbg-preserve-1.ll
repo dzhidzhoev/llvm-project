@@ -40,7 +40,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !7 = !{i32 7, !"Dwarf Version", i32 4}
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{i32 1, !"wchar_size", i32 4}
-!10 = distinct !DISubprogram(name: "qux", scope: !5, file: !5, line: 27, type: !11, scopeLine: 27, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!10 = !DISubprogram(name: "qux", scope: !5, file: !5, line: 27, type: !11, scopeLine: 27, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null, !13, !13}
 !13 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !14, size: 64)
@@ -50,7 +50,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !17 = !DILocation(line: 30, column: 3, scope: !18)
 !18 = distinct !DILexicalBlock(scope: !10, file: !5, line: 30, column: 3)
 !19 = !DILocation(line: 12, column: 25, scope: !20, inlinedAt: !30)
-!20 = distinct !DISubprogram(name: "bar", scope: !5, file: !5, line: 8, type: !21, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !24)
+!20 = !DISubprogram(name: "bar", scope: !5, file: !5, line: 8, type: !21, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !24)
 !21 = !DISubroutineType(types: !22)
 !22 = !{null, !23, !13}
 !23 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !4, size: 64)
@@ -61,7 +61,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !28 = !{!29}
 !29 = !DISubrange(count: 4)
 !30 = distinct !DILocation(line: 23, column: 3, scope: !31, inlinedAt: !32)
-!31 = distinct !DISubprogram(name: "baz", scope: !5, file: !5, line: 21, type: !11, scopeLine: 21, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!31 = !DISubprogram(name: "baz", scope: !5, file: !5, line: 21, type: !11, scopeLine: 21, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !32 = distinct !DILocation(line: 31, column: 5, scope: !33)
 !33 = distinct !DILexicalBlock(scope: !34, file: !5, line: 30, column: 31)
 !34 = distinct !DILexicalBlock(scope: !18, file: !5, line: 30, column: 3)

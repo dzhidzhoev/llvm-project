@@ -35,8 +35,8 @@ define dso_local i32 @instr(i32 %a) !dbg !28 {
 !1 = !DIFile(filename: "a.c", directory: "")
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!9 = distinct !DISubprogram(name: "no_instr", scope: !1, file: !1, line: 5, type: !10, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!9 = !DISubprogram(name: "no_instr", scope: !1, file: !1, line: 5, type: !10, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !10 = !DISubroutineType(types: !2)
 !27 = !DILocation(line: 9, column: 3, scope: !9)
-!28 = distinct !DISubprogram(name: "instr", scope: !1, file: !1, line: 12, type: !10, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!28 = !DISubprogram(name: "instr", scope: !1, file: !1, line: 12, type: !10, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !44 = !DILocation(line: 16, column: 3, scope: !28)

@@ -46,7 +46,7 @@ declare void @use.i32(i32 noundef)
 !2 = !{i32 12}
 !3 = !{i32 0}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "add_sext__dominating_add_nsw", linkageName: "add_sext__dominating_add_nsw", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!5 = !DISubprogram(name: "add_sext__dominating_add_nsw", linkageName: "add_sext__dominating_add_nsw", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !6 = !DISubroutineType(types: !7)
 !7 = !{}
 !8 = !DILocation(line: 1, column: 1, scope: !5)
@@ -55,7 +55,7 @@ declare void @use.i32(i32 noundef)
 !11 = !DILocation(line: 4, column: 1, scope: !5)
 !12 = !DILocation(line: 5, column: 1, scope: !5)
 !13 = !DILocation(line: 6, column: 1, scope: !5)
-!14 = distinct !DISubprogram(name: "sub_sext__dominating_sub_nsw", linkageName: "sub_sext__dominating_sub_nsw", scope: null, file: !1, line: 7, type: !6, scopeLine: 7, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!14 = !DISubprogram(name: "sub_sext__dominating_sub_nsw", linkageName: "sub_sext__dominating_sub_nsw", scope: null, file: !1, line: 7, type: !6, scopeLine: 7, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !15 = !DILocation(line: 7, column: 1, scope: !14)
 !16 = !DILocation(line: 8, column: 1, scope: !14)
 !17 = !DILocation(line: 9, column: 1, scope: !14)

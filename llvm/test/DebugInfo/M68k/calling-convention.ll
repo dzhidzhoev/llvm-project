@@ -14,7 +14,7 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 17.0.0 (https://github.com/llvm/llvm-project.git)", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !1 = !DIFile(filename: "foo.c", directory: "/path/to/file")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "foo", scope: !4, file: !4, line: 4, type: !5, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !7)
+!3 = !DISubprogram(name: "foo", scope: !4, file: !4, line: 4, type: !5, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !7)
 !4 = !DIFile(filename: "./foo.c", directory: "/path/to/file")
 !5 = !DISubroutineType(cc: DW_CC_LLVM_M68kRTD, types: !6)
 !6 = !{null}

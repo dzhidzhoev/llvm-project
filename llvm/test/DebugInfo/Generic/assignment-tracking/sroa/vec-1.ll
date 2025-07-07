@@ -67,7 +67,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0"}
-!7 = distinct !DISubprogram(name: "d", linkageName: "_ZNK1c1dEv", scope: !8, file: !1, line: 8, type: !23, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !22, retainedNodes: !25)
+!7 = !DISubprogram(name: "d", linkageName: "_ZNK1c1dEv", scope: !8, file: !1, line: 8, type: !23, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !22, retainedNodes: !25)
 !8 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "c", file: !1, line: 4, size: 8, flags: DIFlagTypePassByValue, elements: !9, identifier: "_ZTS1c")
 !9 = !{!10, !22}
 !10 = !DISubprogram(name: "m_fn1", linkageName: "_ZNK1c5m_fn1Ev", scope: !8, file: !1, line: 5, type: !11, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagOptimized)

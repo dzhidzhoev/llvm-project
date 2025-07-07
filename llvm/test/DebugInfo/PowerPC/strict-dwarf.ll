@@ -61,12 +61,12 @@ entry:
 !9 = !{i32 1, !"wchar_size", i32 4}
 !10 = !{i32 7, !"uwtable", i32 1}
 !11 = !{!"clang version 13.0.0"}
-!12 = distinct !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !3, file: !3, line: 4, type: !13, scopeLine: 4, flags: DIFlagPrototyped | DIFlagNoReturn, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!12 = !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !3, file: !3, line: 4, type: !13, scopeLine: 4, flags: DIFlagPrototyped | DIFlagNoReturn, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !13 = !DISubroutineType(types: !14)
 !14 = !{null}
 !15 = !DILocation(line: 5, column: 1, scope: !12)
 !16 = !DILocation(line: 7, column: 1, scope: !12)
-!17 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 10, type: !18, scopeLine: 11, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!17 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 10, type: !18, scopeLine: 11, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !18 = !DISubroutineType(types: !19)
 !19 = !{!20}
 !20 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

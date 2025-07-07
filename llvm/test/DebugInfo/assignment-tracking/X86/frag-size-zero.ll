@@ -56,7 +56,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !20 = !{i32 1, !"wchar_size", i32 4}
 !21 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !22 = !{!"clang version 17.0.0"}
-!23 = distinct !DISubprogram(name: "main", scope: !9, file: !9, line: 7, type: !24, scopeLine: 8, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !26)
+!23 = !DISubprogram(name: "main", scope: !9, file: !9, line: 7, type: !24, scopeLine: 8, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !26)
 !24 = !DISubroutineType(types: !25)
 !25 = !{!14}
 !26 = !{!27}

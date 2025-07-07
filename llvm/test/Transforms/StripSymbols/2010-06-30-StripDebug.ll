@@ -29,6 +29,6 @@ attributes #1 = { nounwind readnone }
 !4 = !{i32 1, !"Debug Info Version", i32 3}
 !5 = distinct !DICompileUnit(language: DW_LANG_C89, file: !2, producer: "4.2.1 (Based on Apple Inc. build 5658) (LLVM build)", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, globals: !6)
 !6 = !{!0}
-!7 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: !2, file: !2, line: 2, type: !8, isLocal: false, isDefinition: true, virtualIndex: 6, isOptimized: true, unit: !5)
+!7 = !DISubprogram(name: "foo", linkageName: "foo", scope: !2, file: !2, line: 2, type: !8, isLocal: false, isDefinition: true, virtualIndex: 6, isOptimized: true, unit: !5)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}!10 = !DILocalVariable(name: "y", scope: !11, file: !2, line: 3, type: !3)!11 = distinct !DILexicalBlock(scope: !7, file: !2, line: 2)!12 = !DIExpression()!13 = !DILocation(line: 3, scope: !11)!14 = !DILocation(line: 4, scope: !11)

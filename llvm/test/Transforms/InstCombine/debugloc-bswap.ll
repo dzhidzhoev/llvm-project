@@ -39,13 +39,13 @@ entry:
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 8, column: 42, scope: !6)
 !5 = !DIFile(filename: "zlib_inflate.c", directory: "/tmp")
-!6 = distinct !DISubprogram(name: "inflate", scope: !5, file: !5, line: 622, type: !7, scopeLine: 625, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "inflate", scope: !5, file: !5, line: 622, type: !7, scopeLine: 625, unit: !0, retainedNodes: !2)
 !7 = distinct !DISubroutineType(types: !2)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "/tmp/zlib_inflate.c", directory: {{.*}})
 ; CHECK: [[DBG3]] = !DILocation(line: 8, column: 42, scope: [[META4:![0-9]+]])
-; CHECK: [[META4]] = distinct !DISubprogram(name: "inflate", scope: [[META5:![0-9]+]], file: [[META5]], line: 622, type: [[META6:![0-9]+]], scopeLine: 625, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META7:![0-9]+]])
+; CHECK: [[META4]] = !DISubprogram(name: "inflate", scope: [[META5:![0-9]+]], file: [[META5]], line: 622, type: [[META6:![0-9]+]], scopeLine: 625, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META7:![0-9]+]])
 ; CHECK: [[META5]] = !DIFile(filename: "zlib_inflate.c", directory: {{.*}})
 ; CHECK: [[META6]] = distinct !DISubroutineType(types: [[META7]])
 ; CHECK: [[META7]] = !{}

@@ -20,7 +20,7 @@
   !6 = !DIFile(filename: "foo.c", directory: "/")
   !7 = !{}
   !8 = !{!"clang"}
-  !9 = distinct !DISubprogram(name: "test_shl_imm_promote_debug", scope: !6, file: !6, line: 3, type: !10, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5, retainedNodes: !7)
+  !9 = !DISubprogram(name: "test_shl_imm_promote_debug", scope: !6, file: !6, line: 3, type: !10, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5, retainedNodes: !7)
   !10 = !DISubroutineType(types: !7)
   !11 = !DILocation(line: 4, column: 3, scope: !9)
   !12 = !DILocation(line: 5, column: 1, scope: !9)

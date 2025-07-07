@@ -31,7 +31,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !10 = !{i32 7, !"uwtable", i32 2}
 !16 = distinct !DICompileUnit(language: DW_LANG_Swift, file: !17, producer: "blah", emissionKind: FullDebug)
 !17 = !DIFile(filename: "blah", directory: "blah")
-!43 = distinct !DISubprogram(name: "blah", linkageName: "blah", file: !17, line: 87, type: !44, scopeLine: 87, unit: !16, retainedNodes: !48)
+!43 = !DISubprogram(name: "blah", linkageName: "blah", file: !17, line: 87, type: !44, scopeLine: 87, unit: !16, retainedNodes: !48)
 !44 = !DISubroutineType(types: !45)
 !45 = !{!46}
 !46 = !DICompositeType(tag: DW_TAG_structure_type, name: "blah")

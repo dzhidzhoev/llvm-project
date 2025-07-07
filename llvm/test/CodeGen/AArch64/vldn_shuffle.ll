@@ -754,7 +754,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !16 = !DIDerivedType(tag: DW_TAG_typedef, name: "int16x8_t", file: !1, line: 57, baseType: !17)
 !17 = !DICompositeType(tag: DW_TAG_array_type, baseType: !18, size: 128, flags: DIFlagVector, elements: !4)
 !18 = !DIBasicType(name: "short", size: 16, encoding: DW_ATE_signed)
-!19 = distinct !DISubprogram(name: "store_s16q_to_tran_low_", scope: !1, file: !1, line: 13, type: !12, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !20)
+!19 = !DISubprogram(name: "store_s16q_to_tran_low_", scope: !1, file: !1, line: 13, type: !12, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !20)
 !20 = !{!21}
 !21 = !DILocalVariable(name: "__s1", scope: !22, file: !1, line: 16, type: !16)
 !22 = distinct !DILexicalBlock(scope: !19, file: !1, line: 16, column: 3)

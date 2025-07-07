@@ -16,5 +16,5 @@ define void @bar() {
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1)
 !1 = !DIFile(filename: "t", directory: "/tmp/")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "a", scope: !1, file: !1, line: 10, unit: !0)
+!3 = !DISubprogram(name: "a", scope: !1, file: !1, line: 10, unit: !0)
 !4 = !DILocation(line: 10, scope: !3)

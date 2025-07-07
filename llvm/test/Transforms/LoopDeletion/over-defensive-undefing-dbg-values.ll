@@ -55,7 +55,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !6 = !{i32 7, !"uwtable", i32 2}
 !7 = !{i32 1, !"MaxTLSAlign", i32 65536}
 !8 = !{!"clang version 17.0.0"}
-!9 = distinct !DISubprogram(name: "test", scope: !1, file: !1, line: 7, type: !10, scopeLine: 7, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!9 = !DISubprogram(name: "test", scope: !1, file: !1, line: 7, type: !10, scopeLine: 7, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !{}
@@ -66,7 +66,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !17 = distinct !DILexicalBlock(scope: !9, file: !1, line: 9)
 !18 = !DILocation(line: 0, scope: !17)
 !19 = !DILocation(line: 9, scope: !17)
-!21 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 2, type: !22, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!21 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 2, type: !22, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !22 = !DISubroutineType(types: !23)
 !23 = !{!14, !14}
 !24 = !DILocation(line: 0, scope: !21, inlinedAt: !25)

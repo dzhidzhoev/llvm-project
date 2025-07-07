@@ -24,7 +24,7 @@ declare void @consume(ptr %ptr)
 !1 = !DIFile(filename: "x.c", directory: "/")
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 1, unit: !0)
+!6 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 1, unit: !0)
 !7 = !DISubroutineType(types: !8)
 !8 = !{null, !9, !9, !9}
 !9 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !10, size: 64)

@@ -255,7 +255,7 @@ attributes #1 = { "target-cpu"="generic" }
 !227 = !DIEnumerator(name: "_last", value: 12, isUnsigned: true)
 !228 = !{}
 !229 = !{i32 2, !"Debug Info Version", i32 3}
-!230 = distinct !DISubprogram(name: "lstat", linkageName: "_ZN3std3sys4unix2fs5lstat17h30bd1f0595542181E", scope: !232, file: !231, line: 1107, type: !235, scopeLine: 1107, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, templateParams: !228, retainedNodes: !345)
+!230 = !DISubprogram(name: "lstat", linkageName: "_ZN3std3sys4unix2fs5lstat17h30bd1f0595542181E", scope: !232, file: !231, line: 1107, type: !235, scopeLine: 1107, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, templateParams: !228, retainedNodes: !345)
 !231 = !DIFile(filename: "library/std/src/sys/unix/fs.rs", directory: "/b/s/w/ir/x/w/rust", checksumkind: CSK_MD5, checksum: "ae77e80deccbf04afd9757023ae02c00")
 !232 = !DINamespace(name: "fs", scope: !233)
 !233 = !DINamespace(name: "unix", scope: !234)

@@ -94,7 +94,7 @@
   !12 = !{i32 2, !"Debug Info Version", i32 3}
   !13 = !{i32 1, !"wchar_size", i32 4}
   !14 = !{!"clang version 11.0.0"}
-  !15 = distinct !DISubprogram(name: "funone", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !18)
+  !15 = !DISubprogram(name: "funone", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !18)
   !16 = !DISubroutineType(types: !17)
   !17 = !{!8}
   !18 = !{!19}
@@ -103,7 +103,7 @@
   !21 = !DILocation(line: 5, column: 7, scope: !22)
   !22 = distinct !DILexicalBlock(scope: !15, file: !3, line: 5, column: 7)
   !27 = !DILocation(line: 5, column: 7, scope: !15)
-  !34 = distinct !DISubprogram(name: "funtwo", scope: !3, file: !3, line: 13, type: !35, scopeLine: 13, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !38)
+  !34 = !DISubprogram(name: "funtwo", scope: !3, file: !3, line: 13, type: !35, scopeLine: 13, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !38)
   !35 = !DISubroutineType(types: !36)
   !36 = !{!37}
   !37 = !DIBasicType(name: "short", size: 16, encoding: DW_ATE_signed)

@@ -246,7 +246,7 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 !16 = !{i32 7, !"Dwarf Version", i32 5}
 !17 = !{i32 2, !"Debug Info Version", i32 3}
 !22 = !{!"clang version 17.0.0"}
-!23 = distinct !DISubprogram(name: "fun1", linkageName: "_Z4fun1v", scope: !3, file: !3, line: 2, type: !24, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !26)
+!23 = !DISubprogram(name: "fun1", linkageName: "_Z4fun1v", scope: !3, file: !3, line: 2, type: !24, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !26)
 !24 = !DISubroutineType(types: !25)
 !25 = !{!13}
 !26 = !{!27, !28, !29}
@@ -254,13 +254,13 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 !28 = !DILocalVariable(name: "y", scope: !23, file: !3, line: 3, type: !13)
 !29 = !DILocalVariable(scope: !23, file: !3, line: 3, type: !10)
 !31 = !DILocation(line: 3, column: 9, scope: !23)
-!48 = distinct !DISubprogram(name: "fun2", linkageName: "_Z4fun2v", scope: !3, file: !3, line: 8, type: !24, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !49)
+!48 = !DISubprogram(name: "fun2", linkageName: "_Z4fun2v", scope: !3, file: !3, line: 8, type: !24, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !49)
 !49 = !{!50, !51, !52}
 !50 = !DILocalVariable(name: "x", scope: !48, file: !3, line: 9, type: !10)
 !51 = !DILocalVariable(name: "y", scope: !48, file: !3, line: 9, type: !10)
 !52 = !DILocalVariable(scope: !48, file: !3, line: 9, type: !7)
 !54 = !DILocation(line: 9, column: 9, scope: !48)
-!55 = distinct !DISubprogram(name: "fun3", linkageName: "_Z4fun3v", scope: !3, file: !3, line: 8, type: !24, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !56)
+!55 = !DISubprogram(name: "fun3", linkageName: "_Z4fun3v", scope: !3, file: !3, line: 8, type: !24, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !56)
 !56 = !{}
 !58 = !DILocation(line: 9, column: 9, scope: !55)
 !60 = !DIBasicType(name: "short", size: 16, encoding: DW_ATE_signed)
@@ -268,7 +268,7 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 !62 = !DILocalVariable(name: "f", scope: !55, file: !3, line: 9, type: !60)
 !63 = !DILocalVariable(name: "g", scope: !55, file: !3, line: 9, type: !60)
 !64 = !DILocalVariable(name: "h", scope: !55, file: !3, line: 9, type: !60)
-!65 = distinct !DISubprogram(name: "fun4", linkageName: "_Z4fun4v", scope: !3, file: !3, line: 8, type: !24, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !56)
+!65 = !DISubprogram(name: "fun4", linkageName: "_Z4fun4v", scope: !3, file: !3, line: 8, type: !24, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !56)
 !66 = !DILocation(line: 9, column: 9, scope: !65)
 !67 = !DILocalVariable(name: "p", scope: !65, file: !3, line: 9, type: !13)
 !68 = !DILocalVariable(name: "q", scope: !65, file: !3, line: 9, type: !13)

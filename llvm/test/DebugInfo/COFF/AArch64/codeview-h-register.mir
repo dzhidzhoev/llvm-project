@@ -43,7 +43,7 @@
   !1 = !{i32 2, !"CodeView", i32 1}
   !2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3, isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
   !3 = !DIFile(filename: "test", directory: ".")
-  !4 = distinct !DISubprogram(name: "fn", linkageName: "test.fn", scope: !5, file: !5, line: 32, type: !6, scopeLine: 32, flags: DIFlagStaticMember, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !10)
+  !4 = !DISubprogram(name: "fn", linkageName: "test.fn", scope: !5, file: !5, line: 32, type: !6, scopeLine: 32, flags: DIFlagStaticMember, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !10)
   !5 = !DIFile(filename: "test.o", directory: ".")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !9}

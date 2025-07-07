@@ -59,7 +59,7 @@ d7ed17334cf0b76e6a5922)", isOptimized: true, runtimeVersion: 0, emissionKind: Fu
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 11.0.0 (git@github.com:tbosch/llvm-project.git 0b11aed869bf09ba60d7ed17334cf0b76e6a5922)"}
-!7 = distinct !DISubprogram(name: "fn1", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!7 = !DISubprogram(name: "fn1", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !11}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

@@ -87,7 +87,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !15 = !{i32 2, !"Debug Info Version", i32 3}
 !16 = !{i32 1, !"wchar_size", i32 4}
 !17 = !{!"clang version 13.0.0"}
-!18 = distinct !DISubprogram(name: "two", linkageName: "_Z3twoPv", scope: !1, file: !1, line: 6, type: !19, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !21)
+!18 = !DISubprogram(name: "two", linkageName: "_Z3twoPv", scope: !1, file: !1, line: 6, type: !19, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !21)
 !19 = !DISubroutineType(types: !20)
 !20 = !{!5, !9}
 !21 = !{!22}
@@ -98,7 +98,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !26 = !DILocation(line: 7, column: 16, scope: !25)
 !27 = !DILocation(line: 7, column: 7, scope: !18)
 !28 = !DILocation(line: 10, column: 1, scope: !18)
-!29 = distinct !DISubprogram(name: "one", linkageName: "_Z3onev", scope: !1, file: !1, line: 11, type: !30, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !32)
+!29 = !DISubprogram(name: "one", linkageName: "_Z3onev", scope: !1, file: !1, line: 11, type: !30, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !32)
 !30 = !DISubroutineType(types: !31)
 !31 = !{null}
 !32 = !{!33}
@@ -114,7 +114,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !46 = !DILocation(line: 12, column: 14, scope: !34)
 !47 = !DILocation(line: 12, column: 14, scope: !29)
 !48 = !DILocalVariable(name: "this", arg: 1, scope: !49, type: !5, flags: DIFlagArtificial | DIFlagObjectPointer)
-!49 = distinct !DISubprogram(name: "get", linkageName: "_ZN5Thing3getEv", scope: !6, file: !1, line: 4, type: !11, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !10, retainedNodes: !50)
+!49 = !DISubprogram(name: "get", linkageName: "_ZN5Thing3getEv", scope: !6, file: !1, line: 4, type: !11, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !10, retainedNodes: !50)
 !50 = !{!48}
 !51 = !DILocation(line: 0, scope: !49, inlinedAt: !52)
 !52 = distinct !DILocation(line: 14, column: 15, scope: !34)

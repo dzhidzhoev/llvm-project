@@ -46,7 +46,7 @@ declare !dbg !16 void @g() local_unnamed_addr
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{!"clang version 19.0.0git"}
-!9 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 3, type: !10, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!9 = !DISubprogram(name: "f", scope: !1, file: !1, line: 3, type: !10, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !10 = !DISubroutineType(types: !11)
 !11 = !{}
 !12 = !DILocation(line: 5, scope: !9)

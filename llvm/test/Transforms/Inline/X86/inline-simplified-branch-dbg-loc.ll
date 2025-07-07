@@ -81,17 +81,17 @@ bb2:                                              ; preds = %bb1, %bb1, %bb
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 26, column: 11, scope: !12)
 !6 = !DIFile(filename: "inline-simplified-branch-dbg-loc.cpp", directory: "/tmp")
-!12 = distinct !DISubprogram(name: "hoge", linkageName: "hoge", scope: !6, file: !6, line: 10, type: !13, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!12 = !DISubprogram(name: "hoge", linkageName: "hoge", scope: !6, file: !6, line: 10, type: !13, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !13 = distinct !DISubroutineType(types: !2)
 !14 = !DILocation(line: 16, column: 1, scope: !15)
-!15 = distinct !DISubprogram(name: "quux", linkageName: "quux", scope: !6, file: !6, line: 20, type: !13, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!15 = !DISubprogram(name: "quux", linkageName: "quux", scope: !6, file: !6, line: 20, type: !13, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, retainedTypes: [[META2:![0-9]+]], globals: [[META2]], imports: [[META2]], splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "inline-simplified-branch-dbg-loc.cpp", directory: {{.*}})
 ; CHECK: [[META2]] = !{}
 ; CHECK: [[DBG4]] = !DILocation(line: 26, column: 11, scope: [[META5:![0-9]+]])
-; CHECK: [[META5]] = distinct !DISubprogram(name: "hoge", linkageName: "hoge", scope: [[META1]], file: [[META1]], line: 10, type: [[META6:![0-9]+]], scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[META5]] = !DISubprogram(name: "hoge", linkageName: "hoge", scope: [[META1]], file: [[META1]], line: 10, type: [[META6:![0-9]+]], scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META6]] = distinct !DISubroutineType(types: [[META2]])
 ; CHECK: [[DBG7]] = !DILocation(line: 16, column: 1, scope: [[META8:![0-9]+]])
-; CHECK: [[META8]] = distinct !DISubprogram(name: "quux", linkageName: "quux", scope: [[META1]], file: [[META1]], line: 20, type: [[META6]], scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[META8]] = !DISubprogram(name: "quux", linkageName: "quux", scope: [[META1]], file: [[META1]], line: 20, type: [[META6]], scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ;.

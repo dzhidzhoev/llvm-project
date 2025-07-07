@@ -88,7 +88,7 @@ declare !dbg !49 dso_local void @c(...)
 !11 = !{i32 2, !"Debug Info Version", i32 3}
 !12 = !{i32 1, !"wchar_size", i32 4}
 !13 = !{!"clang version 12.0.0"}
-!14 = distinct !DISubprogram(name: "fun", scope: !3, file: !3, line: 12, type: !15, scopeLine: 12, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !17)
+!14 = !DISubprogram(name: "fun", scope: !3, file: !3, line: 12, type: !15, scopeLine: 12, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !17)
 !15 = !DISubroutineType(types: !16)
 !16 = !{null}
 !17 = !{!18}
@@ -97,7 +97,7 @@ declare !dbg !49 dso_local void @c(...)
 !20 = !DILocation(line: 0, scope: !14)
 !21 = !DILocation(line: 13, column: 8, scope: !14)
 !26 = !DILocation(line: 0, scope: !27, inlinedAt: !33)
-!27 = distinct !DISubprogram(name: "esc", scope: !3, file: !3, line: 5, type: !28, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !31)
+!27 = !DISubprogram(name: "esc", scope: !3, file: !3, line: 5, type: !28, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !31)
 !28 = !DISubroutineType(types: !29)
 !29 = !{null, !30}
 !30 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !9, size: 64)

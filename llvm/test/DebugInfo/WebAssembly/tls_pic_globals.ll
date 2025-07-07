@@ -116,7 +116,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 !21 = !{i32 2, !"Debug Info Version", i32 3}
 !22 = !{i32 1, !"wchar_size", i32 4}
 !23 = !{i32 8, !"PIC Level", i32 2}
-!24 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 16, type: !25, spFlags: DISPFlagDefinition, unit: !2)
+!24 = !DISubprogram(name: "main", scope: !3, file: !3, line: 16, type: !25, spFlags: DISPFlagDefinition, unit: !2)
 !25 = !DISubroutineType(types: !26)
 !26 = !{null}
 

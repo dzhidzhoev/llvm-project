@@ -80,7 +80,7 @@ entry:
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !9 = !{!"clang version 21.0.0git (/fast/fs/llvm4 8bd196e0eaf4310ad2d9598512d13220b28b9aee)"}
-!10 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!10 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13, !13, !13}
 !13 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

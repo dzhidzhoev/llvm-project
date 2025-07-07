@@ -42,14 +42,14 @@ for.cond23:                                       ; preds = %for.cond23, %entry
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 15, column: 50, scope: !5)
-!5 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 14, type: !6, scopeLine: 14, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 14, type: !6, scopeLine: 14, unit: !0, retainedNodes: !2)
 !6 = distinct !DISubroutineType(types: !7)
 !7 = !{null}
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "test.c", directory: {{.*}})
 ; CHECK: [[DBG3]] = !DILocation(line: 15, column: 50, scope: [[META4:![0-9]+]])
-; CHECK: [[META4]] = distinct !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 14, type: [[META5:![0-9]+]], scopeLine: 14, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META7:![0-9]+]])
+; CHECK: [[META4]] = !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 14, type: [[META5:![0-9]+]], scopeLine: 14, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META7:![0-9]+]])
 ; CHECK: [[META5]] = distinct !DISubroutineType(types: [[META6:![0-9]+]])
 ; CHECK: [[META6]] = !{null}
 ; CHECK: [[META7]] = !{}

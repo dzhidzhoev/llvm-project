@@ -48,7 +48,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !12 = !{i32 7, !"PIE Level", i32 2}
 !13 = !{i32 7, !"uwtable", i32 2}
 !15 = !{!"clang version 17.0.0"}
-!16 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
+!16 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
 !17 = !DISubroutineType(types: !18)
 !18 = !{null}
 !19 = !{!20}
@@ -57,7 +57,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !22 = !{}
 !25 = !DILocation(line: 0, scope: !16)
 !27 = distinct !DILexicalBlock(scope: !16, file: !3, line: 7, column: 7)
-!39 = distinct !DISubprogram(name: "fun2", linkageName: "_Z3funv2", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !40)
+!39 = !DISubprogram(name: "fun2", linkageName: "_Z3funv2", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !40)
 !40 = !{!41}
 !41 = !DILocalVariable(name: "X", scope: !39, file: !3, line: 10, type: !21)
 !44 = !DILocation(line: 0, scope: !39)

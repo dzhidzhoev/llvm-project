@@ -22,7 +22,7 @@ declare void @llvm.dbg.addr(metadata, metadata, metadata)
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1)
 !1 = !DIFile(filename: "/app/example.c", directory: "/app")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!10 = distinct !DISubprogram(name: "example", scope: !11, file: !11, line: 1, type: !12, scopeLine: 1, unit: !0, retainedNodes: !15)
+!10 = !DISubprogram(name: "example", scope: !11, file: !11, line: 1, type: !12, scopeLine: 1, unit: !0, retainedNodes: !15)
 !11 = !DIFile(filename: "example.c", directory: "/app")
 !12 = !DISubroutineType(types: !13)
 !13 = !{!14}

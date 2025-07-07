@@ -60,7 +60,7 @@ define dso_local i32 @test(i32 noundef %0) #0 !dbg !10 {
 !1 = !DIFile(filename: "/path/to/dir/test_filename", directory: "/path/to/dir")
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!10 = distinct !DISubprogram(name: "test", scope: !1, unit: !0)
+!10 = !DISubprogram(name: "test", scope: !1, unit: !0)
 
 ;; Check that the split section is created when using the correct module name, or no module name.
 ;

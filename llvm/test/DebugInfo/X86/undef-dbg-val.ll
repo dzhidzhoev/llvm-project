@@ -24,7 +24,7 @@ entry:
 !2 = !{}
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 27, type: !6, scopeLine: 27, spFlags: DISPFlagDefinition, unit: !0)
+!5 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 27, type: !6, scopeLine: 27, spFlags: DISPFlagDefinition, unit: !0)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

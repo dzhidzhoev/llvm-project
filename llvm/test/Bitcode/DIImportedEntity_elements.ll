@@ -84,8 +84,8 @@ declare void @fort_init(...)
 !11 = distinct !DIGlobalVariable(name: "var3", scope: !2, file: !3, line: 4, type: !9, isLocal: false, isDefinition: true)
 !12 = !{!13}
 !13 = !DIImportedEntity(tag: DW_TAG_imported_module, scope: !14, entity: !2, file: !3, line: 10, elements: !19)
-!14 = distinct !DISubprogram(name: "use_renamed", scope: !15, file: !3, line: 10, type: !18, scopeLine: 10, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !4)
-!15 = distinct !DISubprogram(name: "main", scope: !4, file: !3, line: 7, type: !16, scopeLine: 7, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !4)
+!14 = !DISubprogram(name: "use_renamed", scope: !15, file: !3, line: 10, type: !18, scopeLine: 10, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !4)
+!15 = !DISubprogram(name: "main", scope: !4, file: !3, line: 7, type: !16, scopeLine: 7, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !4)
 !16 = !DISubroutineType(cc: DW_CC_program, types: !17)
 !17 = !{null}
 !18 = !DISubroutineType(types: !17)

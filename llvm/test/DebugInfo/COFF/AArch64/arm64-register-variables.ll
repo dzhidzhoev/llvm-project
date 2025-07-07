@@ -111,7 +111,7 @@ declare dso_local void @putint(i32)
 !8 = !{i32 2, !"CodeView", i32 1}
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{i32 1, !"wchar_size", i32 2}
-!11 = distinct !DISubprogram(name: "f", scope: !3, file: !3, line: 9, type: !12, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!11 = !DISubprogram(name: "f", scope: !3, file: !3, line: 9, type: !12, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !12 = !DISubroutineType(types: !13)
 !13 = !{null, !7}
 !14 = !DILocalVariable(name: "p", arg: 1, scope: !11, file: !3, line: 9, type: !7)
@@ -132,7 +132,7 @@ declare dso_local void @putint(i32)
 !29 = !DILocation(line: 16, scope: !27)
 !30 = !DILocation(line: 17, scope: !27)
 !31 = !DILocation(line: 18, scope: !11)
-!32 = distinct !DISubprogram(name: "inlineinc", scope: !3, file: !3, line: 4, type: !33, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!32 = !DISubprogram(name: "inlineinc", scope: !3, file: !3, line: 4, type: !33, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !33 = !DISubroutineType(types: !34)
 !34 = !{!7, !7}
 !35 = !DILocalVariable(name: "a", arg: 1, scope: !32, file: !3, line: 4, type: !7)

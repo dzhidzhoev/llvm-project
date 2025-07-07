@@ -63,5 +63,5 @@ define void @dead2() !dbg !7 {
 !3 = !{i32 2, !"Dwarf Version", i32 2}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"ThinLTO", i32 0}
-!7 = distinct !DISubprogram(name: "dead2", scope: !1, file: !1, line: 4, type: !8, isLocal: false, isDefinition: true, scopeLine: 4, isOptimized: false, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "dead2", scope: !1, file: !1, line: 4, type: !8, isLocal: false, isDefinition: true, scopeLine: 4, isOptimized: false, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !2)

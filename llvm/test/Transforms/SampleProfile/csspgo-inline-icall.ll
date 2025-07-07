@@ -44,15 +44,15 @@ attributes #0 = {"use-sample-profile"}
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1)
 !1 = !DIFile(filename: "test.cc", directory: "/")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "test", scope: !1, file: !1, line: 3, unit: !0)
+!3 = !DISubprogram(name: "test", scope: !1, file: !1, line: 3, unit: !0)
 !4 = !DILocation(line: 4, scope: !3)
 !5 = !DILocation(line: 5, scope: !3)
 !6 = !DILocation(line: 6, scope: !3)
 !7 = !DILocation(line: 7, scope: !3)
-!8 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 29, unit: !0)
-!9 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !1, file: !1, line: 32, unit: !0)
-!10 = distinct !DISubprogram(name: "baz", linkageName: "_Z3bazv", scope: !1, file: !1, line: 24, unit: !0)
-!11 = distinct !DISubprogram(name: "zoo", linkageName: "_Z3zoov", scope: !1, file: !1, line: 24, unit: !0)
+!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 29, unit: !0)
+!9 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !1, file: !1, line: 32, unit: !0)
+!10 = !DISubprogram(name: "baz", linkageName: "_Z3bazv", scope: !1, file: !1, line: 24, unit: !0)
+!11 = !DISubprogram(name: "zoo", linkageName: "_Z3zoov", scope: !1, file: !1, line: 24, unit: !0)
 
 
 ; ICP-ALL:      remark: test.cc:4:0: '_Z3foov' inlined into 'test'

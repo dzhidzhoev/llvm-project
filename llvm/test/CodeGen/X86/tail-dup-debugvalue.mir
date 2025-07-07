@@ -64,7 +64,7 @@
   !12 = distinct !DIGlobalVariable(name: "d", scope: !0, file: !1, line: 2, type: !6, isLocal: false, isDefinition: true)
   !13 = !{i32 2, !"Debug Info Version", i32 3}
   !14 = !{i32 7, !"uwtable", i32 1}
-  !15 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 3, type: !16, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
+  !15 = !DISubprogram(name: "main", scope: !1, file: !1, line: 3, type: !16, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
   !16 = !DISubroutineType(types: !17)
   !17 = !{!6}
   !18 = !{!19, !20}

@@ -515,14 +515,14 @@ declare ptr @hide(ptr)
 !llvm.module.flags = !{!0}
 
 !0 = !{i32 2, !"Debug Info Version", i32 3}
-; CHECK: ![[SP1]] = distinct !DISubprogram(name: "my_async_function",
+; CHECK: ![[SP1]] = !DISubprogram(name: "my_async_function",
 ; CHECK-SAME:                              linkageName: "my_async_function",
 ; CHECK-SAME:                              scopeLine: 1
-!1 = distinct !DISubprogram(name: "my_async_function",
+!1 = !DISubprogram(name: "my_async_function",
                             linkageName: "my_async_function",
                             scope: !2, file: !3, line: 1, type: !4,
                             scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
-; CHECK: ![[SP2]] = distinct !DISubprogram(name: "my_async_function",
+; CHECK: ![[SP2]] = !DISubprogram(name: "my_async_function",
 ; CHECK-SAME:                              linkageName: "my_async_functionTQ0_",
 ; CHECK-SAME:                              scopeLine: 2
 !2 = distinct !DICompileUnit(language: DW_LANG_Swift, file: !3, emissionKind: FullDebug)
@@ -530,14 +530,14 @@ declare ptr @hide(ptr)
 !4 = !DISubroutineType(types: !{})
 !5 = !DILocation(line: 2, column: 0, scope: !1)
 
-; CHECK: ![[SP3]] = distinct !DISubprogram(name: "my_async_function2",
+; CHECK: ![[SP3]] = !DISubprogram(name: "my_async_function2",
 ; CHECK-SAME:                              linkageName: "my_async_function2",
 ; CHECK-SAME:                              scopeLine: 1
-!6 = distinct !DISubprogram(name: "my_async_function2",
+!6 = !DISubprogram(name: "my_async_function2",
                             linkageName: "my_async_function2",
                             scope: !2, file: !3, line: 1, type: !4,
                             scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
-; CHECK: ![[SP4]] = distinct !DISubprogram(name: "my_async_function2",
+; CHECK: ![[SP4]] = !DISubprogram(name: "my_async_function2",
 ; CHECK-SAME:                              linkageName: "my_async_function2.resume.0",
 ; CHECK-SAME:                              scopeLine: 1
 !7 = !DILexicalBlockFile(scope: !6, file: !8, discriminator: 0)

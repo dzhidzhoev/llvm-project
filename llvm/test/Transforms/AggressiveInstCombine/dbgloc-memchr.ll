@@ -31,14 +31,14 @@ declare ptr @memchr(ptr, i32, i64)
 !1 = !DIFile(filename: "test.c", directory: "/tmp")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DILocation(line: 19, column: 42, scope: !4)
-!4 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 174, type: !5, unit: !0, retainedNodes: !6)
+!4 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 174, type: !5, unit: !0, retainedNodes: !6)
 !5 = !DISubroutineType(types: !6)
 !6 = !{}
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "test.c", directory: {{.*}})
 ; CHECK: [[DBG3]] = !DILocation(line: 19, column: 42, scope: [[META4:![0-9]+]])
-; CHECK: [[META4]] = distinct !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 174, type: [[META5:![0-9]+]], spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META6:![0-9]+]])
+; CHECK: [[META4]] = !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 174, type: [[META5:![0-9]+]], spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META6:![0-9]+]])
 ; CHECK: [[META5]] = !DISubroutineType(types: [[META6]])
 ; CHECK: [[META6]] = !{}
 ;.

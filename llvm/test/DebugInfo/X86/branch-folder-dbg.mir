@@ -59,7 +59,7 @@
   !4 = !DIFile(filename: "test.nodbg.ll", directory: "/")
   !5 = !{i32 15}
   !6 = !{i32 7}
-  !7 = distinct !DISubprogram(name: "g", linkageName: "g", scope: null, file: !4, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !10)
+  !7 = !DISubprogram(name: "g", linkageName: "g", scope: null, file: !4, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !10)
   !8 = !DISubroutineType(types: !9)
   !9 = !{}
   !10 = !{!11}

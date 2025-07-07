@@ -25,7 +25,7 @@
   !5 = !{i32 1, !"wchar_size", i32 4}
   !6 = !{i32 7, !"PIC Level", i32 2}
   !7 = !{!"clang version 8.0.0"}
-  !8 = distinct !DISubprogram(name: "test1", scope: !1, file: !1, line: 8, type: !9, scopeLine: 8, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+  !8 = !DISubprogram(name: "test1", scope: !1, file: !1, line: 8, type: !9, scopeLine: 8, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
   !9 = !DISubroutineType(types: !10)
   !10 = !{!11, !11, !11}
   !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -36,7 +36,7 @@
   !18 = !DILocation(line: 9, column: 13, scope: !8)
   !19 = !DILocation(line: 9, column: 7, scope: !8)
   !20 = !DILocation(line: 2, column: 3, scope: !21, inlinedAt: !24)
-  !21 = distinct !DISubprogram(name: "force_spill", scope: !1, file: !1, line: 1, type: !22, scopeLine: 1, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+  !21 = !DISubprogram(name: "force_spill", scope: !1, file: !1, line: 1, type: !22, scopeLine: 1, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
   !22 = !DISubroutineType(types: !23)
   !23 = !{null}
   !24 = distinct !DILocation(line: 10, column: 3, scope: !8)

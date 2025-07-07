@@ -25,7 +25,7 @@ entry:
 !3 = !{i32 8}
 !4 = !{i32 0}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "patatino", linkageName: "patatino", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "patatino", linkageName: "patatino", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !7 = !DISubroutineType(types: !2)
 !8 = !DILocation(line: 1, column: 1, scope: !6)
 !9 = !DILocation(line: 2, column: 1, scope: !6)

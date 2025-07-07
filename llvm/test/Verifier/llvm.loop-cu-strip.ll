@@ -14,7 +14,7 @@ define hidden void @f() {
 ; CHECK-STRIP: ![[MD:.*]] = distinct !{![[MD]], !"fake loop metadata"}
 !5 = distinct !{!5, !6, !6, !"fake loop metadata"}
 !6 = !DILocation(line: 1325, column: 3, scope: !7)
-!7 = distinct !DISubprogram(name: "f", scope: !8, file: !8, line: 1324, type: !9, scopeLine: 1324, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !11)
+!7 = !DISubprogram(name: "f", scope: !8, file: !8, line: 1324, type: !9, scopeLine: 1324, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !11)
 !8 = !DIFile(filename: "/", directory: "f.cpp")
 !9 = !DISubroutineType(types: !10)
 !10 = !{}

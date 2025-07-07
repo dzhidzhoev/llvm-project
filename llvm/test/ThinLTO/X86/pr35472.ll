@@ -55,7 +55,7 @@ define linkonce_odr void @_ZN5DeltaD2Ev(ptr %this) unnamed_addr comdat align 2 !
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
-!7 = distinct !DISubprogram(name: "Bravo", linkageName: "_Z5Bravov", scope: !1, file: !1, line: 17, type: !8, isLocal: false, isDefinition: true, scopeLine: 17, flags: DIFlagPrototyped, isOptimized: false, unit: !0)
+!7 = !DISubprogram(name: "Bravo", linkageName: "_Z5Bravov", scope: !1, file: !1, line: 17, type: !8, isLocal: false, isDefinition: true, scopeLine: 17, flags: DIFlagPrototyped, isOptimized: false, unit: !0)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !DILocalVariable(name: "Hotel", scope: !7, file: !1, line: 18, type: !11)
@@ -76,12 +76,12 @@ define linkonce_odr void @_ZN5DeltaD2Ev(ptr %this) unnamed_addr comdat align 2 !
 !26 = !DIDerivedType(tag: DW_TAG_member, name: "Foxtrot", scope: !24, file: !1, line: 11, baseType: !14, size: 32)
 !28 = !DILocation(line: 20, column: 1, scope: !7)
 !29 = !DILocalVariable(name: "this", arg: 1, scope: !30, type: !31, flags: DIFlagArtificial | DIFlagObjectPointer)
-!30 = distinct !DISubprogram(name: "~Charlie", linkageName: "_ZN7CharlieD2Ev", scope: !14, file: !1, line: 2, type: !19, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: false, unit: !0, declaration: !18)
+!30 = !DISubprogram(name: "~Charlie", linkageName: "_ZN7CharlieD2Ev", scope: !14, file: !1, line: 2, type: !19, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: false, unit: !0, declaration: !18)
 !31 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !14, size: 64)
 !32 = !DILocation(line: 0, scope: !30)
 !33 = !DILocation(line: 2, column: 53, scope: !34)
 !34 = distinct !DILexicalBlock(scope: !30, file: !1, line: 2, column: 51)
-!36 = distinct !DISubprogram(name: "~Delta", linkageName: "_ZN5DeltaD2Ev", scope: !11, file: !1, line: 6, type: !37, isLocal: false, isDefinition: true, scopeLine: 6, flags: DIFlagArtificial | DIFlagPrototyped, isOptimized: false, unit: !0, declaration: !40)
+!36 = !DISubprogram(name: "~Delta", linkageName: "_ZN5DeltaD2Ev", scope: !11, file: !1, line: 6, type: !37, isLocal: false, isDefinition: true, scopeLine: 6, flags: DIFlagArtificial | DIFlagPrototyped, isOptimized: false, unit: !0, declaration: !40)
 !37 = !DISubroutineType(types: !38)
 !38 = !{null, !39}
 !39 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !11, size: 64, flags: DIFlagArtificial | DIFlagObjectPointer)

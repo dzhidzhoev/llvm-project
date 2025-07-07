@@ -21,7 +21,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #0
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"uwtable", i32 1}
 !6 = !{i32 7, !"frame-pointer", i32 2}
-!7 = distinct !DISubprogram(name: "main", scope: !8, file: !8, line: 1, type: !9, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!7 = !DISubprogram(name: "main", scope: !8, file: !8, line: 1, type: !9, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !8 = !DIFile(filename: "/tmp/a.c", directory: "")
 !9 = !DISubroutineType(types: !10)
 !10 = !{!11}

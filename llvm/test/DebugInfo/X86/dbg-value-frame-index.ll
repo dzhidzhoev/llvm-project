@@ -38,7 +38,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !1 = !DIFile(filename: "test.c", directory: "/")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "test", type: !10, unit: !0)
+!4 = !DISubprogram(name: "test", type: !10, unit: !0)
 !5 = !DILocalVariable(name: "w", scope: !4, type: !9)
 !6 = !DIExpression(DW_OP_deref)
 !7 = !DILocation(line: 210, column: 12, scope: !4)

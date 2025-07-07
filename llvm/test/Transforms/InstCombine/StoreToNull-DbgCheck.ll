@@ -23,7 +23,7 @@ entry:
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 83, column: 3, scope: !5)
-!5 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 77, type: !6, scopeLine: 78, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 77, type: !6, scopeLine: 78, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 ;.
@@ -31,7 +31,7 @@ entry:
 ; CHECK: [[META1]] = !DIFile(filename: "test_sym_mod.cpp", directory: {{.*}})
 ; CHECK: [[META2]] = !{}
 ; CHECK: [[DBG4]] = !DILocation(line: 83, column: 3, scope: [[META5:![0-9]+]])
-; CHECK: [[META5]] = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: [[META1]], file: [[META1]], line: 77, type: [[META6:![0-9]+]], scopeLine: 78, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[META5]] = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: [[META1]], file: [[META1]], line: 77, type: [[META6:![0-9]+]], scopeLine: 78, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META6]] = !DISubroutineType(types: [[META7:![0-9]+]])
 ; CHECK: [[META7]] = !{null}
 ;.

@@ -49,11 +49,11 @@ declare void @_Z2f1v()
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"frame-pointer", i32 2}
 !9 = !{!"clang version 17.0.0 (git@github.com:llvm/llvm-project.git 22afe19ac03f5b5db642cbb8ba7022c2ffc09710)"}
-!10 = distinct !DISubprogram(name: "f3", scope: !1, file: !1, line: 5, type: !11, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!10 = !DISubprogram(name: "f3", scope: !1, file: !1, line: 5, type: !11, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !11 = !DISubroutineType(types: !12)
 !12 = !{}
 !13 = !DILocation(line: 6, column: 3, scope: !10)
 !14 = !DILocation(line: 3, column: 3, scope: !15, inlinedAt: !16)
-!15 = distinct !DISubprogram(name: "f2", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!15 = !DISubprogram(name: "f2", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !16 = distinct !DILocation(line: 7, column: 3, scope: !10)
 !17 = !DILocation(line: 8, column: 1, scope: !10)

@@ -37,7 +37,7 @@ declare void @llvm.dbg.label(metadata)
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !{i32 1, !"wchar_size", i32 4}
 !4 = !{!"clang version 19.0.0git"}
-!5 = distinct !DISubprogram(name: "foo", scope: !6, file: !6, line: 1, type: !7, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0)
+!5 = !DISubprogram(name: "foo", scope: !6, file: !6, line: 1, type: !7, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0)
 !6 = !DIFile(filename: "bbi-94196.c", directory: "/home/gbtozers/dev/llvm-project-ddd-textual-ir")
 !7 = !DISubroutineType(types: !8)
 !8 = !{null}

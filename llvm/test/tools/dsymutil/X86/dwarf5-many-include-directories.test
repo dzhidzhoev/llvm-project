@@ -76,7 +76,7 @@ attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-l
 """)
 
 DWARF_FUNCTION_WITH_TYPE = string.Template("""\
-!$dbg_reference_subprogram = distinct !DISubprogram(name: "func$idx", scope: !$dbg_reference_file, file: !$dbg_reference_file, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
+!$dbg_reference_subprogram = !DISubprogram(name: "func$idx", scope: !$dbg_reference_file, file: !$dbg_reference_file, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
 !$dbg_reference_file = !DIFile(filename: "f$idx.c", directory: "/tmp/tmp.0HPkdttdoU/d$idx", checksumkind: CSK_MD5, checksum: "01234567890123456789012345678901")
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
@@ -84,13 +84,13 @@ DWARF_FUNCTION_WITH_TYPE = string.Template("""\
 """)
 
 DWARF_FUNCTION = string.Template("""\
-!$dbg_reference_subprogram = distinct !DISubprogram(name: "func$idx", scope: !$dbg_reference_file, file: !$dbg_reference_file, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
+!$dbg_reference_subprogram = !DISubprogram(name: "func$idx", scope: !$dbg_reference_file, file: !$dbg_reference_file, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
 !$dbg_reference_file = !DIFile(filename: "f$idx.c", directory: "/tmp/tmp.0HPkdttdoU/d$idx", checksumkind: CSK_MD5, checksum: "01234567890123456789012345678901")
 !$dbg_reference_location = !DILocation(line: 1, column: $column, scope: !$dbg_reference_subprogram)
 """)
 
 DWARF_ALL_FUNCTION_PROLOGUE = string.Template("""\
-!$dbg_reference_subprogram = distinct !DISubprogram(name: "all", scope: !1, file: !1, line: $line_number, type: !11, scopeLine: $line_number, spFlags: DISPFlagDefinition, unit: !0)
+!$dbg_reference_subprogram = !DISubprogram(name: "all", scope: !1, file: !1, line: $line_number, type: !11, scopeLine: $line_number, spFlags: DISPFlagDefinition, unit: !0)
 """)
 
 DWARF_ALL_FUNCTION_LOCATION = string.Template("""\

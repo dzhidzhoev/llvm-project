@@ -75,7 +75,7 @@ attributes #0 = { nofree norecurse nounwind willreturn "frame-pointer"="all" "mi
 !10 = !{i32 2, !"Debug Info Version", i32 3}
 !11 = !{i32 1, !"wchar_size", i32 4}
 !12 = !{!"clang version 13.0.0 (https://github.com/llvm/llvm-project.git 9cc417cbca1cece0d55fa3d1e15682943a06139e)"}
-!13 = distinct !DISubprogram(name: "test", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
+!13 = !DISubprogram(name: "test", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
 !14 = !DISubroutineType(types: !15)
 !15 = !{!16}
 !16 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

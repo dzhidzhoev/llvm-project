@@ -33,7 +33,7 @@ declare void @_ZN1AD1Ev(ptr)
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 8.0.0 "}
-!8 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !9, file: !9, line: 1, type: !10, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !9, file: !9, line: 1, type: !10, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !9 = !DIFile(filename: "<stdin>", directory: "/Users/vsk/src/builds/llvm-project-tailcall-RA")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}

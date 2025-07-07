@@ -58,7 +58,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !19 = !DIBasicType(name: "signed char", size: 8, encoding: DW_ATE_signed_char)
 !20 = !{i32 2, !"Debug Info Version", i32 3}
 !21 = !{i32 7, !"PIC Level", i32 2}
-!22 = distinct !DISubprogram(name: "ncat", linkageName: "_ZL4ncatPcjz", scope: !1, file: !1, line: 37, type: !23, scopeLine: 37, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !25)
+!22 = !DISubprogram(name: "ncat", linkageName: "_ZL4ncatPcjz", scope: !1, file: !1, line: 37, type: !23, scopeLine: 37, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !25)
 !23 = !DISubroutineType(types: !24)
 !24 = !{!3, !9, !11, null}
 !25 = !{!26, !27, !28, !41, !42, !43, !44}

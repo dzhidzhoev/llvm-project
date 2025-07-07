@@ -35,7 +35,7 @@ attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "intel
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "deferred", linkageName: "assumedlength_$DEFERRED", scope: !2, file: !3, line: 2, type: !9, isLocal: true, isDefinition: true)
-!2 = distinct !DISubprogram(name: "assumedlength", linkageName: "MAIN__", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !6, retainedNodes: !8)
+!2 = !DISubprogram(name: "assumedlength", linkageName: "MAIN__", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !6, retainedNodes: !8)
 !3 = !DIFile(filename: "test2.f90", directory: "/iusers/cchen15/examples/tests/jr33383")
 !4 = !DISubroutineType(types: !5)
 !5 = !{null}

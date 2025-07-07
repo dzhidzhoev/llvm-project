@@ -38,7 +38,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{!"clang version 13.0.0"}
-!8 = distinct !DISubprogram(name: "ToggleVolumes", linkageName: "_ZN7UClient13ToggleVolumesEv", scope: !9, file: !1, line: 39, type: !37, scopeLine: 40, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !36, retainedNodes: !40)
+!8 = !DISubprogram(name: "ToggleVolumes", linkageName: "_ZN7UClient13ToggleVolumesEv", scope: !9, file: !1, line: 39, type: !37, scopeLine: 40, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !36, retainedNodes: !40)
 !9 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "UClient", file: !1, line: 31, size: 192, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !10, identifier: "_ZTS7UClient")
 !10 = !{!11, !20, !36}
 !11 = !DIDerivedType(tag: DW_TAG_member, name: "World", scope: !9, file: !1, line: 34, baseType: !12, size: 64, flags: DIFlagPublic)

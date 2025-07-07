@@ -33,7 +33,7 @@ attributes #0 = { nounwind readnone speculatable }
 !llvm.module.flags = !{!0}
 
 !0 = !{i32 2, !"Debug Info Version", i32 3}
-!1 = distinct !DISubprogram(name: "__powixf2", scope: !2, file: !2, line: 22, type: !3, isLocal: false, isDefinition: true, scopeLine: 23, flags: DIFlagPrototyped, isOptimized: true, unit: !11, retainedNodes: !13)
+!1 = !DISubprogram(name: "__powixf2", scope: !2, file: !2, line: 22, type: !3, isLocal: false, isDefinition: true, scopeLine: 23, flags: DIFlagPrototyped, isOptimized: true, unit: !11, retainedNodes: !13)
 !2 = !DIFile(filename: "powixf2.c", directory: "")
 !3 = !DISubroutineType(types: !4)
 !4 = !{!5, !5, !6}

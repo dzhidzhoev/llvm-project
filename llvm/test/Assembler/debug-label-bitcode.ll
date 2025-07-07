@@ -4,7 +4,7 @@
 ;
 ; CHECK: top:
 ; CHECK: #dbg_label([[LABEL_METADATA:![0-9]+]], 
-; CHECK: distinct !DISubprogram(name: "foo", {{.*}}, retainedNodes: [[ELEMENTS:![0-9]+]])
+; CHECK: !DISubprogram(name: "foo", {{.*}}, retainedNodes: [[ELEMENTS:![0-9]+]])
 ; CHECK: [[ELEMENTS]] = !{[[LABEL_METADATA]]}
 ; CHECK: [[LABEL_METADATA]] = !DILabel({{.*}}, name: "top", {{.*}}, line: 4)
 
@@ -44,7 +44,7 @@ declare void @llvm.dbg.label(metadata)
 !1 = !DIFile(filename: "debug-label-bitcode.c", directory: "./")
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !6, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: false, unit: !0, retainedNodes: !5)
+!4 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !6, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: false, unit: !0, retainedNodes: !5)
 !5 = !{!9}
 !6 = !DISubroutineType(types: !7)
 !7 = !{!8, !8, !8}

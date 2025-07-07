@@ -131,7 +131,7 @@ declare dso_local arm_aapcs_vfpcc void @putint(i32)
 !11 = !{i32 1, !"wchar_size", i32 2}
 !12 = !{i32 1, !"min_enum_size", i32 4}
 !13 = !{!"clang version 12.0.0 (https://github.com/llvm/llvm-project.git fc031d29bea856f2b91a250fd81c5f9fb79dbe07)"}
-!14 = distinct !DISubprogram(name: "f", scope: !6, file: !6, line: 9, type: !15, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!14 = !DISubprogram(name: "f", scope: !6, file: !6, line: 9, type: !15, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !15 = !DISubroutineType(types: !16)
 !16 = !{null, !8}
 !17 = !DILocalVariable(name: "p", arg: 1, scope: !14, file: !6, line: 9, type: !8)
@@ -152,7 +152,7 @@ declare dso_local arm_aapcs_vfpcc void @putint(i32)
 !32 = !DILocation(line: 16, scope: !30)
 !33 = !DILocation(line: 17, scope: !30)
 !34 = !DILocation(line: 18, scope: !14)
-!35 = distinct !DISubprogram(name: "inlineinc", scope: !6, file: !6, line: 4, type: !36, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!35 = !DISubprogram(name: "inlineinc", scope: !6, file: !6, line: 4, type: !36, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !36 = !DISubroutineType(types: !37)
 !37 = !{!8, !8}
 !38 = !DILocalVariable(name: "a", arg: 1, scope: !35, file: !6, line: 4, type: !8)

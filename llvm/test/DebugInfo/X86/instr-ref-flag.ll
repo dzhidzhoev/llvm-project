@@ -40,7 +40,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 2}
 !6 = !{i32 7, !"PIC Level", i32 2}
-!7 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!7 = !DISubprogram(name: "foo", linkageName: "foo", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!2, !2}
 !10 = !{!11}

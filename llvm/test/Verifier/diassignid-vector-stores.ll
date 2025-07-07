@@ -29,7 +29,7 @@ define void @f() !dbg !5 {
 !2 = !DIFile(filename: "path/to/file", directory: "/path/to/dir")
 !3 = !{null}
 !4 = !DISubroutineType(types: !3)
-!5 = distinct !DISubprogram(name: "f", scope: !2, file: !2, line: 1, type: !4, scopeLine: 2, unit: !1)
+!5 = !DISubprogram(name: "f", scope: !2, file: !2, line: 1, type: !4, scopeLine: 2, unit: !1)
 !6 = distinct !DIAssignID()
 !7 = distinct !DIAssignID()
 !8 = distinct !DIAssignID()

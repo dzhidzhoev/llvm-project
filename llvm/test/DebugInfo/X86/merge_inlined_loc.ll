@@ -83,12 +83,12 @@ declare dso_local void @_Z6commonv() local_unnamed_addr
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 8.0.0 (trunk 340559) (llvm/trunk 340572)"}
-!7 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 12, type: !8, isLocal: false, isDefinition: true, scopeLine: 12, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 12, type: !8, isLocal: false, isDefinition: true, scopeLine: 12, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !DILocation(line: 6, column: 7, scope: !11, inlinedAt: !13)
 !11 = distinct !DILexicalBlock(scope: !12, file: !1, line: 6, column: 7)
-!12 = distinct !DISubprogram(name: "wrapper2", linkageName: "_Z8wrapper2v", scope: !1, file: !1, line: 5, type: !8, isLocal: false, isDefinition: true, scopeLine: 5, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
+!12 = !DISubprogram(name: "wrapper2", linkageName: "_Z8wrapper2v", scope: !1, file: !1, line: 5, type: !8, isLocal: false, isDefinition: true, scopeLine: 5, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
 !13 = distinct !DILocation(line: 13, column: 3, scope: !7)
 !14 = !{!15, !15, i64 0}
 !15 = !{!"bool", !16, i64 0}
@@ -99,7 +99,7 @@ declare dso_local void @_Z6commonv() local_unnamed_addr
 !20 = !DILocation(line: 7, column: 5, scope: !21, inlinedAt: !13)
 !21 = distinct !DILexicalBlock(scope: !11, file: !1, line: 6, column: 10)
 !22 = !DILocation(line: 2, column: 25, scope: !23, inlinedAt: !24)
-!23 = distinct !DISubprogram(name: "wrapper", linkageName: "_Z7wrapperv", scope: !1, file: !1, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
+!23 = !DISubprogram(name: "wrapper", linkageName: "_Z7wrapperv", scope: !1, file: !1, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
 !24 = distinct !DILocation(line: 8, column: 5, scope: !21, inlinedAt: !13)
 !25 = !DILocation(line: 9, column: 3, scope: !21, inlinedAt: !13)
 !26 = !DILocation(line: 2, column: 25, scope: !23, inlinedAt: !27)

@@ -42,5 +42,5 @@ attributes #0 = { nounwind }
 !3 = !{null}
 !4 = !{i32 7, !"Dwarf Version", i32 5}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "base_case", linkageName: "_Z9base_casev", scope: !1, file: !1, line: 5, type: !2, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!6 = !DISubprogram(name: "base_case", linkageName: "_Z9base_casev", scope: !1, file: !1, line: 5, type: !2, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !7 = !DILocation(line: 7, column: 3, scope: !6)

@@ -22,7 +22,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !1 = !DIFile(filename: "salavage.c", directory: "/")
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!8 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0)
+!8 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null}
 !11 = !DILocalVariable(name: "x", scope: !8, file: !1, line: 2, type: !12)

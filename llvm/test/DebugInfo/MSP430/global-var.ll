@@ -39,7 +39,7 @@ attributes #0 = { noinline nounwind optnone "frame-pointer"="none" "min-legal-ve
 !7 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{i32 1, !"wchar_size", i32 2}
 !9 = !{!"clang version 14.0.0 (https://github.com/llvm/llvm-project ...)"}
-!10 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 2, type: !11, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !14)
+!10 = !DISubprogram(name: "main", scope: !3, file: !3, line: 2, type: !11, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !14)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13}
 !13 = !DIBasicType(name: "int", size: 16, encoding: DW_ATE_signed)

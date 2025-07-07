@@ -131,7 +131,7 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 19.0.0git", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !1 = !DIFile(filename: "test.c", directory: "/tmp")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !4, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !5)
+!3 = !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !4, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !5)
 !4 = !DISubroutineType(types: !5)
 !5 = !{}
 !6 = !DILocation(line: 3, column: 11, scope: !3)

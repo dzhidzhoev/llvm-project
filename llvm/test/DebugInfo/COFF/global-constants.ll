@@ -129,7 +129,7 @@ attributes #1 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-
 !28 = !{i32 1, !"wchar_size", i32 2}
 !29 = !{i32 7, !"PIC Level", i32 2}
 !30 = !{!"clang version 12.0.0 (https://github.com/llvm/llvm-project.git 34cd06a9b3bddaa7a989c606bbf1327ee651711c)"}
-!31 = distinct !DISubprogram(name: "foo", linkageName: "?foo@@YAXXZ", scope: !1, file: !1, line: 15, type: !32, scopeLine: 15, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !34)
+!31 = !DISubprogram(name: "foo", linkageName: "?foo@@YAXXZ", scope: !1, file: !1, line: 15, type: !32, scopeLine: 15, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !34)
 !32 = !DISubroutineType(types: !33)
 !33 = !{null}
 !34 = !{}

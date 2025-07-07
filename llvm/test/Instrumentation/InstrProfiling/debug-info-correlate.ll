@@ -41,7 +41,7 @@ declare void @llvm.instrprof.increment(ptr, i64, i32, i32)
 !9 = !{i32 7, !"uwtable", i32 1}
 !10 = !{i32 7, !"frame-pointer", i32 1}
 !11 = !{!"clang version 14.0.0"}
-!12 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !13, file: !13, line: 1, type: !14, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !16)
+!12 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !13, file: !13, line: 1, type: !14, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !16)
 !13 = !DIFile(filename: "debug-info-correlate.cpp", directory: "")
 !14 = !DISubroutineType(types: !15)
 !15 = !{null}

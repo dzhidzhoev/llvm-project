@@ -14,7 +14,7 @@ entry:
 !3 = !{i32 2, !"CodeView", i32 1}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 2}
-!6 = distinct !DISubprogram(name: "foo", scope: !7, file: !7, line: 5, type: !8, scopeLine: 5, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !10)
+!6 = !DISubprogram(name: "foo", scope: !7, file: !7, line: 5, type: !8, scopeLine: 5, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !10)
 !7 = !DIFile(filename: "clang/test/Misc/x86-emit-codegen-only.c", directory: "/Users/matt/src/llvm-project", checksumkind: CSK_MD5, checksum: "de25aa8ed7057b63c6695dfd0822438b")
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}

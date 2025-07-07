@@ -17,7 +17,7 @@ define void @f() !dbg !5 {
 !2 = !{}
 !3 = !{i32 1}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !7)
+!5 = !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !7)
 !6 = !DISubroutineType(types: !2)
 !7 = !{!8}
 !8 = !DILocalVariable(name: "1", scope: !5, file: !1, line: 1, type: !9)

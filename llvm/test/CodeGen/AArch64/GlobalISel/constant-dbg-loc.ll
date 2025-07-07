@@ -66,7 +66,7 @@ if.end:
 !11 = !{i32 1, !"wchar_size", i32 4}
 !12 = !{i32 7, !"PIC Level", i32 2}
 !13 = !{!"clang"}
-!14 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 3, type: !15, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!14 = !DISubprogram(name: "main", scope: !3, file: !3, line: 3, type: !15, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !15 = !DISubroutineType(types: !16)
 !16 = !{!8}
 !17 = !DILocation(line: 4, column: 7, scope: !18)

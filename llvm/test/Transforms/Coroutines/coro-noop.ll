@@ -30,4 +30,4 @@ declare ptr @llvm.coro.noop()
 ; CHECK-NEXT: entry
 ; CHECK-NEXT:    ret void
 
-; CHECK: ![[RESUME]] = distinct !DISubprogram(name: "__NoopCoro_ResumeDestroy", linkageName: "__NoopCoro_ResumeDestroy", {{.*}} flags: DIFlagArtificial,
+; CHECK: ![[RESUME]] = !DISubprogram(name: "__NoopCoro_ResumeDestroy", linkageName: "__NoopCoro_ResumeDestroy", {{.*}} flags: DIFlagArtificial,

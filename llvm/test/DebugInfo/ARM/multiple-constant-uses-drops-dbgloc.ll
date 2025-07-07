@@ -46,7 +46,7 @@ attributes #0 = { nounwind "less-precise-fpmad"="false" "frame-pointer"="all" "n
 !10 = !{i32 1, !"wchar_size", i32 4}
 !11 = !{i32 1, !"min_enum_size", i32 4}
 !12 = !{!"clang version 3.7.0"}
-!13 = distinct !DISubprogram(name: "proc", scope: !3, file: !3, line: 4, type: !14, isLocal: false, isDefinition: true, scopeLine: 5, flags: DIFlagPrototyped, isOptimized: false, unit: !2, retainedNodes: !16)
+!13 = !DISubprogram(name: "proc", scope: !3, file: !3, line: 4, type: !14, isLocal: false, isDefinition: true, scopeLine: 5, flags: DIFlagPrototyped, isOptimized: false, unit: !2, retainedNodes: !16)
 !14 = !DISubroutineType(types: !15)
 !15 = !{null}
 !16 = !{}

@@ -42,7 +42,7 @@
   !10 = !{i32 1, !"wchar_size", i32 4}
   !11 = !{i32 7, !"uwtable", i32 1}
   !12 = !{!"clang version 14.0.0 (git@github.com:llvm/llvm-project 1b09d0c42b42be219dd0984e0714d68b4a36cd3e)"}
-  !13 = distinct !DISubprogram(name: "c", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !16)
+  !13 = !DISubprogram(name: "c", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !16)
   !14 = !DISubroutineType(types: !15)
   !15 = !{!7}
   !16 = !{!17}

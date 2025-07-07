@@ -46,7 +46,7 @@ version 6.0.0", isOptimized: true, runtimeVersion:
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 7, !"PIC Level", i32 2}
-!5 = distinct !DISubprogram(name: "f", scope: !6, file: !6, line: 8, type: !7,
+!5 = !DISubprogram(name: "f", scope: !6, file: !6, line: 8, type: !7,
 isLocal: false, isDefinition: true, scopeLine: 8, isOptimized: true, unit: !0,
 retainedNodes: !10)
 !6 = !DIFile(filename:

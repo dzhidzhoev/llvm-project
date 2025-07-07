@@ -36,7 +36,7 @@
   !16 = !DISubroutineType(types: !17)
   !17 = !{null, !18, !18}
   !18 = !DIBasicType(name: "long int", size: 64, encoding: DW_ATE_signed)
-  !20 = distinct !DISubprogram(name: "g", scope: !15, file: !15, line: 5, type: !21, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !10, retainedNodes: !27)
+  !20 = !DISubprogram(name: "g", scope: !15, file: !15, line: 5, type: !21, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !10, retainedNodes: !27)
   !21 = !DISubroutineType(types: !22)
   !22 = !{null, !23}
   !23 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "S", file: !15, line: 1, size: 32, elements: !24)

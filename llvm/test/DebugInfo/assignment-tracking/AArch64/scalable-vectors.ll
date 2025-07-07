@@ -36,7 +36,7 @@ attributes #0 = { vscale_range(1,16) "target-cpu"="generic" "target-features"="+
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !7 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !8 = !{!"clang version 17.0.0"}
-!9 = distinct !DISubprogram(name: "square", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !17)
+!9 = !DISubprogram(name: "square", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !17)
 !10 = !DIFile(filename: "example.c", directory: "/app")
 !11 = !DISubroutineType(types: !12)
 !12 = !{null, !13, !14, !16}

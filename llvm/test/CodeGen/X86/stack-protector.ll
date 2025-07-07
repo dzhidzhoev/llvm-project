@@ -4014,7 +4014,7 @@ attributes #5 = { ssp "stack-protector-buffer-size"="6" }
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{!"clang version x.y.z"}
-!6 = distinct !DISubprogram(name: "__stack_chk_fail", scope: !1, type: !8, unit: !0)
-!7 = distinct !DISubprogram(name: "test32", scope: !1, type: !8, unit: !0)
+!6 = !DISubprogram(name: "__stack_chk_fail", scope: !1, type: !8, unit: !0)
+!7 = !DISubprogram(name: "test32", scope: !1, type: !8, unit: !0)
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 4, column: 2, scope: !7)

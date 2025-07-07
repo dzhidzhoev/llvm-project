@@ -7,8 +7,8 @@
 !llvm.module.flags = !{!12}
 !llvm.dbg.cu = !{!1}
 
-; CHECK: !0 = distinct !DISubprogram(
-!0 = distinct !DISubprogram(unit: !1)
+; CHECK: !0 = !DISubprogram(
+!0 = !DISubprogram(unit: !1)
 ; CHECK: !1 = distinct !DICompileUnit
 !1 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang",
                              file: !2,

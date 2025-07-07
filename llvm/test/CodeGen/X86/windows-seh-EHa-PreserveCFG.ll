@@ -74,7 +74,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null, !7, !5, !5}
 !10 = !DIFile(filename: "c:/main.cpp", directory: "")
-!11 = distinct !DISubprogram(name: "main", scope: !10, file: !10, line: 5, type: !8, scopeLine: 11, unit: !14)
+!11 = !DISubprogram(name: "main", scope: !10, file: !10, line: 5, type: !8, scopeLine: 11, unit: !14)
 !12 = !DILocalVariable(name: "addr", scope: !11, file: !10, line: 5, type: !7)
 !13 = !DILocation(line: 7, scope: !11)
 !14 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !10, isOptimized: true, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)

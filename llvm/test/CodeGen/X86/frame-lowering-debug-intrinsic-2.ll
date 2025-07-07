@@ -68,7 +68,7 @@ declare void @llvm.dbg.value(metadata, i64, metadata, metadata)
 !11 = !DIBasicType(name: "long int", size: 64, encoding: DW_ATE_signed)
 !15 = !{i32 2, !"Dwarf Version", i32 4}
 !16 = !{i32 2, !"Debug Info Version", i32 3}
-!18 = distinct !DISubprogram(name: "test", scope: !2, file: !2, line: 5, unit: !1)
+!18 = !DISubprogram(name: "test", scope: !2, file: !2, line: 5, unit: !1)
 !22 = !DILocalVariable(name: "i", scope: !18, file: !2, line: 6, type: !11)
 !23 = !DILocalVariable(name: "j", scope: !18, file: !2, line: 7, type: !11)
 !33 = !DIExpression()

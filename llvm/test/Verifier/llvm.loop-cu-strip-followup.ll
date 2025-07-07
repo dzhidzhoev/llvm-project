@@ -35,7 +35,7 @@ define hidden void @f() {
 !3 = !DILocation(line: 5, column: 12, scope: !4)
 !4 = distinct !DILexicalBlock(scope: !6, file: !5, line: 105, column: 3)
 !5 = !DIFile(filename: "/", directory: "f.cpp")
-!6 = distinct !DISubprogram(name: "f", scope: !5, file: !5, line: 1324, type: !7, scopeLine: 1324, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !9)
+!6 = !DISubprogram(name: "f", scope: !5, file: !5, line: 1324, type: !7, scopeLine: 1324, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !9)
 !7 = !DISubroutineType(types: !8)
 !8 = !{}
 !9 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !5, isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)

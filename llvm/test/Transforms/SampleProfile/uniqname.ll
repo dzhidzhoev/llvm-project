@@ -107,7 +107,7 @@ attributes #3 = { "disable-tail-calls"="false" "frame-pointer"="none" "less-prec
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0 (https://github.com/llvm/llvm-project.git e42c17446a2e5cbf9eebc752beafadad3fac7f63)"}
-!7 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 28, type: !8, scopeLine: 28, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 28, type: !8, scopeLine: 28, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 29, column: 5, scope: !7)
 !10 = !{!11, !11, i64 0}
@@ -117,14 +117,14 @@ attributes #3 = { "disable-tail-calls"="false" "frame-pointer"="none" "less-prec
 !14 = !DILocation(line: 30, column: 3, scope: !7)
 !15 = !DILocation(line: 31, column: 3, scope: !7)
 !16 = !DILocation(line: 32, column: 3, scope: !7)
-!17 = distinct !DISubprogram(name: "hoo", linkageName: "_ZL3hoov.__uniq.334154460836426447066042049082945760258", scope: !1, file: !1, line: 17, type: !8, scopeLine: 17, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!17 = !DISubprogram(name: "hoo", linkageName: "_ZL3hoov.__uniq.334154460836426447066042049082945760258", scope: !1, file: !1, line: 17, type: !8, scopeLine: 17, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !18 = !DILocation(line: 18, column: 3, scope: !17)
 !19 = !DILocation(line: 19, column: 1, scope: !17)
-!20 = distinct !DISubprogram(name: "goo", linkageName: "_ZL3goov.__uniq.334154460836426447066042049082945760258.llvm.4206369970847378271", scope: !1, file: !1, line: 24, type: !8, scopeLine: 24, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!20 = !DISubprogram(name: "goo", linkageName: "_ZL3goov.__uniq.334154460836426447066042049082945760258.llvm.4206369970847378271", scope: !1, file: !1, line: 24, type: !8, scopeLine: 24, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !21 = !DILocation(line: 25, column: 5, scope: !20)
 !22 = !DILocation(line: 25, column: 3, scope: !20)
 !23 = !DILocation(line: 26, column: 1, scope: !20)
-!24 = distinct !DISubprogram(name: "moo", linkageName: "_ZL3moov.__uniq.334154460836426447066042049082945760258", scope: !1, file: !1, line: 11, type: !8, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!24 = !DISubprogram(name: "moo", linkageName: "_ZL3moov.__uniq.334154460836426447066042049082945760258", scope: !1, file: !1, line: 11, type: !8, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !25 = !DILocation(line: 12, column: 3, scope: !24)
 !26 = !DILocation(line: 13, column: 7, scope: !24)
 !27 = !{!28, !28, i64 0}
@@ -134,7 +134,7 @@ attributes #3 = { "disable-tail-calls"="false" "frame-pointer"="none" "less-prec
 !31 = !DILocation(line: 15, column: 1, scope: !24)
 !32 = !DISubprogram(name: "hoo_callee", linkageName: "_Z10hoo_calleev", scope: !1, file: !1, line: 3, type: !8, flags: DIFlagPrototyped, spFlags: DISPFlagOptimized, retainedNodes: !2)
 !33 = !DISubprogram(name: "moo_callee", linkageName: "_Z10moo_calleev", scope: !1, file: !1, line: 2, type: !8, flags: DIFlagPrototyped, spFlags: DISPFlagOptimized, retainedNodes: !2)
-!34 = distinct !DISubprogram(name: "noo", linkageName: "_ZL3noov.__uniq.334154460836426447066042049082945760258", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!34 = !DISubprogram(name: "noo", linkageName: "_ZL3noov.__uniq.334154460836426447066042049082945760258", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !35 = !DILocation(line: 7, column: 7, scope: !34)
 !36 = !DILocation(line: 8, column: 5, scope: !34)
 !37 = !DILocation(line: 9, column: 1, scope: !34)

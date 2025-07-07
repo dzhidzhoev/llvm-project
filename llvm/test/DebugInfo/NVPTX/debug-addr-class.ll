@@ -57,7 +57,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !14 = !{i32 4, !"nvvm-reflect-ftz", i32 0}
 !15 = !{i32 7, !"PIC Level", i32 2}
 !16 = !{!"clang version 9.0.0 (trunk 351969) (llvm/trunk 351973)"}
-!17 = distinct !DISubprogram(name: "test", linkageName: "test", scope: !8, file: !8, line: 6, type: !18, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !40)
+!17 = !DISubprogram(name: "test", linkageName: "test", scope: !8, file: !8, line: 6, type: !18, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !40)
 !18 = !DISubroutineType(types: !19)
 !19 = !{null, !20, !21, !21, !9}
 !20 = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)

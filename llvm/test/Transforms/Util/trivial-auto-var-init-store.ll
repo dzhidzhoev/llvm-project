@@ -228,7 +228,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) nounwind readnone s
 !1 = !{i32 2, !"Debug Info Version", i32 3}
 !2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3)
 !3 = !DIFile(filename: "file", directory: "")
-!4 = distinct !DISubprogram(name: "function", scope: !3, file: !3, unit: !2)
+!4 = !DISubprogram(name: "function", scope: !3, file: !3, unit: !2)
 !5 = !DIBasicType(name: "int", size: 32)
 !6 = !DILocalVariable(name: "destination", scope: !4, file: !3, type: !5)
 !7 = !DILocalVariable(name: "destination2", scope: !4, file: !3, type: !5)

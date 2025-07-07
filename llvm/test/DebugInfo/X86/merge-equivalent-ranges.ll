@@ -49,7 +49,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"frame-pointer", i32 2}
 !9 = !{!"clang version 16.0.0"}
-!10 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooPi", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !15)
+!10 = !DISubprogram(name: "foo", linkageName: "_Z3fooPi", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !15)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13, !14}
 !13 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

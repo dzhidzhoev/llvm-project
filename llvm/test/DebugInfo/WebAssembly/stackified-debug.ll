@@ -100,7 +100,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{i32 1, !"wchar_size", i32 4}
 !11 = !{!"clang version 11.0.0 (https://github.com/llvm/llvm-project.git ed7aaf832444411ce93aa0443425ce401f5c7a8e)"}
-!12 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !13, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
+!12 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !13, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
 !13 = !DISubroutineType(types: !14)
 !14 = !{null}
 !15 = !{!16, !17}
@@ -111,7 +111,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !20 = !DILocation(line: 5, column: 11, scope: !12)
 !21 = !DILocation(line: 6, column: 3, scope: !12)
 !22 = !DILocation(line: 7, column: 1, scope: !12)
-!23 = distinct !DISubprogram(name: "no_dbg_value_after_terminator", scope: null, type: !24, spFlags: DISPFlagDefinition, unit: !0)
+!23 = !DISubprogram(name: "no_dbg_value_after_terminator", scope: null, type: !24, spFlags: DISPFlagDefinition, unit: !0)
 !24 = !DISubroutineType(types: !2)
 !25 = !DILocation(line: 0, scope: !26)
 !26 = distinct !DILexicalBlock(scope: !23)

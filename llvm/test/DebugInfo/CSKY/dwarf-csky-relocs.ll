@@ -106,7 +106,7 @@ attributes #0 = { noinline nounwind optnone "frame-pointer"="all" "min-legal-vec
 !6 = !{i32 7, !"PIE Level", i32 2}
 !7 = !{i32 7, !"frame-pointer", i32 2}
 !8 = !{!"clang"}
-!9 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!9 = !DISubprogram(name: "main", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !10 = !DISubroutineType(types: !11)
 !11 = !{!12}
 !12 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

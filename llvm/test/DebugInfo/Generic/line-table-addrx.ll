@@ -19,5 +19,5 @@ entry:
 !2 = !{}
 !3 = !{i32 2, !"Dwarf Version", i32 5}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!7 = distinct !DISubprogram(name: "a", scope: !1, file: !1, line: 22, type: !8, scopeLine: 22, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "a", scope: !1, file: !1, line: 22, type: !8, scopeLine: 22, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !2)

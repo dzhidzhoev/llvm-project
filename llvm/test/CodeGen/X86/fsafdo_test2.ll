@@ -210,7 +210,7 @@ attributes #3 = { nounwind uwtable "disable-tail-calls"="false" "frame-pointer"=
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
-!7 = distinct !DISubprogram(name: "bar", scope: !1, file: !1, line: 3, type: !8, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "bar", scope: !1, file: !1, line: 3, type: !8, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 4, column: 3, scope: !7)
 !10 = !DILocation(line: 5, column: 5, scope: !7)
@@ -222,7 +222,7 @@ attributes #3 = { nounwind uwtable "disable-tail-calls"="false" "frame-pointer"=
 !16 = !DILocation(line: 7, column: 1, scope: !7)
 !17 = !DILocation(line: 6, column: 3, scope: !18)
 !18 = !DILexicalBlockFile(scope: !7, file: !1, discriminator: 1)
-!19 = distinct !DISubprogram(name: "work", scope: !1, file: !1, line: 10, type: !8, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!19 = !DISubprogram(name: "work", scope: !1, file: !1, line: 10, type: !8, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !20 = !DILocation(line: 11, column: 7, scope: !19)
 !21 = !DILocation(line: 11, column: 11, scope: !22)
 !22 = !DILexicalBlockFile(scope: !19, file: !1, discriminator: 1)
@@ -232,7 +232,7 @@ attributes #3 = { nounwind uwtable "disable-tail-calls"="false" "frame-pointer"=
 !26 = !DILexicalBlockFile(scope: !19, file: !1, discriminator: 3)
 !27 = !DILocation(line: 0, scope: !22)
 !28 = !DILocation(line: 15, column: 1, scope: !19)
-!29 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 17, type: !8, scopeLine: 17, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!29 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 17, type: !8, scopeLine: 17, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !30 = !DILocation(line: 19, column: 3, scope: !31)
 !31 = !DILexicalBlockFile(scope: !29, file: !1, discriminator: 2)
 !32 = !DILocation(line: 21, column: 16, scope: !31)
@@ -255,7 +255,7 @@ attributes #3 = { nounwind uwtable "disable-tail-calls"="false" "frame-pointer"=
 !49 = distinct !{!49, !50, !51}
 !50 = !DILocation(line: 19, column: 3, scope: !29)
 !51 = !DILocation(line: 26, column: 3, scope: !29)
-!52 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 29, type: !8, scopeLine: 29, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!52 = !DISubprogram(name: "main", scope: !1, file: !1, line: 29, type: !8, scopeLine: 29, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !53 = !DILocation(line: 31, column: 3, scope: !54)
 !54 = !DILexicalBlockFile(scope: !52, file: !1, discriminator: 2)
 !55 = !DILocation(line: 32, column: 5, scope: !52)

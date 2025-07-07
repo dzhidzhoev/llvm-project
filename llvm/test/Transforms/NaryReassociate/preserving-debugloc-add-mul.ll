@@ -50,20 +50,20 @@ declare void @foo(i32)
 !2 = !{i32 12}
 !3 = !{i32 0}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "add_reassociate", linkageName: "add_reassociate", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!5 = !DISubprogram(name: "add_reassociate", linkageName: "add_reassociate", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !6 = !DISubroutineType(types: !7)
 !7 = !{}
 !11 = !DILocation(line: 4, column: 1, scope: !5)
-!14 = distinct !DISubprogram(name: "mul_reassociate", linkageName: "mul_reassociate", scope: null, file: !1, line: 7, type: !6, scopeLine: 7, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!14 = !DISubprogram(name: "mul_reassociate", linkageName: "mul_reassociate", scope: null, file: !1, line: 7, type: !6, scopeLine: 7, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !18 = !DILocation(line: 10, column: 1, scope: !14)
 
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C, file: [[META1:![0-9]+]], producer: "debugify", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "test.ll", directory: {{.*}})
-; CHECK: [[DBG5]] = distinct !DISubprogram(name: "add_reassociate", linkageName: "add_reassociate", scope: null, file: [[META1]], line: 1, type: [[META6:![0-9]+]], scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]])
+; CHECK: [[DBG5]] = !DISubprogram(name: "add_reassociate", linkageName: "add_reassociate", scope: null, file: [[META1]], line: 1, type: [[META6:![0-9]+]], scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]])
 ; CHECK: [[META6]] = !DISubroutineType(types: [[META7:![0-9]+]])
 ; CHECK: [[META7]] = !{}
 ; CHECK: [[DBG8]] = !DILocation(line: 4, column: 1, scope: [[DBG5]])
-; CHECK: [[DBG9]] = distinct !DISubprogram(name: "mul_reassociate", linkageName: "mul_reassociate", scope: null, file: [[META1]], line: 7, type: [[META6]], scopeLine: 7, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]])
+; CHECK: [[DBG9]] = !DISubprogram(name: "mul_reassociate", linkageName: "mul_reassociate", scope: null, file: [[META1]], line: 7, type: [[META6]], scopeLine: 7, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]])
 ; CHECK: [[DBG10]] = !DILocation(line: 10, column: 1, scope: [[DBG9]])
 ;.

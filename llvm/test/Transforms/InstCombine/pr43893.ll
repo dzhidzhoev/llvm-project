@@ -42,7 +42,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !10 = !{i32 2, !"Debug Info Version", i32 3}
 !11 = !{i32 1, !"wchar_size", i32 4}
 !12 = !{!"clang version 10.0.0"}
-!13 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!13 = !DISubprogram(name: "main", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !14 = !DISubroutineType(types: !15)
 !15 = !{!16}
 !16 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

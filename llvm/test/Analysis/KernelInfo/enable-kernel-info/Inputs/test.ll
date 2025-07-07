@@ -18,5 +18,5 @@ attributes #0 = {
 !2 = !DIFile(filename: "test.c", directory: "/tmp")
 !3 = !{}
 !4 = !DISubroutineType(types: !3)
-!5 = distinct !DISubprogram(name: "test", scope: !2, file: !2, line: 10, type: !4, scopeLine: 10, flags: DIFlagArtificial | DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !1, retainedNodes: !3)
+!5 = !DISubprogram(name: "test", scope: !2, file: !2, line: 10, type: !4, scopeLine: 10, flags: DIFlagArtificial | DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !1, retainedNodes: !3)
 !6 = distinct !{ptr null, !"kernel", i32 1}

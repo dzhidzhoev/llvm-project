@@ -35,7 +35,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !1 = !DIFile(filename: "vr4300-mulmul.ll", directory: "/")
 !2 = !{i32 7, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!7 = distinct !DISubprogram(name: "fun_s", linkageName: "fun_s", scope: !1, file: !1, line: 1, type: !8, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!7 = !DISubprogram(name: "fun_s", linkageName: "fun_s", scope: !1, file: !1, line: 1, type: !8, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !10}
 !10 = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)

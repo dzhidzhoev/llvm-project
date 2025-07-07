@@ -60,13 +60,13 @@ entry:
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"c"}
-!7 = distinct !DISubprogram(name: "subroutine1", scope: !1, file: !1, line: 1, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition | DISPFlagPure, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "subroutine1", scope: !1, file: !1, line: 1, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition | DISPFlagPure, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !DILocation(line: 3, column: 1, scope: !7)
-!11 = distinct !DISubprogram(name: "subroutine2", scope: !1, file: !1, line: 5, type: !8, scopeLine: 6, spFlags: DISPFlagDefinition | DISPFlagElemental, unit: !0, retainedNodes: !2)
+!11 = !DISubprogram(name: "subroutine2", scope: !1, file: !1, line: 5, type: !8, scopeLine: 6, spFlags: DISPFlagDefinition | DISPFlagElemental, unit: !0, retainedNodes: !2)
 !12 = !DILocation(line: 7, column: 1, scope: !11)
-!13 = distinct !DISubprogram(name: "subroutine3", scope: !1, file: !1, line: 9, type: !8, scopeLine: 10, spFlags: DISPFlagDefinition | DISPFlagRecursive, unit: !0, retainedNodes: !2)
+!13 = !DISubprogram(name: "subroutine3", scope: !1, file: !1, line: 9, type: !8, scopeLine: 10, spFlags: DISPFlagDefinition | DISPFlagRecursive, unit: !0, retainedNodes: !2)
 !14 = !DILocation(line: 11, column: 1, scope: !13)
-!15 = distinct !DISubprogram(name: "subroutine4", scope: !1, file: !1, line: 13, type: !8, scopeLine: 14, spFlags: DISPFlagDefinition | DISPFlagPure | DISPFlagElemental | DISPFlagRecursive, unit: !0, retainedNodes: !2)
+!15 = !DISubprogram(name: "subroutine4", scope: !1, file: !1, line: 13, type: !8, scopeLine: 14, spFlags: DISPFlagDefinition | DISPFlagPure | DISPFlagElemental | DISPFlagRecursive, unit: !0, retainedNodes: !2)
 !16 = !DILocation(line: 15, column: 1, scope: !15)

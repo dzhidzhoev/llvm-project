@@ -29,7 +29,7 @@ attributes #1 = { nounwind readnone speculatable }
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "coefficient1", scope: !2, file: !3, line: 5, type: !12, isLocal: true, isDefinition: true)
-!2 = distinct !DISubprogram(name: "foo", scope: !3, file: !3, line: 3, type: !4, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: true, unit: !7, retainedNodes: !10)
+!2 = !DISubprogram(name: "foo", scope: !3, file: !3, line: 3, type: !4, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: true, unit: !7, retainedNodes: !10)
 !3 = !DIFile(filename: "norecurse_debug.c", directory: "/")
 !4 = !DISubroutineType(types: !5)
 !5 = !{null, !6}

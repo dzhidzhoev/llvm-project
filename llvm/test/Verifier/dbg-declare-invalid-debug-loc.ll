@@ -6,7 +6,7 @@
 ;
 ; CHECK:      invalid #dbg record DILocation
 ; CHECK-NEXT: #dbg_declare(ptr %1, ![[VAR:[0-9]+]], !DIExpression(), ![[PROG:[0-9]+]])
-; CHECK-NEXT: ![[PROG]] = distinct !DISubprogram(name: "IgnoreIntrinsicTest",
+; CHECK-NEXT: ![[PROG]] = !DISubprogram(name: "IgnoreIntrinsicTest",
 ; CHECK-NEXT: label %0
 ; CHECK-NEXT: ptr @IgnoreIntrinsicTest
 
@@ -34,7 +34,7 @@ define i32 @IgnoreIntrinsicTest() !dbg !10 {
 !7 = !DIEnumerator(name: "max_frame_size", value: 0)
 !8 = !{i32 2, !"Dwarf Version", i32 2}
 !9 = !{i32 1, !"Debug Info Version", i32 3}
-!10 = distinct !DISubprogram(name: "IgnoreIntrinsicTest", linkageName: "IgnoreIntrinsicTest", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !5)
+!10 = !DISubprogram(name: "IgnoreIntrinsicTest", linkageName: "IgnoreIntrinsicTest", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !5)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13}
 !13 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)

@@ -13,7 +13,7 @@
 ; CHECK:            #dbg_declare(ptr %[[FramePtr_RESUME]], ![[CORO_FRAME_IN_RESUME:[0-9]+]], !DIExpression(DW_OP_deref)
 ;
 ; CHECK-DAG: ![[FILE:[0-9]+]] = !DIFile(filename: "coro-debug.cpp"
-; CHECK-DAG: ![[RAMP:[0-9]+]] = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov",
+; CHECK-DAG: ![[RAMP:[0-9]+]] = !DISubprogram(name: "foo", linkageName: "_Z3foov",
 ; CHECK-DAG: ![[CORO_FRAME]] = !DILocalVariable(name: "__coro_frame", scope: ![[RAMP]], file: ![[FILE]], line: [[CORO_FRAME_LINE:[0-9]+]], type: ![[FRAME_TYPE:[0-9]+]], flags: DIFlagArtificial)
 ; CHECK-DAG: ![[FRAME_TYPE]] = !DICompositeType(tag: DW_TAG_structure_type, name: "f.coro_frame_ty", {{.*}}elements: ![[ELEMENTS:[0-9]+]]
 ; CHECK-DAG: ![[ELEMENTS]] = !{![[RESUME_FN:[0-9]+]], ![[DESTROY_FN:[0-9]+]], ![[PROMISE:[0-9]+]], ![[VECTOR_TYPE:[0-9]+]], ![[INT64_0:[0-9]+]], ![[DOUBLE_1:[0-9]+]], ![[INT64_PTR:[0-9]+]], ![[INT32_2:[0-9]+]], ![[INT32_3:[0-9]+]], ![[UNALIGNED_UNKNOWN:[0-9]+]], ![[STRUCT:[0-9]+]], ![[CORO_INDEX:[0-9]+]], ![[SMALL_UNKNOWN:[0-9]+]]
@@ -47,7 +47,7 @@
 ; CHECK-DAG: ![[SMALL_UNKNOWN]] = !DIDerivedType(tag: DW_TAG_member, name: "UnknownType_8",{{.*}} baseType: ![[UNKNOWN_TYPE_BASE]], size: 5
 ; CHECK-DAG: ![[PROMISE_VAR:[0-9]+]] = !DILocalVariable(name: "__promise", scope: ![[RAMP_SCOPE:[0-9]+]], file: ![[FILE]]
 ; CHECK-DAG: ![[RAMP_SCOPE]] = distinct !DILexicalBlock(scope: ![[RAMP]], file: ![[FILE]], line: 23
-; CHECK-DAG: ![[BAR_FUNC:[0-9]+]] = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv",
+; CHECK-DAG: ![[BAR_FUNC:[0-9]+]] = !DISubprogram(name: "bar", linkageName: "_Z3barv",
 ; CHECK-DAG: ![[BAR_SCOPE:[0-9]+]] = distinct !DILexicalBlock(scope: ![[BAR_FUNC]], file: !1
 ; CHECK-DAG: ![[FRAME_TYPE_IN_BAR:[0-9]+]] = !DICompositeType(tag: DW_TAG_structure_type, name: "bar.coro_frame_ty", file: ![[FILE]], line: [[BAR_LINE:[0-9]+]]{{.*}}elements: ![[ELEMENTS_IN_BAR:[0-9]+]]
 ; CHECK-DAG: ![[ELEMENTS_IN_BAR]] = !{![[RESUME_FN_IN_BAR:[0-9]+]], ![[DESTROY_FN_IN_BAR:[0-9]+]], ![[PROMISE_IN_BAR:[0-9]+]], ![[VECTOR_TYPE_IN_BAR:[0-9]+]], ![[INT64_IN_BAR:[0-9]+]], ![[DOUBLE_IN_BAR:[0-9]+]], ![[INT64_PTR_IN_BAR:[0-9]+]], ![[INT32_IN_BAR:[0-9]+]], ![[STRUCT_IN_BAR:[0-9]+]], ![[CORO_INDEX_IN_BAR:[0-9]+]]
@@ -375,7 +375,7 @@ declare void @final_suspend()
 !5 = !{!"clang version 11.0.0"}
 !6 = !DILocalVariable(name: "__promise", scope: !7, file: !1, line: 24, type: !10)
 !7 = distinct !DILexicalBlock(scope: !8, file: !1, line: 23, column: 12)
-!8 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !8, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !8, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !2)
 !10 = !DIDerivedType(tag: DW_TAG_typedef, name: "promise_type", scope: !8, file: !1, line: 15, baseType: !11)
 !11 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "promise_type", scope: !8, file: !1, line: 10, size: 128, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !12, identifier: "_ZTSN4coro12promise_typeE")
@@ -386,7 +386,7 @@ declare void @final_suspend()
 !16 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !17 = !DIBasicType(name: "double", size: 64, encoding: DW_ATE_float)
 !18 = !DILocation(line: 8, scope: !7)
-!19 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !19, file: !1, line: 54, type: !9, scopeLine: 54, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!19 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !19, file: !1, line: 54, type: !9, scopeLine: 54, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !20 = distinct !DILexicalBlock(scope: !19, file: !1, line: 23, column: 12)
 !21 = !DILocalVariable(name: "__promise", scope: !20, file: !1, line: 55, type: !10)
 !22 = !DILocation(line: 10, scope: !20)

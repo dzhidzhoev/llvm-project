@@ -27,7 +27,7 @@ attributes #0 = { norecurse nounwind readonly "target-cpu"="hexagonv60" }
 !7 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{i32 1, !"wchar_size", i32 4}
 !9 = !{!"clang version 8.0.0"}
-!10 = distinct !DISubprogram(name: "bad_load", scope: !1, file: !1, line: 1, type: !11, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !2)
+!10 = !DISubprogram(name: "bad_load", scope: !1, file: !1, line: 1, type: !11, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !2)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!5}
 !13 = !DILocation(line: 2, column: 10, scope: !10)

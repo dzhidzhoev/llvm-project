@@ -12,6 +12,6 @@ define void @foo() {
 !llvm.dbg.cu = !{!1}
 !1 = distinct !DICompileUnit(language: DW_LANG_C99, file: !2, emissionKind: FullDebug)
 !2 = !DIFile(filename: "foo.c", directory: "/path/to/dir")
-; CHECK: [[SP]] = distinct !DISubprogram
-!3 = distinct !DISubprogram(file: !2, scope: !2, line: 51, name: "foo", function: void ()* @foo, type: !4)
+; CHECK: [[SP]] = !DISubprogram
+!3 = !DISubprogram(file: !2, scope: !2, line: 51, name: "foo", function: void ()* @foo, type: !4)
 !4 = !DISubroutineType(types: !{})

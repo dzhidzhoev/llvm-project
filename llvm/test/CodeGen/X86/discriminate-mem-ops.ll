@@ -36,7 +36,7 @@ attributes #0 = { "target-cpu"="x86-64" }
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 7.0.0 (trunk 322155) (llvm/trunk 322159)"}
-!7 = distinct !DISubprogram(name: "sum", linkageName: "sum", scope: !1, file: !1, line: 1, type: !8, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
+!7 = !DISubprogram(name: "sum", linkageName: "sum", scope: !1, file: !1, line: 1, type: !8, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 2, column: 10, scope: !7)
 !10 = !{!11, !11, i64 0}

@@ -7,8 +7,8 @@
 !llvm.module.flags = !{!7}
 !llvm.dbg.cu = !{!1}
 
-; CHECK:      !0 = distinct !DISubprogram({{.*}})
-!0 = distinct !DISubprogram(name: "foo", isDefinition: true, unit: !1)
+; CHECK:      !0 = !DISubprogram({{.*}})
+!0 = !DISubprogram(name: "foo", isDefinition: true, unit: !1)
 
 !1 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang",
                              file: !2,

@@ -239,7 +239,7 @@ entry:
 !1 = !{i32 2, !"Debug Info Version", i32 3}
 !2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3, producer: "clang", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, nameTableKind: None)
 !3 = !DIFile(filename: "test.c", directory: ".")
-!4 = distinct !DISubprogram(name: "foobar", scope: !2, file: !3, line: 1, type: !9, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !8)
+!4 = !DISubprogram(name: "foobar", scope: !2, file: !3, line: 1, type: !9, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !8)
 !5 = !DILocalVariable(name: "xyzzy", scope: !4, file: !3, line: 2, type: !7)
 !6 = !DILocation(line: 1, column: 1, scope: !4)
 !7 = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)

@@ -55,14 +55,14 @@ exit:                              ; preds = %loop
 !6 = !DILocation(line: 7, scope: !9)
 !7 = !DILocation(line: 8, scope: !9)
 !8 = !DILocation(line: 9, scope: !9)
-!9 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 11, type: !10, unit: !0, retainedNodes: !11)
+!9 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 11, type: !10, unit: !0, retainedNodes: !11)
 !10 = distinct !DISubroutineType(types: !11)
 !11 = !{}
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "test.cpp", directory: {{.*}})
 ; CHECK: [[DBG3]] = !DILocation(line: 6, scope: [[META4:![0-9]+]])
-; CHECK: [[META4]] = distinct !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 11, type: [[META5:![0-9]+]], spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META6:![0-9]+]])
+; CHECK: [[META4]] = !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 11, type: [[META5:![0-9]+]], spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META6:![0-9]+]])
 ; CHECK: [[META5]] = distinct !DISubroutineType(types: [[META6]])
 ; CHECK: [[META6]] = !{}
 ; CHECK: [[DBG7]] = !DILocation(line: 9, scope: [[META4]])

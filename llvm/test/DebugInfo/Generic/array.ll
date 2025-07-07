@@ -15,7 +15,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) nounwind readnone
 !llvm.dbg.cu = !{!2}
 !llvm.module.flags = !{!16}
 
-!0 = distinct !DISubprogram(name: "main", line: 3, isLocal: false, isDefinition: true, virtualIndex: 6, isOptimized: false, unit: !2, scopeLine: 3, file: !14, scope: !1, type: !3)
+!0 = !DISubprogram(name: "main", line: 3, isLocal: false, isDefinition: true, virtualIndex: 6, isOptimized: false, unit: !2, scopeLine: 3, file: !14, scope: !1, type: !3)
 !1 = !DIFile(filename: "array.c", directory: "/private/tmp")
 !2 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang version 3.0 (trunk 129138)", isOptimized: false, emissionKind: FullDebug, file: !14, enums: !15, retainedTypes: !15, imports:  null)
 !3 = !DISubroutineType(types: !4)

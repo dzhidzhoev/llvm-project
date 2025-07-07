@@ -12,4 +12,4 @@ declare void @llvm.dbg.value(metadata, i64, metadata, metadata) nounwind readnon
 
 ; !0 should conform to the format of DIVariable.
 !0 = !DILocalVariable(name: "a", arg: 1, scope: !1)
-!1 = distinct !DISubprogram()
+!1 = !DISubprogram()

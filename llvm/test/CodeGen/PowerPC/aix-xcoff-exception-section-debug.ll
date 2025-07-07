@@ -15,7 +15,7 @@
 !1 = !{i32 2, !"Debug Info Version", i32 3}
 !2 = distinct !DICompileUnit(language: DW_LANG_Fortran95, file: !3, producer: "ASTI IR translator", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false)
 !3 = !DIFile(filename: "t.f", directory: ".")
-!4 = distinct !DISubprogram(name: "test__trap_annotation_debug", linkageName: "test__trap_annotation_debug", scope: !3, file: !3, line: 1, type: !5, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !6)
+!4 = !DISubprogram(name: "test__trap_annotation_debug", linkageName: "test__trap_annotation_debug", scope: !3, file: !3, line: 1, type: !5, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !6)
 !5 = !DISubroutineType(types: !6)
 !6 = !{}
 !7 = !DILocation(line: 4, column: 1, scope: !4)

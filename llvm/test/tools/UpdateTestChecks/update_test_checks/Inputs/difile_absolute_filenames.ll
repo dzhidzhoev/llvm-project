@@ -21,7 +21,7 @@ entry:
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"frame-pointer", i32 2}
 !9 = !{!"clang"}
-!10 = distinct !DISubprogram(name: "f", scope: !11, file: !11, line: 1, type: !12, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
+!10 = !DISubprogram(name: "f", scope: !11, file: !11, line: 1, type: !12, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
 !11 = !DIFile(filename: "foo.c", directory: "/llvm-project")
 !12 = !DISubroutineType(types: !13)
 !13 = !{null}

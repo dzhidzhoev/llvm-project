@@ -31,7 +31,7 @@ for.cond.cleanup:
 !1 = !DIFile(filename: "loop.c", directory: "")
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "main", scope: !7, file: !7, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "main", scope: !7, file: !7, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !7 = !DIFile(filename: "loop.c", directory: "")
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 2, column: 3, scope: !6)

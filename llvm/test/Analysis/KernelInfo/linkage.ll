@@ -59,10 +59,10 @@ entry:
 !4 = !{}
 !5 = !DISubroutineType(types: !3)
 
-!10 = distinct !DISubprogram(name: "extNotKer", scope: !2, file: !2, line: 13, type: !5, scopeLine: 13, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
-!20 = distinct !DISubprogram(name: "impNotKer", scope: !2, file: !2, line: 23, type: !5, scopeLine: 23, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
-!30 = distinct !DISubprogram(name: "weakNotKer", scope: !2, file: !2, line: 33, type: !5, scopeLine: 33, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
-!40 = distinct !DISubprogram(name: "extPtxKer", scope: !2, file: !2, line: 43, type: !5, scopeLine: 43, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
-!50 = distinct !DISubprogram(name: "extAmdgpuKer", scope: !2, file: !2, line: 53, type: !5, scopeLine: 53, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
-!60 = distinct !DISubprogram(name: "extSpirKer", scope: !2, file: !2, line: 63, type: !5, scopeLine: 63, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
-!70 = distinct !DISubprogram(name: "weakKer", scope: !2, file: !2, line: 73, type: !5, scopeLine: 73, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!10 = !DISubprogram(name: "extNotKer", scope: !2, file: !2, line: 13, type: !5, scopeLine: 13, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!20 = !DISubprogram(name: "impNotKer", scope: !2, file: !2, line: 23, type: !5, scopeLine: 23, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!30 = !DISubprogram(name: "weakNotKer", scope: !2, file: !2, line: 33, type: !5, scopeLine: 33, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!40 = !DISubprogram(name: "extPtxKer", scope: !2, file: !2, line: 43, type: !5, scopeLine: 43, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!50 = !DISubprogram(name: "extAmdgpuKer", scope: !2, file: !2, line: 53, type: !5, scopeLine: 53, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!60 = !DISubprogram(name: "extSpirKer", scope: !2, file: !2, line: 63, type: !5, scopeLine: 63, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!70 = !DISubprogram(name: "weakKer", scope: !2, file: !2, line: 73, type: !5, scopeLine: 73, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)

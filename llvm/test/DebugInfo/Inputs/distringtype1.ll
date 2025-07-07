@@ -16,7 +16,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = distinct !DICompileUnit(language: DW_LANG_Fortran90, file: !3, producer: " F90 Flang - 1.5 2017-05-01", isOptimized: false, flags: "'+flang -g distringtype1.f90 -S -emit-llvm'", runtimeVersion: 0, emissionKind: FullDebug, enums: !4, retainedTypes: !4, globals: !4, imports: !4, nameTableKind: None)
 !3 = !DIFile(filename: "distringtype1.f90", directory: "/tmp/")
 !4 = !{}
-!5 = distinct !DISubprogram(name: "sub2", scope: !2, file: !3, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !9)
+!5 = !DISubprogram(name: "sub2", scope: !2, file: !3, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !9)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null, !8}
 !8 = !DIStringType(name: "character(*)!1", size: 32)

@@ -18,7 +18,7 @@ define void @test() #0 !dbg !9 {
 !5 = distinct !DICompileUnit(language: DW_LANG_C99, file: !6, producer: "Apple clang version 13.0.0 (clang-1300.0.29.3)", isOptimized: false, runtimeVersion: 0, emissionKind: LineTablesOnly, enums: !7, nameTableKind: None, sysroot: "/Library/Developer/CommandLineTools/SDKs/MacOSX12.0.sdk", sdk: "MacOSX12.0.sdk")
 !6 = !DIFile(filename: "/Users/shubham/Development/test/test.c", directory: "/Users/shubham/Development/deltaTest")
 !7 = !{}
-!9 = distinct !DISubprogram(name: "test", scope: !10, file: !10, line: 2, type: !11, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
+!9 = !DISubprogram(name: "test", scope: !10, file: !10, line: 2, type: !11, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
 !10 = !DIFile(filename: "test/test.c", directory: "/Users/shubham/Development")
 !11 = !DISubroutineType(types: !7)
 !12 = !DILocation(line: 0, column: 5, scope: !9)

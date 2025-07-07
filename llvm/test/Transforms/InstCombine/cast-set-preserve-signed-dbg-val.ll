@@ -38,7 +38,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !7 = !DISubroutineType(types: !2)
 !10 = !DIBasicType(name: "ty32", size: 32, encoding: DW_ATE_signed)
 !12 = !DIBasicType(name: "ty8", size: 8, encoding: DW_ATE_signed)
-!34 = distinct !DISubprogram(name: "test5", linkageName: "test5", scope: null, file: !1, line: 12, type: !7, isLocal: false, isDefinition: true, scopeLine: 12, isOptimized: true, unit: !0, retainedNodes: !35)
+!34 = !DISubprogram(name: "test5", linkageName: "test5", scope: null, file: !1, line: 12, type: !7, isLocal: false, isDefinition: true, scopeLine: 12, isOptimized: true, unit: !0, retainedNodes: !35)
 !35 = !{!36, !37, !38}
 !36 = !DILocalVariable(name: "B", scope: !34, file: !1, line: 12, type: !10)
 !37 = !DILocalVariable(name: "C", scope: !34, file: !1, line: 13, type: !10)

@@ -1750,5 +1750,5 @@ exit:
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 5, column: 12, scope: !8)
-!8 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 3, type: !9, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "main", scope: !1, file: !1, line: 3, type: !9, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !2)

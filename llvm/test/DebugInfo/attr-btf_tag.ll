@@ -71,7 +71,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 !13 = !{i32 7, !"uwtable", i32 1}
 !14 = !{i32 7, !"frame-pointer", i32 2}
 !15 = !{!"clang version 13.0.0 (https://github.com/llvm/llvm-project.git 305231a4f71b68945b4dd92925c76ff49e377c86)"}
-!16 = distinct !DISubprogram(name: "foo", scope: !3, file: !3, line: 10, type: !17, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4, annotations: !7)
+!16 = !DISubprogram(name: "foo", scope: !3, file: !3, line: 10, type: !17, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4, annotations: !7)
 
 ; CHECK:      DW_TAG_subprogram
 ; CHECK:        DW_AT_name      ("foo")

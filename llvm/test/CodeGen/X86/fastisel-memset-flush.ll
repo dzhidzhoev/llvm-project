@@ -31,7 +31,7 @@ declare dso_local void @other(ptr)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0 (https://github.com/llvm/llvm-project eaae6fdf67e1f61599331d69a41a7dafe6199667)"}
-!7 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, type: !8, scopeLine: 5, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, type: !8, scopeLine: 5, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 6, column: 7, scope: !7)
 !10 = !DILocation(line: 8, column: 3, scope: !7)

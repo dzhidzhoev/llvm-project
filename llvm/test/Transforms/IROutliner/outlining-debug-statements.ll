@@ -58,7 +58,7 @@ entry:
 !5 = distinct !DICompileUnit(language: DW_LANG_C, file: !0, producer: "My Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !6, retainedTypes: !6, globals: !7)
 !6 = !{}
 !7 = !{}
-!11 = distinct !DISubprogram(name: "func_5", scope: !0, file: !0, line: 117, type: !12, isLocal: true, isDefinition: true, scopeLine: 118, isOptimized: false, unit: !5, retainedNodes: !6)
+!11 = !DISubprogram(name: "func_5", scope: !0, file: !0, line: 117, type: !12, isLocal: true, isDefinition: true, scopeLine: 118, isOptimized: false, unit: !5, retainedNodes: !6)
 !12 = !DISubroutineType(types: !13)
 !13 = !{}
 !14 = !DILocalVariable(name: "p_6", arg: 1, scope: !11, line: 117, type: !1)

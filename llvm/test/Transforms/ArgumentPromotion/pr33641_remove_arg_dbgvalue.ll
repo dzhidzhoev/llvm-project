@@ -31,5 +31,5 @@ attributes #0 = { nofree nosync nounwind readnone speculatable willreturn }
 !1 = !DIFile(filename: "test.c", directory: "")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DILocalVariable(name: "p", scope: !4)
-!4 = distinct !DISubprogram(name: "bar", scope: null, spFlags: DISPFlagDefinition, unit: !0)
+!4 = !DISubprogram(name: "bar", scope: null, spFlags: DISPFlagDefinition, unit: !0)
 !5 = !DILocation(line: 1, column: 1, scope: !4)

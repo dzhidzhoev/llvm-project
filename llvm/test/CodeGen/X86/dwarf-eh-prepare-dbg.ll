@@ -48,7 +48,7 @@ landingpad:
 !1 = !DIFile(filename: "/app/example.c", directory: "/app")
 !2 = !{i32 7, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "_Unwind_Resume", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!4 = !DISubprogram(name: "_Unwind_Resume", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
 !5 = !DIFile(filename: "example.c", directory: "/app")
 !6 = !DISubroutineType(types: !7)
 !7 = !{null, !8}
@@ -56,10 +56,10 @@ landingpad:
 !9 = !{!10}
 !10 = !DILocalVariable(name: "exception", arg: 1, scope: !4, file: !5, line: 1, type: !8)
 !11 = !DILocation(line: 2, column: 1, scope: !4)
-!12 = distinct !DISubprogram(name: "test", scope: !5, file: !5, line: 4, type: !13, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!12 = !DISubprogram(name: "test", scope: !5, file: !5, line: 4, type: !13, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !13 = !DISubroutineType(types: !14)
 !14 = !{null}
 !15 = !DILocation(line: 6, column: 1, scope: !12)
 
-; CHECK: [[DBG_SCOPE:![0-9]+]] = distinct !DISubprogram(name: "test"
+; CHECK: [[DBG_SCOPE:![0-9]+]] = !DISubprogram(name: "test"
 ; CHECK: [[DBG16]] = !DILocation(line: 0, scope: [[DBG_SCOPE]])

@@ -220,7 +220,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 ; CHECK-DAG: ![[f6_local]] = !DILocalVariable(name: "f6_local",
 
 ; CHECK-DAG: ![[f1_dbg]] = !DILocation(line: 0, scope: ![[f1_scope:[0-9]+]])
-; CHECK-DAG: ![[f1_scope]] = distinct !DISubprogram(name: "f1",
+; CHECK-DAG: ![[f1_scope]] = !DISubprogram(name: "f1",
 
 ; CHECK-DAG: [[ID_1]] = distinct !DIAssignID()
 ; CHECK-DAG: [[ID_2]] = distinct !DIAssignID()
@@ -240,7 +240,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0)"}
-!7 = distinct !DISubprogram(name: "b", linkageName: "_Z1bPii", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!7 = !DISubprogram(name: "b", linkageName: "_Z1bPii", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null, !10, !11}
 !10 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !11, size: 64)
@@ -255,7 +255,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !19 = distinct !DIAssignID()
 !20 = !DILocation(line: 5, column: 27, scope: !7)
 !21 = !DILocation(line: 5, column: 38, scope: !7)
-!22 = distinct !DISubprogram(name: "a", linkageName: "_ZL1aPii", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !23)
+!22 = !DISubprogram(name: "a", linkageName: "_ZL1aPii", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !23)
 !23 = !{!24, !25}
 !24 = !DILocalVariable(name: "p2", arg: 1, scope: !22, file: !1, line: 2, type: !10)
 !25 = !DILocalVariable(name: "v2", arg: 2, scope: !22, file: !1, line: 2, type: !11)
@@ -266,7 +266,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !30 = distinct !DIAssignID()
 !31 = !DILocation(line: 2, column: 38, scope: !22)
 !36 = !DILocation(line: 2, column: 44, scope: !22)
-!37 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 7, type: !38, scopeLine: 7, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !40)
+!37 = !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 7, type: !38, scopeLine: 7, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !40)
 !38 = !DISubroutineType(types: !39)
 !39 = !{!11}
 !40 = !{!41}
@@ -278,7 +278,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !46 = !DILocation(line: 10, column: 10, scope: !37)
 !47 = !DILocation(line: 11, column: 1, scope: !37)
 !48 = !DILocation(line: 10, column: 3, scope: !37)
-!49 = distinct !DISubprogram(name: "f2", linkageName: "_Z2f2v", scope: !1, file: !1, line: 13, type: !38, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !50)
+!49 = !DISubprogram(name: "f2", linkageName: "_Z2f2v", scope: !1, file: !1, line: 13, type: !38, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !50)
 !50 = !{!51}
 !51 = !DILocalVariable(name: "f2_local", scope: !49, file: !1, line: 14, type: !52)
 !52 = !DICompositeType(tag: DW_TAG_array_type, baseType: !11, size: 64, elements: !53)
@@ -292,7 +292,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !60 = !DILocation(line: 16, column: 10, scope: !49)
 !61 = !DILocation(line: 17, column: 1, scope: !49)
 !62 = !DILocation(line: 16, column: 3, scope: !49)
-!63 = distinct !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !1, file: !1, line: 19, type: !38, scopeLine: 19, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !64)
+!63 = !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !1, file: !1, line: 19, type: !38, scopeLine: 19, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !64)
 !64 = !{!65}
 !65 = !DILocalVariable(name: "f3_local", scope: !63, file: !1, line: 20, type: !52)
 !66 = distinct !DIAssignID()
@@ -304,7 +304,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !72 = !DILocation(line: 22, column: 10, scope: !63)
 !73 = !DILocation(line: 23, column: 1, scope: !63)
 !74 = !DILocation(line: 22, column: 3, scope: !63)
-!75 = distinct !DISubprogram(name: "f4", linkageName: "_Z2f4i", scope: !1, file: !1, line: 25, type: !76, scopeLine: 25, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !78)
+!75 = !DISubprogram(name: "f4", linkageName: "_Z2f4i", scope: !1, file: !1, line: 25, type: !76, scopeLine: 25, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !78)
 !76 = !DISubroutineType(types: !77)
 !77 = !{!11, !11}
 !78 = !{!79}
@@ -315,7 +315,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !83 = !DILocation(line: 26, column: 3, scope: !75)
 !84 = !DILocation(line: 27, column: 10, scope: !75)
 !85 = !DILocation(line: 27, column: 3, scope: !75)
-!86 = distinct !DISubprogram(name: "f5", linkageName: "_Z2f5i", scope: !1, file: !1, line: 30, type: !76, scopeLine: 30, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !87)
+!86 = !DISubprogram(name: "f5", linkageName: "_Z2f5i", scope: !1, file: !1, line: 30, type: !76, scopeLine: 30, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !87)
 !87 = !{!88, !89}
 !88 = !DILocalVariable(name: "f5_param", arg: 1, scope: !86, file: !1, line: 30, type: !11)
 !89 = !DILocalVariable(name: "f5_alias", scope: !86, file: !1, line: 31, type: !90)
@@ -328,7 +328,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !96 = !DILocation(line: 32, column: 3, scope: !86)
 !97 = !DILocation(line: 33, column: 10, scope: !86)
 !98 = !DILocation(line: 33, column: 3, scope: !86)
-!99 = distinct !DISubprogram(name: "f6", linkageName: "_Z2f6v", scope: !1, file: !1, line: 36, type: !38, scopeLine: 36, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !100)
+!99 = !DISubprogram(name: "f6", linkageName: "_Z2f6v", scope: !1, file: !1, line: 36, type: !38, scopeLine: 36, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !100)
 !100 = !{!101}
 !101 = !DILocalVariable(name: "f6_local", scope: !99, file: !1, line: 37, type: !11)
 !102 = distinct !DIAssignID()

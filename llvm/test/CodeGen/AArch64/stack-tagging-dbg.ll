@@ -30,7 +30,7 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1, producer: "clang version 9.0.0", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !2, nameTableKind: None)
 !1 = !DIFile(filename: "stack-tagging.cc", directory: "/tmp")
 !2 = !{}
-!3 = distinct !DISubprogram(name: "DbgIntrinsics", linkageName: "DbgIntrinsics", scope: !1, file: !1, line: 3, type: !4, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!3 = !DISubprogram(name: "DbgIntrinsics", linkageName: "DbgIntrinsics", scope: !1, file: !1, line: 3, type: !4, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !4 = !DISubroutineType(types: !5)
 !5 = !{null}
 !6 = !DILocalVariable(name: "x", scope: !3, file: !1, line: 4, type: !7)

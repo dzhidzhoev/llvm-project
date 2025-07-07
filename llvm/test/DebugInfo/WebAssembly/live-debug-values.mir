@@ -39,8 +39,8 @@
   !2 = !{i32 7, !"Dwarf Version", i32 5}
   !3 = !{i32 2, !"Debug Info Version", i32 3}
   !4 = !{i32 1, !"wchar_size", i32 4}
-  !5 = distinct !DISubprogram(name: "test_consts", scope: !1, file: !1, line: 1, type: !6, scopeLine: 1, unit: !0)
-  ; CHECK: ![[T0_SP:[0-9]+]] = distinct !DISubprogram(name: "test_consts"
+  !5 = !DISubprogram(name: "test_consts", scope: !1, file: !1, line: 1, type: !6, scopeLine: 1, unit: !0)
+  ; CHECK: ![[T0_SP:[0-9]+]] = !DISubprogram(name: "test_consts"
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8}
   !8 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -53,8 +53,8 @@
   ; CHECK: ![[T0_VAR2:[0-9]+]] = !DILocalVariable(name: "var2", scope: ![[T0_SP]]
   !13 = !DILocalVariable(name: "var3", scope: !5, file: !1, line: 2, type: !8)
   ; CHECK: ![[T0_VAR3:[0-9]+]] = !DILocalVariable(name: "var3", scope: ![[T0_SP]]
-  !14 = distinct !DISubprogram(name: "test_target_indices", scope: !1, file: !1, line: 10, type: !6, scopeLine: 1, unit: !0)
-  ; CHECK: ![[T1_SP:[0-9]+]] = distinct !DISubprogram(name: "test_target_indices"
+  !14 = !DISubprogram(name: "test_target_indices", scope: !1, file: !1, line: 10, type: !6, scopeLine: 1, unit: !0)
+  ; CHECK: ![[T1_SP:[0-9]+]] = !DISubprogram(name: "test_target_indices"
   !15 = !DILocalVariable(name: "var0", scope: !14, file: !1, line: 11, type: !8)
   ; CHECK: ![[T1_VAR0:[0-9]+]] = !DILocalVariable(name: "var0", scope: ![[T1_SP]]
   !16 = !DILocation(line: 10, scope: !14)
@@ -66,7 +66,7 @@
   ; CHECK: ![[T1_VAR3:[0-9]+]] = !DILocalVariable(name: "var3", scope: ![[T1_SP]]
   !20 = !DILocalVariable(name: "var4", scope: !14, file: !1, line: 11, type: !8)
   ; CHECK: ![[T1_VAR4:[0-9]+]] = !DILocalVariable(name: "var4", scope: ![[T1_SP]]
-  !21 = distinct !DISubprogram(name: "test_target_index_defs", scope: !1, file: !1, line: 10, type: !6, scopeLine: 1, unit: !0)
+  !21 = !DISubprogram(name: "test_target_index_defs", scope: !1, file: !1, line: 10, type: !6, scopeLine: 1, unit: !0)
   !22 = !DILocalVariable(name: "var0", scope: !21, file: !1, line: 20, type: !8)
   !23 = !DILocation(line: 10, scope: !21)
   !24 = !DILocalVariable(name: "var1", scope: !21, file: !1, line: 20, type: !8)

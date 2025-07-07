@@ -104,7 +104,7 @@ if.end:                                           ; preds = %if.else, %do.body
 !0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 21.0.0git", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: Apple, sysroot: "/")
 !1 = !DIFile(filename: "main.c", directory: "")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !4, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !5)
+!3 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !4, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !5)
 !4 = !DISubroutineType(types: !5)
 !5 = !{}
 !6 = !DILocation(line: 102, column: 3, scope: !7)
@@ -123,7 +123,7 @@ if.end:                                           ; preds = %if.else, %do.body
 !19 = distinct !DILexicalBlock(scope: !13, file: !1, line: 7, column: 9)
 
 ; CHECK: [[FILE_MAIN:![0-9]+]] = !DIFile(filename: "main.c"
-; CHECK: [[SP:![0-9]+]] = distinct !DISubprogram(name: "foo", scope: [[FILE_MAIN]], file: [[FILE_MAIN]], line: 1
+; CHECK: [[SP:![0-9]+]] = !DISubprogram(name: "foo", scope: [[FILE_MAIN]], file: [[FILE_MAIN]], line: 1
 ; CHECK: [[PHILOC]] = !DILocation(line: 300, column: 4, scope: [[BLOCK_Y:![0-9]+]])
 ; CHECK-NEXT: [[BLOCK_Y]] = !DILexicalBlock(scope: [[BLOCK_MAIN:![0-9]+]], file: [[FILE_Y:![0-9]+]], line: 300, column: 4)
 ; CHECK-NEXT: [[FILE_Y]] = !DIFile(filename: "y.c"

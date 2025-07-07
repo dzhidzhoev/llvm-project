@@ -72,7 +72,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 !2 = !DIFile(filename: "Main.m3", directory: "/home/cm3/settest/src")
 !3 = !{!4}
 !4 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "Enum", scope: !5, file: !2, line: 11, size: 8, align: 8, elements: !9)
-!5 = distinct !DISubprogram(name: "Test", linkageName: "Main__Test", scope: !2, file: !2, line: 11, type: !6, scopeLine: 11, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !8)
+!5 = !DISubprogram(name: "Test", linkageName: "Main__Test", scope: !2, file: !2, line: 11, type: !6, scopeLine: 11, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !8)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !{}
@@ -105,7 +105,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 ; CHECK:           DW_AT_byte_size (0x08)
 !28 = !DILocation(line: 17, scope: !5)
 !29 = !DILocation(line: 18, scope: !5)
-!30 = distinct !DISubprogram(name: "Main_M3", linkageName: "Main_M3", scope: !2, file: !2, line: 22, type: !31, scopeLine: 22, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !8)
+!30 = !DISubprogram(name: "Main_M3", linkageName: "Main_M3", scope: !2, file: !2, line: 22, type: !31, scopeLine: 22, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !8)
 !31 = !DISubroutineType(types: !32)
 !32 = !{!33, !35}
 !33 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "ADDR", baseType: !34, size: 64, align: 64)

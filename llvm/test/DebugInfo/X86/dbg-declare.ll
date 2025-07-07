@@ -45,7 +45,7 @@ declare void @llvm.stackrestore(ptr) nounwind
 
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang version 3.1 (trunk 153698)", isOptimized: false, emissionKind: FullDebug, file: !26, enums: !1, retainedTypes: !1, globals: !1)
 !1 = !{}
-!5 = distinct !DISubprogram(name: "foo", line: 6, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0, file: !26, scope: !0, type: !7)
+!5 = !DISubprogram(name: "foo", line: 6, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0, file: !26, scope: !0, type: !7)
 !6 = !DIFile(filename: "20020104-2.c", directory: "/Volumes/Sandbox/llvm")
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9, !10}

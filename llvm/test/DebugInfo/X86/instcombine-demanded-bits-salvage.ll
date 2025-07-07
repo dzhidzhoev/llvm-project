@@ -31,7 +31,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !8 = !{i32 7, !"Dwarf Version", i32 4}
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{!""}
-!11 = distinct !DISubprogram(name: "p", scope: !1, file: !1, line: 6, type: !12, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!11 = !DISubprogram(name: "p", scope: !1, file: !1, line: 6, type: !12, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !12 = !DISubroutineType(types: !13)
 !13 = !{!7}
 !14 = !DILocation(line: 4, column: 35, scope: !11)

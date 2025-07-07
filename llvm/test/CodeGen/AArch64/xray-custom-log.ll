@@ -116,7 +116,7 @@ declare void @llvm.xray.typedevent(i64, ptr, i64)
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{!"clang version 17.0.0"}
-!11 = distinct !DISubprogram(name: "customevent", scope: !1, file: !1, line: 1, type: !12, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!11 = !DISubprogram(name: "customevent", scope: !1, file: !1, line: 1, type: !12, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !12 = !DISubroutineType(types: !13)
 !13 = !{null, !14, !15, !14, !15}
 !14 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
@@ -125,7 +125,7 @@ declare void @llvm.xray.typedevent(i64, ptr, i64)
 !22 = !DILocation(line: 2, column: 3, scope: !11)
 !23 = !DILocation(line: 3, column: 3, scope: !11)
 !24 = !DILocation(line: 4, column: 1, scope: !11)
-!25 = distinct !DISubprogram(name: "typedevent", scope: !1, file: !1, line: 6, type: !26, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!25 = !DISubprogram(name: "typedevent", scope: !1, file: !1, line: 6, type: !26, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !26 = !DISubroutineType(types: !27)
 !27 = !{null, !15, !14, !15}
 !32 = !DILocation(line: 0, scope: !25)

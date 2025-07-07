@@ -61,14 +61,14 @@ declare i1 @bar()
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 10, column: 20, scope: !6)
-!6 = distinct !DISubprogram(name: "ListArchives", linkageName: "foo", scope: !1, file: !1, line: 416, type: !7, scopeLine: 425, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "ListArchives", linkageName: "foo", scope: !1, file: !1, line: 416, type: !7, scopeLine: 425, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !7 = distinct !DISubroutineType(types: !2)
 !8 = !DILocation(line: 10, column: 10, scope: !6)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "List.cpp", directory: {{.*}})
 ; CHECK: [[DBG3]] = !DILocation(line: 10, scope: [[META4:![0-9]+]])
-; CHECK: [[META4]] = distinct !DISubprogram(name: "ListArchives", linkageName: "foo", scope: [[META1]], file: [[META1]], line: 416, type: [[META5:![0-9]+]], scopeLine: 425, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META6:![0-9]+]])
+; CHECK: [[META4]] = !DISubprogram(name: "ListArchives", linkageName: "foo", scope: [[META1]], file: [[META1]], line: 416, type: [[META5:![0-9]+]], scopeLine: 425, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META6:![0-9]+]])
 ; CHECK: [[META5]] = distinct !DISubroutineType(types: [[META6]])
 ; CHECK: [[META6]] = !{}
 ;.

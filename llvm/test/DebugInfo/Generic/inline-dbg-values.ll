@@ -48,9 +48,9 @@
 ;; Test that the metadata maps onto the correct things, and that the DILocations
 ;; attached to the intrinsics have been inlined.
 ;
-; CHECK-DAG: ![[TEST2SP:[0-9]+]] = distinct !DISubprogram(name: "test2",
+; CHECK-DAG: ![[TEST2SP:[0-9]+]] = !DISubprogram(name: "test2",
 ; CHECK-DAG: ![[INLINESITEBLOCK:[0-9]+]] = distinct !DILexicalBlock(scope: ![[TEST2SP]],
-; CHECK-DAG: ![[TESTSP:[0-9]+]] = distinct !DISubprogram(name: "test",
+; CHECK-DAG: ![[TESTSP:[0-9]+]] = !DISubprogram(name: "test",
 ; CHECK-DAG: ![[KVAR]] = !DILocalVariable(name: "k",
 ; CHECK-DAG: ![[K2VAR]] = !DILocalVariable(name: "k2",
 ; CHECK-DAG: ![[KLINE]] = !DILocation(line: 4, scope: ![[TESTSP]], inlinedAt: ![[INLINESITE:[0-9]+]])
@@ -122,13 +122,13 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, producer: "clang version 3.3 ", isOptimized: false, emissionKind: FullDebug, file: !1, enums: !2, retainedTypes: !2, globals: !2, imports: !2)
 !1 = !DIFile(filename: "<unknown>", directory: "")
 !2 = !{}
-!4 = distinct !DISubprogram(name: "test", linkageName: "_Z4testi", line: 4, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 4, file: !5, scope: !6, type: !7, retainedNodes: !2)
+!4 = !DISubprogram(name: "test", linkageName: "_Z4testi", line: 4, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 4, file: !5, scope: !6, type: !7, retainedNodes: !2)
 !5 = !DIFile(filename: "test.cpp", directory: "")
 !6 = !DIFile(filename: "test.cpp", directory: "")
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9, !9}
 !9 = !DIBasicType(tag: DW_TAG_base_type, name: "int", size: 32, align: 32, encoding: DW_ATE_signed)
-!10 = distinct !DISubprogram(name: "test2", linkageName: "_Z5test2v", line: 11, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 11, file: !5, scope: !6, type: !11, retainedNodes: !2)
+!10 = !DISubprogram(name: "test2", linkageName: "_Z5test2v", line: 11, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 11, file: !5, scope: !6, type: !11, retainedNodes: !2)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!9}
 !13 = !DILocalVariable(name: "k", line: 4, arg: 1, scope: !4, file: !6, type: !9)

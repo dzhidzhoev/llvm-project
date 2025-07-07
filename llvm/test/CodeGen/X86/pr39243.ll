@@ -108,12 +108,12 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{i32 1, !"wchar_size", i32 4}
 !10 = !{!"clang version 8.0.0 (trunk 344502)"}
-!11 = distinct !DISubprogram(name: "charlie", linkageName: "_Z7charliev", scope: !3, file: !3, line: 9, type: !12, isLocal: false, isDefinition: true, scopeLine: 9, flags: DIFlagPrototyped, isOptimized: true, unit: !2, retainedNodes: !14)
+!11 = !DISubprogram(name: "charlie", linkageName: "_Z7charliev", scope: !3, file: !3, line: 9, type: !12, isLocal: false, isDefinition: true, scopeLine: 9, flags: DIFlagPrototyped, isOptimized: true, unit: !2, retainedNodes: !14)
 !12 = !DISubroutineType(types: !13)
 !13 = !{!6}
 !14 = !{!15}
 !15 = !DILocalVariable(name: "delta", scope: !11, file: !3, line: 10, type: !6)
-!18 = distinct !DISubprogram(name: "echo", linkageName: "_Z4echo5onion", scope: !3, file: !3, line: 14, type: !19, isLocal: false, isDefinition: true, scopeLine: 14, flags: DIFlagPrototyped, isOptimized: true, unit: !2, retainedNodes: !29)
+!18 = !DISubprogram(name: "echo", linkageName: "_Z4echo5onion", scope: !3, file: !3, line: 14, type: !19, isLocal: false, isDefinition: true, scopeLine: 14, flags: DIFlagPrototyped, isOptimized: true, unit: !2, retainedNodes: !29)
 !19 = !DISubroutineType(types: !20)
 !20 = !{!6, !21}
 !21 = distinct !DICompositeType(tag: DW_TAG_union_type, name: "onion", file: !3, line: 1, size: 64, flags: DIFlagTypePassByValue, elements: !22, identifier: "_ZTS5onion")

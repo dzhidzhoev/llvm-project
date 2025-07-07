@@ -27,7 +27,7 @@ entry:
 !2 = !{}
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "foo<param>", scope: !1, file: !1, line: 27, type: !6, scopeLine: 27, spFlags: DISPFlagDefinition, unit: !0, templateParams: !8)
+!5 = !DISubprogram(name: "foo<param>", scope: !1, file: !1, line: 27, type: !6, scopeLine: 27, spFlags: DISPFlagDefinition, unit: !0, templateParams: !8)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !{!9}

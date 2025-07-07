@@ -62,7 +62,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !6 = !DIFile(filename: "-", directory: "/")
 !7 = !{}
 !8 = !{!""}
-!9 = distinct !DISubprogram(name: "t1", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
+!9 = !DISubprogram(name: "t1", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
 !10 = !DIFile(filename: "<stdin>", directory: "/")
 !11 = !DISubroutineType(types: !12)
 !12 = !{null, !13}
@@ -70,7 +70,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !14 = !DILocalVariable(name: "a", arg: 1, scope: !9, file: !10, line: 1, type: !13)
 !15 = !DILocation(line: 1, column: 13, scope: !9)
 !16 = !DILocation(line: 1, column: 17, scope: !9)
-!17 = distinct !DISubprogram(name: "t2", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
+!17 = !DISubprogram(name: "t2", scope: !10, file: !10, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
 !18 = !DILocalVariable(name: "x", arg: 1, scope: !17, file: !10, line: 1, type: !13)
 !19 = !DILocation(line: 1, column: 1, scope: !17)
 !20 = !DILocalVariable(name: "fake_ptr", scope: !9, file: !10, line: 1, type: !13)

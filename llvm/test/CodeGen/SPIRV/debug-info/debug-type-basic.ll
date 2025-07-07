@@ -169,7 +169,7 @@ entry:
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"frame-pointer", i32 2}
-!9 = distinct !DISubprogram(name: "test1", linkageName: "XXXX", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!9 = !DISubprogram(name: "test1", linkageName: "XXXX", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !10 = !DISubroutineType(cc: DW_CC_LLVM_SpirFunction, types: !11)
 !11 = !{!12}
 !12 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -207,7 +207,7 @@ entry:
 !44 = !DIBasicType(name: "double", size: 64, encoding: DW_ATE_float)
 !45 = !DILocation(line: 12, column: 10, scope: !9)
 !46 = !DILocation(line: 13, column: 3, scope: !9)
-!47 = distinct !DISubprogram(name: "test2", linkageName: "YYYY", scope: !1, file: !1, line: 16, type: !10, scopeLine: 16, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!47 = !DISubprogram(name: "test2", linkageName: "YYYY", scope: !1, file: !1, line: 16, type: !10, scopeLine: 16, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !48 = !DILocalVariable(name: "b1", scope: !47, file: !1, line: 17, type: !15)
 !49 = !DILocation(line: 17, column: 8, scope: !47)
 !50 = !DILocalVariable(name: "a1", scope: !47, file: !1, line: 18, type: !12)

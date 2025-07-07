@@ -62,7 +62,7 @@ attributes #2 = { "frame-pointer"="none" "no-trapping-math"="true" "stack-protec
 !5 = !{i32 7, !"PIC Level", i32 2}
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{!"clang version 14.0.0 (git@github.com:llvm/llvm-project.git 3709fb72c86bea1f0e6c51ab334ed6417cbe1c07)"}
-!8 = distinct !DISubprogram(name: "f", linkageName: "?f@@YAXXZ", scope: !9, file: !9, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!8 = !DISubprogram(name: "f", linkageName: "?f@@YAXXZ", scope: !9, file: !9, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !9 = !DIFile(filename: "scratch/t.cpp", directory: "/usr/local/google/home/blaikie/dev", checksumkind: CSK_MD5, checksum: "a8e7ccc989ea91d67d3cb95afa046aa5")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}

@@ -4,7 +4,7 @@ define void @foo1() !dbg !0 {
 
 !named = !{!1, !2, !3, !4, !5}
 
-!0 = distinct !DISubprogram(file: !7, scope: !7, line: 1, name: "foo", type: !9, unit: !6)
+!0 = !DISubprogram(file: !7, scope: !7, line: 1, name: "foo", type: !9, unit: !6)
 
 !1 = !DILocation(line: 3, column: 7, scope: !10)
 !2 = !DILocation(line: 3, column: 7, scope: !10, inlinedAt: !1)

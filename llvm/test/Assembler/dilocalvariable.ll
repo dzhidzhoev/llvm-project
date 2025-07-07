@@ -9,7 +9,7 @@
 !llvm.module.flags = !{!10}
 !llvm.dbg.cu = !{!1}
 
-!0 = distinct !DISubprogram(unit: !1)
+!0 = !DISubprogram(unit: !1)
 !1 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang",
                              file: !2,
                              isOptimized: true, flags: "-O2",

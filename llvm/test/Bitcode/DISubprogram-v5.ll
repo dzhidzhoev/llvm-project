@@ -16,8 +16,8 @@ entry:
 !2 = !{}
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 1, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !6, scopeLine: 6, virtualIndex: 6, flags: DIFlagPrototyped | DIFlagMainSubprogram, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
-; CHECK: !5 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !6, scopeLine: 6, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !6, scopeLine: 6, virtualIndex: 6, flags: DIFlagPrototyped | DIFlagMainSubprogram, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+; CHECK: !5 = !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !6, scopeLine: 6, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !0, retainedNodes: !2)
 !6 = !DISubroutineType(types: !7)
 !7 = !{!8}
 !8 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)

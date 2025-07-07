@@ -25,7 +25,7 @@ define float @generic_ptr_from_constant() !dbg !5 {
 !2 = !{i32 3}
 !3 = !{i32 0}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "generic_ptr_from_constant", linkageName: "generic_ptr_from_constant", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!5 = !DISubprogram(name: "generic_ptr_from_constant", linkageName: "generic_ptr_from_constant", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !6 = !DISubroutineType(types: !7)
 !7 = !{}
 !8 = !DILocation(line: 1, column: 1, scope: !5)

@@ -47,7 +47,7 @@ attributes #0 = { "target-cpu"="x86-64" }
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 7.0.0 (trunk 324940) (llvm/trunk 324941)"}
-!7 = distinct !DISubprogram(name: "sum", linkageName: "sum", scope: !8, file: !8, line: 3, type: !9, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
+!7 = !DISubprogram(name: "sum", linkageName: "sum", scope: !8, file: !8, line: 3, type: !9, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
 !8 = !DIFile(filename: "./test.h", directory: "/tmp")
 !9 = !DISubroutineType(types: !2)
 !10 = !DILocation(line: 6, column: 10, scope: !7)
@@ -58,7 +58,7 @@ attributes #0 = { "target-cpu"="x86-64" }
 !15 = !DILocation(line: 6, column: 22, scope: !7)
 !16 = !DILocation(line: 6, column: 20, scope: !7)
 !17 = !DILocation(line: 6, column: 3, scope: !7)
-!18 = distinct !DISubprogram(name: "caller", linkageName: "caller", scope: !1, file: !1, line: 4, type: !9, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
+!18 = !DISubprogram(name: "caller", linkageName: "caller", scope: !1, file: !1, line: 4, type: !9, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
 !19 = !DILocation(line: 6, column: 10, scope: !7, inlinedAt: !20)
 !20 = distinct !DILocation(line: 6, column: 10, scope: !18)
 !21 = !DILocation(line: 6, column: 22, scope: !7, inlinedAt: !20)

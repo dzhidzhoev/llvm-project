@@ -67,7 +67,7 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0"}
-!7 = distinct !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !1, file: !1, line: 12, type: !8, scopeLine: 12, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!7 = !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !1, file: !1, line: 12, type: !8, scopeLine: 12, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !{!11}
@@ -87,7 +87,7 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg)
 !24 = !DILocation(line: 0, scope: !7)
 !25 = !DILocation(line: 13, column: 3, scope: !7)
 !26 = !DILocalVariable(name: "this", arg: 1, scope: !27, type: !30, flags: DIFlagArtificial | DIFlagObjectPointer)
-!27 = distinct !DISubprogram(name: "v", linkageName: "_ZN1vC2Ef", scope: !12, file: !1, line: 4, type: !20, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !19, retainedNodes: !28)
+!27 = !DISubprogram(name: "v", linkageName: "_ZN1vC2Ef", scope: !12, file: !1, line: 4, type: !20, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !19, retainedNodes: !28)
 !28 = !{!26, !29}
 !29 = !DILocalVariable(name: "d", arg: 2, scope: !27, file: !1, line: 4, type: !16)
 !30 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !12, size: 64)

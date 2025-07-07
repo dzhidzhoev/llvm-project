@@ -34,7 +34,7 @@
   !3 = distinct !DICompileUnit(language: DW_LANG_C, file: !4, producer: "debugify", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug)
   !4 = !DIFile(filename: "<stdin>", directory: "/")
   !5 = !{i32 1}
-  !6 = distinct !DISubprogram(name: "func", linkageName: "func", scope: null, file: !4, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !9)
+  !6 = !DISubprogram(name: "func", linkageName: "func", scope: null, file: !4, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !9)
   !7 = !DISubroutineType(types: !8)
   !8 = !{}
   !9 = !{!10}

@@ -21,7 +21,7 @@ entry:
 !2 = !{}
 !3 = !{!4}
 !4 = !DIImportedEntity(tag: DW_TAG_imported_module, scope: !5, entity: !8, file: !1, line: 2)
-!5 = distinct !DISubprogram(name: "test", linkageName: "_Z4testv", scope: !1, file: !1, line: 2, type: !6, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !3)
+!5 = !DISubprogram(name: "test", linkageName: "_Z4testv", scope: !1, file: !1, line: 2, type: !6, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !3)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !DINamespace(name: "ns1", scope: null)

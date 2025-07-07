@@ -26,7 +26,7 @@ define i32 @single_non_dbg_use(i32 %0, i32 %1) !dbg !6 {
   ret i32 %sub, !dbg !23
 }
 
-!6 = distinct !DISubprogram(name: "single_non_dbg_use", scope: !1, file: !1, type: !7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!6 = !DISubprogram(name: "single_non_dbg_use", scope: !1, file: !1, type: !7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9, !9, !9}
 !9 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -51,7 +51,7 @@ define i32 @single_use_frame_base(i32 %0, i32 %1) !dbg !13 {
   ret i32 %0, !dbg !26
 }
 
-!13 = distinct !DISubprogram(name: "single_use_frame_base", scope: !1, file: !1, type: !7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!13 = !DISubprogram(name: "single_use_frame_base", scope: !1, file: !1, type: !7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !14 = !DILocalVariable(name: "arg_value", scope: !13, type: !9)
 !24 = !DILocation(line: 24, scope: !13)
 !25 = !DILocation(line: 25, scope: !13)
@@ -73,7 +73,7 @@ define i32 @single_use_frame_base(i32 %0, i32 %1) !dbg !13 {
 ;   ret i32 %partial_value_one, !dbg !29
 ; }
 ; 
-; !15 = distinct !DISubprogram(name: "single_non_dbg_use_multivalue", scope: !1, file: !1, type: !7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+; !15 = !DISubprogram(name: "single_non_dbg_use_multivalue", scope: !1, file: !1, type: !7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 ; !16 = !DILocalVariable(name: "value_used", scope: !15, type: !9)
 ; !17 = !DILocalVariable(name: "value_unused", scope: !15, type: !9)
 ; !27 = !DILocation(line: 27, scope: !15)

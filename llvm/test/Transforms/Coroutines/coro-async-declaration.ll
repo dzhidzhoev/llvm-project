@@ -104,19 +104,19 @@ attributes #1 = { nomerge nounwind }
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 ; CHECK-DAG: ![[DECL:[0-9]+]] = !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaF"
 ; CHECK-DAG: ![[DECL_Q0:[0-9]+]] = !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaFTQ0_"
-; CHECK-DAG: distinct !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaF"{{.*}}, declaration: ![[DECL]]
-; CHECK-DAG: distinct !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaFTQ0_"{{.*}}, declaration: ![[DECL_Q0]]
-!5 = distinct !DISubprogram(name: "bar", linkageName: "$s3foo3FooO3baryyYaF", scope: !6, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, declaration: !9, retainedNodes: !2)
+; CHECK-DAG: !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaF"{{.*}}, declaration: ![[DECL]]
+; CHECK-DAG: !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaFTQ0_"{{.*}}, declaration: ![[DECL_Q0]]
+!5 = !DISubprogram(name: "bar", linkageName: "$s3foo3FooO3baryyYaF", scope: !6, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, declaration: !9, retainedNodes: !2)
 !6 = !DICompositeType(tag: DW_TAG_structure_type, name: "$s3foo3FooOD", scope: !7, flags: DIFlagFwdDecl, runtimeLang: DW_LANG_Swift)
 !7 = !DIModule(scope: null, name: "foo")
 !8 = !DISubroutineType(types: null)
 !9 = !DISubprogram(name: "bar", linkageName: "$s3foo3FooO3baryyYaF", scope: !6, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: 0)
 !10 = !DILocation(line: 3, column: 11, scope: !5)
 !11 = !DILocation(line: 4, column: 3, scope: !5)
-!12 = distinct !DISubprogram(linkageName: "__swift_async_resume_project_context", scope: !7, file: !13, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!12 = !DISubprogram(linkageName: "__swift_async_resume_project_context", scope: !7, file: !13, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !13 = !DIFile(filename: "<compiler-generated>", directory: "")
 !14 = !DILocation(line: 0, scope: !12)
-!15 = distinct !DISubprogram(linkageName: "$s3foo3FooO3baryyYaF", scope: !7, file: !13, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!15 = !DISubprogram(linkageName: "$s3foo3FooO3baryyYaF", scope: !7, file: !13, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !16 = !DILocation(line: 0, scope: !15)
-!17 = distinct !DISubprogram(linkageName: "$s3foo3FooO3baryyYaF", scope: !7, file: !13, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!17 = !DISubprogram(linkageName: "$s3foo3FooO3baryyYaF", scope: !7, file: !13, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !18 = !DILocation(line: 0, scope: !17)

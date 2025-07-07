@@ -68,7 +68,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !6 = !{i32 7, !"PIE Level", i32 2}
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{!"clang version 16.0.0"}
-!9 = distinct !DISubprogram(name: "fun", scope: !1, file: !1, line: 3, type: !10, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!9 = !DISubprogram(name: "fun", scope: !1, file: !1, line: 3, type: !10, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !{}
@@ -79,7 +79,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !17 = distinct !DILexicalBlock(scope: !14, file: !1, line: 4, column: 3)
 !18 = !DILocation(line: 4, column: 3, scope: !14)
 !19 = !DILocalVariable(name: "p", arg: 1, scope: !20, file: !1, line: 1, type: !23)
-!20 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !21, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !24)
+!20 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !21, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !24)
 !21 = !DISubroutineType(types: !22)
 !22 = !{!23, !23}
 !23 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

@@ -64,10 +64,10 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !1 = !DIFile(filename: "test.c", directory: "/")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "withDebug", unit: !0)
+!4 = !DISubprogram(name: "withDebug", unit: !0)
 !5 = !DILocalVariable(name: "w", scope: !4)
 !6 = !DIExpression()
 !7 = !DILocation(line: 210, column: 12, scope: !4)
-!8 = distinct !DISubprogram(name: "withDebug", unit: !0)
+!8 = !DISubprogram(name: "withDebug", unit: !0)
 !9 = !DILocalVariable(name: "w", scope: !8)
 !10 = !DILocation(line: 210, column: 12, scope: !8)

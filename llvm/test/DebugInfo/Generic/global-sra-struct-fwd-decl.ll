@@ -56,7 +56,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !13 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !3, line: 1, elements: !{})
 !14 = !{i32 7, !"Dwarf Version", i32 4}
 !15 = !{i32 2, !"Debug Info Version", i32 3}
-!18 = distinct !DISubprogram(name: "e", scope: !3, file: !3, line: 7, type: !19, scopeLine: 7, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !{})
+!18 = !DISubprogram(name: "e", scope: !3, file: !3, line: 7, type: !19, scopeLine: 7, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !{})
 !19 = !DISubroutineType(types: !{!21})
 !21 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !24 = !DILocalVariable(name: "f", scope: !18, file: !3, line: 8, type: !10)

@@ -50,12 +50,12 @@ attributes #1 = { "frame-pointer"="none" "no-trapping-math"="true" "stack-protec
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 13.0.0 (https://github.com/llvm/llvm-project.git 5027637fa1d409e3ca78dab60dc2e2db6c62c175)"}
-!7 = distinct !DISubprogram(name: "g", linkageName: "_Z1gv", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "g", linkageName: "_Z1gv", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !DILocation(line: 5, column: 12, scope: !7)
 !11 = !DILocation(line: 5, column: 26, scope: !7)
-!12 = distinct !DISubprogram(name: "f<char, &a>", linkageName: "_Z1fIcXadL_Z1avEEEvv", scope: !1, file: !1, line: 4, type: !8, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, templateParams: !13, retainedNodes: !2)
+!12 = !DISubprogram(name: "f<char, &a>", linkageName: "_Z1fIcXadL_Z1avEEEvv", scope: !1, file: !1, line: 4, type: !8, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, templateParams: !13, retainedNodes: !2)
 !13 = !{!14, !16}
 !14 = !DITemplateTypeParameter(type: !15)
 !15 = !DIBasicType(name: "char", size: 8, encoding: DW_ATE_signed_char)

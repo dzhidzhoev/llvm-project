@@ -45,11 +45,11 @@ entry:
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{i32 7, !"frame-pointer", i32 1}
 !8 = !{!"clang version 21.0.0git"}
-!9 = distinct !DISubprogram(name: "foo", linkageName: "\01bar", scope: !10, file: !10, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!9 = !DISubprogram(name: "foo", linkageName: "\01bar", scope: !10, file: !10, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !10 = !DIFile(filename: "asm.cpp", directory: "/tmp", checksumkind: CSK_MD5, checksum: "d053f9249cc5548d446ceb58411ad625")
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !DILocation(line: 2, column: 13, scope: !9)
-!14 = distinct !DISubprogram(name: "g", linkageName: "_Z1gv", scope: !10, file: !10, line: 4, type: !11, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!14 = !DISubprogram(name: "g", linkageName: "_Z1gv", scope: !10, file: !10, line: 4, type: !11, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !15 = !DILocation(line: 4, column: 12, scope: !14)
 !16 = !DILocation(line: 4, column: 19, scope: !14)

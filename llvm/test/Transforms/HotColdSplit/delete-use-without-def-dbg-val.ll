@@ -43,7 +43,7 @@ declare void @sink() cold
 !3 = !{i32 7}
 !4 = !{i32 1}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !8)
+!6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !8)
 !7 = !DISubroutineType(types: !2)
 !8 = !{!9}
 !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)

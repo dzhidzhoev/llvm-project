@@ -32,7 +32,7 @@ declare dso_local i32 @printf(ptr, ...)
 !6 = !{i32 2, !"Debug Info Version", i32 3}
 !7 = !{i32 1, !"wchar_size", i32 4}
 !8 = !{!"clang version 10.0.0"}
-!9 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 5, type: !10, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!9 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 5, type: !10, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null, !12}
 !12 = !DIDerivedType(tag: DW_TAG_typedef, name: "mystruct", file: !1, line: 3, baseType: !13)

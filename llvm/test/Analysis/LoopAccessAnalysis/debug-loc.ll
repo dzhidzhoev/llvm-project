@@ -26,7 +26,7 @@ exit:
 !llvm.module.flags = !{!5, !6, !7}
 
 !0 = !DIFile(filename: "negative_step.c", directory: "/")
-!1 = distinct !DISubprogram(name: "negative_step", scope: !0, file: !0, unit: !4)
+!1 = !DISubprogram(name: "negative_step", scope: !0, file: !0, unit: !4)
 !2 = !DILocation(line: 5, column: 2, scope: !1)
 !4 = distinct !DICompileUnit(language: DW_LANG_C99, file: !0, producer: "clang")
 !5 = !{i32 1, !"Debug Info Version", i32 3}

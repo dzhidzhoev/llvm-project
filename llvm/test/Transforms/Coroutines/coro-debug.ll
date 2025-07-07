@@ -134,7 +134,7 @@ attributes #7 = { noduplicate }
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{!"clang version 5.0.0"}
-!6 = distinct !DISubprogram(name: "f", linkageName: "flink", scope: !7, file: !7, line: 55, type: !8, isLocal: false, isDefinition: true, scopeLine: 55, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2, declaration: !DISubprogram(name: "f", linkageName: "flink", scope: !7, file: !7, line: 55, type: !8, isLocal: false, isDefinition: false, flags: DIFlagPrototyped))
+!6 = !DISubprogram(name: "f", linkageName: "flink", scope: !7, file: !7, line: 55, type: !8, isLocal: false, isDefinition: true, scopeLine: 55, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2, declaration: !DISubprogram(name: "f", linkageName: "flink", scope: !7, file: !7, line: 55, type: !8, isLocal: false, isDefinition: false, flags: DIFlagPrototyped))
 !7 = !DIFile(filename: "simple-repro.c", directory: "C:\5CGitHub\5Cllvm\5Cbuild\5CDebug\5Cbin")
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !11}
@@ -200,8 +200,8 @@ attributes #7 = { noduplicate }
 
 ; Check that the linkage name of the original function is set correctly.
 ;
-; CHECK: ![[ORIG]] = distinct !DISubprogram(name: "f", linkageName: "flink"
-; CHECK: ![[RESUME]] = distinct !DISubprogram(name: "f", linkageName: "flink.resume"
+; CHECK: ![[ORIG]] = !DISubprogram(name: "f", linkageName: "flink"
+; CHECK: ![[RESUME]] = !DISubprogram(name: "f", linkageName: "flink.resume"
 
 ; Check that metadata for local variables in the resume function is set correctly.
 ;
@@ -213,5 +213,5 @@ attributes #7 = { noduplicate }
 
 ; Check that the linkage names are set correctly for the destroy and cleanup functions.
 ;
-; CHECK: ![[DESTROY]] = distinct !DISubprogram(name: "f", linkageName: "flink.destroy"
-; CHECK: ![[CLEANUP]] = distinct !DISubprogram(name: "f", linkageName: "flink.cleanup"
+; CHECK: ![[DESTROY]] = !DISubprogram(name: "f", linkageName: "flink.destroy"
+; CHECK: ![[CLEANUP]] = !DISubprogram(name: "f", linkageName: "flink.cleanup"

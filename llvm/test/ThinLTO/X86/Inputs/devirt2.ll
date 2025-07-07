@@ -60,7 +60,7 @@ declare void @llvm.assume(i1)
 !5 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !6, producer: "clang version 12.0.0", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: !7, splitDebugInlining: false, nameTableKind: None)
 !6 = !DIFile(filename: "test.cc", directory: "/tmp")
 !7 = !{}
-!8 = distinct !DISubprogram(name: "bar", linkageName: "_Z5barv", scope: !6, file: !6, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
+!8 = !DISubprogram(name: "bar", linkageName: "_Z5barv", scope: !6, file: !6, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
 !9 = !DISubroutineType(types: !10)
 !10 = !{!11}
 !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -69,4 +69,4 @@ declare void @llvm.assume(i1)
 !14 = !{i32 2, !"Debug Info Version", i32 3}
 !15 = !{i32 1, !"wchar_size", i32 4}
 !16 = !DILocation(line: 1, column: 1, scope: !17)
-!17 = distinct !DISubprogram(name: "foo", linkageName: "_Z5foov", scope: !6, file: !6, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
+!17 = !DISubprogram(name: "foo", linkageName: "_Z5foov", scope: !6, file: !6, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)

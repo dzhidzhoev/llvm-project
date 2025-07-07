@@ -25,7 +25,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocalVariable(name: "p_31", arg: 2, scope: !5, file: !1, line: 148, type: !7)
-!5 = distinct !DISubprogram(name: "func_29", scope: !1, file: !1, line: 148, type: !6, scopeLine: 149, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "func_29", scope: !1, file: !1, line: 148, type: !6, scopeLine: 149, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !6 = !DISubroutineType(types: !2)
 !7 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint64_t", file: !8, line: 60, baseType: !9)
 !8 = !DIFile(filename: "/foo/_stdint.h", directory: "")

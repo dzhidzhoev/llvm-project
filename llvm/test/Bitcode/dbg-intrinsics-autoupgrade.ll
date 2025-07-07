@@ -87,7 +87,7 @@ declare void @llvm.dbg.label(metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 18.0.0"}
-!7 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 3, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !13)
+!7 = !DISubprogram(name: "f", scope: !1, file: !1, line: 3, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !13)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!12, !12}
 !12 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

@@ -72,7 +72,7 @@ attributes #0 = { nounwind readonly uwtable "less-precise-fpmad"="false" "frame-
 attributes #1 = { nounwind uwtable "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #2 = { nounwind readnone }
 
-!1 = distinct !DISubprogram()
+!1 = !DISubprogram()
 
 !17 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: null)
 !45 = !DIDerivedType(tag: DW_TAG_pointer_type, size: 64, align: 64, baseType: null)

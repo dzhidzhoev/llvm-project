@@ -53,11 +53,11 @@ entry:
 !8 = !{i32 2, !"Dwarf Version", i32 5}
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{i32 1, !"wchar_size", i32 4}
-!11 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 1, type: !12, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!11 = !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 1, type: !12, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !12 = !DISubroutineType(types: !13)
 !13 = !{null}
 !14 = !DILocation(line: 2, column: 1, scope: !11)
-!15 = distinct !DISubprogram(name: "f2", linkageName: "_Z2f2v", scope: !4, file: !4, line: 1, type: !12, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !3, retainedNodes: !2)
+!15 = !DISubprogram(name: "f2", linkageName: "_Z2f2v", scope: !4, file: !4, line: 1, type: !12, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !3, retainedNodes: !2)
 !16 = !DILocation(line: 2, column: 1, scope: !15)
-!17 = distinct !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !6, file: !6, line: 1, type: !12, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !5, retainedNodes: !2)
+!17 = !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !6, file: !6, line: 1, type: !12, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !5, retainedNodes: !2)
 !18 = !DILocation(line: 2, column: 1, scope: !17)

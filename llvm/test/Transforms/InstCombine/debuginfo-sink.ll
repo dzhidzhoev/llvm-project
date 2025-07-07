@@ -92,7 +92,7 @@ sink1:
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"PIC Level", i32 2}
 !6 = !{!"clang"}
-!7 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !10}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -100,12 +100,12 @@ sink1:
 !12 = !DIExpression()
 !15 = !DILocation(line: 5, column: 3, scope: !7)
 !16 = !DILocalVariable(name: "h", scope: !7, file: !1, line: 4, type: !10)
-!70 = distinct !DISubprogram(name: "bar", scope: !1, file: !1, line: 2, type: !71, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!70 = !DISubprogram(name: "bar", scope: !1, file: !1, line: 2, type: !71, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !71 = !DISubroutineType(types: !72)
 !72 = !{!10, !10, !10}
 !73 = !DILocalVariable(name: "k", scope: !70, file: !1, line: 2, type: !10)
 !74 = !DILocation(line: 5, column: 3, scope: !70)
-!80 = distinct !DISubprogram(name: "baz", scope: !1, file: !1, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!80 = !DISubprogram(name: "baz", scope: !1, file: !1, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !83 = !DILocalVariable(name: "l", scope: !80, file: !1, line: 2, type: !10)
 !84 = !DILocation(line: 5, column: 3, scope: !80)
 !85 = !DILocation(line: 6, column: 3, scope: !80)

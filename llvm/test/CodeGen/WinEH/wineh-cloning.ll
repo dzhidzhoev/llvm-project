@@ -380,7 +380,7 @@ exit:
 ; Make sure the DISubprogram doesn't get cloned
 ; CHECK-LABEL: !llvm.module.flags
 ; CHECK-NOT: !DISubprogram
-; CHECK: !{{[0-9]+}} = distinct !DISubprogram(name: "test12"
+; CHECK: !{{[0-9]+}} = !DISubprogram(name: "test12"
 ; CHECK-NOT: !DISubprogram
 !llvm.module.flags = !{!0}
 !llvm.dbg.cu = !{!1}
@@ -389,7 +389,7 @@ exit:
 !1 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !2, producer: "compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !3)
 !2 = !DIFile(filename: "test.cpp", directory: ".")
 !3 = !{}
-!5 = distinct !DISubprogram(name: "test12", scope: !2, file: !2, type: !6, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !1, retainedNodes: !3)
+!5 = !DISubprogram(name: "test12", scope: !2, file: !2, type: !6, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !1, retainedNodes: !3)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !DILocation(line: 1, scope: !5)

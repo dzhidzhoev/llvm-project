@@ -24,7 +24,7 @@ attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-l
 !5 = !{i32 7, !"uwtable", i32 2}
 !6 = !{i32 7, !"frame-pointer", i32 2}
 !7 = !{!"clang version 17.0.0 "}
-!8 = distinct !DISubprogram(name: "foo.dbg", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !11)
+!8 = !DISubprogram(name: "foo.dbg", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !11)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null}
 !11 = !{}

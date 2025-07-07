@@ -50,7 +50,7 @@
 ;
 ; CHECK-DAG: ![[FRAME_RESUME]] = !DILocalVariable(name: "__coro_frame"
 ; CHECK-DAG: ![[IVAR]] = !DILocalVariable(name: "i"
-; CHECK-DAG: ![[PROG_SCOPE:[0-9]+]] = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov"
+; CHECK-DAG: ![[PROG_SCOPE:[0-9]+]] = !DISubprogram(name: "foo", linkageName: "_Z3foov"
 ; CHECK-DAG: ![[BLK_SCOPE:[0-9]+]] = distinct !DILexicalBlock(scope: ![[PROG_SCOPE]], file: !1, line: 23, column: 12)
 ; CHECK-DAG: ![[IDBGLOC]] = !DILocation(line: 23, column: 6, scope: ![[PROG_SCOPE]])
 ; CHECK-DAG: ![[XVAR]] = !DILocalVariable(name: "x"
@@ -58,7 +58,7 @@
 ; CHECK-DAG: ![[JDBGLOC]] = !DILocation(line: 32, column: 7, scope: ![[BLK_SCOPE]])
 
 ; CHECK-DAG: ![[XVAR_RESUME]] = !DILocalVariable(name: "x"
-; CHECK-DAG: ![[RESUME_PROG_SCOPE:[0-9]+]] = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov.resume"
+; CHECK-DAG: ![[RESUME_PROG_SCOPE:[0-9]+]] = !DISubprogram(name: "foo", linkageName: "_Z3foov.resume"
 ; CHECK-DAG: ![[IDBGLOC_RESUME]] = !DILocation(line: 24, column: 7, scope: ![[RESUME_BLK_SCOPE:[0-9]+]])
 ; CHECK-DAG: ![[RESUME_BLK_SCOPE]] = distinct !DILexicalBlock(scope: ![[RESUME_PROG_SCOPE]], file: !1, line: 23, column: 12)
 ; CHECK-DAG: ![[IVAR_RESUME]] = !DILocalVariable(name: "i"
@@ -228,7 +228,7 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg)
 !5 = !{!"clang version 11.0.0"}
 !6 = !DILocalVariable(name: "i", scope: !7, file: !1, line: 24, type: !10)
 !7 = distinct !DILexicalBlock(scope: !8, file: !1, line: 23, column: 12)
-!8 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !2)
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !11 = !DILocation(line: 24, column: 7, scope: !7)

@@ -36,7 +36,7 @@
   !8 = !{i32 7, !"frame-pointer", i32 1}
   !9 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
   !10 = !{!"clang version 18.0.0"}
-  !11 = distinct !DISubprogram(name: "g", scope: !1, file: !1, line: 3, type: !12, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
+  !11 = !DISubprogram(name: "g", scope: !1, file: !1, line: 3, type: !12, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
   !12 = !DISubroutineType(types: !13)
   !13 = !{null, !14}
   !14 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

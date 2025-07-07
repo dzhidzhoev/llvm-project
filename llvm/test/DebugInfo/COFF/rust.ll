@@ -39,7 +39,7 @@ attributes #0 = { uwtable "target-cpu"="x86-64" }
 !3 = distinct !DICompileUnit(language: DW_LANG_Rust, file: !4, producer: "clang LLVM (rustc version 1.57.0 (f1edd0429 2021-11-29))", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !5)
 !4 = !DIFile(filename: "main.rs", directory: "src")
 !5 = !{}
-!6 = distinct !DISubprogram(name: "f", scope: !8, file: !7, line: 13, type: !9, scopeLine: 13, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !3, templateParams: !5, retainedNodes: !5)
+!6 = !DISubprogram(name: "f", scope: !8, file: !7, line: 13, type: !9, scopeLine: 13, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !3, templateParams: !5, retainedNodes: !5)
 !7 = !DIFile(filename: "main.rs", directory: "src", checksumkind: CSK_SHA1, checksum: "2ac9107db410c2ac03093f537ff521068091fb92")
 !8 = !DINamespace(name: "main", scope: null)
 !9 = !DISubroutineType(types: !10)

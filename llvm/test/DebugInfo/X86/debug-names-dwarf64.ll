@@ -141,7 +141,7 @@ declare void @llvm.dbg.label(metadata)
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{i32 1, !"wchar_size", i32 4}
 !10 = !{!"clang version 12.0.0"}
-!11 = distinct !DISubprogram(name: "func", linkageName: "func", scope: !3, file: !3, line: 2, type: !12,  unit: !2)
+!11 = !DISubprogram(name: "func", linkageName: "func", scope: !3, file: !3, line: 2, type: !12,  unit: !2)
 !12 = !DISubroutineType(types: !13)
 !13 = !{null}
 !14 = !DILocation(line: 2, column: 13, scope: !11)

@@ -17,7 +17,7 @@
   !2 = !{}
   !3 = !{i32 1, !"Debug Info Version", i32 3}
   !4 = !DILocalVariable(name: "c", scope: !5, file: !1, line: 2, type: !8)
-  !5 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 1, type: !6, scopeLine: 1, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+  !5 = !DISubprogram(name: "main", scope: !1, file: !1, line: 1, type: !6, scopeLine: 1, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8}
   !8 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)

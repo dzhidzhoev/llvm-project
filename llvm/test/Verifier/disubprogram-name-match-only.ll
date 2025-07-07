@@ -15,11 +15,11 @@ define void @f() !dbg !14 {
 ; CHECK: !dbg attachment points at wrong subprogram for function
 ; CHECK: warning: ignoring invalid debug info
 !5 = !DILocation(line: 1, scope: !9)
-!9 = distinct !DISubprogram(name: "f", scope: !1,
+!9 = !DISubprogram(name: "f", scope: !1,
                             file: !2, line: 1, type: !3, isLocal: true,
                             isDefinition: true, scopeLine: 2,
                             unit: !4)
-!14 = distinct !DISubprogram(name: "f", scope: !1,
+!14 = !DISubprogram(name: "f", scope: !1,
                             file: !2, line: 1, type: !3, isLocal: true,
                             isDefinition: true, scopeLine: 2,
                             unit: !4)

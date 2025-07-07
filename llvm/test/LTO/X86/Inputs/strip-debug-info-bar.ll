@@ -11,5 +11,5 @@ define void @bar() !dbg !3 {
 !0 = !{i32 2, !"Debug Info Version", i32 3}
 !1 = distinct !DICompileUnit(language: DW_LANG_C99, file: !2)
 !2 = !DIFile(filename: "broken", directory: "")
-!3 = distinct !DISubprogram(line: 1000, isDefinition: true)
+!3 = !DISubprogram(line: 1000, isDefinition: true)
 

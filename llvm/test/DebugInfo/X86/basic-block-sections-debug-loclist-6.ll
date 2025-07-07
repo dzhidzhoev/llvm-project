@@ -70,7 +70,7 @@ attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !9 = !{!"clang version 20.0.0git (git@github.com:.../llvm-project.git 7c3256280a78b0505ae4d43985c4d3239451a151)"}
-!10 = distinct !DISubprogram(name: "test", linkageName: "_Z4testv", scope: !1, file: !1, line: 3, type: !11, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
+!10 = !DISubprogram(name: "test", linkageName: "_Z4testv", scope: !1, file: !1, line: 3, type: !11, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !{!14}

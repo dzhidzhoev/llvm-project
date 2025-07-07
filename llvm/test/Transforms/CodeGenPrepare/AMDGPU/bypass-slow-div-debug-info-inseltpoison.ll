@@ -71,6 +71,6 @@ define <2 x i64> @sdivrem64(i64 %a, i64 %b) {
 !5 = !{!"clang version 3.5 "}
 !6 = !DILocation(line: 3, scope: !7)
 !7 = distinct !DILexicalBlock(scope: !8, file: !1, line: 3)
-!8 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !2)
 !10 = !DILocation(line: 4, scope: !7)

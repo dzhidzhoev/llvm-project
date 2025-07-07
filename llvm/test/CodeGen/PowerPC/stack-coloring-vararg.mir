@@ -51,7 +51,7 @@
   !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1, isOptimized: true, runtimeVersion: 0, emissionKind: LineTablesOnly, splitDebugInlining: false, nameTableKind: None)
   !1 = !DIFile(filename: "tc.c", directory: "")
   !2 = !{i32 2, !"Debug Info Version", i32 3}
-  !3 = distinct !DISubprogram(name: "atf_tc_fail_nonfatal", scope: !1, file: !1, line: 1067, type: !4, scopeLine: 1068, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+  !3 = !DISubprogram(name: "atf_tc_fail_nonfatal", scope: !1, file: !1, line: 1067, type: !4, scopeLine: 1068, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
   !4 = !DISubroutineType(types: !5)
   !5 = !{}
 

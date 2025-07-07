@@ -27,7 +27,7 @@
   !12 = !{!"differential", !10, i64 0, !10, i64 4}
   !13 = !{!6, !9, i64 280}
   !16 = !DILocalVariable(name: "data", scope: !17, file: !18, line: 24)
-  !17 = distinct !DISubprogram(name: "svm_node_geometry", scope: !18, file: !18, line: 21, type: !19, scopeLine: 23, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+  !17 = !DISubprogram(name: "svm_node_geometry", scope: !18, file: !18, line: 21, type: !19, scopeLine: 23, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
   !18 = !DIFile(filename: "source/kernel/svm/svm_geometry.h", directory: "/home/matt/bugs/SWDEV-253507")
   !19 = !DISubroutineType(types: !20)
   !20 = !{null}

@@ -23,9 +23,9 @@
 
 ; CHECK: [[file1:!.*]] = !DIFile(filename: "key-instr-enabled.cpp", directory: "/")
 ; CHECK: [[file2:!.*]] = !DIFile(filename: "key-instr-disabled.cpp", directory: "/")
-; CHECK: [[f]] = distinct !DISubprogram(name: "f", scope: [[file1]]{{.*}},  keyInstructions: true)
+; CHECK: [[f]] = !DISubprogram(name: "f", scope: [[file1]]{{.*}},  keyInstructions: true)
 ; CHECK: [[enabled]] = !DILocation(line: 1, column: 11, scope: [[f]], atomGroup: 1, atomRank: 1)
-; CHECK: [[g]] = distinct !DISubprogram(name: "g", scope: [[file2]]
+; CHECK: [[g]] = !DISubprogram(name: "g", scope: [[file2]]
 ; CHECK-NOT:                            keyInstructions
 ; CHECK-SAME:                           )
 ; CHECK: [[disabled]] = !DILocation(line: 1, column: 11, scope: [[g]])
@@ -43,7 +43,7 @@ entry:
 !1 = !DIFile(filename: "key-instr-enabled.cpp", directory: "/")
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{!"clang version 21.0.0git"}
-!10 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: true)
+!10 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: true)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !DILocation(line: 1, column: 11, scope: !10, atomGroup: 1, atomRank: 1)
@@ -61,7 +61,7 @@ entry:
 !1 = !DIFile(filename: "key-instr-disabled.cpp", directory: "/")
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{!"clang version 21.0.0git"}
-!10 = distinct !DISubprogram(name: "g", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: false)
+!10 = !DISubprogram(name: "g", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: false)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !DILocation(line: 1, column: 11, scope: !10)

@@ -31,7 +31,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !DILocalVariable(name: "A", arg: 2, scope: !6, file: !1, line: 60, type: !9)
-!6 = distinct !DISubprogram(name: "test", linkageName: "_test", scope: !1, file: !1, line: 60, type: !7, scopeLine: 61, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!6 = !DISubprogram(name: "test", linkageName: "_test", scope: !1, file: !1, line: 60, type: !7, scopeLine: 61, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !7 = !DISubroutineType(types: !8)
 !8 = !{null}
 !9 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

@@ -66,12 +66,12 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{i32 1, !"wchar_size", i32 4}
 !10 = !{!"clang version 12.0.0"}
-!11 = distinct !DISubprogram(name: "fun", scope: !3, file: !3, line: 7, type: !12, scopeLine: 7, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
+!11 = !DISubprogram(name: "fun", scope: !3, file: !3, line: 7, type: !12, scopeLine: 7, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
 !12 = !DISubroutineType(types: !13)
 !13 = !{!6}
 !14 = !DILocation(line: 8, column: 10, scope: !11)
 !15 = !DILocation(line: 8, column: 3, scope: !11)
-!16 = distinct !DISubprogram(name: "callee", scope: !3, file: !3, line: 2, type: !12, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !17)
+!16 = !DISubprogram(name: "callee", scope: !3, file: !3, line: 2, type: !12, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !17)
 !17 = !{!18}
 !18 = !DILocalVariable(name: "local", scope: !16, file: !3, line: 3, type: !6)
 !19 = !DILocation(line: 3, column: 15, scope: !16)

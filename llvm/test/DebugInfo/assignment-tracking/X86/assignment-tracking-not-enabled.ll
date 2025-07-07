@@ -69,7 +69,7 @@ declare noundef i32 @_Z3getv() #2
 !6 = !{i32 7, !"Dwarf Version", i32 5}
 !7 = !{i32 2, !"Debug Info Version", i32 3}
 !14 = !{!"clang version 17.0.0"}
-!15 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !18)
+!15 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !18)
 !16 = !DISubroutineType(types: !17)
 !17 = !{!5}
 !18 = !{}

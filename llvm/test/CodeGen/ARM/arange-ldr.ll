@@ -26,6 +26,6 @@ entry:
 !1 = !DIFile(filename: "/tmp/a.c", directory: "/tmp/")
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "a", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!4 = !DISubprogram(name: "a", scope: !5, file: !5, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !5 = !DIFile(filename: "/tmp/a.c", directory: "")
 !6 = !DISubroutineType(types: !2)

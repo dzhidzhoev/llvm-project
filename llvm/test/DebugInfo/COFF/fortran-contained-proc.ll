@@ -86,7 +86,7 @@ attributes #4 = { nounwind }
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "A", linkageName: "IF_TEST$A", scope: !2, file: !3, line: 11, type: !9, isLocal: true, isDefinition: true)
-!2 = distinct !DISubprogram(name: "IF_TEST", linkageName: "MAIN__", scope: !3, file: !3, line: 9, type: !4, scopeLine: 9, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !6, retainedNodes: !8)
+!2 = !DISubprogram(name: "IF_TEST", linkageName: "MAIN__", scope: !3, file: !3, line: 9, type: !4, scopeLine: 9, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !6, retainedNodes: !8)
 !3 = !DIFile(filename: "tr1.f90", directory: "d:\\iusers\\cchen15\\examples\\tests\\jr14335")
 !4 = !DISubroutineType(types: !5)
 !5 = !{null}
@@ -106,7 +106,7 @@ attributes #4 = { nounwind }
 !27 = !{!"Generic Fortran Symbol", !28, i64 0}
 !28 = !{!"ifx$root$1$MAIN__"}
 !29 = !DILocalVariable(name: "AA", arg: 1, scope: !30, file: !3, line: 17, type: !10)
-!30 = distinct !DISubprogram(name: "SUB", linkageName: "IF_TEST_ip_SUB", scope: !2, file: !3, line: 17, type: !4, scopeLine: 17, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !31)
+!30 = !DISubprogram(name: "SUB", linkageName: "IF_TEST_ip_SUB", scope: !2, file: !3, line: 17, type: !4, scopeLine: 17, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !31)
 !31 = !{!29, !32}
 !32 = !DILocalVariable(name: "BB", scope: !30, file: !3, line: 19, type: !10)
 !33 = !DILocation(line: 17, scope: !30, inlinedAt: !34)

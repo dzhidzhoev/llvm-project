@@ -130,7 +130,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 !12 = !{i32 2, !"Debug Info Version", i32 3}
 !13 = !{i32 1, !"wchar_size", i32 4}
 !14 = !{!"clang version 12.0.0"}
-!15 = distinct !DISubprogram(name: "f", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
+!15 = !DISubprogram(name: "f", scope: !3, file: !3, line: 3, type: !16, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
 !16 = !DISubroutineType(types: !17)
 !17 = !{null, !18}
 !18 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !8, size: 64)
@@ -142,7 +142,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 !24 = !DILocation(line: 3, column: 23, scope: !15)
 !29 = !DILocation(line: 3, column: 21, scope: !15)
 !30 = !DILocation(line: 3, column: 26, scope: !15)
-!31 = distinct !DISubprogram(name: "i", scope: !3, file: !3, line: 4, type: !32, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !34)
+!31 = !DISubprogram(name: "i", scope: !3, file: !3, line: 4, type: !32, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !34)
 !32 = !DISubroutineType(types: !33)
 !33 = !{null}
 !34 = !{!35, !36}

@@ -36,7 +36,7 @@ declare void @foo(i32, i32)
 !2 = !{i32 10}
 !3 = !{i32 0}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "decompose_illegal_srem_same_block", linkageName: "decompose_illegal_srem_same_block", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!5 = !DISubprogram(name: "decompose_illegal_srem_same_block", linkageName: "decompose_illegal_srem_same_block", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !6 = !DISubroutineType(types: !7)
 !7 = !{}
 !8 = !DILocation(line: 1, column: 1, scope: !5)
@@ -44,7 +44,7 @@ declare void @foo(i32, i32)
 !10 = !DILocation(line: 3, column: 1, scope: !5)
 !11 = !DILocation(line: 4, column: 1, scope: !5)
 !12 = !DILocation(line: 5, column: 1, scope: !5)
-!13 = distinct !DISubprogram(name: "decompose_illegal_urem_same_block", linkageName: "decompose_illegal_urem_same_block", scope: null, file: !1, line: 6, type: !6, scopeLine: 6, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!13 = !DISubprogram(name: "decompose_illegal_urem_same_block", linkageName: "decompose_illegal_urem_same_block", scope: null, file: !1, line: 6, type: !6, scopeLine: 6, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !14 = !DILocation(line: 6, column: 1, scope: !13)
 !15 = !DILocation(line: 7, column: 1, scope: !13)
 !16 = !DILocation(line: 8, column: 1, scope: !13)

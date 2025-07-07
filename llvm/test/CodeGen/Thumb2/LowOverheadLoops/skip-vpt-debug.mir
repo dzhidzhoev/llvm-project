@@ -88,7 +88,7 @@
   !10 = !{i32 8, !"sign-return-address", i32 0}
   !11 = !{i32 8, !"sign-return-address-all", i32 0}
   !12 = !{!"Component: ARM Compiler 6.17.0.0 (permissive) Tool: armclang [00000000]"}
-  !13 = distinct !DISubprogram(name: "arm_max_no_idx_f32", scope: !1, file: !1, line: 5, type: !14, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !23)
+  !13 = !DISubprogram(name: "arm_max_no_idx_f32", scope: !1, file: !1, line: 5, type: !14, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !23)
   !14 = !DISubroutineType(types: !15)
   !15 = !{null, !16, !20, !22}
   !16 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !17, size: 32)

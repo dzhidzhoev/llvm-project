@@ -37,6 +37,6 @@ bb5:
 !1 = !DIFile(filename: "foo.c", directory: "b/")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
+!4 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
 !5 = distinct !DILexicalBlock(scope: !4, file: !1, line: 1, column: 1)
 !6 = !DILocation(line: 2, column: 2, scope: !5)

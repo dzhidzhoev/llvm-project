@@ -109,7 +109,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) nounwind readnone
 !llvm.module.flags = !{!21}
 !llvm.dbg.cu = !{!2}
 
-!0 = distinct !DISubprogram(name: "foo", line: 2, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !20, scope: !1, type: !3)
+!0 = !DISubprogram(name: "foo", line: 2, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !20, scope: !1, type: !3)
 !1 = !DIFile(filename: "b.c", directory: "/private/tmp")
 !2 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang", isOptimized: true, emissionKind: FullDebug, file: !20)
 !3 = !DISubroutineType(types: !4)
@@ -131,12 +131,12 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) nounwind readnone
 !20 = !DIFile(filename: "b.c", directory: "/private/tmp")
 !21 = !{i32 1, !"Debug Info Version", i32 3}
 
-!22 = distinct !DISubprogram(name: "bar", line: 20, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !20, scope: !1, type: !3)
+!22 = !DISubprogram(name: "bar", line: 20, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !20, scope: !1, type: !3)
 !23 = distinct !DILexicalBlock(line: 21, column: 33, file: !20, scope: !22)
 !24 = !DILocalVariable(name: "y", line: 21, scope: !23, file: !1, type: !5)
 !25 = !DILocation(line: 23, column: 3, scope: !23)
 
-!26 = distinct !DISubprogram(name: "zar", line: 20, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !20, scope: !1, type: !3)
+!26 = !DISubprogram(name: "zar", line: 20, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !20, scope: !1, type: !3)
 !27 = distinct !DILexicalBlock(line: 31, column: 33, file: !20, scope: !26)
 !28 = !DILocalVariable(name: "y", line: 21, scope: !27, file: !1, type: !5)
 !29 = !DILocation(line: 33, column: 3, scope: !27)

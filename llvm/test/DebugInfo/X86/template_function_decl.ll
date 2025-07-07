@@ -79,12 +79,12 @@ define weak_odr dso_local void @_ZN1S5tmpfnIiEEvv() comdat align 2 !dbg !26 {
 !18 = !{i32 1, !"wchar_size", i32 4}
 !19 = !{i32 1, !"ThinLTO", i32 0}
 !20 = !{i32 1, !"EnableSplitLTOUnit", i32 0}
-!21 = distinct !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !11, file: !11, line: 3, type: !22, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, retainedNodes: !4)
+!21 = !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !11, file: !11, line: 3, type: !22, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, retainedNodes: !4)
 !22 = !DISubroutineType(types: !23)
 !23 = !{null}
 !24 = !DILocation(line: 3, column: 13, scope: !21)
 !25 = !DILocation(line: 3, column: 30, scope: !21)
-!26 = distinct !DISubprogram(name: "tmpfn<int>", linkageName: "_ZN1S5tmpfnIiEEvv", scope: !6, file: !7, line: 2, type: !22, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, templateParams: !28, declaration: !27, retainedNodes: !4)
+!26 = !DISubprogram(name: "tmpfn<int>", linkageName: "_ZN1S5tmpfnIiEEvv", scope: !6, file: !7, line: 2, type: !22, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, templateParams: !28, declaration: !27, retainedNodes: !4)
 !27 = !DISubprogram(name: "tmpfn<int>", linkageName: "_ZN1S5tmpfnIiEEvv", scope: !6, file: !7, line: 2, type: !22, scopeLine: 2, flags: DIFlagPrototyped | DIFlagStaticMember, spFlags: 0, templateParams: !28)
 !28 = !{!29}
 !29 = !DITemplateTypeParameter(name: "T", type: !14)

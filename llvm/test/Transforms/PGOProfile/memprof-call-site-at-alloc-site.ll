@@ -47,7 +47,7 @@ declare ptr @_Znam()
 !1 = !DIFile(filename: "something.cc", directory: "/")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DILocation(line: 106, column: 12, scope: !4)
-!4 = distinct !DISubprogram(name: "Init", linkageName: "_Z3foov", scope: !5, file: !1, line: 100, type: !7, scopeLine: 100, spFlags: DISPFlagDefinition, unit: !0)
+!4 = !DISubprogram(name: "Init", linkageName: "_Z3foov", scope: !5, file: !1, line: 100, type: !7, scopeLine: 100, spFlags: DISPFlagDefinition, unit: !0)
 !5 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "Something", file: !1)
 !6 = !{}
 !7 = distinct !DISubroutineType(types: !6)

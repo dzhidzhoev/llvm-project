@@ -52,7 +52,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{i32 7, !"frame-pointer", i32 2}
 !8 = !{!"clang version 13.0.0"}
-!9 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !10, file: !10, line: 3, type: !11, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!9 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !10, file: !10, line: 3, type: !11, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !10 = !DIFile(filename: "./limit-arglist-size.cpp", directory: "/")
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13}

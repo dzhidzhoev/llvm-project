@@ -67,13 +67,13 @@
   !8 = !{i32 2, !"Debug Info Version", i32 3}
   !9 = !{i32 1, !"wchar_size", i32 4}
   !10 = !{!"clang version 11.0.0"}
-  !11 = distinct !DISubprogram(name: "fun", scope: !3, file: !3, line: 9, type: !12, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !14)
+  !11 = !DISubprogram(name: "fun", scope: !3, file: !3, line: 9, type: !12, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !14)
   !12 = !DISubroutineType(types: !13)
   !13 = !{!6, !6}
   !14 = !{}
   !16 = !DILocation(line: 0, scope: !11)
   !17 = !DILocalVariable(name: "param", arg: 1, scope: !18, file: !3, line: 3, type: !6)
-  !18 = distinct !DISubprogram(name: "inline_me", scope: !3, file: !3, line: 3, type: !19, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
+  !18 = !DISubprogram(name: "inline_me", scope: !3, file: !3, line: 3, type: !19, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
   !19 = !DISubroutineType(types: !20)
   !20 = !{null, !6}
   !21 = !{!17}

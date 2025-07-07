@@ -25,7 +25,7 @@ entry:
   ret i32 %add, !dbg !16
 }
 
-; CHECK: [[SCOPE:![0-9]+]] = distinct !DISubprogram(name: "foo"
+; CHECK: [[SCOPE:![0-9]+]] = !DISubprogram(name: "foo"
 ; CHECK: [[VAR_I]] = !DILocalVariable(name: "i", arg: 1, scope: [[SCOPE]]
 ; CHECK: [[LOC_I]] = !DILocation(line: 1, column: 13, scope: [[SCOPE]]
 
@@ -47,7 +47,7 @@ attributes #1 = { nounwind readnone speculatable }
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 6.0.0 (trunk 320115) (llvm/trunk 320116)"}
-!8 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !10)
 !10 = !{!11, !11}
 !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

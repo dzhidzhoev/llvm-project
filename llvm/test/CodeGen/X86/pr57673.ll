@@ -138,7 +138,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !{!"function_entry_count", i64 2423}
 !4 = !DILocalVariable(name: "r", scope: !5, file: !6, line: 93)
-!5 = distinct !DISubprogram(name: "c", scope: !7, file: !6, line: 92, spFlags: DISPFlagDefinition, unit: !0)
+!5 = !DISubprogram(name: "c", scope: !7, file: !6, line: 92, spFlags: DISPFlagDefinition, unit: !0)
 !6 = !DIFile(filename: "a", directory: "/proc/self/cwd")
 !7 = !DINamespace(name: "u", scope: !8)
 !8 = !DINamespace(name: "s", scope: null)

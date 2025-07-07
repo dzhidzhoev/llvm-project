@@ -34,7 +34,7 @@ attributes #0 = { norecurse nounwind readnone willreturn "hlsl.export" }
 
 ; CHECK:      !0 = distinct !DICompileUnit
 ; CHECK-NEXT: !1 = !DIFile(filename:
-; CHECK:      [[Fn]] = distinct !DISubprogram(name: "fma",
+; CHECK:      [[Fn]] = !DISubprogram(name: "fma",
 ; CHECK:      [[VarX]] = !DILocalVariable(tag:
 ; CHECK:      [[VarY]] = !DILocalVariable(tag:
 ; CHECK:      [[VarZ]] = !DILocalVariable(tag:
@@ -50,7 +50,7 @@ attributes #0 = { norecurse nounwind readnone willreturn "hlsl.export" }
 !3 = !{i32 7, !"Dwarf Version", i32 2}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{!"Some Compiler"}
-!6 = distinct !DISubprogram(name: "fma", scope: !1, file: !1, line: 1, type: !7, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!6 = !DISubprogram(name: "fma", scope: !1, file: !1, line: 1, type: !7, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9, !9, !9, !9}
 !9 = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)

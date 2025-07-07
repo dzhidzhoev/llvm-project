@@ -87,7 +87,7 @@ declare void @llvm.assume(i1 noundef)
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"uwtable", i32 2}
 !6 = !{!"clang"}
-!7 = distinct !DISubprogram(name: "Func", linkageName: "_Z4FuncP5Class", scope: !8, file: !8, line: 6, type: !9, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!7 = !DISubprogram(name: "Func", linkageName: "_Z4FuncP5Class", scope: !8, file: !8, line: 6, type: !9, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !8 = !DIFile(filename: "/tmp/test.cpp", directory: "")
 !9 = !DISubroutineType(types: !10)
 !10 = !{null, !11}

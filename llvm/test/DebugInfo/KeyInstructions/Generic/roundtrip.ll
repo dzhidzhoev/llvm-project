@@ -30,19 +30,19 @@ entry:
 !1 = !DIFile(filename: "key-instr.cpp", directory: "/")
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{!"clang version 21.0.0git"}
-!10 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: true)
+!10 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: true)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null}
 !13 = !DILocation(line: 1, scope: !10, atomGroup: 1, atomRank: 1)
-!14 = distinct !DISubprogram(name: "g", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: false)
+!14 = !DISubprogram(name: "g", scope: !1, file: !1, line: 2, type: !11, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, keyInstructions: false)
 !15 = !DILocation(line: 2, scope: !14)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "{{.*}}key-instr.cpp", directory: {{.*}})
-; CHECK: [[DBG3]] = distinct !DISubprogram(name: "f", scope: [[META1]], file: [[META1]], line: 1, type: [[META4:![0-9]+]], scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]], keyInstructions: true)
+; CHECK: [[DBG3]] = !DISubprogram(name: "f", scope: [[META1]], file: [[META1]], line: 1, type: [[META4:![0-9]+]], scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]], keyInstructions: true)
 ; CHECK: [[META4]] = !DISubroutineType(types: [[META5:![0-9]+]])
 ; CHECK: [[META5]] = !{null}
 ; CHECK: [[DBG6]] = !DILocation(line: 1, scope: [[DBG3]], atomGroup: 1, atomRank: 1)
-; CHECK: [[DBG7]] = distinct !DISubprogram(name: "g", scope: [[META1]], file: [[META1]], line: 2, type: [[META4]], scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]])
+; CHECK: [[DBG7]] = !DISubprogram(name: "g", scope: [[META1]], file: [[META1]], line: 2, type: [[META4]], scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]])
 ; CHECK: [[DBG8]] = !DILocation(line: 2, scope: [[DBG7]])
 ;.

@@ -54,18 +54,18 @@
 ; CHECK: !9 = !{i32 2, !"CodeView", i32 1}
 ; CHECK: !10 = !{i32 2, !"Debug Info Version", i32 3}
 ; CHECK: !11 = !{!"clang"}
-; CHECK: !12 = distinct !DISubprogram(name: "f", scope: !3, file: !3, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+; CHECK: !12 = !DISubprogram(name: "f", scope: !3, file: !3, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
 ; CHECK: !13 = !DISubroutineType(types: !14)
 ; CHECK: !14 = !{null}
 ; CHECK: !15 = !{}
-; CHECK: !16 = distinct !DISubprogram(name: "f", scope: !17, file: !17, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+; CHECK: !16 = !DISubprogram(name: "f", scope: !17, file: !17, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
 ; CHECK: !17 = !DIFile(filename: "x.c", directory: "/tmp/a")
-; CHECK: !18 = distinct !DISubprogram(name: "f", scope: !7, file: !7, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
-; CHECK: !19 = distinct !DISubprogram(name: "f", scope: !20, file: !20, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+; CHECK: !18 = !DISubprogram(name: "f", scope: !7, file: !7, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+; CHECK: !19 = !DISubprogram(name: "f", scope: !20, file: !20, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
 ; CHECK: !20 = !DIFile(filename: "./b\\x.c", directory: "C:\\\\a\\\\")
-; CHECK: !21 = distinct !DISubprogram(name: "f", scope: !22, file: !22, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+; CHECK: !21 = !DISubprogram(name: "f", scope: !22, file: !22, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
 ; CHECK: !22 = !DIFile(filename: "./b/x.c", directory: "C:\\\\a\\\\")
-; CHECK: !23 = distinct !DISubprogram(name: "f", scope: !24, file: !24, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+; CHECK: !23 = !DISubprogram(name: "f", scope: !24, file: !24, line: 1, type: !13, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
 ; CHECK: !24 = !DIFile(filename: "./b/./../b/x.c", directory: "C:\\\\a")
 
 ; All use the same flag
@@ -104,12 +104,12 @@ define void @w4() !dbg !15 {
 !7 = !{i32 2, !"CodeView", i32 1}
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{!"clang"}
-!10 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
-!11 = distinct !DISubprogram(name: "f", scope: !2, file: !2, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
-!12 = distinct !DISubprogram(name: "f", scope: !3, file: !3, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
-!13 = distinct !DISubprogram(name: "f", scope: !4, file: !4, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
-!14 = distinct !DISubprogram(name: "f", scope: !5, file: !5, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
-!15 = distinct !DISubprogram(name: "f", scope: !6, file: !6, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!10 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!11 = !DISubprogram(name: "f", scope: !2, file: !2, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!12 = !DISubprogram(name: "f", scope: !3, file: !3, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!13 = !DISubprogram(name: "f", scope: !4, file: !4, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!14 = !DISubprogram(name: "f", scope: !5, file: !5, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!15 = !DISubprogram(name: "f", scope: !6, file: !6, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
 !31 = !DISubroutineType(types: !32)
 !32 = !{null}
 !33 = !{}

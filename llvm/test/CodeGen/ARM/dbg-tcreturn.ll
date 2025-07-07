@@ -32,7 +32,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 1, !"Swift Minor Version", i8 3}
-!5 = distinct !DISubprogram(name: "n0", linkageName: "n1", scope: !7, file: !6, line: 86, type: !8, scopeLine: 86, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!5 = !DISubprogram(name: "n0", linkageName: "n1", scope: !7, file: !6, line: 86, type: !8, scopeLine: 86, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !6 = !DIFile(filename: "bar.swift", directory: "")
 !7 = !DIModule(scope: null, name: "Swift")
 !8 = !DISubroutineType(types: !9)

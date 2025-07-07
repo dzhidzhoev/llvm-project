@@ -107,10 +107,10 @@ define dso_local i32 @test5(i32 noundef %0) #0 {
 !7 = !DIFile(filename: "/test_dirname4/test_filename4", directory: "/test_dirname4")
 !8 = !{i32 7, !"Dwarf Version", i32 5}
 !9 = !{i32 2, !"Debug Info Version", i32 3}
-!10 = distinct !DISubprogram(name: "test1", scope: !4, unit: !0)
-!11 = distinct !DISubprogram(name: "test2", scope: !5, unit: !1)
-!12 = distinct !DISubprogram(name: "test3", scope: !6, unit: !2)
-!13 = distinct !DISubprogram(name: "test4", scope: !7, unit: !3)
+!10 = !DISubprogram(name: "test1", scope: !4, unit: !0)
+!11 = !DISubprogram(name: "test2", scope: !5, unit: !1)
+!12 = !DISubprogram(name: "test3", scope: !6, unit: !2)
+!13 = !DISubprogram(name: "test4", scope: !7, unit: !3)
 
 ;; Check that the split section is created when using the correct module name, or no module name.
 ;

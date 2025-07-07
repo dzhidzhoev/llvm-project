@@ -39,7 +39,7 @@ entry:
 !5 = !{i32 7, !"frame-pointer", i32 2}
 !6 = !{!"clang"}
 !7 = !DILocalVariable(name: "f", scope: !8, file: !1, line: 8, type: !12)
-!8 = distinct !DISubprogram(name: "e", scope: !1, file: !1, line: 8, type: !9, scopeLine: 8, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!8 = !DISubprogram(name: "e", scope: !1, file: !1, line: 8, type: !9, scopeLine: 8, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null}
 !11 = !{!7}

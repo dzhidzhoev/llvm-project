@@ -50,7 +50,7 @@ entry:
 !1 = !DIFile(filename: "a.cpp", directory: "/")
 !2 = !{!3}
 !3 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !4, entity: !8, file: !1, line: 3)
-!4 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 3, type: !5, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!4 = !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 3, type: !5, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !5 = !DISubroutineType(types: !6)
 !6 = !{null}
 !7 = !{}
@@ -64,7 +64,7 @@ entry:
 !15 = !{i32 1, !"wchar_size", i32 4}
 !16 = !{i32 7, !"uwtable", i32 1}
 !17 = !{i32 7, !"frame-pointer", i32 2}
-!18 = distinct !DISubprogram(name: "main", scope: !11, file: !11, line: 2, type: !19, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, retainedNodes: !7)
+!18 = !DISubprogram(name: "main", scope: !11, file: !11, line: 2, type: !19, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, retainedNodes: !7)
 !19 = !DISubroutineType(types: !20)
 !20 = !{!21}
 !21 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

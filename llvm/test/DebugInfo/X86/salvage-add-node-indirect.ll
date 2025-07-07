@@ -94,10 +94,10 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocalVariable(name: "a", arg: 1, scope: !5, file: !1, line: 33, type: !7)
-!5 = distinct !DISubprogram(name: "test_non_constant", scope: !1, file: !1, line: 33, type: !6, scopeLine: 34, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "test_non_constant", scope: !1, file: !1, line: 33, type: !6, scopeLine: 34, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !6 = distinct !DISubroutineType(types: !2)
 !7 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "x", file: !1, line: 17, size: 160, elements: !2)
 !8 = !DILocation(line: 33, column: 16, scope: !5)
 !9 = !DILocalVariable(name: "a", arg: 1, scope: !10, file: !1, line: 33, type: !7)
-!10 = distinct !DISubprogram(name: "test_constant", scope: !1, file: !1, line: 33, type: !6, scopeLine: 34, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!10 = !DISubprogram(name: "test_constant", scope: !1, file: !1, line: 33, type: !6, scopeLine: 34, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !11 = !DILocation(line: 33, column: 16, scope: !10)

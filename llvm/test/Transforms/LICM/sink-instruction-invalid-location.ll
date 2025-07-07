@@ -29,7 +29,7 @@
 ; CHECK-LABEL: for.end:
 ; CHECK: tail call noundef i32 @getInOrder({{.*}}), !dbg ![[DBG:[0-9]+]]
 ; CHECK-DAG: ![[DBG]] = !DILocation(line: 0, scope: ![[SCOPE:[0-9]+]]
-; CHECK-DAG: ![[SCOPE]] = distinct !DISubprogram(name: "bounce",
+; CHECK-DAG: ![[SCOPE]] = !DISubprogram(name: "bounce",
 
 define noundef i32 @getInOrder(i32 noundef %Idx) #0 !dbg !9 {
 entry:
@@ -78,15 +78,15 @@ attributes #0 = { noinline nounwind willreturn memory(none) }
 !6 = !{i32 7, !"uwtable", i32 2}
 !7 = !{i32 1, !"MaxTLSAlign", i32 65536}
 !8 = !{!"clang version 17.0.0"}
-!9 = distinct !DISubprogram(name: "getInOrder", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!9 = !DISubprogram(name: "getInOrder", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !10 = !DISubroutineType(types: !11)
 !11 = !{!12, !12}
 !12 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !13 = !{}
 !14 = !DILocation(line: 3, scope: !9)
-!15 = distinct !DISubprogram(name: "getRandVar", scope: !1, file: !1, line: 6, type: !10, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!15 = !DISubprogram(name: "getRandVar", scope: !1, file: !1, line: 6, type: !10, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !16 = !DILocation(line: 8, scope: !15)
-!17 = distinct !DISubprogram(name: "bounce", scope: !1, file: !1, line: 11, type: !18, scopeLine: 11, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!17 = !DISubprogram(name: "bounce", scope: !1, file: !1, line: 11, type: !18, scopeLine: 11, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !18 = !DISubroutineType(types: !19)
 !19 = !{!12}
 !20 = !DILocation(line: 14, scope: !17)

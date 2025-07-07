@@ -36,8 +36,8 @@ entry:
 !2 = !{}
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!7 = distinct !DISubprogram(name: "__cxx_global_var_init", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "__cxx_global_var_init", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !2)
 !9 = !DILocation(line: 2, column: 11, scope: !7)
-!10 = distinct !DISubprogram(linkageName: "_GLOBAL__sub_I_a.cc", scope: !1, file: !1, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!10 = !DISubprogram(linkageName: "_GLOBAL__sub_I_a.cc", scope: !1, file: !1, type: !8, flags: DIFlagArtificial, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !11 = !DILocation(line: 0, scope: !10)

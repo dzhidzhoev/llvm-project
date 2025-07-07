@@ -50,12 +50,12 @@ declare i1 @_ZNSt16coroutine_handleIvEcvbEv(ptr)
 !8 = !{}
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !DILocation(line: 31, column: 7, scope: !11)
-!11 = distinct !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !5, file: !5, line: 31, type: !12, scopeLine: 31, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+!11 = !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !5, file: !5, line: 31, type: !12, scopeLine: 31, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
 !12 = distinct !DISubroutineType(types: !8)
 !13 = !DILocalVariable(name: "b", scope: !14, file: !5, line: 27, type: !6)
 !14 = distinct !DILexicalBlock(scope: !15, file: !5, line: 27, column: 14)
 !15 = distinct !DILexicalBlock(scope: !16, file: !5, line: 26, column: 8)
-!16 = distinct !DISubprogram(name: "~B", linkageName: "_ZN1BD2Ev", scope: !17, file: !5, line: 26, type: !18, scopeLine: 26, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !20, retainedNodes: !8)
+!16 = !DISubprogram(name: "~B", linkageName: "_ZN1BD2Ev", scope: !17, file: !5, line: 26, type: !18, scopeLine: 26, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !20, retainedNodes: !8)
 !17 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "B", file: !5, line: 18, size: 8, flags: DIFlagTypePassByReference | DIFlagNonTrivial, elements: !8, identifier: "_ZTS1B")
 !18 = !DISubroutineType(types: !19)
 !19 = !{null}

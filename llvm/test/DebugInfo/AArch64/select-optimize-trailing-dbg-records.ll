@@ -54,7 +54,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !13 = !DILocalVariable(name: "starter", scope: !14, file: !1, line: 441, type: !19)
 !14 = distinct !DILexicalBlock(scope: !15, file: !1, line: 435, column: 3)
 !15 = distinct !DILexicalBlock(scope: !16, file: !1, line: 431, column: 7)
-!16 = distinct !DISubprogram(name: "_hb_ot_shape_normalize", linkageName: "_Z22_hb_ot_shape_normalizePK18hb_ot_shape_plan_tP11hb_buffer_tP9hb_font_t", scope: !1, file: !1, line: 291, type: !17, scopeLine: 294, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!16 = !DISubprogram(name: "_hb_ot_shape_normalize", linkageName: "_Z22_hb_ot_shape_normalizePK18hb_ot_shape_plan_tP11hb_buffer_tP9hb_font_t", scope: !1, file: !1, line: 291, type: !17, scopeLine: 294, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !17 = distinct !DISubroutineType(types: !18)
 !18 = !{null}
 !19 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)

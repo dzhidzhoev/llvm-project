@@ -48,12 +48,12 @@ entry:
 !6 = !{i32 1, !"wchar_size", i32 4}
 !7 = !{i32 8, !"PIC Level", i32 2}
 !8 = !{!"clang version 20.0.0"}
-!9 = distinct !DISubprogram(name: "foo", scope: !10, file: !10, line: 11, type: !11, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!9 = !DISubprogram(name: "foo", scope: !10, file: !10, line: 11, type: !11, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !10 = !DIFile(filename: "a.hip", directory: "test")
 !11 = !DISubroutineType(types: !12)
 !12 = !{}
 !13 = !DILocation(line: 5, column: 12, scope: !14, inlinedAt: !16)
-!14 = distinct !DISubprogram(name: "bar", scope: !15, file: !15, line: 4, type: !11, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!14 = !DISubprogram(name: "bar", scope: !15, file: !15, line: 4, type: !11, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !15 = !DIFile(filename: "./a.h", directory: "test")
 !16 = distinct !DILocation(line: 12, column: 8, scope: !9)
 !17 = !DILocation(line: 5, column: 12, scope: !14, inlinedAt: !18)

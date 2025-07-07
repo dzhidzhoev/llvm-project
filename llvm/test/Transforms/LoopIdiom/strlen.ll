@@ -661,6 +661,6 @@ while.end:
 !3 = !{}
 !4 = !DILocation(line: 3, column: 3, scope: !5)
 !5 = distinct !DILexicalBlock(scope: !6, file: !2, line: 2, column: 21)
-!6 = distinct !DISubprogram(name: "foo", scope: !2, file: !2, line: 2, type: !7, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !1)
+!6 = !DISubprogram(name: "foo", scope: !2, file: !2, line: 2, type: !7, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !1)
 !7 = !DISubroutineType(types: !3)
 !8 = !DILocation(line: 5, column: 3, scope: !5)

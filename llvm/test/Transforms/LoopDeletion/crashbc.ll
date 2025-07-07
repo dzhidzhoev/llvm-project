@@ -21,7 +21,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !1 = !DILocalVariable(name: "i", scope: !2, file: !3, line: 31, type: !7)
 !2 = distinct !DILexicalBlock(scope: !4, file: !3, line: 31, column: 9)
 !3 = !DIFile(filename: "foo.c", directory: "/bar")
-!4 = distinct !DISubprogram(name: "f", scope: !3, file: !3, line: 26, type: !5, scopeLine: 27, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !9, retainedNodes: !10)
+!4 = !DISubprogram(name: "f", scope: !3, file: !3, line: 26, type: !5, scopeLine: 27, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !9, retainedNodes: !10)
 !5 = !DISubroutineType(types: !6)
 !6 = !{!7, !8, !7}
 !7 = !DIBasicType(name: "int", size: 16, encoding: DW_ATE_signed)

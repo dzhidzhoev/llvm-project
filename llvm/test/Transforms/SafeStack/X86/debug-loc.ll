@@ -65,7 +65,7 @@ attributes #2 = { "disable-tail-calls"="false" "less-precise-fpmad"="false" "fra
 !8 = !DIBasicType(name: "char", size: 8, align: 8, encoding: DW_ATE_signed_char)
 !9 = !{!10}
 !10 = !DISubrange(count: 100)
-!12 = distinct !DISubprogram(name: "f", linkageName: "_Z1f1S", scope: !1, file: !1, line: 10, type: !13, isLocal: false, isDefinition: true, scopeLine: 10, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!12 = !DISubprogram(name: "f", linkageName: "_Z1f1S", scope: !1, file: !1, line: 10, type: !13, isLocal: false, isDefinition: true, scopeLine: 10, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !13 = !DISubroutineType(types: !14)
 !14 = !{null, !4}
 !15 = !{i32 2, !"Dwarf Version", i32 4}

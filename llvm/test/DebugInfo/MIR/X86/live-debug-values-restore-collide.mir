@@ -28,7 +28,7 @@
   !1 = !{i32 2, !"Dwarf Version", i32 4}
   !2 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !3, producer: "", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug)
   !3 = !DIFile(filename: "sheep.cpp", directory: ".")
-  !4 = distinct !DISubprogram(name: "baaar", scope: !3, file: !3, line: 1, type: !5, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !8)
+  !4 = !DISubprogram(name: "baaar", scope: !3, file: !3, line: 1, type: !5, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !8)
   !5 = !DISubroutineType(types: !6)
   !6 = !{!7}
   !7 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)

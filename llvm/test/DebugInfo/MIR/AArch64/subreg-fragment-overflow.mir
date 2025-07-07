@@ -16,7 +16,7 @@
   !1 = !DIFile(filename: "bug.cpp", directory: "/")
   !1586 = !{i32 2, !"Debug Info Version", i32 3}
   !1587 = !{i32 7, !"frame-pointer", i32 1}
-  !1590 = distinct !DISubprogram(name: "f", scope: !0, file: !1, line: 278, type: !1591, scopeLine: 279, flags: DIFlagPrototyped, unit: !0, declaration: !1593)
+  !1590 = !DISubprogram(name: "f", scope: !0, file: !1, line: 278, type: !1591, scopeLine: 279, flags: DIFlagPrototyped, unit: !0, declaration: !1593)
   !1591 = !DISubroutineType(types: !1592)
   !1592 = !{null  }
   !1593 = !DISubprogram(name: "f", linkageName: "_f", scope: !0, file: !1, line: 195, type: !1591, scopeLine: 195, flags:

@@ -44,7 +44,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !11 = distinct !DIGlobalVariable(name: "b", scope: !0, file: !1, line: 2, type: !5, isLocal: false, isDefinition: true)
 !12 = !{i32 2, !"Debug Info Version", i32 3}
 !13 = !DILocalVariable(name: "f", scope: !14, file: !1, line: 4, type: !5)
-!14 = distinct !DISubprogram(name: "d", scope: !1, file: !1, line: 3, type: !15, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !16)
+!14 = !DISubprogram(name: "d", scope: !1, file: !1, line: 3, type: !15, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !16)
 !15 = !DISubroutineType(types: !16)
 !16 = !{}
 !17 = !DILocation(line: 0, scope: !14)

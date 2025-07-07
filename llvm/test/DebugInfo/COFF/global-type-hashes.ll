@@ -107,7 +107,7 @@ attributes #3 = { mustprogress noinline nounwind optnone "frame-pointer"="none" 
 !5 = !{i32 2, !"Debug Info Version", i32 3}
 !6 = !{i32 1, !"wchar_size", i32 2}
 !7 = !{!"clang version 16.0.0 (https://github.com/llvm/llvm-project.git a784de783af5096e593c5e214c2c78215fe303f5)"}
-!8 = distinct !DISubprogram(name: "main", scope: !9, file: !9, line: 7, type: !10, scopeLine: 7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !16)
+!8 = !DISubprogram(name: "main", scope: !9, file: !9, line: 7, type: !10, scopeLine: 7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !16)
 !9 = !DIFile(filename: "foo.cpp", directory: "C:\\git\\llvm-project", checksumkind: CSK_MD5, checksum: "d54692241b2727e6ae75e9d429c51680")
 !10 = !DISubroutineType(types: !11)
 !11 = !{!12, !12, !13}
@@ -137,7 +137,7 @@ attributes #3 = { mustprogress noinline nounwind optnone "frame-pointer"="none" 
 !35 = !DILocation(line: 8, column: 16, scope: !8)
 !36 = !DILocation(line: 9, column: 12, scope: !8)
 !37 = !DILocation(line: 9, column: 3, scope: !8)
-!38 = distinct !DISubprogram(name: "Foo", linkageName: "??0Foo@@QAE@HH@Z", scope: !22, file: !9, line: 2, type: !27, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !26, retainedNodes: !16)
+!38 = !DISubprogram(name: "Foo", linkageName: "??0Foo@@QAE@HH@Z", scope: !22, file: !9, line: 2, type: !27, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !26, retainedNodes: !16)
 !39 = !DILocalVariable(name: "y", arg: 3, scope: !38, file: !9, line: 2, type: !12)
 !40 = !DILocation(line: 2, column: 18, scope: !38)
 !41 = !DILocalVariable(name: "x", arg: 2, scope: !38, file: !9, line: 2, type: !12)
@@ -150,7 +150,7 @@ attributes #3 = { mustprogress noinline nounwind optnone "frame-pointer"="none" 
 !48 = !DILocation(line: 2, column: 29, scope: !38)
 !49 = !DILocation(line: 2, column: 31, scope: !38)
 !50 = !DILocation(line: 2, column: 35, scope: !38)
-!51 = distinct !DISubprogram(name: "method", linkageName: "?method@Foo@@QAEHXZ", scope: !22, file: !9, line: 3, type: !31, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !30, retainedNodes: !16)
+!51 = !DISubprogram(name: "method", linkageName: "?method@Foo@@QAEHXZ", scope: !22, file: !9, line: 3, type: !31, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !30, retainedNodes: !16)
 !52 = !DILocalVariable(name: "this", arg: 1, scope: !51, type: !44, flags: DIFlagArtificial | DIFlagObjectPointer)
 !53 = !DILocation(line: 0, scope: !51)
 !54 = !DILocation(line: 3, column: 25, scope: !51)

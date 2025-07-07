@@ -194,7 +194,7 @@ define spir_func i32 @test1() !dbg !72 {
 !14 = !{i32 2, i32 0}
 !15 = !{i32 1, i32 0}
 !16 = !{!"clang version 20.0.0git (https://github.com/bwlodarcz/llvm-project de1f5b96adcea52bf7c9670c46123fe1197050d2)"}
-!17 = distinct !DISubprogram(name: "test0", linkageName: "test0", scope: !3, file: !3, line: 5, type: !18, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !20)
+!17 = !DISubprogram(name: "test0", linkageName: "test0", scope: !3, file: !3, line: 5, type: !18, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !20)
 !18 = !DISubroutineType(cc: DW_CC_LLVM_SpirFunction, types: !19)
 !19 = !{!9}
 !20 = !{}
@@ -249,7 +249,7 @@ define spir_func i32 @test1() !dbg !72 {
 !69 = !DISubrange(count: 8)
 !70 = !DILocation(line: 18, column: 7, scope: !17)
 !71 = !DILocation(line: 19, column: 3, scope: !17)
-!72 = distinct !DISubprogram(name: "test1", linkageName: "test1", scope: !3, file: !3, line: 22, type: !18, scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !20)
+!72 = !DISubprogram(name: "test1", linkageName: "test1", scope: !3, file: !3, line: 22, type: !18, scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !20)
 !73 = !DILocalVariable(name: "bp1", scope: !72, file: !3, line: 23, type: !22)
 !74 = !DILocation(line: 23, column: 9, scope: !72)
 !75 = !DILocalVariable(name: "sp1", scope: !72, file: !3, line: 24, type: !26)

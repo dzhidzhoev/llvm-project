@@ -65,7 +65,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #3
 !13 = !{i32 1, !"override-stack-alignment", i32 8}
 !14 = !{i32 4, !"SkipRaxSetup", i32 1}
 !15 = !{!"clang version 15.0.0 (git@github.com:llvm/llvm-project ab49dce01f211fd80f76f449035d771f5e2720b9)"}
-!16 = distinct !DISubprogram(name: "switch_mm_irqs_off", scope: !5, file: !5, line: 4, type: !17, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
+!16 = !DISubprogram(name: "switch_mm_irqs_off", scope: !5, file: !5, line: 4, type: !17, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
 !17 = !DISubroutineType(types: !18)
 !18 = !{null}
 !19 = !{!20}

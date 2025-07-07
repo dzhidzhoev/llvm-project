@@ -45,6 +45,6 @@ attributes #1 = { nocallback nofree nosync nounwind willreturn memory(inaccessib
 !11 = distinct !DILexicalBlock(scope: !12, file: !1, line: 8, column: 40)
 !12 = distinct !DILexicalBlock(scope: !13, file: !1, line: 8, column: 3)
 !13 = distinct !DILexicalBlock(scope: !14, file: !1, line: 8, column: 3)
-!14 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !15, scopeLine: 7, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !16)
+!14 = !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !15, scopeLine: 7, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !16)
 !15 = distinct !DISubroutineType(types: !16)
 !16 = !{}

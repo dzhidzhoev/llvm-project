@@ -23,7 +23,7 @@ define void @banana() !dbg !8 {
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 11.0.1"}
-!8 = distinct !DISubprogram(name: "banana", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "banana", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !9 = !DIFile(filename: "test.c", directory: "/tmp")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}

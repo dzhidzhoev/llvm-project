@@ -53,21 +53,21 @@ bb:
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocation(line: 99, column: 17, scope: !11)
 !6 = !DIFile(filename: "inline-landing-pad.cpp", directory: "/tmp")
-!11 = distinct !DISubprogram(name: "widget", linkageName: "widget", scope: !6, file: !6, line: 87, type: !12, scopeLine: 88, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!11 = !DISubprogram(name: "widget", linkageName: "widget", scope: !6, file: !6, line: 87, type: !12, scopeLine: 88, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !12 = distinct !DISubroutineType(types: !13)
 !13 = !{null}
-!14 = distinct !DISubprogram(name: "baz", linkageName: "baz", scope: !6, file: !6, line: 7, type: !12, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!14 = !DISubprogram(name: "baz", linkageName: "baz", scope: !6, file: !6, line: 7, type: !12, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !15 = !DILocation(line: 9, column: 7, scope: !14)
 !16 = distinct !DISubroutineType(types: !13)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, retainedTypes: [[META2:![0-9]+]], globals: [[META2]], imports: [[META2]], splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "inline-landing-pad.cpp", directory: {{.*}})
 ; CHECK: [[META2]] = !{}
-; CHECK: [[DBG4]] = distinct !DISubprogram(name: "widget", linkageName: "widget", scope: [[META1]], file: [[META1]], line: 87, type: [[META5:![0-9]+]], scopeLine: 88, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[DBG4]] = !DISubprogram(name: "widget", linkageName: "widget", scope: [[META1]], file: [[META1]], line: 87, type: [[META5:![0-9]+]], scopeLine: 88, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META5]] = distinct !DISubroutineType(types: [[META6:![0-9]+]])
 ; CHECK: [[META6]] = !{null}
 ; CHECK: [[DBG7]] = !DILocation(line: 9, column: 7, scope: [[DBG8]], inlinedAt: [[META9:![0-9]+]])
-; CHECK: [[DBG8]] = distinct !DISubprogram(name: "baz", linkageName: "baz", scope: [[META1]], file: [[META1]], line: 7, type: [[META5]], scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[DBG8]] = !DISubprogram(name: "baz", linkageName: "baz", scope: [[META1]], file: [[META1]], line: 7, type: [[META5]], scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META9]] = distinct !DILocation(line: 99, column: 17, scope: [[DBG4]])
 ; CHECK: [[DBG10]] = !DILocation(line: 9, column: 7, scope: [[DBG8]])
 ;.

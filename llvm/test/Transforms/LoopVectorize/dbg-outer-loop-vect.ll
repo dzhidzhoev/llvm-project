@@ -104,7 +104,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !1 = !DIFile(filename: "outer-loop-vect.c", directory: "/test/file/path")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
-!4 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 8, type: !5, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!4 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 8, type: !5, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
 !5 = !DISubroutineType(types: !6)
 !6 = !{null, !7}
 !7 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !8, size: 64)
@@ -138,7 +138,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "clang", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "outer-loop-vect.c", directory: {{.*}})
-; CHECK: [[DBG4]] = distinct !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 8, type: [[META5:![0-9]+]], scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META9:![0-9]+]])
+; CHECK: [[DBG4]] = !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 8, type: [[META5:![0-9]+]], scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META9:![0-9]+]])
 ; CHECK: [[META5]] = !DISubroutineType(types: [[META6:![0-9]+]])
 ; CHECK: [[META6]] = !{null, [[META7:![0-9]+]]}
 ; CHECK: [[META7]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META8:![0-9]+]], size: 64)

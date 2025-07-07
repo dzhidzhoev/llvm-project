@@ -59,13 +59,13 @@ declare !dbg !20 void @f1(...) local_unnamed_addr
 !6 = !{i32 7, !"PIE Level", i32 2}
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{!"clang version 20.0.0git (https://github.com/llvm/llvm-project.git 9edd998e10fabfff067b9e6e5b044f85a24d0dd5)"}
-!9 = distinct !DISubprogram(name: "f4", scope: !1, file: !1, line: 9, type: !10, scopeLine: 9, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!9 = !DISubprogram(name: "f4", scope: !1, file: !1, line: 9, type: !10, scopeLine: 9, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !DILocation(line: 3, column: 3, scope: !13, inlinedAt: !14)
-!13 = distinct !DISubprogram(name: "f2", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!13 = !DISubprogram(name: "f2", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !14 = distinct !DILocation(line: 7, column: 3, scope: !15, inlinedAt: !16)
-!15 = distinct !DISubprogram(name: "f3", scope: !1, file: !1, line: 6, type: !10, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!15 = !DISubprogram(name: "f3", scope: !1, file: !1, line: 6, type: !10, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !16 = distinct !DILocation(line: 10, column: 3, scope: !9)
 !17 = !DILocation(line: 4, column: 3, scope: !13, inlinedAt: !14)
 !18 = !DILocation(line: 11, column: 3, scope: !9)

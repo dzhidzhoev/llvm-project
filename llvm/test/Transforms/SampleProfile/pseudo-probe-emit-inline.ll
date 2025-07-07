@@ -38,14 +38,14 @@ define dso_local i32 @entry() !dbg !14 {
 }
 
 
-; CHECK-IL: ![[#SCOPE1:]] = distinct !DISubprogram(name: "foo2"
-; CHECK-IL: ![[#SCOPE2:]] = distinct !DISubprogram(name: "foo"
+; CHECK-IL: ![[#SCOPE1:]] = !DISubprogram(name: "foo2"
+; CHECK-IL: ![[#SCOPE2:]] = !DISubprogram(name: "foo"
 ; CHECK-IL: ![[#DL1]] = !DILocation(line: 3, column: 1,  scope: ![[#SCOPE1]], inlinedAt: ![[#INL1:]])
 ; CHECK-IL: ![[#INL1]] = distinct !DILocation(line: 7, column: 3, scope: ![[#BL1:]])
 ;; A discriminator of 455082007 which is 0x1b200017 in hexdecimal, stands for a direct call probe
 ;; with an index of 2 and a scale of 100%.
 ; CHECK-IL: ![[#BL1]] = !DILexicalBlockFile(scope: ![[#SCOPE2]], file: !1, discriminator: 455082007)
-; CHECK-IL: ![[#SCOPE3:]] = distinct !DISubprogram(name: "entry"
+; CHECK-IL: ![[#SCOPE3:]] = !DISubprogram(name: "entry"
 ; CHECK-IL: ![[#DL2]] = !DILocation(line: 7, column: 3,  scope: ![[#SCOPE2]], inlinedAt: ![[#INL2:]])
 ; CHECK-IL: ![[#INL2]] = distinct !DILocation(line: 11, column: 3, scope: ![[#BL2:]])
 ; CHECK-IL: ![[#BL2]] = !DILexicalBlockFile(scope: ![[#SCOPE3]], file: !1, discriminator: 455082007)
@@ -82,14 +82,14 @@ define dso_local i32 @entry() !dbg !14 {
 !2 = !{}
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!7 = distinct !DISubprogram(name: "foo2", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "foo2", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !DILocation(line: 3, column: 1, scope: !7)
-!11 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!11 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !12 = !DILocation(line: 7, column: 3, scope: !11)
 !13 = !DILocation(line: 8, column: 1, scope: !11)
-!14 = distinct !DISubprogram(name: "entry", scope: !1, file: !1, line: 10, type: !15, scopeLine: 10, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!14 = !DISubprogram(name: "entry", scope: !1, file: !1, line: 10, type: !15, scopeLine: 10, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !15 = !DISubroutineType(types: !16)
 !16 = !{!17}
 !17 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

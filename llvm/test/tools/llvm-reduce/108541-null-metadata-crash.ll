@@ -43,5 +43,5 @@ bb2:                                              ; preds = %bb1, %bb1, %bb
 !16 = distinct !DILexicalBlock(scope: !17, file: !13, line: 14, column: 3)
 !17 = distinct !DILexicalBlock(scope: !18, file: !13, line: 13, column: 3)
 !18 = distinct !DILexicalBlock(scope: !19, file: !13, line: 13, column: 3)
-!19 = distinct !DISubprogram(name: "hoge", linkageName: "hoge", scope: !13, file: !13, line: 10, type: !20, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!19 = !DISubprogram(name: "hoge", linkageName: "hoge", scope: !13, file: !13, line: 10, type: !20, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !20 = distinct !DISubroutineType(types: !2)

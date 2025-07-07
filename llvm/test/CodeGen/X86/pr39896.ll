@@ -45,7 +45,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !9 = !{i32 1, !"wchar_size", i32 4}
 !10 = !{i32 7, !"PIC Level", i32 2}
 !11 = !{!"clang version something"}
-!12 = distinct !DISubprogram(name: "b", scope: !3, file: !3, line: 2, type: !13, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !16)
+!12 = !DISubprogram(name: "b", scope: !3, file: !3, line: 2, type: !13, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !16)
 !13 = !DISubroutineType(types: !14)
 !14 = !{!15}
 !15 = !DIBasicType(name: "short", size: 16, encoding: DW_ATE_signed)

@@ -39,7 +39,7 @@ attributes #0 = { nofree nosync nounwind readnone speculatable willreturn }
 
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1, producer: "clang version 14", isOptimized: false, runtimeVersion: 0, emissionKind: LineTablesOnly, splitDebugInlining: false, nameTableKind: None)
 !1 = !DIFile(filename: "source.c", directory: "/")
-!2 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !4, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !5)
+!2 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !4, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !5)
 !3 = !DILocation(line: 4, column: 17, scope: !2)
 !4 = !DISubroutineType(types: !5)
 !5 = !{}

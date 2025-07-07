@@ -28,7 +28,7 @@ attributes #0 = { uwtable "target-cpu"="x86-64" }
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = distinct !DICompileUnit(language: DW_LANG_ObjC, file: !4, producer: "clang version 17.0.0 (https://github.com/llvm/llvm-project a8e9beca6bee1f248ef4be7892802c4d091b7fcb)", isOptimized: false, runtimeVersion: 1, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !4 = !DIFile(filename: "objc.m", directory: "src", checksumkind: CSK_MD5, checksum: "e6ab1d5b7f82464c963a8522037dfa72")
-!5 = distinct !DISubprogram(name: "f", scope: !4, file: !4, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !3, retainedNodes: !8)
+!5 = !DISubprogram(name: "f", scope: !4, file: !4, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !3, retainedNodes: !8)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !{}

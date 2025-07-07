@@ -48,5 +48,5 @@ attributes #0 = { norecurse nounwind readnone ssp uwtable }
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 7.0.0"}
 !8 = !DILocation(line: 3, column: 72, scope: !9)
-!9 = distinct !DISubprogram(name: "eliminated", scope: !1, file: !1, line: 3, type: !10, isLocal: true, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
+!9 = !DISubprogram(name: "eliminated", scope: !1, file: !1, line: 3, type: !10, isLocal: true, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !2)
 !10 = !DISubroutineType(types: !2)

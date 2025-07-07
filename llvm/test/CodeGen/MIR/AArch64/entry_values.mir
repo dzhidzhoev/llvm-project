@@ -17,7 +17,7 @@
   !1 = !{i32 2, !"Debug Info Version", i32 3}
   !2 = distinct !DICompileUnit(language: DW_LANG_Swift, file: !3, runtimeVersion: 0, emissionKind: FullDebug)
   !3 = !DIFile(filename: "blah", directory: "")
-  !4 = distinct !DISubprogram(linkageName: "foo", scope: null, file: !3, type: !5, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !6)
+  !4 = !DISubprogram(linkageName: "foo", scope: null, file: !3, type: !5, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !6)
   !5 = !DISubroutineType(types: null)
   !6 = !{!7, !9}
   !7 = !DILocalVariable(name: "k1", scope: !4, file: !3, line: 7, type: !8)

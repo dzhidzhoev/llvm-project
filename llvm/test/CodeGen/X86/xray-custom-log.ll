@@ -107,8 +107,8 @@ declare void @llvm.xray.typedevent(i64, ptr, i64)
 !llvm.dbg.cu = !{!7}
 !llvm.module.flags = !{!10, !11}
 
-!1 = distinct !DISubprogram(name: "customevent", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7)
-!2 = distinct !DISubprogram(name: "typedevent", scope: !3, file: !3, line: 3, type: !4, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7)
+!1 = !DISubprogram(name: "customevent", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7)
+!2 = !DISubprogram(name: "typedevent", scope: !3, file: !3, line: 3, type: !4, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7)
 !3 = !DIFile(filename: "a.c", directory: "/tmp")
 !4 = !DISubroutineType(types: !5)
 !5 = !{!6}

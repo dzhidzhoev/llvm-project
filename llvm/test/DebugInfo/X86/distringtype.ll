@@ -145,7 +145,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "deferred", linkageName: "assumedlength_$DEFERRED", scope: !2, file: !3, line: 2, type: !9, isLocal: true, isDefinition: true)
-!2 = distinct !DISubprogram(name: "assumedlength", linkageName: "MAIN__", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !7)
+!2 = !DISubprogram(name: "assumedlength", linkageName: "MAIN__", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !7)
 !3 = !DIFile(filename: "distring.f90", directory: "/iusers/cchen15/examples/tests")
 !4 = !DISubroutineType(types: !5)
 !5 = !{null}
@@ -160,7 +160,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 !14 = !DILocation(line: 4, column: 8, scope: !2)
 !15 = !DILocation(line: 5, column: 8, scope: !2)
 !16 = !DILocation(line: 6, column: 3, scope: !2)
-!17 = distinct !DISubprogram(name: "sub", linkageName: "assumedlength_IP_sub_", scope: !3, file: !3, line: 7, type: !4, scopeLine: 7, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !18)
+!17 = !DISubprogram(name: "sub", linkageName: "assumedlength_IP_sub_", scope: !3, file: !3, line: 7, type: !4, scopeLine: 7, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !18)
 !18 = !{!19, !21}
 !19 = !DILocalVariable(name: "STRING.len", scope: !17, type: !20, flags: DIFlagArtificial)
 !20 = !DIBasicType(name: "INTEGER*8", size: 64, encoding: DW_ATE_signed)

@@ -98,7 +98,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !13 = !{i32 7, !"uwtable", i32 2}
 !14 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !15 = !{!"clang version 17.0.0"}
-!16 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
+!16 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
 !17 = !DISubroutineType(types: !18)
 !18 = !{null}
 !19 = !{!20}
@@ -110,14 +110,14 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !27 = distinct !DILexicalBlock(scope: !16, file: !3, line: 7, column: 7)
 !37 = distinct !DIAssignID()
 !38 = distinct !DIAssignID()
-!39 = distinct !DISubprogram(name: "fun2", linkageName: "_Z3funv2", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !40)
+!39 = !DISubprogram(name: "fun2", linkageName: "_Z3funv2", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !40)
 !40 = !{!41}
 !41 = !DILocalVariable(name: "X", scope: !39, file: !3, line: 10, type: !21)
 !42 = distinct !DIAssignID()
 !43 = distinct !DIAssignID()
 !44 = !DILocation(line: 0, scope: !39)
 !45 = distinct !DIAssignID()
-!46 = distinct !DISubprogram(name: "fun3", linkageName: "_Z3funv3", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !47)
+!46 = !DISubprogram(name: "fun3", linkageName: "_Z3funv3", scope: !3, file: !3, line: 3, type: !17, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !47)
 !47 = !{!48}
 !48 = !DILocalVariable(name: "X", scope: !46, file: !3, line: 10, type: !21)
 !49 = distinct !DIAssignID()

@@ -47,7 +47,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !5 = !{i32 1, !"wchar_size", i32 2}
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 11.0.0"}
-!8 = distinct !DISubprogram(name: "foo", linkageName: "?foo@@YAXPEAUS@@_J@Z", scope: !9, file: !9, line: 7, type: !10, scopeLine: 7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !19)
+!8 = !DISubprogram(name: "foo", linkageName: "?foo@@YAXPEAUS@@_J@Z", scope: !9, file: !9, line: 7, type: !10, scopeLine: 7, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !19)
 !9 = !DIFile(filename: ".\\salvage-gep.cpp", directory: "/")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null, !12, !18}

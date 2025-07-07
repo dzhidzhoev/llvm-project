@@ -37,7 +37,7 @@
   !1 = !DIFile(filename: "<stdin>", directory: "/")
   !2 = !{}
   !3 = !{i32 2, !"Debug Info Version", i32 3}
-  !4 = distinct !DISubprogram(name: "test", linkageName: "test", scope: null, file: !1, line: 1, type: !5, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !6)
+  !4 = !DISubprogram(name: "test", linkageName: "test", scope: null, file: !1, line: 1, type: !5, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !6)
   !5 = !DISubroutineType(types: !2)
   !6 = !{!7, !9}
   !7 = !DILocalVariable(name: "1", scope: !4, file: !1, line: 1, type: !8)
@@ -51,7 +51,7 @@
   ; CHECK: !1 = !DIFile(filename: "<stdin>", directory: "/")
   ; CHECK: !2 = !{}
   ; CHECK: !3 = !{i32 2, !"Debug Info Version", i32 3}
-  ; CHECK: !4 = distinct !DISubprogram(name: "test", linkageName: "test", scope: null, file: !1, line: 1, type: !5, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !6)
+  ; CHECK: !4 = !DISubprogram(name: "test", linkageName: "test", scope: null, file: !1, line: 1, type: !5, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !6)
   ; CHECK: !5 = !DISubroutineType(types: !2)
   ; CHECK: !6 = !{!7, !9}
   ; CHECK: !7 = !DILocalVariable(name: "1", scope: !4, file: !1, line: 1, type: !8)

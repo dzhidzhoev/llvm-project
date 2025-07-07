@@ -47,7 +47,7 @@ attributes #0 = { uwtable mustprogress "disable-tail-calls"="false" "frame-point
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!""}
 !8 = !DISubroutineType(types: !2)
-!11 = distinct !DISubprogram(name: "goo", linkageName: "_Z3goov", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!11 = !DISubprogram(name: "goo", linkageName: "_Z3goov", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !12 = !DILocation(line: 7, column: 5, scope: !11)
 !13 = !{!14, !14, i64 0}
 !14 = !{!"any pointer", !15, i64 0}
@@ -55,7 +55,7 @@ attributes #0 = { uwtable mustprogress "disable-tail-calls"="false" "frame-point
 !16 = !{!"Simple C++ TBAA"}
 !17 = !DILocation(line: 7, column: 3, scope: !11)
 !18 = !DILocation(line: 8, column: 1, scope: !11)
-!19 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 10, type: !8, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!19 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 10, type: !8, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !20 = !DILocation(line: 11, column: 3, scope: !19)
 !21 = !DILocation(line: 12, column: 3, scope: !19)
 ; CHECK: ![[PROF_ID1]] = !{!"VP", i32 0, i64 7200, i64 -7383239051784516332, i64 -1, i64 -3834823603621627078, i64 7200}

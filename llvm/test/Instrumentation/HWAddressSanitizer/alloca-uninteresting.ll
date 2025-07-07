@@ -37,7 +37,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !14 = !{!"clang version 13.0.0"}
-!15 = distinct !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: !1, file: !1, line: 4, type: !16, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!15 = !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: !1, file: !1, line: 4, type: !16, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !16 = !DISubroutineType(types: !17)
 !17 = !{null}
 !19 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !20, size: 64)

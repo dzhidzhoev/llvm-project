@@ -26,7 +26,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 !5 = !{i32 1, !"wchar_size", i32 2}
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 10.0.0"}
-!8 = distinct !DISubprogram(name: "main", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !18)
+!8 = !DISubprogram(name: "main", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !18)
 !9 = !DIFile(filename: "./test2.cpp", directory: "C:\")
 !10 = !DISubroutineType(types: !11)
 !11 = !{!12, !13, !14}

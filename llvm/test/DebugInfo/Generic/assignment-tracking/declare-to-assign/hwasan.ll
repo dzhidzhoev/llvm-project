@@ -24,7 +24,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !6 = !{i32 7, !"PIE Level", i32 2}
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{!"clang version 17.0.0"}
-!9 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!9 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !{!13}

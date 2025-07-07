@@ -12,7 +12,7 @@
                              isOptimized: true, flags: "-O2",
                              splitDebugFilename: "abc.debug", emissionKind: 2)
 !1 = !DIFile(filename: "path/to/file", directory: "/path/to/dir")
-!2 = distinct !DISubprogram(name: "foo", scope: !1, unit: !0)
+!2 = !DISubprogram(name: "foo", scope: !1, unit: !0)
 
 ; CHECK: !3 = !DILexicalBlock(scope: !2, file: !1, line: 7, column: 35)
 !3 = !DILexicalBlock(scope: !2, file: !1, line: 7, column: 35)

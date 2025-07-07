@@ -16,7 +16,7 @@ define void @_Z8thinlto1v() unnamed_addr {
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 8, !"PIC Level", i32 2}
-!10 = distinct !DISubprogram(name: "thinlto1", linkageName: "_Z8thinlto1v", scope: !11, file: !11, line: 8, type: !12, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!10 = !DISubprogram(name: "thinlto1", linkageName: "_Z8thinlto1v", scope: !11, file: !11, line: 8, type: !12, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !11 = !DIFile(filename: "b.cpp", directory: ".")
 !12 = !DISubroutineType(types: !13)
 !13 = !{null}

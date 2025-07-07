@@ -45,7 +45,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = distinct !DICompileUnit(language: DW_LANG_Fortran90, file: !3, producer: " F90 Flang - 1.5 2017-05-01", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !4, retainedTypes: !4, globals: !4, imports: !4)
 !3 = !DIFile(filename: "generic_subrange_const.f90", directory: "/dir")
 !4 = !{}
-!5 = distinct !DISubprogram(name: "sub", scope: !2, file: !3, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
+!5 = !DISubprogram(name: "sub", scope: !2, file: !3, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null, !8, !14}
 !8 = !DICompositeType(tag: DW_TAG_array_type, baseType: !9, size: 32, align: 32, elements: !10)

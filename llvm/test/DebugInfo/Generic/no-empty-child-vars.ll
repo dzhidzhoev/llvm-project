@@ -112,7 +112,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang"}
-!7 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!7 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !10}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -122,7 +122,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !14 = !DILocation(line: 0, scope: !7)
 !15 = !DILocation(line: 2, column: 16, scope: !7)
 !16 = !DILocation(line: 3, column: 3, scope: !7)
-!17 = distinct !DISubprogram(name: "qux", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
+!17 = !DISubprogram(name: "qux", scope: !1, file: !1, line: 6, type: !8, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !18)
 !18 = !{!19, !20}
 !19 = !DILocalVariable(name: "quux", arg: 1, scope: !17, file: !1, line: 6, type: !10)
 !20 = !DILocalVariable(name: "xyzzy", scope: !17, file: !1, line: 7, type: !10)
@@ -131,7 +131,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !23 = distinct !DILocation(line: 7, column: 15, scope: !17)
 !24 = !DILocation(line: 2, column: 16, scope: !7, inlinedAt: !23)
 !25 = !DILocation(line: 8, column: 3, scope: !17)
-!26 = distinct !DISubprogram(name: "croix", scope: !1, file: !1, line: 11, type: !8, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !27)
+!26 = !DISubprogram(name: "croix", scope: !1, file: !1, line: 11, type: !8, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !27)
 !27 = !{!28, !29}
 !28 = !DILocalVariable(name: "quux", arg: 1, scope: !26, file: !1, line: 11, type: !10)
 !29 = !DILocalVariable(name: "xyzzy", scope: !26, file: !1, line: 12, type: !10)

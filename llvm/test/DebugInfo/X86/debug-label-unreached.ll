@@ -31,7 +31,7 @@ declare void @llvm.dbg.label(metadata)
 !5 = !DISubroutineType(types: !6)
 !6 = !{!7}
 !7 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-!8 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 8, type: !5, isLocal: false, isDefinition: true, scopeLine: 9, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !9)
+!8 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 8, type: !5, isLocal: false, isDefinition: true, scopeLine: 9, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !9)
 !9 = !{!10, !11}
 !10 = !DILabel(scope: !8, name: "removed", file: !1, line: 11)
 !11 = !DILabel(scope: !8, name: "done", file: !1, line: 13)

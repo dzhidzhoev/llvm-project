@@ -68,7 +68,7 @@ attributes #3 = { nofree nosync nounwind readnone speculatable willreturn }
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "elemnt", linkageName: "semiempirical_corrections_mp_esym_$ELEMNT", scope: !2, file: !3, line: 17, type: !16, isLocal: true, isDefinition: true)
-!2 = distinct !DISubprogram(name: "esym", linkageName: "semiempirical_corrections_mp_esym_", scope: !4, file: !3, line: 15, type: !5, scopeLine: 15, spFlags: DISPFlagDefinition, unit: !8, retainedNodes: !11)
+!2 = !DISubprogram(name: "esym", linkageName: "semiempirical_corrections_mp_esym_", scope: !4, file: !3, line: 15, type: !5, scopeLine: 15, spFlags: DISPFlagDefinition, unit: !8, retainedNodes: !11)
 !3 = !DIFile(filename: "se6.f90", directory: "/iusers/cchen15/examples/tests/jr30349/gamess-dga-main/object")
 !4 = !DIModule(scope: null, name: "semiempirical_corrections", file: !3, line: 1)
 !5 = !DISubroutineType(types: !6)
@@ -88,7 +88,7 @@ attributes #3 = { nofree nosync nounwind readnone speculatable willreturn }
 !19 = !DISubrange(count: 1, lowerBound: 1)
 !20 = !{i32 2, !"Debug Info Version", i32 3}
 !21 = !{i32 2, !"Dwarf Version", i32 4}
-!22 = distinct !DISubprogram(name: "gcpcor", linkageName: "semiempirical_corrections_mp_gcpcor_", scope: !4, file: !3, line: 6, type: !23, scopeLine: 6, spFlags: DISPFlagDefinition, unit: !8)
+!22 = !DISubprogram(name: "gcpcor", linkageName: "semiempirical_corrections_mp_gcpcor_", scope: !4, file: !3, line: 6, type: !23, scopeLine: 6, spFlags: DISPFlagDefinition, unit: !8)
 !23 = !DISubroutineType(types: !24)
 !24 = !{null}
 !34 = !DILocation(line: 6, column: 19, scope: !22)

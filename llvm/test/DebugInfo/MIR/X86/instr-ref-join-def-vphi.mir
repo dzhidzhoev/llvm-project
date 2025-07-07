@@ -83,7 +83,7 @@
   !5 = !{i32 7, !"PIC Level", i32 2}
   !6 = !{i32 7, !"uwtable", i32 2}
   !7 = !{!"clang version 15.0.0"}
-  !8 = distinct !DISubprogram(name: "foo", linkageName: "?foo@@YAHH@Z", scope: !9, file: !9, line: 3, type: !10, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
+  !8 = !DISubprogram(name: "foo", linkageName: "?foo@@YAHH@Z", scope: !9, file: !9, line: 3, type: !10, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
   !9 = !DIFile(filename: ".\\test.cpp", directory: "\")
   !10 = !DISubroutineType(types: !11)
   !11 = !{!12, !12}

@@ -62,7 +62,7 @@ declare i32 @bar(i32)
 !1 = !DIFile(filename: "foo.c", directory: "b/")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !5, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
+!4 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !5, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
 !5 = !DISubroutineType(types: !6)
 !6 = !{!7, !8, !8}
 !7 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

@@ -26,7 +26,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{!"clang version 13.0.0 (https://github.com/llvm/llvm-project.git a6dd9d402a04d53403664bbb47771f2573c7ade0)"}
-!8 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12, annotations: !14)
+!8 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12, annotations: !14)
 !9 = !DISubroutineType(types: !10)
 !10 = !{!11, !11}
 !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -36,7 +36,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 !15 = !{!"btf_decl_tag", !"a"}
 !16 = !{!"btf_decl_tag", !"b"}
 
-; CHECK:        distinct !DISubprogram(name: "f"
+; CHECK:        !DISubprogram(name: "f"
 ; CHECK-SAME:   annotations: ![[ANNOT:[0-9]+]]
 ; CHECK:        ![[ANNOT]] = !{![[TAG1:[0-9]+]], ![[TAG2:[0-9]+]]}
 ; CHECK:        ![[TAG1]] = !{!"btf_decl_tag", !"a"}

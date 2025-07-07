@@ -57,7 +57,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0"}
-!7 = distinct !DISubprogram(name: "fun", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!7 = !DISubprogram(name: "fun", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !{!11}
@@ -68,7 +68,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !15 = !DILocation(line: 0, scope: !7)
 !16 = !DILocation(line: 6, column: 18, scope: !7)
 !21 = !DILocalVariable(name: "c", arg: 1, scope: !22, file: !1, line: 2, type: !25)
-!22 = distinct !DISubprogram(name: "esc", scope: !1, file: !1, line: 2, type: !23, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !26)
+!22 = !DISubprogram(name: "esc", scope: !1, file: !1, line: 2, type: !23, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !26)
 !23 = !DISubroutineType(types: !24)
 !24 = !{null, !25}
 !25 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !12, size: 64)

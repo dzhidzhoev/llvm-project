@@ -53,7 +53,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !13 = !{i32 2, !"Debug Info Version", i32 3}
 !14 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !15 = !DILocalVariable(name: "codepoint", scope: !18, file: !1, line: 10, type: !24)
-!18 = distinct !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 4, type: !19, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!18 = !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 4, type: !19, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !19 = distinct !DISubroutineType(types: !2)
 !24 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)
 !25 = distinct !DIAssignID()

@@ -121,7 +121,7 @@ attributes #6 = { builtin }
 !12 = !{i64 789, i64 300}
 !13 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !14, producer: "clang version 21.0.0git (git@github.com:llvm/llvm-project.git e391301e0e4d9183fe06e69602e87b0bc889aeda)", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !14 = !DIFile(filename: "basic.cc", directory: "", checksumkind: CSK_MD5, checksum: "8636c46e81402013b9d54e8307d2f149")
-!15 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !14, file: !14, line: 1, type: !16, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !13, declaration: !22)
+!15 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !14, file: !14, line: 1, type: !16, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !13, declaration: !22)
 !16 = !DISubroutineType(types: !17)
 !17 = !{!18}
 !18 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !19, size: 64)
@@ -291,7 +291,7 @@ attributes #6 = { builtin }
 ; IR: attributes #[[NOTCOLD]] = { builtin "memprof"="notcold" }
 ; IR: attributes #[[COLD]] = { builtin "memprof"="cold" }
 ;; Make sure the clone's linkageName was updated.
-; IR: ![[SP]] = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv.memprof.1", {{.*}} declaration: ![[SP2:[0-9]+]])
+; IR: ![[SP]] = !DISubprogram(name: "bar", linkageName: "_Z3barv.memprof.1", {{.*}} declaration: ![[SP2:[0-9]+]])
 ; IR: ![[SP2]] = !DISubprogram(name: "bar", linkageName: "_Z3barv.memprof.1"
 
 

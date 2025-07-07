@@ -10,7 +10,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 ; CHECK: br i1 {{.*}}, !llvm.loop [[LOOP_MD:![0-9]+]]
 
 ; The scope for these debug locations should be @basic.cold.1, not @basic.
-; CHECK: [[SCOPE:![0-9]+]] = distinct !DISubprogram(name: "basic.cold.1"
+; CHECK: [[SCOPE:![0-9]+]] = !DISubprogram(name: "basic.cold.1"
 ; CHECK: [[LOOP_MD]] = distinct !{[[LOOP_MD]], [[LINE:![0-9]+]], [[LINE2:![0-9]+]]}
 ; CHECK: [[LINE]] = !DILocation(line: 1, column: 1, scope: [[SCOPE]])
 ; CHECK: [[LINE2]] = !DILocation(line: 2, column: 2, scope: [[LEX_SCOPE:![0-9]+]])
@@ -53,7 +53,7 @@ declare void @sink() cold
 !3 = !{i32 22}
 !4 = !{i32 12}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "basic", linkageName: "basic", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+!6 = !DISubprogram(name: "basic", linkageName: "basic", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
 !7 = !DISubroutineType(types: !2)
 !8 = !{}
 !9 = !DILocation(line: 1, column: 1, scope: !6)

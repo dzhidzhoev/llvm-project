@@ -54,17 +54,17 @@ define dso_local void @absent() !dbg !15 {
 !4 = !DIFile(filename: "main.c", directory: "dir")
 
 !5 = !DIFile(filename: "foo.c", directory: "dir", source: "void foo() { }\0A")
-!6 = distinct !DISubprogram(name: "foo", file: !5, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
+!6 = !DISubprogram(name: "foo", file: !5, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
 !7 = !DILocation(line: 1, scope: !6)
 
 !8 = !DIFile(filename: "newline.h", directory: "dir", source: "\0A")
-!9 = distinct !DISubprogram(name: "newline", file: !8, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
+!9 = !DISubprogram(name: "newline", file: !8, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
 !10 = !DILocation(line: 1, scope: !9)
 
 !11 = !DIFile(filename: "empty.h", directory: "dir", source: "")
-!12 = distinct !DISubprogram(name: "empty", file: !11, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
+!12 = !DISubprogram(name: "empty", file: !11, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
 !13 = !DILocation(line: 1, scope: !12)
 
 !14 = !DIFile(filename: "absent.h", directory: "dir")
-!15 = distinct !DISubprogram(name: "absent", file: !14, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
+!15 = !DISubprogram(name: "absent", file: !14, line: 1, type: !3, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2)
 !16 = !DILocation(line: 1, scope: !15)

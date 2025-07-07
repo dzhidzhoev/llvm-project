@@ -51,11 +51,11 @@ define void @f4() !dbg !19 {
 !12 = !{i32 8, !"sign-return-address-all", i32 0}
 !13 = !{i32 8, !"sign-return-address-with-bkey", i32 0}
 !14 = !{i32 7, !"PIC Level", i32 2}
-!15 = distinct !DISubprogram(name: "f1", scope: !1, file: !1, line: 1, type: !16, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!15 = !DISubprogram(name: "f1", scope: !1, file: !1, line: 1, type: !16, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !16 = !DISubroutineType(types: !17)
 !17 = !{null}
 !18 = !DILocation(line: 2, column: 1, scope: !15)
-!19 = distinct !DISubprogram(name: "f4", scope: !1, file: !1, line: 4, type: !16, scopeLine: 4, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!19 = !DISubprogram(name: "f4", scope: !1, file: !1, line: 4, type: !16, scopeLine: 4, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !20 = !DILocation(line: 5, column: 1, scope: !19)
-!21 = distinct !DISubprogram(name: "f2", scope: !4, file: !4, line: 1, type: !16, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !3, retainedNodes: !2)
+!21 = !DISubprogram(name: "f2", scope: !4, file: !4, line: 1, type: !16, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !3, retainedNodes: !2)
 !22 = !DILocation(line: 2, column: 1, scope: !21)

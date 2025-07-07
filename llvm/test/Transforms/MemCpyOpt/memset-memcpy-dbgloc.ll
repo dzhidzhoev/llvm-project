@@ -41,7 +41,7 @@ define void @test_constant(i64 %src_size, ptr %dst, i64 %dst_size, i8 %c) !dbg !
 !2 = !{i32 3}
 !3 = !{i32 1}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "test_constant", linkageName: "test_constant", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+!5 = !DISubprogram(name: "test_constant", linkageName: "test_constant", scope: null, file: !1, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
 !6 = !DISubroutineType(types: !7)
 !7 = !{}
 !8 = !{!9}

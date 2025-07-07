@@ -27,7 +27,7 @@
 ; CHECK: !7 = !{i32 2, !"Debug Info Version", i32 3}
 ; CHECK: !8 = !{!"clang"}
 ; CHECK: !9 = !{!"/alternatename:__CheckForDebuggerJustMyCode=_JustMyCode_Default"}
-; CHECK: !10 = distinct !DISubprogram(name: "w1", scope: !3, file: !3, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !13)
+; CHECK: !10 = !DISubprogram(name: "w1", scope: !3, file: !3, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !13)
 ; CHECK: !11 = !DISubroutineType(types: !12)
 
 target datalayout = "e-m:x-p:32:32-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32-a:0:32-S32"
@@ -48,7 +48,7 @@ attributes #0 = { "target-cpu"="pentium4" "target-features"="+cx8,+fxsr,+mmx,+ss
 !7 = !{i32 2, !"CodeView", i32 1}
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{!"clang"}
-!10 = distinct !DISubprogram(name: "w1", scope: !1, file: !1, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
+!10 = !DISubprogram(name: "w1", scope: !1, file: !1, line: 1, type: !31, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !33)
 !31 = !DISubroutineType(types: !32)
 !32 = !{null}
 !33 = !{}

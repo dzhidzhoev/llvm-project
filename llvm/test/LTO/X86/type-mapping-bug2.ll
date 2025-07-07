@@ -33,7 +33,7 @@ define i1 @b(ptr) {
 ; The reference to @b and T2 that will be loaded in %t0.o
 
 !7 = !DITemplateValueParameter(value: ptr @b)
-!8 = distinct !DISubprogram(unit: !2)
+!8 = !DISubprogram(unit: !2)
 
 ; This DICompositeType is uniqued against !5 in Inputs/type-mapping-bug2.ll,
 ; causing !7 and hence %T2 to be loaded into it's module

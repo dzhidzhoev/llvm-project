@@ -17,7 +17,7 @@ define void @main() !dbg !5 {
 !2 = !{!10}
 ; CHECK: [[EMPTY:![0-9]+]] = !{}
 !4 = distinct !DICompileUnit(language: DW_LANG_C, file: !1, producer: "clang", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: !9)
-!5 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 498, type: !6, scopeLine: 0, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !4, retainedNodes: !2)
+!5 = !DISubprogram(name: "main", scope: !1, file: !1, line: 498, type: !6, scopeLine: 0, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !4, retainedNodes: !2)
 !6 = !DISubroutineType(types: !7)
 ; CHECK: !DISubroutineType(types: [[EMPTY]])
 !7 = !{!13}

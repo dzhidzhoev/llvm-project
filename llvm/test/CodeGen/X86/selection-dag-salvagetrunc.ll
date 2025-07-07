@@ -36,7 +36,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !9 = !{!"clang version 18.0.0"}
-!10 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !1, file: !1, line: 2, type: !11, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!10 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !1, file: !1, line: 2, type: !11, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13}
 !13 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

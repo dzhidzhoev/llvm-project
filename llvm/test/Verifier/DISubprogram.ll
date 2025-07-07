@@ -14,7 +14,7 @@ define void @f() !dbg !14 {
 ; CHECK: invalid thrown type
 ; CHECK: warning: ignoring invalid debug info
 !13 = !{!14}
-!14 = distinct !DISubprogram(name: "f", scope: !1,
+!14 = !DISubprogram(name: "f", scope: !1,
                             file: !2, line: 1, type: !3, isLocal: true,
                             isDefinition: true, scopeLine: 2,
                             unit: !8, thrownTypes: !13)

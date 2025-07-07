@@ -45,7 +45,7 @@
   !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1, producer: "clang version 3.7.0", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !2, retainedTypes: !2, globals: !2, imports: !2)
   !1 = !DIFile(filename: "test.ll", directory: "")
   !2 = !{}
-  !4 = distinct !DISubprogram(name: "test", scope: !5, file: !5, line: 4, type: !6, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+  !4 = !DISubprogram(name: "test", scope: !5, file: !5, line: 4, type: !6, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
   !5 = !DIFile(filename: "test.c", directory: "")
   !6 = !DISubroutineType(types: !7)
   !7 = !{!8, !8}
@@ -56,7 +56,7 @@
   !12 = !DILocalVariable(name: "x", arg: 1, scope: !4, file: !5, line: 4, type: !8)
   !13 = !DILocation(line: 4, scope: !4)
   !14 = !DILocation(line: 8, scope: !4)
-  !15 = distinct !DISubprogram(name: "test_mir_created", scope: !5, file: !5, line: 10, type: !6, isLocal: false, isDefinition: true, scopeLine: 10, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+  !15 = !DISubprogram(name: "test_mir_created", scope: !5, file: !5, line: 10, type: !6, isLocal: false, isDefinition: true, scopeLine: 10, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
   !16 = !DILocation(line: 20, scope: !15)
 
 ...

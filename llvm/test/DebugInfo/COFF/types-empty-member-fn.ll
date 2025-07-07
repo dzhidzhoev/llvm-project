@@ -65,7 +65,7 @@ attributes #0 = { uwtable "target-cpu"="x86-64" }
 !2 = !{}
 !3 = !{i32 2, !"CodeView", i32 1}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!5 = distinct !DISubprogram(name: "foo", linkageName: "_ZN3foo3Foo3foo17hc557c2121772885bE", scope: !6, file: !1, line: 3, type: !9, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, templateParams: !2, retainedNodes: !2)
+!5 = !DISubprogram(name: "foo", linkageName: "_ZN3foo3Foo3foo17hc557c2121772885bE", scope: !6, file: !1, line: 3, type: !9, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, templateParams: !2, retainedNodes: !2)
 !6 = !DICompositeType(tag: DW_TAG_structure_type, name: "Foo", scope: !8, file: !7, align: 8, elements: !2, templateParams: !2, identifier: "5105d9fe1a2a3c68518268151b672274")
 !7 = !DIFile(filename: "<unknown>", directory: "")
 !8 = !DINamespace(name: "foo", scope: null)

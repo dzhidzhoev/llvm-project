@@ -172,11 +172,11 @@ entry:
 !43 = !{i32 7, !"PIE Level", i32 2}
 !44 = !{i32 7, !"uwtable", i32 2}
 !45 = !{!"clang version 18.0.0"}
-!46 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !3, file: !3, line: 17, type: !47, scopeLine: 17, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2)
+!46 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !3, file: !3, line: 17, type: !47, scopeLine: 17, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2)
 !47 = !DISubroutineType(types: !48)
 !48 = !{null}
 !59 = !DILocation(line: 20, column: 9, scope: !46)
-!77 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 27, type: !78, scopeLine: 27, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2)
+!77 = !DISubprogram(name: "main", scope: !3, file: !3, line: 27, type: !78, scopeLine: 27, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2)
 !78 = !DISubroutineType(types: !79)
 !79 = !{!22}
 !80 = !DILocation(line: 29, column: 5, scope: !81)

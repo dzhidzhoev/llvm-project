@@ -45,11 +45,11 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, emissionKind: FullDebug)
 !1 = !DIFile(filename: "test.c", directory: "")
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!9 = distinct !DISubprogram(name: "bar", scope: !1, file: !1, line: 8, type: !10, spFlags: DISPFlagDefinition, unit: !0)
+!9 = !DISubprogram(name: "bar", scope: !1, file: !1, line: 8, type: !10, spFlags: DISPFlagDefinition, unit: !0)
 !10 = !DISubroutineType(types: !13)
 !12 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !13 = !{}
-!19 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
+!19 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !10, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !0)
 !21 = distinct !DILocation(line: 9, column: 11, scope: !9)
 !22 = !DILocalVariable(name: "y", scope: !23, file: !1, line: 3, type: !12)
 !23 = distinct !DILexicalBlock(scope: !19, file: !1, line: 2, column: 3)

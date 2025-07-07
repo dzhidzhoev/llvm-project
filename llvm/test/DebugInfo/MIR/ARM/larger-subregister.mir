@@ -22,7 +22,7 @@
   isOptimized: true, runtimeVersion: 5, emissionKind: FullDebug, enums: !4, globals: !4, imports: !4)
   !3 = !DIFile(filename: "t.swift", directory: "/")
   !4 = !{}
-  !5 = distinct !DISubprogram(name: "f", scope: !3, file: !3, line: 388, type: !9, scopeLine: 388, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
+  !5 = !DISubprogram(name: "f", scope: !3, file: !3, line: 388, type: !9, scopeLine: 388, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
   !9 = !DISubroutineType(types: !4)
   !10 = !DILocation(line: 0, scope: !5)
   !12 = !DILocalVariable(name: "boundingRect", arg: 1, scope: !5, file: !3, line: 388, type: !13)

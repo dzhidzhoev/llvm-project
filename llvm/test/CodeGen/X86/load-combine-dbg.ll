@@ -27,7 +27,7 @@ define i32 @zext_load(ptr %arg) !dbg !30 {
 !2 = !DIModule(scope: null, name: "test", includePath: "")
 !3 = !DIFile(filename: "main.swift", directory: "/")
 
-!30 = distinct !DISubprogram(name: "main", scope: !2, file: !3, line: 1, type: !31, isLocal: false, isDefinition: true, isOptimized: false, unit: !1)
+!30 = !DISubprogram(name: "main", scope: !2, file: !3, line: 1, type: !31, isLocal: false, isDefinition: true, isOptimized: false, unit: !1)
 !31 = !DISubroutineType(types: !32)
 !32 = !{}
 

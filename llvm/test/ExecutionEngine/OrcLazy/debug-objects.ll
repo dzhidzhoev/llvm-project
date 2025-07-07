@@ -54,7 +54,7 @@ entry:
 !0 = !{i32 2, !"Debug Info Version", i32 3}
 !1 = !DIFile(filename: "source-file.c", directory: "/workspace")
 !2 = distinct !DICompileUnit(language: DW_LANG_C11, file: !1, producer: "clang version 18.0.0git", emissionKind: FullDebug)
-!3 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 1, type: !4, scopeLine: 1, unit: !2, retainedNodes: !7)
+!3 = !DISubprogram(name: "main", scope: !1, file: !1, line: 1, type: !4, scopeLine: 1, unit: !2, retainedNodes: !7)
 !4 = !DISubroutineType(types: !5)
 !5 = !{!6}
 !6 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

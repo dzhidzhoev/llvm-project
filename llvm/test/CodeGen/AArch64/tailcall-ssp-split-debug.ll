@@ -31,7 +31,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 !12 = !DIFile(filename: "tmp.c", directory: "/Users/tim/llvm-internal/llvm-project/build")
 !13 = !{}
 !14 = !{!"Apple clang version 13.1.6 (clang-1316.0.17.4)"}
-!15 = distinct !DISubprogram(name: "bar", scope: !12, file: !12, line: 3, type: !16, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !11, retainedNodes: !18)
+!15 = !DISubprogram(name: "bar", scope: !12, file: !12, line: 3, type: !16, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !11, retainedNodes: !18)
 !16 = !DISubroutineType(types: !17)
 !17 = !{null}
 !18 = !{!19}

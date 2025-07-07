@@ -25,7 +25,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !5 = !{i32 1, !"target-abi", !"lp64"}
 !7 = !{i32 8, !"SmallDataLimit", i32 8}
 !8 = !{!"clang version 17.0.0"}
-!9 = distinct !DISubprogram(name: "b", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
+!9 = !DISubprogram(name: "b", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !12)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !{}

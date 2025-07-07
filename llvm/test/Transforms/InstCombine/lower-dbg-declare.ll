@@ -85,7 +85,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{i32 1, !"wchar_size", i32 4}
 !11 = !{!"clang"}
-!12 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 5, type: !13, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !15)
+!12 = !DISubprogram(name: "main", scope: !3, file: !3, line: 5, type: !13, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !15)
 !13 = !DISubroutineType(types: !14)
 !14 = !{!7}
 !15 = !{!16}
@@ -96,14 +96,14 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 !24 = distinct !{!24, !22, !23}
 !25 = !DILocation(line: 10, scope: !12)
 !26 = !DILocation(line: 9, scope: !12)
-!27 = distinct !DISubprogram(name: "empty", linkageName: "_ZL5emptyi", scope: !3, file: !3, line: 4, type: !28, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !31)
+!27 = !DISubprogram(name: "empty", linkageName: "_ZL5emptyi", scope: !3, file: !3, line: 4, type: !28, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !31)
 !28 = !DISubroutineType(types: !29)
 !29 = !{!30, !7}
 !30 = !DIBasicType(name: "bool", size: 8, encoding: DW_ATE_boolean)
 !31 = !{!32}
 !32 = !DILocalVariable(name: "p1", arg: 1, scope: !27, file: !3, line: 4, type: !7)
 !33 = !DILocation(line: 4, scope: !27)
-!34 = distinct !DISubprogram(name: "escape", linkageName: "_ZL6escapeRi", scope: !3, file: !3, line: 3, type: !35, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !38)
+!34 = !DISubprogram(name: "escape", linkageName: "_ZL6escapeRi", scope: !3, file: !3, line: 3, type: !35, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !38)
 !35 = !DISubroutineType(types: !36)
 !36 = !{null, !37}
 !37 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !7, size: 64)

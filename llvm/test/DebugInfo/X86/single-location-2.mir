@@ -28,7 +28,7 @@
   !22 = !DISubroutineType(types: !23)
   !23 = !{!10, !10}
   ; --- Important metadata ---
-  !7 = distinct !DISubprogram(name: "fun", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+  !7 = !DISubprogram(name: "fun", scope: !1, file: !1, line: 2, type: !8, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
   !24 = distinct !DILexicalBlock(scope: !7, file: !1, line: 9, column: 3)
   !14 = distinct !DILexicalBlock(scope: !7, file: !1, line: 4, column: 3)
   !12 = !DILocalVariable(name: "locala", scope: !7, file: !1, line: 1, type: !10)

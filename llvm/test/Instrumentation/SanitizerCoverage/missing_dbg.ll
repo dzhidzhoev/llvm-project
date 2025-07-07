@@ -61,7 +61,7 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C89, file: !1, producer: "", isOptimized: true, runtimeVersion: 0, emissionKind: LineTablesOnly, splitDebugInlining: false, nameTableKind: None)
 !1 = !DIFile(filename: "foo.c", directory: "")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 190, type: !4, scopeLine: 192, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!3 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 190, type: !4, scopeLine: 192, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !4 = !DISubroutineType(types: !5)
 !5 = !{}
 !6 = !DILocation(line: 192, scope: !3)
@@ -70,7 +70,7 @@ entry:
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C89, file: [[META1:![0-9]+]], isOptimized: true, runtimeVersion: 0, emissionKind: LineTablesOnly, splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "foo.c", directory: "")
-; CHECK: [[DBG3]] = distinct !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 190, type: [[META4:![0-9]+]], scopeLine: 192, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]])
+; CHECK: [[DBG3]] = !DISubprogram(name: "foo", scope: [[META1]], file: [[META1]], line: 190, type: [[META4:![0-9]+]], scopeLine: 192, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]])
 ; CHECK: [[META4]] = !DISubroutineType(types: [[META5:![0-9]+]])
 ; CHECK: [[META5]] = !{}
 ; CHECK: [[DBG6]] = !DILocation(line: 192, scope: [[DBG3]])

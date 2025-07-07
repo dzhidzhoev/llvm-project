@@ -74,7 +74,7 @@ declare void @bar(...) local_unnamed_addr
 !10 = !{i32 2, !"Debug Info Version", i32 3}
 !11 = !{i32 1, !"PIC Level", i32 2}
 !12 = !{!"clang version 4.0.0"}
-!13 = distinct !DISubprogram(name: "foo", scope: !2, file: !2, line: 4, type: !14, isLocal: false, isDefinition: true, scopeLine: 5, flags: DIFlagPrototyped, isOptimized: true, unit: !1, retainedNodes: !16)
+!13 = !DISubprogram(name: "foo", scope: !2, file: !2, line: 4, type: !14, isLocal: false, isDefinition: true, scopeLine: 5, flags: DIFlagPrototyped, isOptimized: true, unit: !1, retainedNodes: !16)
 !14 = !DISubroutineType(types: !15)
 !15 = !{!6, !6, !6}
 !16 = !{!17, !19}

@@ -74,7 +74,7 @@ while.end:
 !6 = !{i32 7, !"Dwarf Version", i32 5}
 !7 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{!"clang"}
-!9 = distinct !DISubprogram(name: "foo", scope: !3, file: !3, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !12)
+!9 = !DISubprogram(name: "foo", scope: !3, file: !3, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !12)
 !10 = !DISubroutineType(types: !11)
 !11 = !{!5, !5, !5}
 !12 = !{}

@@ -47,7 +47,7 @@ entry:
 !9 = !{i32 7, !"PIC Level", i32 2}
 !10 = !{i32 7, !"frame-pointer", i32 2}
 !11 = !{!"IBM Open XL C/C++ for AIX"}
-!12 = distinct !DISubprogram(name: "foo", scope: !3, file: !3, line: 3, type: !13, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
+!12 = !DISubprogram(name: "foo", scope: !3, file: !3, line: 3, type: !13, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !15)
 !13 = !DISubroutineType(types: !14)
 !14 = !{!5}
 !15 = !{}

@@ -94,7 +94,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"uwtable", i32 1}
 !6 = !{i32 7, !"frame-pointer", i32 2}
-!7 = distinct !DISubprogram(name: "k", linkageName: "_Z1kv", scope: !1, file: !1, line: 25, type: !8, scopeLine: 25, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!7 = !DISubprogram(name: "k", linkageName: "_Z1kv", scope: !1, file: !1, line: 25, type: !8, scopeLine: 25, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null}
 !10 = !{!11}

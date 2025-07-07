@@ -38,7 +38,7 @@ attributes #0 = { noinline nounwind optnone ssp uwtable "target-features"="+sse,
 !1 = !DIFile(filename: "sincos.ll", directory: "/")
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!8 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !9, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: false, unit: !0)
+!8 = !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !9, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: false, unit: !0)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null}
 !11 = !DILocalVariable(name: "rsin", scope: !8, file: !1, line: 3, type: !12)

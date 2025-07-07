@@ -266,7 +266,7 @@ L0.latch:
 !llvm.module.flags = !{!20}
 !llvm.dbg.cu = !{!2}
 
-!0 = distinct !DISubprogram(name: "tak", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
+!0 = !DISubprogram(name: "tak", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
 !1 = !DIFile(filename: "/Volumes/Lalgate/cj/llvm/projects/llvm-test/SingleSource/Benchmarks/BenchmarkGame/recursive.c", directory: "/Volumes/Lalgate/cj/D/projects/llvm-test/SingleSource/Benchmarks/BenchmarkGame")
 !2 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang version 2.9 (trunk 125492)", isOptimized: true, emissionKind: FullDebug, file: !18)
 !3 = !DISubroutineType(types: !4)
@@ -286,7 +286,7 @@ L0.latch:
 !17 = !DILocation(line: 37, column: 1, scope: !13)
 !18 = !DIFile(filename: "/Volumes/Lalgate/cj/llvm/projects/llvm-test/SingleSource/Benchmarks/BenchmarkGame/recursive.c", directory: "/Volumes/Lalgate/cj/D/projects/llvm-test/SingleSource/Benchmarks/BenchmarkGame")
 !20 = !{i32 1, !"Debug Info Version", i32 3}
-!21 = distinct !DISubprogram(name: "tak", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
+!21 = !DISubprogram(name: "tak", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
 !22 = !DILocation(line: 33, column: 3, scope: !23)
 !23 = distinct !DILexicalBlock(line: 32, column: 30, file: !18, scope: !21)
 !24 = !DILocation(line: 34, column: 5, scope: !25)
@@ -299,7 +299,7 @@ L0.latch:
 !39 = !DILocation(line: 32, column: 20, scope: !21)
 !40 = !DILocalVariable(name: "z", line: 32, arg: 3, scope: !21, file: !1, type: !5)
 !41 = !DILocation(line: 32, column: 27, scope: !21)
-!50 = distinct !DISubprogram(name: "tak_dup", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
+!50 = !DISubprogram(name: "tak_dup", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
 !57 = !DILocation(line: 32, column: 13, scope: !50)
 !59 = !DILocation(line: 32, column: 20, scope: !50)
 !60 = !DILocalVariable(name: "z", line: 32, arg: 3, scope: !50, file: !1, type: !5)
@@ -310,7 +310,7 @@ L0.latch:
 !65 = distinct !DILexicalBlock(line: 33, column: 14, file: !18, scope: !63)
 !66 = !DILocation(line: 36, column: 3, scope: !63)
 !67 = !DILocation(line: 37, column: 1, scope: !63)
-!70 = distinct !DISubprogram(name: "invariant_hoist", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
+!70 = !DISubprogram(name: "invariant_hoist", line: 32, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !2, file: !18, scope: !1, type: !3)
 !77 = !DILocation(line: 32, column: 13, scope: !70)
 !79 = !DILocation(line: 32, column: 20, scope: !70)
 !80 = !DILocalVariable(name: "z", line: 32, arg: 3, scope: !70, file: !1, type: !5)

@@ -86,7 +86,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 !42 = !DISubrange(count: !43)
 !43 = !DILocalVariable(name: "__vla_expr0", scope: !100, type: !10, flags: DIFlagArtificial)
 
-!100 = distinct !DISubprogram(name: "h", scope: !2, file: !2, line: 13, type: !101, scopeLine: 13, flags: DIFlagArtificial | DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!100 = !DISubprogram(name: "h", scope: !2, file: !2, line: 13, type: !101, scopeLine: 13, flags: DIFlagArtificial | DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !1, retainedNodes: !4)
 !101 = distinct !DISubroutineType(types: !3)
 
 !110 = !DILocalVariable(name: "dyn_ptr", arg: 1, scope: !100, type: !20, flags: DIFlagArtificial)
@@ -107,7 +107,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 !160 = !DILocalVariable(name: "adyn2", scope: !100, file: !2, line: 18, type: !40)
 !161 = !DILocation(line: 18, column: 9, scope: !100)
 
-!200 = distinct !DISubprogram(name: "g", scope: !2, file: !2, line: 3, type: !201, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
+!200 = !DISubprogram(name: "g", scope: !2, file: !2, line: 3, type: !201, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !4)
 !201 = !DISubroutineType(types: !3)
 
 !210 = !DILocalVariable(name: "i", scope: !200, file: !2, line: 4, type: !10)

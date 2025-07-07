@@ -41,7 +41,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !6 = !{i32 7, !"PIE Level", i32 2}
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"frame-pointer", i32 2}
-!10 = distinct !DISubprogram(name: "func", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !15)
+!10 = !DISubprogram(name: "func", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !15)
 !11 = !DISubroutineType(types: !12)
 !12 = !{null, !13, !14}
 !13 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

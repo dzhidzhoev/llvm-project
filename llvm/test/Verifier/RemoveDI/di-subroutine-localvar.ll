@@ -24,7 +24,7 @@ define internal i64 @init_vdso_clock_gettime(i32, ptr nonnull) unnamed_addr !dbg
 !77 = !DIGlobalVariableExpression(var: !78, expr: !DIExpression())
 !78 = distinct !DIGlobalVariable(name: "arch", linkageName: "arch", scope: !5, file: !5, line: 437, type: !4, isLocal: true, isDefinition: true)
 !81 = !DIFile(filename: "index.zig", directory: "/store/dev/zig/build-llvm8-debug/lib/zig/std/os/linux")
-!142 = distinct !DISubprogram(name: "init_vdso_clock_gettime", scope: !81, file: !81, line: 968, type: !143, scopeLine: 968, flags: DIFlagStaticMember, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !1, retainedNodes: !153)
+!142 = !DISubprogram(name: "init_vdso_clock_gettime", scope: !81, file: !81, line: 968, type: !143, scopeLine: 968, flags: DIFlagStaticMember, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !1, retainedNodes: !153)
 !143 = !DISubroutineType(types: !144)
 !144 = !{!145}
 !145 = !DIBasicType(name: "usize", size: 64, encoding: DW_ATE_unsigned)

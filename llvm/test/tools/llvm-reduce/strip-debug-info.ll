@@ -27,7 +27,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !1 = !DIFile(filename: "/tmp/a.c", directory: "/tmp", checksumkind: CSK_MD5, checksum: "2ed6e287521b82331926229153026511")
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "main", scope: !5, file: !5, line: 4, type: !6, scopeLine: 4, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+!4 = !DISubprogram(name: "main", scope: !5, file: !5, line: 4, type: !6, scopeLine: 4, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
 !5 = !DIFile(filename: "/tmp/a.c", directory: "", checksumkind: CSK_MD5, checksum: "2ed6e287521b82331926229153026511")
 !6 = !DISubroutineType(types: !7)
 !7 = !{!8}

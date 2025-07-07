@@ -249,7 +249,7 @@ attributes #3 = { nofree nounwind uwtable "frame-pointer"="none" "min-legal-vect
 !38 = !{ptr @foo, ptr @work, i64 85360}
 !39 = !{ptr @main, ptr @foo, i64 2080}
 !40 = !{!"clang version 14.0.0 (https://github.com/llvm/llvm-project.git 755f5e23159796d727c3d95d60894a52eb675b1b)"}
-!41 = distinct !DISubprogram(name: "bar", scope: !42, file: !42, line: 3, type: !43, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
+!41 = !DISubprogram(name: "bar", scope: !42, file: !42, line: 3, type: !43, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
 !42 = !DIFile(filename: "/tmp/aaa.c", directory: "")
 !43 = !DISubroutineType(types: !44)
 !44 = !{}
@@ -263,13 +263,13 @@ attributes #3 = { nofree nounwind uwtable "frame-pointer"="none" "min-legal-vect
 !52 = !DILocation(line: 6, column: 10, scope: !41)
 !53 = !DILocation(line: 7, column: 1, scope: !41)
 !54 = !DILocation(line: 6, column: 3, scope: !41)
-!55 = distinct !DISubprogram(name: "work", scope: !42, file: !42, line: 10, type: !43, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
+!55 = !DISubprogram(name: "work", scope: !42, file: !42, line: 10, type: !43, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
 !56 = !{!"function_entry_count", i64 1346191}
 !57 = !DILocation(line: 11, column: 7, scope: !55)
 !58 = !DILocation(line: 11, column: 11, scope: !55)
 !59 = !DILocation(line: 0, scope: !55)
 !60 = !DILocation(line: 15, column: 1, scope: !55)
-!61 = distinct !DISubprogram(name: "foo", scope: !42, file: !42, line: 17, type: !43, scopeLine: 17, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
+!61 = !DISubprogram(name: "foo", scope: !42, file: !42, line: 17, type: !43, scopeLine: 17, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
 !62 = !{!"function_entry_count", i64 4268}
 !63 = !DILocation(line: 19, column: 3, scope: !64)
 !64 = !DILexicalBlockFile(scope: !61, file: !42, discriminator: 1)
@@ -295,7 +295,7 @@ attributes #3 = { nofree nounwind uwtable "frame-pointer"="none" "min-legal-vect
 !84 = !DILocation(line: 26, column: 3, scope: !61)
 !85 = !{!"llvm.loop.mustprogress"}
 !86 = !DILocation(line: 27, column: 1, scope: !61)
-!87 = distinct !DISubprogram(name: "main", scope: !42, file: !42, line: 29, type: !43, scopeLine: 29, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
+!87 = !DISubprogram(name: "main", scope: !42, file: !42, line: 29, type: !43, scopeLine: 29, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !44)
 !88 = !{!"function_entry_count", i64 1}
 !89 = !DILocation(line: 31, column: 3, scope: !90)
 !90 = !DILexicalBlockFile(scope: !87, file: !42, discriminator: 1)

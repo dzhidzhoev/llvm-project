@@ -2944,7 +2944,7 @@ define void @test68(ptr %a, ptr %b) {
 
 !0 = !{}
 !1 = !{i32 1, !"Debug Info Version", i32 3}
-!2 = distinct !DISubprogram(unit: !3)
+!2 = !DISubprogram(unit: !3)
 !3 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang",
                              file: !4,
                              isOptimized: true, flags: "-O2",

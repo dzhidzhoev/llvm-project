@@ -66,7 +66,7 @@ declare void @llvm.dbg.label(metadata)
 !2 = !{}
 !3 = !{!10}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: false, unit: !0, retainedNodes: !3)
+!6 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: false, unit: !0, retainedNodes: !3)
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9, !9, !9}
 !9 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

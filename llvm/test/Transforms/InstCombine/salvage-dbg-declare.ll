@@ -24,7 +24,7 @@ attributes #1 = { nounwind readnone speculatable }
 !llvm.module.flags = !{!0}
 
 !0 = !{i32 2, !"Debug Info Version", i32 3}
-!1 = distinct !DISubprogram(name: "a", scope: !2, file: !2, line: 232, type: !3, isLocal: true, isDefinition: true, scopeLine: 234, flags: DIFlagPrototyped, isOptimized: true, unit: !5, retainedNodes: !6)
+!1 = !DISubprogram(name: "a", scope: !2, file: !2, line: 232, type: !3, isLocal: true, isDefinition: true, scopeLine: 234, flags: DIFlagPrototyped, isOptimized: true, unit: !5, retainedNodes: !6)
 !2 = !DIFile(filename: "b", directory: "c")
 !3 = !DISubroutineType(types: !4)
 !4 = !{}

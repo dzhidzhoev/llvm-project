@@ -51,7 +51,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{!"clang version 16.0.0"}
-!9 = distinct !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!9 = !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !{!13}

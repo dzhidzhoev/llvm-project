@@ -22,7 +22,7 @@ define weak void @test() {
 !8 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !9, producer: "clang version 14.0.0 (https://github.com/llvm/llvm-project.git a0262043bb87fdef68c817722de320a5dd9eb9c9)", isOptimized: true, runtimeVersion: 0, emissionKind: DebugDirectivesOnly, splitDebugInlining: false, nameTableKind: None)
 !9 = !DIFile(filename: "test_omp_complex_reduction.cpp", directory: "/gpfs/jlse-fs0/users/jdoerfert/build/miniqmc-trunk/src/Platforms/tests/OMPTarget")
 !10 = !DILocation(line: 69, column: 18, scope: !11)
-!11 = distinct !DISubprogram(name: "__omp_outlined__1", scope: !12, file: !12, line: 68, type: !13, scopeLine: 68, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !8, retainedNodes: !14)
+!11 = !DISubprogram(name: "__omp_outlined__1", scope: !12, file: !12, line: 68, type: !13, scopeLine: 68, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !8, retainedNodes: !14)
 !12 = !DIFile(filename: "projects/benchmarks/miniqmc/src/Platforms/tests/OMPTarget/test_omp_complex_reduction.cpp", directory: "/gpfs/jlse-fs0/users/jdoerfert")
 !13 = !DISubroutineType(types: !14)
 !14 = !{}

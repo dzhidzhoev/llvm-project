@@ -85,7 +85,7 @@ entry:
 !41 = !{!"-lswiftCompatibilityConcurrency"}
 !42 = !{!"-lswiftCompatibility56"}
 !43 = !{!"-lswiftCompatibilityPacks"}
-!44 = distinct !DISubprogram(file: !45, type: !49, unit: !16, declaration: !52, retainedNodes: !53)
+!44 = !DISubprogram(file: !45, type: !49, unit: !16, declaration: !52, retainedNodes: !53)
 !45 = !DIFile(filename: "<compiler-generated>", directory: "/")
 !46 = !DICompositeType(tag: DW_TAG_structure_type, scope: !47, elements: !48, identifier: "$s4main1TV13TangentVectorVD")
 !47 = !DICompositeType(tag: DW_TAG_structure_type, identifier: "$s4main1TVD")
@@ -102,7 +102,7 @@ entry:
 !58 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !51)
 !61 = !DILocation(scope: !44)
 !62 = !DILocalVariable(name: "d", scope: !63, type: !72, flags: DIFlagArtificial)
-!63 = distinct !DISubprogram(unit: !16, retainedNodes: !70)
+!63 = !DISubprogram(unit: !16, retainedNodes: !70)
 !64 = !DICompositeType(tag: DW_TAG_structure_type, size: 200, identifier: "$s4main1UV13TangentVectorVD")
 !70 = !{}
 !72 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !64)

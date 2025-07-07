@@ -37,7 +37,7 @@ entry:
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !9 = !{!"clang version 21.0.0git"}
-!10 = distinct !DISubprogram(name: "test", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!10 = !DISubprogram(name: "test", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13, !13, !13}
 !13 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -49,7 +49,7 @@ entry:
 ;.
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 ; CHECK: [[META1]] = !DIFile(filename: "{{.*}}test.c", directory: {{.*}})
-; CHECK: [[DBG10]] = distinct !DISubprogram(name: "test", scope: [[META1]], file: [[META1]], line: 1, type: [[META11:![0-9]+]], scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META14:![0-9]+]])
+; CHECK: [[DBG10]] = !DISubprogram(name: "test", scope: [[META1]], file: [[META1]], line: 1, type: [[META11:![0-9]+]], scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META14:![0-9]+]])
 ; CHECK: [[META11]] = !DISubroutineType(types: [[META12:![0-9]+]])
 ; CHECK: [[META12]] = !{[[META13:![0-9]+]], [[META13]], [[META13]]}
 ; CHECK: [[META13]] = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

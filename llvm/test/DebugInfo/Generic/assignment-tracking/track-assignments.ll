@@ -348,8 +348,8 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 ; CHECK-DAG: ![[VAR_5]] = !DILocalVariable(name: "A",
 ; CHECK-DAG: ![[VAR_6]] = !DILocalVariable(name: "Y", arg: 1, scope: ![[SQR:[0-9]+]],
 ; CHECK-DAG: ![[VAR_7]] = !DILocalVariable(name: "X", arg: 1, scope: ![[FUN:[0-9]+]],
-; CHECK-DAG: ![[SQR]] = distinct !DISubprogram(name: "sqr",
-; CHECK-DAG: ![[FUN]] = distinct !DISubprogram(name: "fun",
+; CHECK-DAG: ![[SQR]] = !DISubprogram(name: "sqr",
+; CHECK-DAG: ![[FUN]] = !DISubprogram(name: "fun",
 ; CHECK-DAG: ![[DBG_0]] = !DILocation(line: 0, scope: ![[SQR]], inlinedAt: ![[SQR_INLINE_SITE:[0-9]+]])
 ; CHECK-DAG: [[SQR_INLINE_SITE]] = distinct !DILocation(line: 3, column: 25, scope: ![[FUN]])
 ; CHECK-DAG: ![[DBG_1]] = !DILocation(line: 0, scope: ![[FUN]])
@@ -385,7 +385,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !28 = !{i32 1, !"wchar_size", i32 4}
 !29 = !{i32 7, !"uwtable", i32 1}
 !30 = !{!"clang version 14.0.0"}
-!31 = distinct !DISubprogram(name: "zeroInit", linkageName: "_Z8zeroInitv", scope: !3, file: !3, line: 9, type: !32, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !34)
+!31 = !DISubprogram(name: "zeroInit", linkageName: "_Z8zeroInitv", scope: !3, file: !3, line: 9, type: !32, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !34)
 !32 = !DISubroutineType(types: !33)
 !33 = !{null}
 !34 = !{!35}
@@ -396,7 +396,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !39 = !DILocation(line: 9, column: 19, scope: !31)
 !40 = !DILocation(line: 9, column: 23, scope: !31)
 !41 = !DILocation(line: 9, column: 41, scope: !31)
-!42 = distinct !DISubprogram(name: "memcpyInit", linkageName: "_Z10memcpyInitv", scope: !3, file: !3, line: 11, type: !32, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !43)
+!42 = !DISubprogram(name: "memcpyInit", linkageName: "_Z10memcpyInitv", scope: !3, file: !3, line: 11, type: !32, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !43)
 !43 = !{!44}
 !44 = !DILocalVariable(name: "A", scope: !42, file: !3, line: 11, type: !45)
 !45 = !DICompositeType(tag: DW_TAG_array_type, baseType: !7, size: 128, elements: !46)
@@ -405,7 +405,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !48 = !DILocation(line: 11, column: 21, scope: !42)
 !49 = !DILocation(line: 11, column: 25, scope: !42)
 !50 = !DILocation(line: 11, column: 46, scope: !42)
-!51 = distinct !DISubprogram(name: "setField", linkageName: "_Z8setFieldv", scope: !3, file: !3, line: 13, type: !32, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !52)
+!51 = !DISubprogram(name: "setField", linkageName: "_Z8setFieldv", scope: !3, file: !3, line: 13, type: !32, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !52)
 !52 = !{!53}
 !53 = !DILocalVariable(name: "O", scope: !51, file: !3, line: 14, type: !54)
 !54 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "Outer", file: !3, line: 2, size: 128, flags: DIFlagTypePassByValue, elements: !55, identifier: "_ZTS5Outer")
@@ -426,7 +426,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !69 = !{!"_ZTS5Outer", !70, i64 0, !70, i64 8}
 !70 = !{!"_ZTS5Inner", !62, i64 0, !62, i64 4}
 !71 = !DILocation(line: 16, column: 1, scope: !51)
-!72 = distinct !DISubprogram(name: "unknownOffset", linkageName: "_Z13unknownOffsetv", scope: !3, file: !3, line: 18, type: !32, scopeLine: 18, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !73)
+!72 = !DISubprogram(name: "unknownOffset", linkageName: "_Z13unknownOffsetv", scope: !3, file: !3, line: 18, type: !32, scopeLine: 18, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !73)
 !73 = !{!74}
 !74 = !DILocalVariable(name: "A", scope: !72, file: !3, line: 19, type: !75)
 !75 = !DICompositeType(tag: DW_TAG_array_type, baseType: !7, size: 64, elements: !76)
@@ -439,7 +439,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !82 = !DILocation(line: 20, column: 3, scope: !72)
 !83 = !DILocation(line: 20, column: 12, scope: !72)
 !84 = !DILocation(line: 21, column: 1, scope: !72)
-!85 = distinct !DISubprogram(name: "sharedAlloca", linkageName: "_Z12sharedAllocav", scope: !3, file: !3, line: 23, type: !86, scopeLine: 23, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !88)
+!85 = !DISubprogram(name: "sharedAlloca", linkageName: "_Z12sharedAllocav", scope: !3, file: !3, line: 23, type: !86, scopeLine: 23, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !88)
 !86 = !DISubroutineType(types: !87)
 !87 = !{!12}
 !88 = !{!89, !92}
@@ -458,7 +458,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !101 = !DILocation(line: 28, column: 15, scope: !93)
 !102 = !DILocation(line: 29, column: 5, scope: !93)
 !103 = !DILocation(line: 31, column: 1, scope: !85)
-!104 = distinct !DISubprogram(name: "sret", linkageName: "_Z4sretv", scope: !3, file: !3, line: 33, type: !105, scopeLine: 33, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !107)
+!104 = !DISubprogram(name: "sret", linkageName: "_Z4sretv", scope: !3, file: !3, line: 33, type: !105, scopeLine: 33, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !107)
 !105 = !DISubroutineType(types: !106)
 !106 = !{!20}
 !107 = !{!108}
@@ -468,14 +468,14 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !111 = !{i64 0, i64 40, !112}
 !112 = !{!63, !63, i64 0}
 !113 = !DILocation(line: 35, column: 3, scope: !104)
-!114 = distinct !DISubprogram(name: "byval", linkageName: "_Z5byval5Large", scope: !3, file: !3, line: 38, type: !115, scopeLine: 38, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !117)
+!114 = !DISubprogram(name: "byval", linkageName: "_Z5byval5Large", scope: !3, file: !3, line: 38, type: !115, scopeLine: 38, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !117)
 !115 = !DISubroutineType(types: !116)
 !116 = !{null, !20}
 !117 = !{!118}
 !118 = !DILocalVariable(name: "X", arg: 1, scope: !114, file: !3, line: 38, type: !20)
 !119 = !DILocation(line: 38, column: 18, scope: !114)
 !120 = !DILocation(line: 38, column: 22, scope: !114)
-!121 = distinct !DISubprogram(name: "indirectReturn", linkageName: "_Z14indirectReturnv", scope: !2, file: !3, line: 41, type: !122, scopeLine: 41, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !125)
+!121 = !DISubprogram(name: "indirectReturn", linkageName: "_Z14indirectReturnv", scope: !2, file: !3, line: 41, type: !122, scopeLine: 41, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !125)
 !122 = !DISubroutineType(types: !123)
 !123 = !{!124}
 !124 = !DICompositeType(tag: DW_TAG_structure_type, name: "LCopyCtor", file: !3, line: 4, size: 128, flags: DIFlagFwdDecl | DIFlagNonTrivial, identifier: "_ZTS9LCopyCtor")
@@ -483,7 +483,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !126 = !DILocalVariable(name: "R", scope: !121, file: !3, line: 42, type: !124)
 !127 = !DILocation(line: 42, column: 13, scope: !121)
 !128 = !DILocation(line: 43, column: 3, scope: !121)
-!129 = distinct !DISubprogram(name: "sqr", linkageName: "_Z3sqri", scope: !2, file: !3, line: 2, type: !130, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !132)
+!129 = !DISubprogram(name: "sqr", linkageName: "_Z3sqri", scope: !2, file: !3, line: 2, type: !130, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !132)
 !130 = !DISubroutineType(types: !131)
 !131 = !{!7, !7}
 !132 = !{}
@@ -493,7 +493,7 @@ declare dso_local void @_ZN9LCopyCtorC1Ev(ptr noundef nonnull align 4 dereferenc
 !136 = !DILocation(line: 2, column: 29, scope: !129)
 !137 = !DILocation(line: 2, column: 27, scope: !129)
 !138 = !DILocation(line: 2, column: 18, scope: !129)
-!139 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funi", scope: !2, file: !3, line: 3, type: !130, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !132)
+!139 = !DISubprogram(name: "fun", linkageName: "_Z3funi", scope: !2, file: !3, line: 3, type: !130, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !132)
 !140 = !DILocalVariable(name: "X", arg: 1, scope: !139, file: !3, line: 3, type: !7)
 !141 = !DILocation(line: 3, column: 13, scope: !139)
 !142 = !DILocation(line: 3, column: 29, scope: !139)

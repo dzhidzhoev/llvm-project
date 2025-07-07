@@ -36,7 +36,7 @@ declare void @_Z3barv()
 !4 = !DIFile(filename: "/fast/fs/llvm-main/llvm/test/DebugInfo/Generic/debug-info-always-inline.ll", directory: "/")
 !5 = !{i32 14}
 !6 = !{i32 7}
-!7 = distinct !DISubprogram(name: "_Z3foov", linkageName: "_Z3foov", scope: null, file: !4, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !9)
+!7 = !DISubprogram(name: "_Z3foov", linkageName: "_Z3foov", scope: null, file: !4, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !9)
 !8 = !DISubroutineType(types: !9)
 !9 = !{}
 !11 = !DILocation(line: 2, column: 1, scope: !7)

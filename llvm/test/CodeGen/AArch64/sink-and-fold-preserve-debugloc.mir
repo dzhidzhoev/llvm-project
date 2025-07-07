@@ -44,7 +44,7 @@
   !15 = !{i32 7, !"frame-pointer", i32 1}
   !16 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
   !17 = !{!"clang version 18.0.0"}
-  !18 = distinct !DISubprogram(name: "foo", scope: !2, file: !2, line: 1, type: !19, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7, retainedNodes: !22)
+  !18 = !DISubprogram(name: "foo", scope: !2, file: !2, line: 1, type: !19, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7, retainedNodes: !22)
   !19 = !DISubroutineType(types: !20)
   !20 = !{!21, !21, !21}
   !21 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -54,7 +54,7 @@
   !25 = !DILocation(line: 2, column: 12, scope: !18)
   !26 = !DILocation(line: 2, column: 16, scope: !18)
   !27 = !DILocation(line: 2, column: 3, scope: !18)
-  !28 = distinct !DISubprogram(name: "baz", scope: !2, file: !2, line: 7, type: !29, scopeLine: 7, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7, retainedNodes: !31)
+  !28 = !DISubprogram(name: "baz", scope: !2, file: !2, line: 7, type: !29, scopeLine: 7, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !7, retainedNodes: !31)
   !29 = !DISubroutineType(types: !30)
   !30 = !{!21, !21}
   !31 = !{!32, !33}

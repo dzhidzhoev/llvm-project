@@ -62,6 +62,6 @@ attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-l
 !13 = !{i32 7, !"uwtable", i32 2}
 !14 = !{i32 7, !"frame-pointer", i32 2}
 !15 = !{!"clang version 16.0.0 (git@github.com:llvm/llvm-project.git 4ffde47ab8c2790c8ee2867eccb9f41c329c9e99)"}
-!16 = distinct !DISubprogram(name: "y", scope: !3, file: !3, line: 2, type: !6, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !17)
+!16 = !DISubprogram(name: "y", scope: !3, file: !3, line: 2, type: !6, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !17)
 !17 = !{}
 !18 = !DILocation(line: 2, column: 16, scope: !16)

@@ -63,7 +63,7 @@ declare i32 @bar(ptr, ptr) local_unnamed_addr #1
 !1 = !DIFile(filename: "test.c", directory: ".")
 !2 = !{i32 2, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "test_no_null_opt", scope: !1, file: !1, line: 12, type: !5, isLocal: false, isDefinition: true, scopeLine: 13, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !8)
+!4 = !DISubprogram(name: "test_no_null_opt", scope: !1, file: !1, line: 12, type: !5, isLocal: false, isDefinition: true, scopeLine: 13, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !8)
 !5 = !DISubroutineType(types: !6)
 !6 = !{!7}
 !7 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -72,6 +72,6 @@ declare i32 @bar(ptr, ptr) local_unnamed_addr #1
 !10 = !DILocation(line: 16, column: 13, scope: !4)
 !11 = !DILocation(line: 15, column: 34, scope: !4)
 
-;ALL: [[SCOPE:![0-9]+]] = distinct  !DISubprogram(name: "test_no_null_opt",{{.*}}
+;ALL: [[SCOPE:![0-9]+]] = !DISubprogram(name: "test_no_null_opt",{{.*}}
 ;ALL: [[LOC_16_13]] = !DILocation(line: 16, column: 13, scope: [[SCOPE]])
 ;ALL: [[LOC_15_6]] = !DILocation(line: 15, column: 6, scope: [[SCOPE]])

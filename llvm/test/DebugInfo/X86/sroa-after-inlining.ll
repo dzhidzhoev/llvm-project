@@ -105,7 +105,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang"}
-!7 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !1, file: !1, line: 9, type: !8, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!7 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !1, file: !1, line: 9, type: !8, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -126,7 +126,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture)
 !25 = !DILocation(line: 13, scope: !23)
 !26 = !DILocation(line: 15, scope: !7)
 !32 = !DILocation(line: 16, scope: !7)
-!33 = distinct !DISubprogram(name: "IsNull", linkageName: "_ZN2S16IsNullEv", scope: !13, file: !1, line: 4, type: !17, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !16, retainedNodes: !34)
+!33 = !DISubprogram(name: "IsNull", linkageName: "_ZN2S16IsNullEv", scope: !13, file: !1, line: 4, type: !17, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !16, retainedNodes: !34)
 !34 = !{!35}
 !35 = !DILocalVariable(name: "this", arg: 1, scope: !33, type: !36, flags: DIFlagArtificial | DIFlagObjectPointer)
 !36 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !13, size: 64)

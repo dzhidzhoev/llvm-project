@@ -32,7 +32,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
-!6 = distinct !DISubprogram(name: "", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!6 = !DISubprogram(name: "", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !7 = !DISubroutineType(types: !{null})
 !8 = !DILocalVariable(name: "i", scope: !6, file: !1, line: 4, type: !2)
 !9 = !DILocation(line: 4, column: 11, scope: !6)

@@ -71,7 +71,7 @@
 # !4 = !{}
 # !5 = !{i32 8}
 # !6 = !{i32 3}
-# !7 = distinct !DISubprogram(name: "eggs", linkageName: "eggs", scope: null, file: !3, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !9)
+# !7 = !DISubprogram(name: "eggs", linkageName: "eggs", scope: null, file: !3, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !9)
 # !8 = !DISubroutineType(types: !4)
 # !9 = !{!10, !12, !13}
 # !10 = !DILocalVariable(name: "1", scope: !7, file: !3, line: 3, type: !11)
@@ -147,7 +147,7 @@
   !4 = !{}
   !5 = !{i32 8}
   !6 = !{i32 3}
-  !7 = distinct !DISubprogram(name: "eggs", linkageName: "eggs", scope: null, file: !3, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !9)
+  !7 = !DISubprogram(name: "eggs", linkageName: "eggs", scope: null, file: !3, line: 1, type: !8, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !9)
   !8 = !DISubroutineType(types: !4)
   !9 = !{!10, !12, !13}
   !10 = !DILocalVariable(name: "1", scope: !7, file: !3, line: 3, type: !11)

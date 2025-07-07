@@ -56,7 +56,7 @@ exit:
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocalVariable(name: "m_2", scope: !5, file: !1, line: 4, type: !8)
-!5 = distinct !DISubprogram(name: "test_dbg_value_in_exit_block", scope: !1, file: !1, line: 3, type: !6, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!5 = !DISubprogram(name: "test_dbg_value_in_exit_block", scope: !1, file: !1, line: 3, type: !6, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !6 = !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)
@@ -68,7 +68,7 @@ exit:
 ; CHECK: [[LOOP4]] = distinct !{[[LOOP4]], [[META5:![0-9]+]]}
 ; CHECK: [[META5]] = !{!"llvm.loop.peeled.count", i32 1}
 ; CHECK: [[META6]] = !DILocalVariable(name: "m_2", scope: [[META7:![0-9]+]], file: [[META1]], line: 4, type: [[META10:![0-9]+]])
-; CHECK: [[META7]] = distinct !DISubprogram(name: "test_dbg_value_in_exit_block", scope: [[META1]], file: [[META1]], line: 3, type: [[META8:![0-9]+]], scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[META7]] = !DISubprogram(name: "test_dbg_value_in_exit_block", scope: [[META1]], file: [[META1]], line: 3, type: [[META8:![0-9]+]], scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META8]] = !DISubroutineType(types: [[META9:![0-9]+]])
 ; CHECK: [[META9]] = !{null}
 ; CHECK: [[META10]] = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)

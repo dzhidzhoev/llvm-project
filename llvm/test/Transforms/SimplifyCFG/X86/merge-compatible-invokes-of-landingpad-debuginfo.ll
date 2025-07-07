@@ -74,7 +74,7 @@ declare dso_local i32 @__gxx_personality_v0(...)
 ; CHECK: [[META2:![0-9]+]] = !{i32 13}
 ; CHECK: [[META3:![0-9]+]] = !{i32 2}
 ; CHECK: [[META4:![0-9]+]] = !{i32 2, !"Debug Info Version", i32 3}
-; CHECK: [[META5:![0-9]+]] = distinct !DISubprogram(name: "t1_mergeable_invoke", linkageName: "t1_mergeable_invoke", scope: null, file: [[META1]], line: 1, type: [[META6:![0-9]+]], scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META8:![0-9]+]])
+; CHECK: [[META5:![0-9]+]] = !DISubprogram(name: "t1_mergeable_invoke", linkageName: "t1_mergeable_invoke", scope: null, file: [[META1]], line: 1, type: [[META6:![0-9]+]], scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META8:![0-9]+]])
 ; CHECK: [[META6]] = !DISubroutineType(types: [[META7:![0-9]+]])
 ; CHECK: [[META7]] = !{}
 ; CHECK: [[META8]] = !{[[META9]], [[META11]]}

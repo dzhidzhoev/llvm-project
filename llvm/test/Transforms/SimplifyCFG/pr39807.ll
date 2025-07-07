@@ -33,11 +33,11 @@ define internal void @inlinable() !dbg !7 {
 
 ; CHECK: ![[DBGLOC]] = !DILocation(line: 0
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, runtimeVersion: 0, file: !3)
-!1 = distinct !DISubprogram(name: "test", unit: !0)
+!1 = !DISubprogram(name: "test", unit: !0)
 !2 = !DILocation(line: 2, scope: !1)
 !3 = !DIFile(filename: "foo", directory: ".")
 !4 = !{i32 2, !"Dwarf Version", i32 4}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
 !6 = !{i32 1, !"wchar_size", i32 4}
-!7 = distinct !DISubprogram(name: "inlinable", unit: !0)
+!7 = !DISubprogram(name: "inlinable", unit: !0)
 !8 = !DILocation(line: 3, scope: !1)

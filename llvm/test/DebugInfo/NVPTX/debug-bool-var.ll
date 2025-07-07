@@ -52,7 +52,7 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1, producer: "", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
 !1 = !DIFile(filename: "test.cu", directory: "/source/dir")
 !2 = !{i32 1, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "test1", linkageName: "_test1i", scope: !1, file: !1, line: 5, type: !4, scopeLine: 5, unit: !0, retainedNodes: !8)
+!3 = !DISubprogram(name: "test1", linkageName: "_test1i", scope: !1, file: !1, line: 5, type: !4, scopeLine: 5, unit: !0, retainedNodes: !8)
 !4 = !DISubroutineType(types: !5)
 !5 = !{!6, !7}
 !6 = !DIBasicType(tag: DW_TAG_unspecified_type, name: "void")
@@ -63,7 +63,7 @@ entry:
 !11 = !DIBasicType(name: "bool", size: 8, encoding: DW_ATE_boolean)
 !12 = !DILocation(line: 1, column: 3, scope: !9)
 !13 = !DILocation(line: 2, scope: !9)
-!14 = distinct !DISubprogram(name: "test2", linkageName: "_test2i", scope: !1, file: !1, line: 10, type: !4, scopeLine: 10, unit: !0, retainedNodes: !8)
+!14 = !DISubprogram(name: "test2", linkageName: "_test2i", scope: !1, file: !1, line: 10, type: !4, scopeLine: 10, unit: !0, retainedNodes: !8)
 !15 = distinct !DILexicalBlock(scope: !14, file: !1, line: 10, column: 30)
 !16 = !DILocalVariable(name: "abc", scope: !15, file: !1, line: 11, type: !11)
 !17 = !DILocation(line: 11, column: 3, scope: !15)

@@ -7,7 +7,7 @@ target triple = "x86_64-unknown-linux-gnu"
 !llvm.module.flags = !{!0}
 
 !0 = !{i32 2, !"Debug Info Version", i32 3}
-!2 = distinct !DISubprogram(name: "t", scope: !3, file: !3, line: 4, type: !4, spFlags: DISPFlagDefinition, unit: !6)
+!2 = !DISubprogram(name: "t", scope: !3, file: !3, line: 4, type: !4, spFlags: DISPFlagDefinition, unit: !6)
 !3 = !DIFile(filename: "tmp/noundef.cpp", directory: "/")
 !4 = !DISubroutineType(types: !5)
 !5 = !{}

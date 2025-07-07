@@ -38,7 +38,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !1 = !DIFile(filename: "file.cpp", directory: "foo")
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "foo", linkageName: "_foo", scope: !5, file: !1, line: 425, type: !6, scopeLine: 425, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!4 = !DISubprogram(name: "foo", linkageName: "_foo", scope: !5, file: !1, line: 425, type: !6, scopeLine: 425, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !5 = !DINamespace(name: "llvm", scope: null)
 !6 = distinct !DISubroutineType(types: !2)
 !7 = !DILocalVariable(name: "Path", scope: !4, file: !1, line: 436, type: !8)

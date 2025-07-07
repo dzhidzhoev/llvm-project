@@ -52,14 +52,14 @@
   !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
   !11 = !{i32 2, !"Debug Info Version", i32 3}
   !12 = !{i32 7, !"frame-pointer", i32 2}
-  !13 = distinct !DISubprogram(name: "f0", scope: !3, file: !3, line: 9, type: !14, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !17)
+  !13 = !DISubprogram(name: "f0", scope: !3, file: !3, line: 9, type: !14, scopeLine: 9, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !17)
   !14 = !DISubroutineType(types: !15)
   !15 = !{!10, !16}
   !16 = !DIBasicType(name: "unsigned short", size: 16, encoding: DW_ATE_unsigned)
   !17 = !{!18}
   !18 = !DILocalVariable(name: "x", arg: 1, scope: !13, file: !3, line: 9, type: !16)
   !19 = !DILocalVariable(name: "y", arg: 1, scope: !20, file: !3, line: 6, type: !10)
-  !20 = distinct !DISubprogram(name: "f1", scope: !3, file: !3, line: 6, type: !21, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !23)
+  !20 = !DISubprogram(name: "f1", scope: !3, file: !3, line: 6, type: !21, scopeLine: 6, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !23)
   !21 = !DISubroutineType(types: !22)
   !22 = !{!6, !10}
   !23 = !{!19}

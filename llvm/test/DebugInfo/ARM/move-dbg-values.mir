@@ -25,7 +25,7 @@
   !llvm.dbg.cu = !{!32}
   !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
   !1 = distinct !DIGlobalVariable(type: !11, isDefinition: true)
-  !2 = distinct !DISubprogram(unit: !32, retainedNodes: !38)
+  !2 = !DISubprogram(unit: !32, retainedNodes: !38)
   !3 = !DIFile(filename: "backtrace.pp.c", directory: "/Users/shubham/Development/Delta")
   !8 = !DIDerivedType(tag: DW_TAG_typedef, baseType: !11, size: 32)
   !11 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !12)

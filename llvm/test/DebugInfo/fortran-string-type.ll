@@ -20,7 +20,7 @@
 !5 = !{!6, !9, !12, !13, !14}
 !6 = !DIStringType(name: "character(*)", stringLength: !7, stringLengthExpression: !DIExpression(), size: 32)
 !7 = !DILocalVariable(arg: 2, scope: !8, file: !3, line: 256, type: !11, flags: DIFlagArtificial)
-!8 = distinct !DISubprogram(name: "subprgm", scope: !2, file: !3, line: 256, type: !9, isLocal: false, isDefinition: true, scopeLine: 256, isOptimized: false, unit: !2)
+!8 = !DISubprogram(name: "subprgm", scope: !2, file: !3, line: 256, type: !9, isLocal: false, isDefinition: true, scopeLine: 256, isOptimized: false, unit: !2)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null, !6, !11}
 !11 = !DIBasicType(name: "integer*8", size: 64, align: 64, encoding: DW_ATE_signed)

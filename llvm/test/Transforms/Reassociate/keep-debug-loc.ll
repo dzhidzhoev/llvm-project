@@ -39,10 +39,10 @@ define void @fn3() !dbg !8 {
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1, producer: "clang version 6.0.0", isOptimized: true, runtimeVersion: 0, emissionKind: LineTablesOnly)
 !1 = !DIFile(filename: "foo.c", directory: "/")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "fn1", scope: !1, file: !1, line: 2, type: !4, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: true, unit: !0)
+!3 = !DISubprogram(name: "fn1", scope: !1, file: !1, line: 2, type: !4, isLocal: false, isDefinition: true, scopeLine: 2, isOptimized: true, unit: !0)
 !4 = !DISubroutineType(types: !5)
 !5 = !{}
-!6 = distinct !DISubprogram(name: "fn2", scope: !1, file: !1, line: 3, type: !4, isLocal: false, isDefinition: true, scopeLine: 3, isOptimized: true, unit: !0)
+!6 = !DISubprogram(name: "fn2", scope: !1, file: !1, line: 3, type: !4, isLocal: false, isDefinition: true, scopeLine: 3, isOptimized: true, unit: !0)
 !7 = !DILocation(line: 7, column: 10, scope: !6)
-!8 = distinct !DISubprogram(name: "fn3", scope: !1, file: !1, line: 8, type: !4, isLocal: false, isDefinition: true, scopeLine: 3, isOptimized: true, unit: !0)
+!8 = !DISubprogram(name: "fn3", scope: !1, file: !1, line: 8, type: !4, isLocal: false, isDefinition: true, scopeLine: 3, isOptimized: true, unit: !0)
 !9 = !DILocation(line: 9, column: 10, scope: !8)

@@ -37,7 +37,7 @@
 ; CHECK:         #dbg_value(ptr %[[frame_alloca]], ![[JVAR_RESUME:[0-9]+]],
 ; CHECK-SAME:        !DIExpression(DW_OP_deref, DW_OP_plus_uconst, [[OffsetJ]], DW_OP_deref)
 ;
-; CHECK: ![[RESUME_FN_DBG_NUM]] = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov.resume"
+; CHECK: ![[RESUME_FN_DBG_NUM]] = !DISubprogram(name: "foo", linkageName: "_Z3foov.resume"
 ; CHECK: ![[FRAME_DI_NUM]] = !DILocalVariable(name: "__coro_frame"
 ; CHECK: ![[IVAR_RESUME]] = !DILocalVariable(name: "i"
 ; CHECK: ![[XVAR_RESUME]] = !DILocalVariable(name: "x"
@@ -241,7 +241,7 @@ attributes #4 = { argmemonly nofree nosync nounwind willreturn writeonly }
 !5 = !{!"clang version 11.0.0"}
 !6 = !DILocalVariable(name: "i", scope: !7, file: !1, line: 24, type: !10)
 !7 = distinct !DILexicalBlock(scope: !8, file: !1, line: 23, column: 12)
-!8 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !2)
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !11 = !DILocation(line: 0, scope: !7)

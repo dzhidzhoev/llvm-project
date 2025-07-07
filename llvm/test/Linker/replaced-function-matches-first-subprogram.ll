@@ -45,17 +45,17 @@ entry:
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, producer: "clang version 3.6.0 (trunk 224193) (llvm/trunk 224197)", isOptimized: false, emissionKind: LineTablesOnly, file: !1, enums: !2, retainedTypes: !2, globals: !2, imports: !2)
 !1 = !DIFile(filename: "t1.cpp", directory: "/Users/dexonsmith/data/llvm/staging/test/Linker/repro/d1")
 !2 = !{}
-!4 = distinct !DISubprogram(name: "foo", line: 2, isLocal: false, isDefinition: true, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 2, file: !1, scope: !5, type: !6, retainedNodes: !2)
+!4 = !DISubprogram(name: "foo", line: 2, isLocal: false, isDefinition: true, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 2, file: !1, scope: !5, type: !6, retainedNodes: !2)
 !5 = !DIFile(filename: "t1.cpp", directory: "/Users/dexonsmith/data/llvm/staging/test/Linker/repro/d1")
 !6 = !DISubroutineType(types: !2)
 
 ; Extract out the file from the replaced subprogram.
-; CHECK-DAG: ![[SP2:.*]] = distinct !DISubprogram({{.*}} file: ![[FILE:[0-9]+]],{{.*}}, unit: ![[CU2]]
+; CHECK-DAG: ![[SP2:.*]] = !DISubprogram({{.*}} file: ![[FILE:[0-9]+]],{{.*}}, unit: ![[CU2]]
 
 ; We can't use CHECK-NOT/CHECK-SAME with a CHECK-DAG, so rely on field order to
 ; prove that there's no function: here.
 ; CHECK-DAG: ![[SP2r:.*]] = {{.*}}!DISubprogram({{.*}} unit: ![[CU1]], retainedNodes:
-!7 = distinct !DISubprogram(name: "foo", line: 2, isLocal: false, isDefinition: true, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 2, file: !8, scope: !9, type: !6, retainedNodes: !2)
+!7 = !DISubprogram(name: "foo", line: 2, isLocal: false, isDefinition: true, flags: DIFlagPrototyped, isOptimized: false, unit: !0, scopeLine: 2, file: !8, scope: !9, type: !6, retainedNodes: !2)
 
 ; The new subprogram should be pointing at the new directory.
 ; CHECK-DAG: ![[FILE]] = !DIFile(filename: "../t.h", directory: "/Users/dexonsmith/data/llvm/staging/test/Linker/repro/d2")

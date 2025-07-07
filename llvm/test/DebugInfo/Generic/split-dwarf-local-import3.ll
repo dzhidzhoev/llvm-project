@@ -55,7 +55,7 @@ entry:
 !3 = !DIFile(filename: "cu1.cpp", directory: "/", checksumkind: CSK_MD5, checksum: "c0b84240ef5682b87083b33cf9038171")
 !4 = !{!5}
 !5 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !6, entity: !11, file: !3, line: 5)
-!6 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 5, type: !7, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
+!6 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 5, type: !7, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9}
 !9 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -65,6 +65,6 @@ entry:
 !13 = !{i32 7, !"Dwarf Version", i32 5}
 !14 = !{i32 2, !"Debug Info Version", i32 3}
 !19 = !{!"clang version 15.0.0"}
-!20 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!20 = !DISubprogram(name: "main", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
 !21 = !DILocation(line: 4, column: 3, scope: !6, inlinedAt: !22)
 !22 = !DILocation(line: 4, column: 3, scope: !20)

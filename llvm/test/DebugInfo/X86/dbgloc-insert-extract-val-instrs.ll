@@ -40,13 +40,13 @@ define i32 @fn1() !dbg !12 {
 !1 = !DIFile(filename: "test.ll", directory: "/")
 !2 = !{}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "fn", linkageName: "fn", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "fn", linkageName: "fn", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !7 = !DISubroutineType(types: !2)
 !8 = !DILocation(line: 1, column: 1, scope: !6)
 !9 = !DILocation(line: 2, column: 1, scope: !6)
 !10 = !DILocation(line: 3, column: 1, scope: !6)
 !11 = !DILocation(line: 4, column: 1, scope: !6)
-!12 = distinct !DISubprogram(name: "fn1", linkageName: "fn1", scope: null, file: !1, line: 5, type: !7, scopeLine: 5, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!12 = !DISubprogram(name: "fn1", linkageName: "fn1", scope: null, file: !1, line: 5, type: !7, scopeLine: 5, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !13 = !DILocation(line: 5, column: 1, scope: !12)
 !14 = !DILocation(line: 6, column: 1, scope: !12)
 !15 = !DILocation(line: 7, column: 1, scope: !12)

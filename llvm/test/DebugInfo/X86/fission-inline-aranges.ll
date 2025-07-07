@@ -41,7 +41,7 @@ attributes #1 = { "frame-pointer"="all" "no-trapping-math"="true" "stack-protect
 !5 = !{i32 7, !"uwtable", i32 1}
 !6 = !{i32 7, !"frame-pointer", i32 2}
 !7 = !{!"clang version 14.0.0"}
-!8 = distinct !DISubprogram(name: "f3", linkageName: "_ZN3foo2f3Ez", scope: !9, file: !1, line: 6, type: !15, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !14, retainedNodes: !17)
+!8 = !DISubprogram(name: "f3", linkageName: "_ZN3foo2f3Ez", scope: !9, file: !1, line: 6, type: !15, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !14, retainedNodes: !17)
 !9 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "foo", file: !1, line: 1, size: 8, flags: DIFlagTypePassByValue, elements: !10, identifier: "_ZTS3foo")
 !10 = !{!11, !14}
 !11 = !DISubprogram(name: "f2", linkageName: "_ZN3foo2f2Ev", scope: !9, file: !1, line: 2, type: !12, scopeLine: 2, flags: DIFlagPrototyped | DIFlagStaticMember, spFlags: 0)

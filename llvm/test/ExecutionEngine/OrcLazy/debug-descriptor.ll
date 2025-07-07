@@ -28,7 +28,7 @@ define i32 @main() !dbg !9 {
 !6 = !DIFile(filename: "source-file.c", directory: "/workspace")
 !7 = !{}
 !8 = !{!"compiler version"}
-!9 = distinct !DISubprogram(name: "main", scope: !6, file: !6, line: 4, type: !10, scopeLine: 4, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
+!9 = !DISubprogram(name: "main", scope: !6, file: !6, line: 4, type: !10, scopeLine: 4, spFlags: DISPFlagDefinition, unit: !5, retainedNodes: !7)
 !10 = !DISubroutineType(types: !11)
 !11 = !{!12}
 !12 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

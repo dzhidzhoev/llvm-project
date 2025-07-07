@@ -84,7 +84,7 @@ declare void @llvm.var.annotation(ptr, ptr, ptr, i32, ptr)
 !llvm.module.flags = !{!7}
 
 !0 = !DILocalVariable(scope: !1)
-!1 = distinct !DISubprogram(name: "dummy", line: 79, isLocal: true, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: true, file: !3, unit: !9)
+!1 = !DISubprogram(name: "dummy", line: 79, isLocal: true, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: true, file: !3, unit: !9)
 !2 = !DILabel(scope: !1, name: "label", file: !3, line: 7)
 !3 = !DIFile(filename: "debug-label.c", directory: "./")
 !4 = !{ !5 }

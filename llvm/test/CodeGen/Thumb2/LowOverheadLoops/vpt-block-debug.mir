@@ -132,7 +132,7 @@
   !9 = !{i32 1, !"min_enum_size", i32 4}
   !10 = !{i32 7, !"frame-pointer", i32 2}
   !11 = !{!"clang"}
-  !12 = distinct !DISubprogram(name: "__arm_2d_impl_rgb16_cl_key_1x1_paving_x_mirror_xx", scope: !1, file: !1, line: 61, type: !13, scopeLine: 71, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !32)
+  !12 = !DISubprogram(name: "__arm_2d_impl_rgb16_cl_key_1x1_paving_x_mirror_xx", scope: !1, file: !1, line: 61, type: !13, scopeLine: 71, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !32)
   !13 = !DISubroutineType(types: !14)
   !14 = !{null, !15, !20, !22, !20, !24, !24, !18}
   !15 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !16)

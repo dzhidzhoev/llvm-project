@@ -78,11 +78,11 @@ define void @_Z3barv() unnamed_addr !dbg !14 {
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 8, !"PIC Level", i32 2}
-!10 = distinct !DISubprogram(name: "func1", linkageName: "_Z5func1v", scope: !11, file: !11, line: 6, type: !12, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!10 = !DISubprogram(name: "func1", linkageName: "_Z5func1v", scope: !11, file: !11, line: 6, type: !12, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !11 = !DIFile(filename: "a.h", directory: ".")
 !12 = !DISubroutineType(types: !13)
 !13 = !{null}
-!14 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !11, file: !11, line: 15, type: !12, scopeLine: 15, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !16)
+!14 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !11, file: !11, line: 15, type: !12, scopeLine: 15, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !16)
 !16 = !{!17}
 !17 = !DILocalVariable(name: "s", scope: !14, file: !11, line: 10, type: !18)
 !18 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "S<&func1>", file: !11, line: 2, size: 8, flags: DIFlagTypePassByValue, elements: !19, templateParams: !20, identifier: "_ZTS1SIXadL_Z5func1vEEE")

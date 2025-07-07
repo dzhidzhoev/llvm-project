@@ -63,7 +63,7 @@ entry:
 !12 = !{i32 7, !"Dwarf Version", i32 5}
 !13 = !{i32 2, !"Debug Info Version", i32 3}
 !18 = !{!"clang version 20.0.0git"}
-!24 = distinct !DISubprogram(name: "A", linkageName: "_ZN1AC1Eii", scope: !5, file: !3, line: 2, type: !8, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, declaration: !7, retainedNodes: !25)
+!24 = !DISubprogram(name: "A", linkageName: "_ZN1AC1Eii", scope: !5, file: !3, line: 2, type: !8, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, declaration: !7, retainedNodes: !25)
 !25 = !{}
 !26 = !DILocalVariable(name: "this", arg: 3, scope: !24, type: !27, flags: DIFlagArtificial | DIFlagObjectPointer)
 !27 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !5, size: 64)

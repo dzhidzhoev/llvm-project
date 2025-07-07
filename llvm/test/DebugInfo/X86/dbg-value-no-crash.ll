@@ -26,7 +26,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !DILocalVariable(name: "a", arg: 2, scope: !5, file: !1, line: 12, type: !11)
-!5 = distinct !DISubprogram(name: "foo", scope: !6, file: !1, line: 12, type: !7, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !9, retainedNodes: !10)
+!5 = !DISubprogram(name: "foo", scope: !6, file: !1, line: 12, type: !7, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, declaration: !9, retainedNodes: !10)
 !6 = !DINamespace(name: "ns1", scope: null)
 !7 = !DISubroutineType(types: !8)
 !8 = !{null}
@@ -38,4 +38,4 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !14 = !DISubrange(count: 4)
 !15 = !DILocation(line: 0, scope: !5, inlinedAt: !16)
 !16 = !DILocation(line: 18, scope: !17)
-!17 = distinct !DISubprogram(name: "foo", scope: null, file: !1, type: !7, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!17 = !DISubprogram(name: "foo", scope: null, file: !1, type: !7, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)

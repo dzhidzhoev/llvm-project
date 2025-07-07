@@ -52,10 +52,10 @@ declare void @extfunc(i8 signext)
 ; CHECK: [[TYPENODE]] = !DIBasicType(name: "char"
 !6 = !{i32 2, !"Dwarf Version", i32 4}
 !7 = !{i32 2, !"Debug Info Version", i32 3}
-!8 = distinct !DISubprogram(name: "foo", linkageName: "func",
+!8 = !DISubprogram(name: "foo", linkageName: "func",
       scope: !1, file: !1, line: 3, type: !9, isLocal: false, isDefinition: true, scopeLine: 3,
       flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
-; CHECK: [[FUNCNODE]] = distinct !DISubprogram(name: "foo",
+; CHECK: [[FUNCNODE]] = !DISubprogram(name: "foo",
 ; CHECK-SAME: type: [[STYPENODE:![0-9]+]]
 ; CHECK-SAME: unit: [[CUNODE]],
 !9 = !DISubroutineType(types: !10)

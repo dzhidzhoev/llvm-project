@@ -341,7 +341,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !14 = !{i32 7, !"PIE Level", i32 2}
 !15 = !{i32 7, !"uwtable", i32 2}
 !16 = !{!"clang version 16.0.0"}
-!17 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funii", scope: !3, file: !3, line: 3, type: !18, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !20)
+!17 = !DISubprogram(name: "fun", linkageName: "_Z3funii", scope: !3, file: !3, line: 3, type: !18, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !20)
 !18 = !DISubroutineType(types: !19)
 !19 = !{!7, !7, !7}
 !20 = !{!21, !22}

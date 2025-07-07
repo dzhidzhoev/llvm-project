@@ -12,7 +12,7 @@
   define void @test() { ret void }
 
   !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3, producer: "llvm", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: !3, retainedTypes: !3)
-  !1 = distinct !DISubprogram(name: "test", scope: !3, file: !3, line: 1, type: !2, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
+  !1 = !DISubprogram(name: "test", scope: !3, file: !3, line: 1, type: !2, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: true, unit: !0)
   !2 = !DISubroutineType(types: !3)
   !3 = !{null}
   !5 = !DILocation(line: 126, column: 9, scope: !2)

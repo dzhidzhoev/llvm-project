@@ -24,7 +24,7 @@
   !2 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)
   !3 = !DILocation(line: 0, scope: !5)
   !4 = !DIFile(filename: "test.c", directory: "")
-  !5 = distinct !DISubprogram(name: "sink_addi_fi", scope: !4, file: !4, line: 1, type: !6, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !8)
+  !5 = !DISubprogram(name: "sink_addi_fi", scope: !4, file: !4, line: 1, type: !6, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !8)
   !6 = !DISubroutineType(types: !7)
   !7 = !{null, !2}
   !8 = !{}

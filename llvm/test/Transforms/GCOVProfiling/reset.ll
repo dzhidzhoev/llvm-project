@@ -28,10 +28,10 @@ entry:
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"uwtable", i32 1}
-!8 = distinct !DISubprogram(name: "foo", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !9 = !DIFile(filename: "/tmp/a.c", directory: "")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}
 !12 = !DILocation(line: 1, column: 13, scope: !8)
-!13 = distinct !DISubprogram(name: "bar", scope: !9, file: !9, line: 2, type: !10, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!13 = !DISubprogram(name: "bar", scope: !9, file: !9, line: 2, type: !10, scopeLine: 2, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !14 = !DILocation(line: 2, column: 13, scope: !13)

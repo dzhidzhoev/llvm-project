@@ -48,7 +48,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !11 = !{i32 7, !"PIC Level", i32 2}
 !12 = !{i32 7, !"PIE Level", i32 2}
 !13 = !{!"clang version 10.0.0"}
-!14 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 4, type: !15, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !17)
+!14 = !DISubprogram(name: "f", scope: !1, file: !1, line: 4, type: !15, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !17)
 !15 = !DISubroutineType(types: !16)
 !16 = !{null}
 !17 = !{!18, !20}

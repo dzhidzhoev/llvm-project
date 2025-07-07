@@ -68,7 +68,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 13.0.0"}
-!7 = distinct !DISubprogram(name: "mul_pow_of_2_to_shift", linkageName: "_Z21mul_pow_of_2_to_shiftjPjj", scope: !1, file: !1, line: 17, type: !8, scopeLine: 17, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "mul_pow_of_2_to_shift", linkageName: "_Z21mul_pow_of_2_to_shiftjPjj", scope: !1, file: !1, line: 17, type: !8, scopeLine: 17, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null, !10, !11, !10}
 !10 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)

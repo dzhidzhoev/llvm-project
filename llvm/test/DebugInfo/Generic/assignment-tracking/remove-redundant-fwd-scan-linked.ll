@@ -98,7 +98,7 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
 !9 = !{i32 7, !"uwtable", i32 1}
 !10 = !{i32 7, !"frame-pointer", i32 2}
 !11 = !{!"clang version 14.0.0"}
-!12 = distinct !DISubprogram(name: "g", scope: !3, file: !3, line: 11, type: !13, scopeLine: 11, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !15)
+!12 = !DISubprogram(name: "g", scope: !3, file: !3, line: 11, type: !13, scopeLine: 11, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !15)
 !13 = !DISubroutineType(types: !14)
 !14 = !{null}
 !15 = !{!16}

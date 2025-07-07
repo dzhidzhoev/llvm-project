@@ -63,7 +63,7 @@ define void @dbg_all_equal(i32 %k, i32 %c1, i32 %c2) !dbg !17 {
 !3 = !{i32 9}
 !4 = !{i32 0}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "patatino", linkageName: "patatino", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "patatino", linkageName: "patatino", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !7 = !DISubroutineType(types: !2)
 !8 = !DILocation(line: 1, column: 1, scope: !6)
 !9 = !DILocation(line: 2, column: 1, scope: !6)
@@ -74,5 +74,5 @@ define void @dbg_all_equal(i32 %k, i32 %c1, i32 %c2) !dbg !17 {
 !14 = !DILocation(line: 7, column: 1, scope: !6)
 !15 = !DILocation(line: 8, column: 1, scope: !6)
 !16 = !DILocation(line: 9, column: 1, scope: !6)
-!17 = distinct !DISubprogram(name: "dbg_all_equal", linkageName: "dbg_all_equal", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!17 = !DISubprogram(name: "dbg_all_equal", linkageName: "dbg_all_equal", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !18 = !DILocation(line: 10, column: 10, scope: !17)

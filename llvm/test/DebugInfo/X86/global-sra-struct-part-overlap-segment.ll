@@ -174,7 +174,7 @@ declare void @llvm.experimental.noalias.scope.decl(metadata)
 !6 = !{!0, !7, !29}
 !7 = !DIGlobalVariableExpression(var: !8, expr: !DIExpression())
 !8 = distinct !DIGlobalVariable(name: "rvar", scope: !9, file: !4, line: 13, type: !19, isLocal: true, isDefinition: true)
-!9 = distinct !DISubprogram(name: "bar", scope: !2, file: !4, line: 10, type: !10, scopeLine: 10, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3)
+!9 = !DISubprogram(name: "bar", scope: !2, file: !4, line: 10, type: !10, scopeLine: 10, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null, !12, !16}
 !12 = !DICompositeType(tag: DW_TAG_array_type, baseType: !13, size: 96, align: 32, elements: !14)
@@ -187,7 +187,7 @@ declare void @llvm.experimental.noalias.scope.decl(metadata)
 !19 = !DICompositeType(tag: DW_TAG_array_type, baseType: !17, size: 192, align: 64, elements: !14)
 !20 = !{i32 2, !"Dwarf Version", i32 4}
 !21 = !{i32 2, !"Debug Info Version", i32 3}
-!22 = distinct !DISubprogram(name: "foo", scope: !2, file: !4, line: 5, type: !10, scopeLine: 5, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3)
+!22 = !DISubprogram(name: "foo", scope: !2, file: !4, line: 5, type: !10, scopeLine: 5, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3)
 !23 = !{!24}
 !24 = distinct !{!24, !25, !"mymod_bar_: %bar"}
 !25 = distinct !{!25, !"mymod_bar_"}

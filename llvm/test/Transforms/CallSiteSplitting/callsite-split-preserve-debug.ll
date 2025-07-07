@@ -77,7 +77,7 @@ entry:
 !3 = !{i32 23}
 !4 = !{i32 11}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "test", linkageName: "test", scope: null, file: !1, line: 3, type: !7, isLocal: false, isDefinition: true, scopeLine: 3, isOptimized: true, unit: !0, retainedNodes: !8)
+!6 = !DISubprogram(name: "test", linkageName: "test", scope: null, file: !1, line: 3, type: !7, isLocal: false, isDefinition: true, scopeLine: 3, isOptimized: true, unit: !0, retainedNodes: !8)
 !7 = !DISubroutineType(types: !2)
 !8 = !{!9, !11, !13, !15, !16, !17}
 !9 = !DILocalVariable(name: "2", scope: !6, file: !1, line: 3, type: !10)
@@ -90,7 +90,7 @@ entry:
 !16 = !DILocalVariable(name: "6", scope: !6, file: !1, line: 10, type: !12)
 !17 = !DILocalVariable(name: "7", scope: !6, file: !1, line: 11, type: !10)
 !18 = !DILocation(line: 10, column: 1, scope: !6)
-!19 = distinct !DISubprogram(name: "test_add_new_phi", linkageName: "test_add_new_phi", scope: null, file: !1, line: 14, type: !7, isLocal: false, isDefinition: true, scopeLine: 14, isOptimized: true, unit: !0, retainedNodes: !20)
+!19 = !DISubprogram(name: "test_add_new_phi", linkageName: "test_add_new_phi", scope: null, file: !1, line: 14, type: !7, isLocal: false, isDefinition: true, scopeLine: 14, isOptimized: true, unit: !0, retainedNodes: !20)
 !20 = !{!21, !22, !23, !24}
 !21 = !DILocalVariable(name: "8", scope: !19, file: !1, line: 14, type: !14)
 !22 = !DILocalVariable(name: "9", scope: !19, file: !1, line: 17, type: !10)

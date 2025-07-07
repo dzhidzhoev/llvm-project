@@ -78,7 +78,7 @@ for.body:
 !5 = !{i32 1, !"wchar_size", i32 2}
 !6 = !{i32 7, !"PIC Level", i32 2}
 !7 = !{!"clang version 9.0.0 (https://github.com/llvm/llvm-project.git 045b8544fd2c4e14f7e72e0df2bc681d823b0838)"}
-!8 = distinct !DISubprogram(name: "a", linkageName: "?a@@YAXXZ", scope: !1, file: !1, line: 3, type: !9, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!8 = !DISubprogram(name: "a", linkageName: "?a@@YAXXZ", scope: !1, file: !1, line: 3, type: !9, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !9 = !DISubroutineType(types: !10)
 !10 = !{null}
 !11 = !{!12, !15, !17, !21}

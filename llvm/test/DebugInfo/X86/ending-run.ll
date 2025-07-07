@@ -31,7 +31,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) nounwind readnone
 
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, producer: "clang version 3.1 (trunk 153921) (llvm/trunk 153916)", isOptimized: false, emissionKind: FullDebug, file: !19, enums: !1, retainedTypes: !1, globals: !1, imports:  !1)
 !1 = !{}
-!5 = distinct !DISubprogram(name: "callee", line: 4, isLocal: false, isDefinition: true, virtualIndex: 6, isOptimized: false, unit: !0, scopeLine: 7, file: !19, scope: !6, type: !7)
+!5 = !DISubprogram(name: "callee", line: 4, isLocal: false, isDefinition: true, virtualIndex: 6, isOptimized: false, unit: !0, scopeLine: 7, file: !19, scope: !6, type: !7)
 !6 = !DIFile(filename: "ending-run.c", directory: "/Users/echristo/tmp")
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9, !9}

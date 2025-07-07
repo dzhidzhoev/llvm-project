@@ -19,7 +19,7 @@
   !1 = !DIFile(filename: "test.c", directory: "")
   !2 = !{}
   !3 = !{i32 1, !"Debug Info Version", i32 3}
-  !4 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !5, isLocal: false, isDefinition: true, scopeLine: 3, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0)
+  !4 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 3, type: !5, isLocal: false, isDefinition: true, scopeLine: 3, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !0)
   !5 = !DISubroutineType(types: !6)
   !6 = !{null}
   !7 = !DILocalVariable(name: "zzz", arg: 1, scope: !4, file: !1, line: 3, type: !8)

@@ -76,7 +76,7 @@
   !1 = !DIFile(filename: "bar.c", directory: "asdf")
   !2 = !{}
   !3 = !{i32 1, !"Debug Info Version", i32 3}
-  !4 = distinct !DISubprogram(name: "bar", scope: !1, file: !1, line: 5, type: !5, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+  !4 = !DISubprogram(name: "bar", scope: !1, file: !1, line: 5, type: !5, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
   !5 = !DISubroutineType(types: !6)
   !6 = !{!7}
   !7 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)

@@ -81,7 +81,7 @@ attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 !10 = !{i32 1, !"MaxTLSAlign", i32 65536}
 !11 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
 !12 = !{!"clang version 20.0.0"}
-!13 = distinct !DISubprogram(name: "s", linkageName: "_ZNK1G1sEv", scope: !14, file: !3, line: 12, type: !24, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, declaration: !28, retainedNodes: !29)
+!13 = !DISubprogram(name: "s", linkageName: "_ZNK1G1sEv", scope: !14, file: !3, line: 12, type: !24, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, declaration: !28, retainedNodes: !29)
 !14 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "G", file: !3, line: 6, size: 64, flags: DIFlagTypePassByValue, elements: !15, identifier: "_ZTS1G")
 !15 = !{!16, !21, !23, !28}
 !16 = !DIDerivedType(tag: DW_TAG_member, name: "n", scope: !14, file: !3, line: 7, baseType: !17, size: 32)
@@ -102,7 +102,7 @@ attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 !31 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !27, size: 32)
 !32 = !DILocation(line: 0, scope: !13)
 !33 = !DILocalVariable(name: "this", arg: 1, scope: !34, type: !31, flags: DIFlagArtificial | DIFlagObjectPointer)
-!34 = distinct !DISubprogram(name: "p", linkageName: "_ZNK1G1pEv", scope: !14, file: !3, line: 9, type: !24, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, declaration: !23, retainedNodes: !35)
+!34 = !DISubprogram(name: "p", linkageName: "_ZNK1G1pEv", scope: !14, file: !3, line: 9, type: !24, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, declaration: !23, retainedNodes: !35)
 !35 = !{!33}
 !36 = !DILocation(line: 0, scope: !34, inlinedAt: !37)
 !37 = distinct !DILocation(line: 13, scope: !13)

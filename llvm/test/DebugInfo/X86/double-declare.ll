@@ -30,7 +30,7 @@ done:
 
 !0 = distinct !DICompileUnit(language: DW_LANG_ObjC, file: !1, producer: "clang version 5.0.0 ", isOptimized: true, runtimeVersion: 2, emissionKind: FullDebug)
 !1 = !DIFile(filename: "<stdin>", directory: "C:\5Csrc\5Cllvm-project\5Cbuild")
-!5 = distinct !DISubprogram(name: "f", isLocal: true, isDefinition: true, scopeLine: 37, flags: DIFlagPrototyped, isOptimized: true, unit: !0, type: !99, scope: !1)
+!5 = !DISubprogram(name: "f", isLocal: true, isDefinition: true, scopeLine: 37, flags: DIFlagPrototyped, isOptimized: true, unit: !0, type: !99, scope: !1)
 !6 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !10 = !DILocalVariable(name: "aRect", arg: 1, scope: !11, file: !1, line: 38, type: !6)
 !11 = distinct !DILexicalBlock(scope: !98, file: !1, line: 38)
@@ -39,6 +39,6 @@ done:
 !22 = !{i32 2, !"Dwarf Version", i32 4}
 !23 = !{i32 2, !"Debug Info Version", i32 3}
 !62 = !{!10}
-!98 = distinct !DISubprogram(name: "NSMaxX", scope: !1, file: !1, line: 27, isLocal: true, isDefinition: true, scopeLine: 27, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !62, type: !99)
+!98 = !DISubprogram(name: "NSMaxX", scope: !1, file: !1, line: 27, isLocal: true, isDefinition: true, scopeLine: 27, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !62, type: !99)
 !99 = !DISubroutineType(types: !100)
 !100 = !{null}

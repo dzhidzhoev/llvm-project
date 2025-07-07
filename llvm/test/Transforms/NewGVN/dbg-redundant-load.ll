@@ -50,7 +50,7 @@ declare void @foo()
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"PIC Level", i32 2}
-!6 = distinct !DISubprogram(name: "test_redundant_load", scope: !1, file: !1, line: 2, type: !7, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
+!6 = !DISubprogram(name: "test_redundant_load", scope: !1, file: !1, line: 2, type: !7, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
 !7 = !DISubroutineType(types: !2)
 !8 = !DILocation(line: 3, scope: !6)
 !9 = !DILocation(line: 5, scope: !6)
@@ -62,7 +62,7 @@ declare void @foo()
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: [[META1:![0-9]+]], isOptimized: false, runtimeVersion: 0, emissionKind: LineTablesOnly, enums: [[META2:![0-9]+]])
 ; CHECK: [[META1]] = !DIFile(filename: "test.cpp", directory: "")
 ; CHECK: [[META2]] = !{}
-; CHECK: [[DBG6]] = distinct !DISubprogram(name: "test_redundant_load", scope: [[META1]], file: [[META1]], line: 2, type: [[META7:![0-9]+]], scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META2]])
+; CHECK: [[DBG6]] = !DISubprogram(name: "test_redundant_load", scope: [[META1]], file: [[META1]], line: 2, type: [[META7:![0-9]+]], scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META2]])
 ; CHECK: [[META7]] = !DISubroutineType(types: [[META2]])
 ; CHECK: [[DBG8]] = !DILocation(line: 3, scope: [[DBG6]])
 ; CHECK: [[DBG9]] = !DILocation(line: 5, scope: [[DBG6]])

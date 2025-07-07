@@ -61,7 +61,7 @@ attributes #1 = { nounwind readnone }
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1, producer: "clang version 3.8.0 (trunk 250915)", isOptimized: true, runtimeVersion: 0, emissionKind: NoDebug, enums: !2)
 !1 = !DIFile(filename: "a.cc", directory: "/usr/local/google/home/dehao/discr")
 !2 = !{}
-!4 = distinct !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !1, file: !1, line: 1, type: !5, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !8)
+!4 = !DISubprogram(name: "foo", linkageName: "_Z3fooi", scope: !1, file: !1, line: 1, type: !5, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, unit: !0, retainedNodes: !8)
 !5 = !DISubroutineType(types: !6)
 !6 = !{!7, !7}
 !7 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)
@@ -87,7 +87,7 @@ attributes #1 = { nounwind readnone }
 !27 = !DILocation(line: 2, column: 42, scope: !20)
 !28 = !DILocation(line: 3, column: 1, scope: !4)
 
-; CHECK: ![[F:.*]] = distinct !DISubprogram(name: "foo",
+; CHECK: ![[F:.*]] = !DISubprogram(name: "foo",
 ; CHECK: ![[IF:.*]] = distinct !DILexicalBlock(scope: ![[F]],{{.*}}line: 2, column: 7)
 ; CHECK: ![[THEN1]] = !DILocation(line: 2, column: 17, scope: ![[THENBLOCK:[0-9]+]])
 ; CHECK: ![[THENBLOCK]] = !DILexicalBlockFile(scope: ![[IF]],{{.*}} discriminator: 2)

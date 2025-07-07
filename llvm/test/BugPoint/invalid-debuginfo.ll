@@ -19,4 +19,4 @@ define void @f() !dbg !9 { ret void }
 !7 = !{i32 2, !"Dwarf Version", i32 4}
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 
-!9 = distinct !DISubprogram(unit: !0)
+!9 = !DISubprogram(unit: !0)

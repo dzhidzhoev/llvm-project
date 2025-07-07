@@ -55,7 +55,7 @@
   !5 = !{i32 1, !"wchar_size", i32 4}
   !6 = !{i32 7, !"PIC Level", i32 1}
   !7 = !{!"clang version 11.0.0"}
-  !8 = distinct !DISubprogram(name: "f1", scope: !9, file: !9, line: 4, type: !10, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
+  !8 = !DISubprogram(name: "f1", scope: !9, file: !9, line: 4, type: !10, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
   !9 = !DIFile(filename: "m.c", directory: "/dir")
   !10 = !DISubroutineType(types: !11)
   !11 = !{!12, !12, !13}

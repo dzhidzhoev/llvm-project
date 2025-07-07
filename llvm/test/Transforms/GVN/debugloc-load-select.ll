@@ -37,7 +37,7 @@ entry:
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DILocation(line: 4, column: 22, scope: !5)
 !4 = !DIFile(filename: "mltaln9.c", directory: "/tmp")
-!5 = distinct !DISubprogram(name: "loadtree", scope: !4, file: !4, line: 869, type: !6, scopeLine: 870, unit: !0, retainedNodes: !8)
+!5 = !DISubprogram(name: "loadtree", scope: !4, file: !4, line: 869, type: !6, scopeLine: 870, unit: !0, retainedNodes: !8)
 !6 = distinct !DISubroutineType(types: !7)
 !7 = !{null}
 !8 = !{}
@@ -46,7 +46,7 @@ entry:
 ; CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug)
 ; CHECK: [[META1]] = !DIFile(filename: "/tmp/mltaln9.c", directory: {{.*}})
 ; CHECK: [[DBG3]] = !DILocation(line: 4, column: 22, scope: [[META4:![0-9]+]])
-; CHECK: [[META4]] = distinct !DISubprogram(name: "loadtree", scope: [[META5:![0-9]+]], file: [[META5]], line: 869, type: [[META6:![0-9]+]], scopeLine: 870, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META8:![0-9]+]])
+; CHECK: [[META4]] = !DISubprogram(name: "loadtree", scope: [[META5:![0-9]+]], file: [[META5]], line: 869, type: [[META6:![0-9]+]], scopeLine: 870, spFlags: DISPFlagDefinition, unit: [[META0]], retainedNodes: [[META8:![0-9]+]])
 ; CHECK: [[META5]] = !DIFile(filename: "mltaln9.c", directory: {{.*}})
 ; CHECK: [[META6]] = distinct !DISubroutineType(types: [[META7:![0-9]+]])
 ; CHECK: [[META7]] = !{null}

@@ -37,7 +37,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !7 = !DIBasicType(name: "integer", size: 32, align: 32, encoding: DW_ATE_signed)
 !8 = !{!9}
 !9 = !DISubrange(count: 15, lowerBound: 3)
-!10 = distinct !DISubprogram(name: "main", scope: !2, file: !3, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !2)
+!10 = !DISubprogram(name: "main", scope: !2, file: !3, line: 1, type: !11, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagMainSubprogram, unit: !2)
 !11 = !DISubroutineType(cc: DW_CC_program, types: !12)
 !12 = !{null}
 !13 = !DILocalVariable(name: "arr", scope: !10, file: !3, type: !14)

@@ -100,7 +100,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 8.0.1-4 (tags/RELEASE_801/final)"}
-!7 = distinct !DISubprogram(name: "test", linkageName: "_Z4testv", scope: !8, file: !8, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!7 = !DISubprogram(name: "test", linkageName: "_Z4testv", scope: !8, file: !8, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !8 = !DIFile(filename: "test.cc", directory: "/dir")
 !9 = !DISubroutineType(types: !10)
 !10 = !{null}
@@ -114,7 +114,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !18 = distinct !DILexicalBlock(scope: !7, file: !8, line: 7)
 !19 = !DILocation(line: 8, scope: !20)
 !20 = distinct !DILexicalBlock(scope: !18, file: !8, line: 7)
-!21 = distinct !DISubprogram(name: "operator()", linkageName: "_ZZ4testvENK3$_0clEv", scope: !22, file: !8, line: 5, type: !28, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !32, retainedNodes: !33)
+!21 = !DISubprogram(name: "operator()", linkageName: "_ZZ4testvENK3$_0clEv", scope: !22, file: !8, line: 5, type: !28, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, declaration: !32, retainedNodes: !33)
 !22 = distinct !DICompositeType(tag: DW_TAG_class_type, scope: !7, file: !8, line: 5, size: 192, flags: DIFlagTypePassByValue, elements: !23)
 !23 = !{!24, !26, !27}
 !24 = !DIDerivedType(tag: DW_TAG_member, name: "a", scope: !22, file: !8, line: 5, baseType: !25, size: 64)

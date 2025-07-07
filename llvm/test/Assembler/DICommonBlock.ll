@@ -17,7 +17,7 @@
 !6 = !{i32 2, !"Dwarf Version", i32 4}
 !7 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{!"PGI Fortran"}
-!9 = distinct !DISubprogram(name: "subrtn", scope: !0, file: !1, line: 1, type: !10, isLocal: false, isDefinition: true, unit: !0)
+!9 = !DISubprogram(name: "subrtn", scope: !0, file: !1, line: 1, type: !10, isLocal: false, isDefinition: true, unit: !0)
 !10 = !DISubroutineType(types: !11)
 !11 = !{!12, !12}
 !12 = !DIBasicType(name: "int", size: 32)

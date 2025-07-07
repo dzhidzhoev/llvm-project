@@ -62,7 +62,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !8 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{i32 1, !"wchar_size", i32 4}
 !10 = !{!"clang version 10.0.0"}
-!11 = distinct !DISubprogram(name: "foo", scope: !3, file: !3, line: 8, type: !12, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
+!11 = !DISubprogram(name: "foo", scope: !3, file: !3, line: 8, type: !12, scopeLine: 9, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !4)
 !12 = !DISubroutineType(types: !13)
 !13 = !{!14, !14}
 !14 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "bees", file: !3, line: 1, size: 64, elements: !15)

@@ -20,7 +20,7 @@
 
 ; CHECK-DAG: ![[dbg]] = !DILocation(line: 0, scope: ![[scp:[0-9]+]]
 ; CHECK-DAG: ![[scp]] = distinct !DILexicalBlock(scope: ![[fun:[0-9]+]]
-; CHECK-DAG: ![[fun]] = distinct !DISubprogram(name: "fun",
+; CHECK-DAG: ![[fun]] = !DISubprogram(name: "fun",
 
 define void @_Z3funPii(ptr nocapture noundef writeonly %a, i32 noundef %cond) !dbg !7 {
 entry:
@@ -56,7 +56,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"uwtable", i32 1}
 !6 = !{!"clang version 14.0.0"}
-!7 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funPii", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!7 = !DISubprogram(name: "fun", linkageName: "_Z3funPii", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null, !10, !11}
 !10 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !11, size: 64)

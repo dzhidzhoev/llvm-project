@@ -25,4 +25,4 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 
 !llvm.module.flags = !{!0}
 !0 = !{i32 2, !"Debug Info Version", i32 3}
-!1 = distinct !DISubprogram(name: "foo")
+!1 = !DISubprogram(name: "foo")

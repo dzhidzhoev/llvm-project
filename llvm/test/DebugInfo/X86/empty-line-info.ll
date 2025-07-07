@@ -51,7 +51,7 @@ bb1:
 !2 = !{i32 7, !"Dwarf Version", i32 5}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !9 = !{!"clang"}
-!10 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
+!10 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !11, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!13, !14}
 !13 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -60,7 +60,7 @@ bb1:
 !16 = !DILocalVariable(name: "bar", arg: 1, scope: !10, file: !1, line: 1, type: !14)
 !17 = !DILocation(line: 0, scope: !10)
 !18 = !DILocation(line: 2, column: 8, scope: !10)
-!20 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 11, type: !11, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !25)
+!20 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 11, type: !11, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !25)
 !25 = !{!26}
 !26 = !DILocalVariable(name: "bar", arg: 1, scope: !20, file: !1, line: 11, type: !14)
 !27 = !DILocation(line: 0, scope: !20)

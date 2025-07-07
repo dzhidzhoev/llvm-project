@@ -45,7 +45,7 @@ declare void @foobar(i32)
 !llvm.module.flags = !{!47}
 !0 = !DILocalVariable(name: "frname_len", line: 517, scope: !1, file: !3, type: !38)
 !1 = distinct !DILexicalBlock(line: 515, column: 0, file: !44, scope: !2)
-!2 = distinct !DISubprogram(name: "framework_construct_pathname", line: 515, isLocal: true, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: true, unit: !4, file: !44, scope: null, type: !5)
+!2 = !DISubprogram(name: "framework_construct_pathname", line: 515, isLocal: true, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: true, unit: !4, file: !44, scope: null, type: !5)
 !3 = !DIFile(filename: "darwin-c.c", directory: "/Users/espindola/llvm/build-llvm-gcc/gcc/../../llvm-gcc-4.2/gcc/config")
 !4 = distinct !DICompileUnit(language: DW_LANG_C89, producer: "4.2.1 (Based on Apple Inc. build 5658) (LLVM build)", isOptimized: true, emissionKind: FullDebug, file: !44, enums: !46, retainedTypes: !46)
 !5 = !DISubroutineType(types: !6)

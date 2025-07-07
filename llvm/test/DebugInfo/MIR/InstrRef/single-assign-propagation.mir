@@ -95,7 +95,7 @@
   !9 = !{i32 1, !"wchar_size", i32 2}
   !10 = !{i32 7, !"PIC Level", i32 2}
   !11 = !{!"clang"}
-  !12 = distinct !DISubprogram(name: "bb_to_bb", linkageName: "bb_to_bb", scope: !1, file: !1, line: 6, type: !13, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
+  !12 = !DISubprogram(name: "bb_to_bb", linkageName: "bb_to_bb", scope: !1, file: !1, line: 6, type: !13, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !15)
   !13 = !DISubroutineType(types: !14)
   !14 = !{!6, !6}
   !15 = !{!16}
@@ -104,7 +104,7 @@
   !18 = distinct !DILexicalBlock(scope: !12, file: !1, line: 1, column: 1)
   !19 = distinct !DILexicalBlock(scope: !12, file: !1, line: 1, column: 1)
   !20 = !DILocation(line: 10, scope: !19)
-  !112 = distinct !DISubprogram(name: "test2", linkageName: "102", scope: !1, file: !1, line: 6, type: !13, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !115)
+  !112 = !DISubprogram(name: "test2", linkageName: "102", scope: !1, file: !1, line: 6, type: !13, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !115)
   !115 = !{!116}
   !116 = !DILocalVariable(name: "myVar", scope: !118, file: !1, line: 7, type: !6)
   !117 = !DILocation(line: 10, scope: !118)

@@ -23,7 +23,7 @@
   !4 = !{}
   !5 = !{!0}
   !7 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-  !14 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 7, type: !15, isLocal: false, isDefinition: true, scopeLine: 8, flags: DIFlagPrototyped, isOptimized: true, unit: !2, retainedNodes: !20)
+  !14 = !DISubprogram(name: "main", scope: !3, file: !3, line: 7, type: !15, isLocal: false, isDefinition: true, scopeLine: 8, flags: DIFlagPrototyped, isOptimized: true, unit: !2, retainedNodes: !20)
   !15 = !DISubroutineType(types: !16)
   !16 = !{!7, !7}
   !20 = !{!21}

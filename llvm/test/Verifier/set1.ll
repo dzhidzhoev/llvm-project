@@ -38,7 +38,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 !14 = !{i64 2, !"Dwarf Version", i64 4}
 !15 = !{i64 2, !"Debug Info Version", i64 3}
 !16 = !{i64 2, !"wchar_size", i64 2}
-!17 = distinct !DISubprogram(name: "Test", linkageName: "Main__Test", scope: !2, file: !2, line: 11, type: !18, scopeLine: 11, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !20)
+!17 = !DISubprogram(name: "Test", linkageName: "Main__Test", scope: !2, file: !2, line: 11, type: !18, scopeLine: 11, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !20)
 !18 = !DISubroutineType(types: !19)
 !19 = !{null}
 !20 = !{}
@@ -52,7 +52,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 !27 = !DIDerivedType(tag: DW_TAG_set_type, name: "ST", scope: !2, file: !2, line: 11, baseType: !23, size: 64, align: 64)
 !28 = !DILocation(line: 17, scope: !17)
 !29 = !DILocation(line: 18, scope: !17)
-!30 = distinct !DISubprogram(name: "Main_M3", linkageName: "Main_M3", scope: !2, file: !2, line: 22, type: !31, scopeLine: 22, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !20)
+!30 = !DISubprogram(name: "Main_M3", linkageName: "Main_M3", scope: !2, file: !2, line: 22, type: !31, scopeLine: 22, spFlags: DISPFlagDefinition, unit: !1, retainedNodes: !20)
 !31 = !DISubroutineType(types: !32)
 !32 = !{!33, !35}
 !33 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "ADDR", baseType: !34, size: 64, align: 64)

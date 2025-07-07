@@ -45,10 +45,10 @@ attributes #0 = { noinline nounwind optnone "frame-pointer"="all" "no-trapping-m
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"frame-pointer", i32 2}
 !6 = !{!"clang version 18.0.0 (https://github.com/llvm/llvm-project.git 8031b3f2c40d3fe622648b6731a0ae1dc3f37860)"}
-!7 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!7 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10}
 !10 = !DIBasicType(name: "unsigned long", size: 64, encoding: DW_ATE_unsigned)
 !11 = !DILocation(line: 2, column: 3, scope: !7)
-!12 = distinct !DISubprogram(name: "bar", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
+!12 = !DISubprogram(name: "bar", scope: !1, file: !1, line: 5, type: !8, scopeLine: 5, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0)
 !13 = !DILocation(line: 6, column: 3, scope: !12)

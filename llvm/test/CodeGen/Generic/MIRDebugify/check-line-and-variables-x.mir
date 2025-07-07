@@ -34,7 +34,7 @@
   !6 = !{i32 6}
   !7 = !{i32 2}
   !8 = !{i32 4}
-  !9 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !4, line: 1, type: !10, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !11)
+  !9 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !4, line: 1, type: !10, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !3, retainedNodes: !11)
   !10 = !DISubroutineType(types: !5)
   !11 = !{!12, !14}
   !12 = !DILocalVariable(name: "1", scope: !9, file: !4, line: 1, type: !13)

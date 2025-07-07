@@ -54,7 +54,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !8 = !{i32 7, !"Dwarf Version", i32 4}
 !9 = !{i32 2, !"Debug Info Version", i32 3}
 !10 = !{i32 1, !"wchar_size", i32 4}
-!12 = distinct !DISubprogram(name: "funcA.llvm.1000", scope: !3, file: !3, line: 6, type: !13, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !15)
+!12 = !DISubprogram(name: "funcA.llvm.1000", scope: !3, file: !3, line: 6, type: !13, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !15)
 !13 = !DISubroutineType(types: !14)
 !14 = !{!7, !7}
 !15 = !{!16, !17}
@@ -62,7 +62,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !17 = !DILocalVariable(name: "r", scope: !12, file: !3, line: 7, type: !7)
 !18 = !DILocation(line: 0, scope: !12)
 !19 = !DILocalVariable(name: "x", arg: 1, scope: !20, file: !3, line: 22, type: !7)
-!20 = distinct !DISubprogram(name: "funcLeaf", scope: !3, file: !3, line: 22, type: !13, scopeLine: 23, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
+!20 = !DISubprogram(name: "funcLeaf", scope: !3, file: !3, line: 22, type: !13, scopeLine: 23, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
 !21 = !{!19}
 !22 = !DILocation(line: 0, scope: !20, inlinedAt: !23)
 !23 = distinct !DILocation(line: 7, column: 11, scope: !12)
@@ -72,7 +72,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !27 = !{!"omnipotent char", !28, i64 0}
 !28 = !{!"Simple C/C++ TBAA"}
 !29 = !DILocalVariable(name: "x", arg: 1, scope: !30, file: !3, line: 11, type: !7)
-!30 = distinct !DISubprogram(name: "fib", scope: !3, file: !3, line: 11, type: !13, scopeLine: 12, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !31)
+!30 = !DISubprogram(name: "fib", scope: !3, file: !3, line: 11, type: !13, scopeLine: 12, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !31)
 !31 = !{!29}
 !32 = !DILocation(line: 0, scope: !30, inlinedAt: !33)
 !33 = distinct !DILocation(line: 24, column: 8, scope: !20, inlinedAt: !23)

@@ -52,7 +52,7 @@ attributes #0 = { "target-features"="+v" }
 !2 = !{}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
-!5 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: !1, file: !1, line: 1, scopeLine: 1, type: !10, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!5 = !DISubprogram(name: "foo", linkageName: "foo", scope: !1, file: !1, line: 1, scopeLine: 1, type: !10, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !6 = distinct !DIAssignID()
 !7 = !DILocalVariable(name: "i", scope: !5, file: !1, line: 7, type: !8)
 !8 = !DIBasicType(name: "int32_t", size: 32, encoding: DW_ATE_signed)

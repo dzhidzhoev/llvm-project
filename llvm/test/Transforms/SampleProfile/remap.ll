@@ -56,7 +56,7 @@ attributes #0 = { "use-sample-profile" }
 
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1, producer: "foo++", isOptimized: false, runtimeVersion: 0, emissionKind: NoDebug, enums: !{}, retainedTypes: !{})
 !1 = !DIFile(filename: "test.cc", directory: "/foo/bar")
-!2 = distinct !DISubprogram(name: "_ZN3foo3barERKN1M1XINS_6detail3quxEEE", scope: !1, file: !1, line: 4, type: !3, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !{})
+!2 = !DISubprogram(name: "_ZN3foo3barERKN1M1XINS_6detail3quxEEE", scope: !1, file: !1, line: 4, type: !3, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !{})
 !3 = !DISubroutineType(types: !{})
 !4 = !{i32 2, !"Dwarf Version", i32 4}
 !5 = !{i32 2, !"Debug Info Version", i32 3}

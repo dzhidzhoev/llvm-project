@@ -17,8 +17,8 @@ target triple = "dxil-unknown-shadermodel6.7-library"
 ; CHECK: !4 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 
-; CHECK: !5 = distinct !DISubprogram(name: "fma", scope: !1, file: !1, line: 1, type: !6, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, function: !0, variables: !9)
-!5 = distinct !DISubprogram(name: "fma", scope: !1, file: !1, line: 1, type: !6, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+; CHECK: !5 = !DISubprogram(name: "fma", scope: !1, file: !1, line: 1, type: !6, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, function: !0, variables: !9)
+!5 = !DISubprogram(name: "fma", scope: !1, file: !1, line: 1, type: !6, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
 
 ; CHECK: !6 = !DISubroutineType(types: !7)
 !6 = !DISubroutineType(types: !7)

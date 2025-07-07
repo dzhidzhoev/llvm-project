@@ -69,7 +69,7 @@ attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
 !1 = distinct !DIGlobalVariable(name: "dummy", linkageName: "external_module_mp_dummy_", scope: !2, file: !3, line: 1, type: !14, isLocal: false, isDefinition: true)
-!2 = distinct !DISubprogram(name: "use_external_module", linkageName: "MAIN__", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !12)
+!2 = !DISubprogram(name: "use_external_module", linkageName: "MAIN__", scope: !3, file: !3, line: 1, type: !4, scopeLine: 1, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !12)
 !3 = !DIFile(filename: "em.f90", directory: "tests")
 !4 = !DISubroutineType(types: !5)
 !5 = !{null}

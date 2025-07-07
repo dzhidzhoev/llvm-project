@@ -23,7 +23,7 @@ attributes #0 = { noinline nounwind optnone ssp uwtable(sync) }
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{i32 7, !"frame-pointer", i32 1}
 !8 = !{!"clang version 18.0.0git (git@github.com:llvm/llvm-project.git 29ee66f4a0967e43a035f147c960743c7b640f2f)"}
-!9 = distinct !DISubprogram(name: "f", scope: !10, file: !10, line: 2, type: !11, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0)
+!9 = !DISubprogram(name: "f", scope: !10, file: !10, line: 2, type: !11, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0)
 !10 = !DIFile(filename: "/INLINE/inlined.c", directory: "", source: "void stop();
 void f() {
   // This is inline source code.

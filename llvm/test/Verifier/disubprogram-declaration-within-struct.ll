@@ -30,7 +30,7 @@ attributes #0 = { nonlazybind uwtable "probe-stack"="__rust_probestack" "target-
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !4 = distinct !DICompileUnit(language: DW_LANG_Rust, file: !5, producer: "clang LLVM (rustc version 1.69.0 (84c898d65 2023-04-16))", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false)
 !5 = !DIFile(filename: "foo.rs/@/foo.7e668e4a-cgu.0", directory: "/tmp")
-!6 = distinct !DISubprogram(name: "bar", linkageName: "_ZN3foo3Foo3bar17h32d65c44145019c8E", scope: !8, file: !7, line: 4, type: !12, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !4, templateParams: !11, retainedNodes: !11)
+!6 = !DISubprogram(name: "bar", linkageName: "_ZN3foo3Foo3bar17h32d65c44145019c8E", scope: !8, file: !7, line: 4, type: !12, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !4, templateParams: !11, retainedNodes: !11)
 !7 = !DIFile(filename: "foo.rs", directory: "/tmp", checksumkind: CSK_MD5, checksum: "427d9b572596c2f310b6185a1781f222")
 !8 = !DICompositeType(tag: DW_TAG_structure_type, name: "Foo", scope: !10, file: !9, align: 8, elements: !11, identifier: "a8fd67db4e906c9c4aceea39cb8b0f61")
 !9 = !DIFile(filename: "<unknown>", directory: "")

@@ -85,7 +85,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata)
 !16 = !{i32 2, !"Dwarf Version", i32 4}
 !17 = !{i32 2, !"Debug Info Version", i32 3}
 !18 = !{i32 1, !"wchar_size", i32 4}
-!19 = distinct !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !11, file: !11, line: 3, type: !20, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, retainedNodes: !4)
+!19 = !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !11, file: !11, line: 3, type: !20, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !10, retainedNodes: !4)
 !20 = !DISubroutineType(types: !21)
 !21 = !{null}
 !22 = !DILocalVariable(name: "n", scope: !19, file: !11, line: 4, type: !23)

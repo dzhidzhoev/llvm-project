@@ -131,7 +131,7 @@ attributes #0 = { norecurse nounwind "correctly-rounded-divide-sqrt-fp-math"="fa
 !18 = !{i32 2, !"Debug Info Version", i32 3}
 !19 = !{i32 1, !"wchar_size", i32 4}
 !20 = !{!"clang version 8.0.20181009 "}
-!21 = distinct !DISubprogram(name: "test", scope: !3, file: !3, line: 7, type: !22, isLocal: false, isDefinition: true, scopeLine: 7, isOptimized: true, unit: !2, retainedNodes: !4)
+!21 = !DISubprogram(name: "test", scope: !3, file: !3, line: 7, type: !22, isLocal: false, isDefinition: true, scopeLine: 7, isOptimized: true, unit: !2, retainedNodes: !4)
 !22 = !DISubroutineType(types: !23)
 !23 = !{!10}
 !24 = !DILocation(line: 7, column: 24, scope: !21)

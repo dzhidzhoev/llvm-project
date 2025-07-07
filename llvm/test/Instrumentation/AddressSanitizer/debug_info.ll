@@ -47,7 +47,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) nounwind readnone
 
 !7 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, producer: "clang version 3.3 (trunk 169314)", isOptimized: true, emissionKind: FullDebug, file: !23, enums: !8, retainedTypes: !8, globals: !8)
 !8 = !{}
-!12 = distinct !DISubprogram(name: "zzz", linkageName: "_Z3zzzi", line: 1, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !7, scopeLine: 1, file: !23, scope: !13, type: !14, retainedNodes: !8)
+!12 = !DISubprogram(name: "zzz", linkageName: "_Z3zzzi", line: 1, isLocal: false, isDefinition: true, virtualIndex: 6, flags: DIFlagPrototyped, isOptimized: false, unit: !7, scopeLine: 1, file: !23, scope: !13, type: !14, retainedNodes: !8)
 !13 = !DIFile(filename: "a.cc", directory: "/usr/local/google/llvm_cmake_clang/tmp/debuginfo")
 !14 = !DISubroutineType(types: !15)
 !15 = !{!16, !16}

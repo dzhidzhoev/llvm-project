@@ -548,7 +548,7 @@ declare void @free(ptr nocapture)
 !20 = !{}
 !21 = !DIFile(filename: "test.c", directory: "/test")
 !22 = distinct !DICompileUnit(language: DW_LANG_C99, file: !21, producer: "clang version 15.0.0", isOptimized: true, emissionKind: FullDebug, globals: !25, splitDebugInlining: false, nameTableKind: None)
-!23 = distinct !DISubprogram(name: "test", scope: !21, file: !21, line: 1, unit: !22)
+!23 = !DISubprogram(name: "test", scope: !21, file: !21, line: 1, unit: !22)
 !24 = !DILocalVariable(name: "x", scope: !23)
 !25 = !{}
 !26 = !{i32 2, !"Dwarf Version", i32 4}

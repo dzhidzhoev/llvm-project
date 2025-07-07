@@ -37,7 +37,7 @@ cleanup:                                          ; preds = %for.body, %for.cond
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DILocation(line: 304, column: 2, scope: !4)
 !4 = distinct !DILexicalBlock(scope: !5, file: !1, line: 304, column: 2)
-!5 = distinct !DISubprogram(name: "operator==", linkageName: "_ZeqRK4int3S1_", scope: !1, file: !1, line: 302, type: !6, scopeLine: 303, spFlags: DISPFlagDefinition, unit: !0)
+!5 = !DISubprogram(name: "operator==", linkageName: "_ZeqRK4int3S1_", scope: !1, file: !1, line: 302, type: !6, scopeLine: 303, spFlags: DISPFlagDefinition, unit: !0)
 !6 = distinct !DISubroutineType(types: !7)
 !7 = !{}
 ;.
@@ -46,7 +46,7 @@ cleanup:                                          ; preds = %for.body, %for.cond
 ; CHECK: [[META2:![0-9]+]] = !{i32 2, !"Debug Info Version", i32 3}
 ; CHECK: [[DBG3]] = !DILocation(line: 304, column: 2, scope: [[META4:![0-9]+]])
 ; CHECK: [[META4]] = distinct !DILexicalBlock(scope: [[META5:![0-9]+]], file: [[META1]], line: 304, column: 2)
-; CHECK: [[META5]] = distinct !DISubprogram(name: "operator==", linkageName: "_ZeqRK4int3S1_", scope: [[META1]], file: [[META1]], line: 302, type: [[META6:![0-9]+]], scopeLine: 303, spFlags: DISPFlagDefinition, unit: [[META0]])
+; CHECK: [[META5]] = !DISubprogram(name: "operator==", linkageName: "_ZeqRK4int3S1_", scope: [[META1]], file: [[META1]], line: 302, type: [[META6:![0-9]+]], scopeLine: 303, spFlags: DISPFlagDefinition, unit: [[META0]])
 ; CHECK: [[META6]] = distinct !DISubroutineType(types: [[META7:![0-9]+]])
 ; CHECK: [[META7]] = !{}
 ;.

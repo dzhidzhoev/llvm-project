@@ -19,7 +19,7 @@ define i32 @foo(i32 %a, i32 %b) !dbg !3 {
 !0 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !1, producer: "clang", isOptimized: true, runtimeVersion: 0, emissionKind: DebugDirectivesOnly)
 !1 = !DIFile(filename: "extra-lineinfo.cu", directory: "/test/directory/")
 !2 = !{i32 1, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "kernel", linkageName: "foo", scope: !1, file: !1, line: 123, type: !4, scopeLine: 26, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!3 = !DISubprogram(name: "kernel", linkageName: "foo", scope: !1, file: !1, line: 123, type: !4, scopeLine: 26, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !4 = !DISubroutineType(types: !5)
 !5 = !{}
 !6 = !DILocation(line: 40, column: 22, scope: !31)

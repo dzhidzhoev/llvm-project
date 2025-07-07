@@ -68,7 +68,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !10 = !{i32 1, !"wchar_size", i32 4}
 !11 = !{i32 7, !"PIC Level", i32 1}
 !12 = !{!"clang version 11.0.0"}
-!13 = distinct !DISubprogram(name: "fn2", scope: !1, file: !1, line: 2, type: !5, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!13 = !DISubprogram(name: "fn2", scope: !1, file: !1, line: 2, type: !5, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !14 = !{!15, !16, !17, !18}
 !15 = !DILocalVariable(name: "a", arg: 1, scope: !13, file: !1, line: 2, type: !7)
 !16 = !DILocalVariable(name: "b", arg: 2, scope: !13, file: !1, line: 2, type: !7)

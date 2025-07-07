@@ -32,20 +32,20 @@ bb2:
 !llvm.dbg.cu = !{}
 
 !0 = !{i32 2, !"Debug Info Version", i32 3}
-!1 = distinct !DISubprogram(name: "ham", scope: !2, file: !2, line: 160, type: !3, scopeLine: 161, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
+!1 = !DISubprogram(name: "ham", scope: !2, file: !2, line: 160, type: !3, scopeLine: 161, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
 !2 = !DIFile(filename: "file", directory: "dir")
 !3 = !DISubroutineType(types: !4)
 !4 = !{}
 !5 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !6, producer: "ver", isOptimized: true, runtimeVersion: 0, emissionKind: LineTablesOnly, splitDebugInlining: false, nameTableKind: None, sysroot: "sysroot", sdk: "sdk")
 !6 = !DIFile(filename: "file", directory: "dir")
 !7 = !DILocation(line: 354, column: 13, scope: !8, inlinedAt: !10)
-!8 = distinct !DISubprogram(name: "baz", scope: !9, file: !9, line: 345, type: !3, scopeLine: 346, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
+!8 = !DISubprogram(name: "baz", scope: !9, file: !9, line: 345, type: !3, scopeLine: 346, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
 !9 = !DIFile(filename: "file", directory: "dir")
 !10 = distinct !DILocation(line: 164, column: 15, scope: !1)
 !11 = distinct !{!11, !7, !12}
 !12 = !DILocation(line: 355, column: 37, scope: !8, inlinedAt: !10)
-!13 = distinct !DISubprogram(name: "wombat", scope: !2, file: !2, line: 172, type: !3, scopeLine: 173, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
-!14 = distinct !DISubprogram(name: "bar", scope: !15, file: !15, line: 219, type: !3, scopeLine: 220, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
+!13 = !DISubprogram(name: "wombat", scope: !2, file: !2, line: 172, type: !3, scopeLine: 173, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
+!14 = !DISubprogram(name: "bar", scope: !15, file: !15, line: 219, type: !3, scopeLine: 220, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !5)
 !15 = !DIFile(filename: "file", directory: "dir")
 
 ; CHECK-LABEL: @ham(

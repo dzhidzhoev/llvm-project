@@ -54,7 +54,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !15 = !{i32 1, !"wchar_size", i32 4}
 !16 = !{i32 7, !"PIC Level", i32 2}
 !17 = !{!"clang version 9.0.0 (https://github.com/llvm/llvm-project b306ef12f046353ea5bda4b3b77759e57909a0db)"}
-!18 = distinct !DISubprogram(name: "b", scope: !3, file: !3, line: 4, type: !19, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
+!18 = !DISubprogram(name: "b", scope: !3, file: !3, line: 4, type: !19, scopeLine: 4, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
 !19 = !DISubroutineType(types: !20)
 !20 = !{!12, !9}
 !21 = !{!22}
@@ -62,7 +62,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !23 = !DILocation(line: 4, column: 9, scope: !18)
 !24 = !DILocation(line: 4, column: 21, scope: !18)
 !25 = !DILocation(line: 4, column: 14, scope: !18)
-!26 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 5, type: !27, scopeLine: 5, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !29)
+!26 = !DISubprogram(name: "main", scope: !3, file: !3, line: 5, type: !27, scopeLine: 5, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !29)
 !27 = !DISubroutineType(types: !28)
 !28 = !{!9}
 !29 = !{!30}

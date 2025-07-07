@@ -59,7 +59,7 @@
   !13 = !{i32 1, !"min_enum_size", i32 4}
   !14 = !{i32 7, !"PIC Level", i32 2}
   !15 = !{!"clang version 10.0.0 (git@github.com:apple/llvm-project.git 6203ec90d0bb0fd705fc0ad00ee263e5579aa709)"}
-  !16 = distinct !DISubprogram(name: "b", scope: !5, file: !5, line: 2, type: !17, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !20)
+  !16 = !DISubprogram(name: "b", scope: !5, file: !5, line: 2, type: !17, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !20)
   !17 = !DISubroutineType(types: !18)
   !18 = !{!8, !19}
   !19 = !DIBasicType(name: "double", size: 64, encoding: DW_ATE_float)

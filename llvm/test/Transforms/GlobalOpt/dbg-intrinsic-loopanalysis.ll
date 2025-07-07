@@ -34,7 +34,7 @@ attributes #0 = { nocallback nofree nosync nounwind readnone speculatable willre
 
 !0 = !{i32 2, !"Debug Info Version", i32 3}
 !1 = !DILocalVariable(name: "k", arg: 1, scope: !2, file: !3, line: 13, type: !19)
-!2 = distinct !DISubprogram(name: "h", scope: !3, file: !3, line: 13, type: !4, scopeLine: 13, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !17, retainedNodes: !21)
+!2 = !DISubprogram(name: "h", scope: !3, file: !3, line: 13, type: !4, scopeLine: 13, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !17, retainedNodes: !21)
 !3 = !DIFile(filename: "foo2.c", directory: "/bar")
 !4 = !DISubroutineType(types: !5)
 !5 = !{!19}

@@ -34,7 +34,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 !2 = !DIFile(filename: "reduced.ll", directory: "/")
 !3 = !{i32 6}
 !4 = !{i32 3}
-!5 = distinct !DISubprogram(name: "test8_neg_neg", linkageName: "test8_neg_neg", scope: null, file: !2, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !1, retainedNodes: !8)
+!5 = !DISubprogram(name: "test8_neg_neg", linkageName: "test8_neg_neg", scope: null, file: !2, line: 1, type: !6, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !1, retainedNodes: !8)
 !6 = !DISubroutineType(types: !7)
 !7 = !{}
 !8 = !{!9, !11, !12}

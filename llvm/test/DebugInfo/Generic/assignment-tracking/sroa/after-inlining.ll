@@ -32,8 +32,8 @@
 
 ; CHECK-DAG: ![[DBG]] = !DILocation(line: 0, scope: ![[INL_SC:[0-9]+]], inlinedAt: ![[IA:[0-9]+]])
 ; CHECK-DAG: ![[IA]] = distinct !DILocation(line: 21, column: 12, scope: ![[SC:[0-9]+]])
-; CHECK-DAG: ![[SC]] = distinct !DISubprogram(name: "l",
-; CHECK-DAG: ![[INL_SC]] = distinct !DISubprogram(name: "k"
+; CHECK-DAG: ![[SC]] = !DISubprogram(name: "l",
+; CHECK-DAG: ![[INL_SC]] = !DISubprogram(name: "k"
 
 %struct.c = type { i32, [0 x i32] }
 
@@ -79,7 +79,7 @@ entry:
 !12 = !{i32 2, !"Debug Info Version", i32 3}
 !13 = !{i32 1, !"wchar_size", i32 4}
 !14 = !{!"clang version 12.0.0)"}
-!15 = distinct !DISubprogram(name: "g", scope: !3, file: !3, line: 6, type: !16, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !27)
+!15 = !DISubprogram(name: "g", scope: !3, file: !3, line: 6, type: !16, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !27)
 !16 = !DISubroutineType(types: !17)
 !17 = !{null, !18}
 !18 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !19, size: 64)
@@ -100,7 +100,7 @@ entry:
 !37 = !DILocation(line: 8, column: 10, scope: !30)
 !38 = !DILocation(line: 8, column: 5, scope: !30)
 !39 = !DILocation(line: 9, column: 1, scope: !15)
-!40 = distinct !DISubprogram(name: "i", scope: !3, file: !3, line: 10, type: !16, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !41)
+!40 = !DISubprogram(name: "i", scope: !3, file: !3, line: 10, type: !16, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !41)
 !41 = !{!42, !43}
 !42 = !DILocalVariable(name: "h", arg: 1, scope: !40, file: !3, line: 10, type: !18)
 !43 = !DILocalVariable(name: "j", scope: !40, file: !3, line: 11, type: !44)
@@ -120,7 +120,7 @@ entry:
 !57 = !DILocation(line: 14, column: 7, scope: !40)
 !58 = !DILocation(line: 14, column: 5, scope: !40)
 !59 = !DILocation(line: 15, column: 1, scope: !40)
-!60 = distinct !DISubprogram(name: "k", scope: !3, file: !3, line: 16, type: !61, scopeLine: 16, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !63)
+!60 = !DISubprogram(name: "k", scope: !3, file: !3, line: 16, type: !61, scopeLine: 16, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !63)
 !61 = !DISubroutineType(types: !62)
 !62 = !{null}
 !63 = !{!64}
@@ -133,7 +133,7 @@ entry:
 !70 = !DILocation(line: 0, scope: !40, inlinedAt: !69)
 !71 = !DILocation(line: 14, column: 5, scope: !40, inlinedAt: !69)
 !72 = !DILocation(line: 20, column: 1, scope: !60)
-!73 = distinct !DISubprogram(name: "l", scope: !3, file: !3, line: 21, type: !61, scopeLine: 21, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
+!73 = !DISubprogram(name: "l", scope: !3, file: !3, line: 21, type: !61, scopeLine: 21, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !4)
 !74 = distinct !DIAssignID()
 !75 = !DILocation(line: 0, scope: !60, inlinedAt: !76)
 !76 = distinct !DILocation(line: 21, column: 12, scope: !73)

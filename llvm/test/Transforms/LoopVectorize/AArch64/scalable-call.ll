@@ -244,7 +244,7 @@ attributes #3 = { "vector-function-abi-variant"="_ZGV_LLVM_N2v_llvm.sin.f64(sin_
 !6 = !{}
 !7 = !{i32 2, !"Debug Info Version", i32 3}
 !8 = !{!"clang"}
-!9 = distinct !DISubprogram(name: "foo", scope: !5, file: !5, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !4, retainedNodes: !6)
+!9 = !DISubprogram(name: "foo", scope: !5, file: !5, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !4, retainedNodes: !6)
 !10 = !DISubroutineType(types: !6)
 !11 = !DILocation(line: 3, column: 10, scope: !9)
 !12 = !DILocation(line: 3, column: 20, scope: !9)

@@ -36,7 +36,7 @@
   !11 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !12)
   !12 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)
   !13 = !DIExpression()
-  !14 = distinct !DISubprogram(name: "test", scope: !2, file: !2, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !1, retainedNodes: !15)
+  !14 = !DISubprogram(name: "test", scope: !2, file: !2, line: 2, type: !8, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped, isOptimized: true, unit: !1, retainedNodes: !15)
   !15 = !{!16}
   !16 = !DILocalVariable(name: "var", scope: !14, file: !2, line: 2, type: !12)
   !17 = !DILocation(line: 1, column: 1, scope: !14)

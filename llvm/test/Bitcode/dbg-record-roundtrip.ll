@@ -106,7 +106,7 @@ declare void @llvm.dbg.label(metadata)
 !10 = !{i32 7, !"PIE Level", i32 2}
 !11 = !{i32 7, !"uwtable", i32 2}
 !12 = !{!"clang version 19.0.0"}
-!13 = distinct !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !16)
+!13 = !DISubprogram(name: "fun", linkageName: "_Z3funv", scope: !3, file: !3, line: 2, type: !14, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !16)
 !14 = !DISubroutineType(types: !15)
 !15 = !{!5}
 !16 = !{!17}

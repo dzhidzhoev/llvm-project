@@ -68,7 +68,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 12.0.0"}
-!7 = distinct !DISubprogram(name: "mul_to_addition", linkageName: "_Z15mul_to_additionjjPj", scope: !8, file: !8, line: 64, type: !9, scopeLine: 64, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!7 = !DISubprogram(name: "mul_to_addition", linkageName: "_Z15mul_to_additionjjPj", scope: !8, file: !8, line: 64, type: !9, scopeLine: 64, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !8 = !DIFile(filename: "./basic.cpp", directory: "/test")
 !9 = !DISubroutineType(types: !10)
 !10 = !{null, !11, !11, !12}

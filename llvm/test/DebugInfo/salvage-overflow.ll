@@ -32,7 +32,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 !1 = !DIFile(filename: "t.c", directory: "/")
 !3 = !{i32 2, !"Debug Info Version", i32 3}
 !7 = !{i32 7, !"frame-pointer", i32 2}
-!9 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
+!9 = !DISubprogram(name: "f", scope: !1, file: !1, line: 2, type: !10, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
 !10 = !DISubroutineType(types: !11)
 !11 = !{null, !12}
 !12 = !DIBasicType(name: "unsigned long long", size: 64, encoding: DW_ATE_unsigned)

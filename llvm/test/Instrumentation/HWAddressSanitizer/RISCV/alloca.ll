@@ -121,7 +121,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !14 = !{!"clang version 13.0.0"}
-!15 = distinct !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: !1, file: !1, line: 4, type: !16, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!15 = !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: !1, file: !1, line: 4, type: !16, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !16 = !DISubroutineType(types: !17)
 !17 = !{null}
 !19 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !20, size: 64)
@@ -149,7 +149,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 ; DYNAMIC-SHADOW: [[META5:![0-9]+]] = !{i32 2, !"Debug Info Version", i32 3}
 ; DYNAMIC-SHADOW: [[META6:![0-9]+]] = !{i32 4, !"nosanitize_hwaddress", i32 1}
 ; DYNAMIC-SHADOW: [[META7:![0-9]+]] = !{!"{{.*}}clang version {{.*}}"}
-; DYNAMIC-SHADOW: [[DBG8]] = distinct !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: [[META2]], file: [[META2]], line: 4, type: [[META9:![0-9]+]], scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META1]], retainedNodes: [[META3]])
+; DYNAMIC-SHADOW: [[DBG8]] = !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: [[META2]], file: [[META2]], line: 4, type: [[META9:![0-9]+]], scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META1]], retainedNodes: [[META3]])
 ; DYNAMIC-SHADOW: [[META9]] = !DISubroutineType(types: [[META10:![0-9]+]])
 ; DYNAMIC-SHADOW: [[META10]] = !{null}
 ; DYNAMIC-SHADOW: [[META11]] = !DILocalVariable(name: "x", scope: [[DBG8]], file: [[META2]], line: 5, type: [[META12:![0-9]+]])
@@ -166,7 +166,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 ; ZERO-BASED-SHADOW: [[META5:![0-9]+]] = !{i32 2, !"Debug Info Version", i32 3}
 ; ZERO-BASED-SHADOW: [[META6:![0-9]+]] = !{i32 4, !"nosanitize_hwaddress", i32 1}
 ; ZERO-BASED-SHADOW: [[META7:![0-9]+]] = !{!"{{.*}}clang version {{.*}}"}
-; ZERO-BASED-SHADOW: [[DBG8]] = distinct !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: [[META2]], file: [[META2]], line: 4, type: [[META9:![0-9]+]], scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META1]], retainedNodes: [[META3]])
+; ZERO-BASED-SHADOW: [[DBG8]] = !DISubprogram(name: "test_alloca", linkageName: "_Z11test_allocav", scope: [[META2]], file: [[META2]], line: 4, type: [[META9:![0-9]+]], scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META1]], retainedNodes: [[META3]])
 ; ZERO-BASED-SHADOW: [[META9]] = !DISubroutineType(types: [[META10:![0-9]+]])
 ; ZERO-BASED-SHADOW: [[META10]] = !{null}
 ; ZERO-BASED-SHADOW: [[META11]] = !DILocalVariable(name: "x", scope: [[DBG8]], file: [[META2]], line: 5, type: [[META12:![0-9]+]])

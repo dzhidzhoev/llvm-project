@@ -43,7 +43,7 @@ define void @_Z3foov() local_unnamed_addr #0 !dbg !6 {
   ret void, !dbg !21
 }
 
-;DBG_VALUE: ![[TOP:[0-9]*]] = distinct !DISubprogram(name: "foo"
+;DBG_VALUE: ![[TOP:[0-9]*]] = !DISubprogram(name: "foo"
 ;LOOPVEC_4_1: discriminator: 17
 ;LOOPVEC_2_3: discriminator: 25
 ;LOOPUNROLL_5: discriminator: 21
@@ -53,7 +53,7 @@ define void @_Z3foov() local_unnamed_addr #0 !dbg !6 {
 ;LOOPVEC_UNROLL: discriminator: 9
 ;DBG_VALUE: ![[DBG]] = {{.*}}, scope: ![[TOP]]
 ; Pseudo probe should not have duplication factor assigned.
-;PSEUDO_PROBE: ![[TOP:[0-9]*]] = distinct !DISubprogram(name: "foo"
+;PSEUDO_PROBE: ![[TOP:[0-9]*]] = !DISubprogram(name: "foo"
 ;PSEUDO_PROBE: ![[#PROBE]] = !DILocation(line: 6, column: 13, scope: ![[TOP]])
 
 !llvm.dbg.cu = !{!0}
@@ -63,7 +63,7 @@ define void @_Z3foov() local_unnamed_addr #0 !dbg !6 {
 !1 = !DIFile(filename: "a.cc", directory: "/")
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, unit: !0)
+!6 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 4, unit: !0)
 !8 = !DILocation(line: 6, column: 13, scope: !6)
 !9 = !{!10, !10, i64 0}
 !10 = !{!"any pointer", !11, i64 0}

@@ -37,11 +37,11 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
-!6 = distinct !DISubprogram(name: "call_direct", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!6 = !DISubprogram(name: "call_direct", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !7 = !DISubroutineType(types: !{null})
 !8 = !DILocation(line: 4, column: 11, scope: !6)
 !9 = !DILocation(line: 7, column: 1, scope: !6)
 !10 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 30, type: !7, scopeLine: 3, spFlags: DISPFlagOptimized)
-!11 = distinct !DISubprogram(name: "call_indirect", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!11 = !DISubprogram(name: "call_indirect", scope: !1, file: !1, line: 3, type: !7, scopeLine: 3, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !12 = !DILocation(line: 40, column: 11, scope: !11)
 !13 = !DILocation(line: 70, column: 1, scope: !11)

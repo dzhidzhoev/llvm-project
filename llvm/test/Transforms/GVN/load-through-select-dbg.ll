@@ -35,7 +35,7 @@ entry:
 !35 = !{i32 7, !"Dwarf Version", i32 4}
 !36 = !{i32 2, !"Debug Info Version", i32 3}
 !40 = !DILocation(line: 15, column: 7, scope: !41)
-!41 = distinct !DISubprogram(name: "x", scope: !1, file: !1, line: 14, type: !42, scopeLine: 14, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !45)
+!41 = !DISubprogram(name: "x", scope: !1, file: !1, line: 14, type: !42, scopeLine: 14, flags: DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !45)
 !42 = !DISubroutineType(types: !43)
 !43 = !{!5}
 !45 = !{!46}

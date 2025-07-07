@@ -105,13 +105,13 @@ entry:
 !1 = !DIFile(filename: "match.cc", directory: "/")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = !DILocation(line: 11, column: 47, scope: !4)
-!4 = distinct !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !1, file: !1, line: 11, type: !5, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!4 = !DISubprogram(name: "f3", linkageName: "_Z2f3v", scope: !1, file: !1, line: 11, type: !5, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !5 = !DISubroutineType(types: !6)
 !6 = !{}
 !7 = !DILocation(line: 18, column: 3, scope: !8)
-!8 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 17, type: !5, scopeLine: 17, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!8 = !DISubprogram(name: "main", scope: !1, file: !1, line: 17, type: !5, scopeLine: 17, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !9 = !DILocation(line: 13, column: 28, scope: !10, inlinedAt: !11)
-!10 = distinct !DISubprogram(name: "f2", linkageName: "_ZL2f2v", scope: !1, file: !1, line: 13, type: !5, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!10 = !DISubprogram(name: "f2", linkageName: "_ZL2f2v", scope: !1, file: !1, line: 13, type: !5, scopeLine: 13, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !11 = distinct !DILocation(line: 15, column: 54, scope: !12)
-!12 = distinct !DISubprogram(name: "f1", linkageName: "_ZL2f1v", scope: !1, file: !1, line: 15, type: !13, scopeLine: 15, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!12 = !DISubprogram(name: "f1", linkageName: "_ZL2f1v", scope: !1, file: !1, line: 15, type: !13, scopeLine: 15, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !13 = !DISubroutineType(cc: DW_CC_nocall, types: !6)

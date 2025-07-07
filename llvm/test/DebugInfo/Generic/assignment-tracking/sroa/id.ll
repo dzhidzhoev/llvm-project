@@ -123,7 +123,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !13 = !{i32 2, !"Debug Info Version", i32 3}
 !14 = !{i32 1, !"wchar_size", i32 4}
 !15 = !{!"clang version 12.0.0"}
-!16 = distinct !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !3, file: !3, line: 7, type: !17, scopeLine: 7, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
+!16 = !DISubprogram(name: "f", linkageName: "_Z1fv", scope: !3, file: !3, line: 7, type: !17, scopeLine: 7, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !19)
 !17 = !DISubroutineType(types: !18)
 !18 = !{null}
 !19 = !{!20}
@@ -143,7 +143,7 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !39 = !DILocation(line: 0, scope: !25)
 !40 = !DILocation(line: 13, column: 5, scope: !16)
 !41 = !DILocalVariable(name: "this", arg: 1, scope: !42, type: !53, flags: DIFlagArtificial | DIFlagObjectPointer)
-!42 = distinct !DISubprogram(name: "a", linkageName: "_ZN1aC2EiRf", scope: !43, file: !3, line: 3, type: !46, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, declaration: !45, retainedNodes: !50)
+!42 = !DISubprogram(name: "a", linkageName: "_ZN1aC2EiRf", scope: !43, file: !3, line: 3, type: !46, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, declaration: !45, retainedNodes: !50)
 !43 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "a", file: !3, line: 1, size: 8, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !44, identifier: "_ZTS1a")
 !44 = !{!45}
 !45 = !DISubprogram(name: "a", scope: !43, file: !3, line: 3, type: !46, scopeLine: 3, flags: DIFlagPublic | DIFlagPrototyped, spFlags: DISPFlagOptimized)

@@ -73,7 +73,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{i32 7, !"uwtable", i32 1}
 !7 = !{!"clang"}
-!8 = distinct !DISubprogram(name: "a", linkageName: "_Z1av", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
+!8 = !DISubprogram(name: "a", linkageName: "_Z1av", scope: !9, file: !9, line: 1, type: !10, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !12)
 !9 = !DIFile(filename: "test.cpp", directory: "")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null}

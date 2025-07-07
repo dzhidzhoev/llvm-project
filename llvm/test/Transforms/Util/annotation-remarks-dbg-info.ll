@@ -62,7 +62,7 @@ entry:
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{!"_remarks1", !"_remarks2"}
 !6 = !{!"_remarks1"}
-!7 = distinct !DISubprogram(name: "test1", scope: !1, file: !1, line: 11, type: !8, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!7 = !DISubprogram(name: "test1", scope: !1, file: !1, line: 11, type: !8, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !8 = !DISubroutineType(types: !9)
 !9 = !{null, !10, !10, !13}
 !10 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !11)
@@ -72,5 +72,5 @@ entry:
 !14 = !{!15}
 !15 = !DILocalVariable(name: "a", arg: 1, scope: !7, file: !1, line: 1, type: !10)
 !16 = !DILocation(line: 400, column: 3, scope: !7)
-!17 = distinct !DISubprogram(name: "test2", scope: !1, file: !1, line: 21, type: !8, scopeLine: 20, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
+!17 = !DISubprogram(name: "test2", scope: !1, file: !1, line: 21, type: !8, scopeLine: 20, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !14)
 !18 = !DILocation(line: 200, column: 3, scope: !17)

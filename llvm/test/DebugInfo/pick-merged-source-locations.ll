@@ -61,7 +61,7 @@ declare !dbg !21 i32 @bar(i32)
 !6 = !{i32 7, !"PIE Level", i32 2}
 !7 = !{i32 7, !"uwtable", i32 2}
 !8 = !{!"clang version 21.0.0git (git@github.com:snehasish/llvm-project.git 6ce41db6b0275d060d6e60f88b96a1657024345c)"}
-!9 = distinct !DISubprogram(name: "test", scope: !1, file: !1, line: 5, type: !10, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!9 = !DISubprogram(name: "test", scope: !1, file: !1, line: 5, type: !10, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !10 = !DISubroutineType(types: !11)
 !11 = !{}
 !12 = !DILocation(line: 7, column: 13, scope: !9)

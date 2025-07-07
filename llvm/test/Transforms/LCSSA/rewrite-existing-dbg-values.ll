@@ -124,14 +124,14 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 2, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{!"clang version 8.0.0"}
-!6 = distinct !DISubprogram(name: "foo", scope: !1, file: !1, line: 10, type: !7, scopeLine: 10, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+!6 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 10, type: !7, scopeLine: 10, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
 !7 = !DISubroutineType(types: !2)
 !8 = !{!9}
 !9 = !DILocalVariable(name: "sum", scope: !10, file: !1, line: 11, type: !11)
 !10 = !DILexicalBlockFile(scope: !6, file: !1, discriminator: 0)
 !11 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !12 = !DILocation(line: 0, scope: !10)
-!13 = distinct !DISubprogram(name: "multi_exit", scope: !1, file: !1, line: 10, type: !7, scopeLine: 10, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+!13 = !DISubprogram(name: "multi_exit", scope: !1, file: !1, line: 10, type: !7, scopeLine: 10, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
 !14 = !DILocation(line: 0, scope: !15)
 !15 = !DILexicalBlockFile(scope: !13, file: !1, discriminator: 0)
 !16 = !DILocalVariable(name: "sum2", scope: !15, file: !1, line: 11, type: !11)

@@ -35,7 +35,7 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #1
 !11 = !{i32 1, !"wchar_size", i32 4}
 !12 = !{i32 7, !"frame-pointer", i32 2}
 !13 = !{!"clang version 14.0.0"}
-!14 = distinct !DISubprogram(name: "fun", scope: !3, file: !3, line: 3, type: !15, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !17)
+!14 = !DISubprogram(name: "fun", scope: !3, file: !3, line: 3, type: !15, scopeLine: 3, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !17)
 !15 = !DISubroutineType(types: !16)
 !16 = !{null}
 !17 = !{}

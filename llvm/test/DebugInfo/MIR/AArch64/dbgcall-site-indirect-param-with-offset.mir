@@ -50,7 +50,7 @@
   !10 = !{i32 1, !"wchar_size", i32 4}
   !11 = !{i32 7, !"PIC Level", i32 2}
   !12 = !{!"clang"}
-  !13 = distinct !DISubprogram(name: "bar", scope: !1, file: !1, line: 5, type: !14, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !22)
+  !13 = !DISubprogram(name: "bar", scope: !1, file: !1, line: 5, type: !14, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !22)
   !14 = !DISubroutineType(types: !15)
   !15 = !{!7, !16}
   !16 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "fat_ptr", file: !1, line: 1, size: 192, elements: !17)

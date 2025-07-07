@@ -67,7 +67,7 @@ attributes #0 = { nounwind "frame-pointer"="all" }
 !1639 = !{i32 2, !"Debug Info Version", i32 3}
 !1640 = !{i32 1, !"wchar_size", i32 4}
 !1641 = !{i32 7, !"PIC Level", i32 1}
-!1644 = distinct !DISubprogram(name: "bar", linkageName: "_ZL3barv", scope: !1, file: !1, line: 29, type: !371, scopeLine: 30, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !1645)
+!1644 = !DISubprogram(name: "bar", linkageName: "_ZL3barv", scope: !1, file: !1, line: 29, type: !371, scopeLine: 30, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !1645)
 !1645 = !{}
 !1646 = !DILocation(line: 31, column: 3, scope: !1644)
 !1647 = !DILocation(line: 32, column: 1, scope: !1644)

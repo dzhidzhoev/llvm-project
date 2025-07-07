@@ -126,7 +126,7 @@ entry:
 !10 = !{i32 1, !"wchar_size", i32 4}
 !11 = !{i32 7, !"PIC Level", i32 2}
 !12 = !{!"clang version 7.0.0 "}
-!13 = distinct !DISubprogram(name: "bat", linkageName: "_Z3batv", scope: !3, file: !3, line: 2, type: !14, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
+!13 = !DISubprogram(name: "bat", linkageName: "_Z3batv", scope: !3, file: !3, line: 2, type: !14, isLocal: false, isDefinition: true, scopeLine: 2, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
 !14 = !DISubroutineType(types: !15)
 !15 = !{null}
 !16 = !DILocation(line: 2, column: 44, scope: !13)
@@ -135,14 +135,14 @@ entry:
 !19 = !{!"omnipotent char", !20, i64 0}
 !20 = !{!"Simple C++ TBAA"}
 !21 = !DILocation(line: 2, column: 48, scope: !13)
-!22 = distinct !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !3, file: !3, line: 3, type: !14, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
+!22 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !3, file: !3, line: 3, type: !14, isLocal: false, isDefinition: true, scopeLine: 3, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
 !23 = !DILocation(line: 3, column: 44, scope: !22)
 !24 = !DILocation(line: 3, column: 48, scope: !22)
-!25 = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 4, type: !14, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
+!25 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !3, file: !3, line: 4, type: !14, isLocal: false, isDefinition: true, scopeLine: 4, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
 !26 = !DILocation(line: 5, column: 3, scope: !25)
 !27 = !DILocation(line: 6, column: 3, scope: !25)
 !28 = !DILocation(line: 7, column: 1, scope: !25)
-!29 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 8, type: !30, isLocal: false, isDefinition: true, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
+!29 = !DISubprogram(name: "main", scope: !3, file: !3, line: 8, type: !30, isLocal: false, isDefinition: true, scopeLine: 8, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, isOptimized: true, unit: !2, retainedNodes: !4)
 !30 = !DISubroutineType(types: !31)
 !31 = !{!7}
 !32 = !DILocation(line: 8, column: 50, scope: !29)

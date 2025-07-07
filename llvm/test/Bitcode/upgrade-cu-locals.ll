@@ -33,7 +33,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 ; CHECK: !5 = !{}
 ; CHECK: !6 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !7, producer: "clang version 14.0.0", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, imports: !5, nameTableKind: GNU)
 
-; CHECK: !14 = distinct !DISubprogram(name: "main", scope: !7, file: !7, line: 2, type: !15, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !18)
+; CHECK: !14 = !DISubprogram(name: "main", scope: !7, file: !7, line: 2, type: !15, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !18)
 ; CHECK: !18 = !{!19}
 ; CHECK: !19 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !20, entity: !23,
 ; CHECK: !20 = !DILexicalBlock(scope: !21, file: !7, line: 7, column: 35)
@@ -41,7 +41,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 ; CHECK: !22 = !DILexicalBlock(scope: !14, file: !7, line: 7, column: 35)
 ; CHECK: !23 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "t5", scope: !20,
 
-; CHECK: !25 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 3, type: !26, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !28)
+; CHECK: !25 = !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 3, type: !26, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !28)
 ; CHECK: !28 = !{!29, !32, !34}
 ; CHECK: !29 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !25, entity: !30,
 ; CHECK: !30 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "t1",
@@ -50,7 +50,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 ; CHECK: !34 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !25, entity: !35,
 ; CHECK: !35 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "t3",
 
-; CHECK: !40 = distinct !DISubprogram(name: "main2", scope: !7, file: !7, line: 10, type: !15, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !41)
+; CHECK: !40 = !DISubprogram(name: "main2", scope: !7, file: !7, line: 10, type: !15, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !6, retainedNodes: !41)
 ; CHECK: !41 = !{!42, !44}
 ; CHECK: !42 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !40, entity: !43,
 ; CHECK: !43 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "t6"
@@ -64,7 +64,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 
 ; Move t1 to DISubprogram f1
 !3 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !4, entity: !8, file: !1, line: 3)
-!4 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 3, type: !5, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !7)
+!4 = !DISubprogram(name: "f1", linkageName: "_Z2f1v", scope: !1, file: !1, line: 3, type: !5, scopeLine: 3, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !7)
 !5 = !DISubroutineType(types: !6)
 !6 = !{null}
 !7 = !{}
@@ -91,7 +91,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 !20 = !DILexicalBlock(scope: !21, file: !17, line: 7, column: 35)
 !21 = !DILexicalBlock(scope: !22, file: !17, line: 7, column: 35)
 !22 = !DILexicalBlock(scope: !23, file: !17, line: 7, column: 35)
-!23 = distinct !DISubprogram(name: "main", scope: !17, file: !17, line: 2, type: !24, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !16, retainedNodes: !7)
+!23 = !DISubprogram(name: "main", scope: !17, file: !17, line: 2, type: !24, scopeLine: 2, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !16, retainedNodes: !7)
 !24 = !DISubroutineType(types: !25)
 !25 = !{!26}
 !26 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -99,7 +99,7 @@ attributes #0 = { nocallback nofree nosync nounwind speculatable willreturn memo
 
 ; Move t6 to DISubprogram main2
 !28 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !29, entity: !30, file: !17, line: 3)
-!29 = distinct !DISubprogram(name: "main2", scope: !17, file: !17, line: 10, type: !24, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !16, retainedNodes: !7)
+!29 = !DISubprogram(name: "main2", scope: !17, file: !17, line: 10, type: !24, scopeLine: 10, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !16, retainedNodes: !7)
 !30 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "t6", scope: !29, file: !17, line: 1, size: 8, flags: DIFlagTypePassByValue, elements: !7, identifier: "_ZTSN2ns2t6E")
 
 ; Move t7 to DISubprogram main2

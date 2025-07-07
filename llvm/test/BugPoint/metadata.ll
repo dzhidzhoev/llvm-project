@@ -40,7 +40,7 @@ declare void @foo()
 !4 = !{!"filler"}
 
 !8 = distinct !DICompileUnit(language: DW_LANG_C99, file: !15)
-!9 = distinct !DISubprogram(name: "test", file: !15, type: !18, unit: !8)
+!9 = !DISubprogram(name: "test", file: !15, type: !18, unit: !8)
 !10 = !DILocation(line: 100, column: 101, scope: !9)
 !11 = !DILocation(line: 102, column: 103, scope: !9)
 !12 = !DILocation(line: 104, column: 105, scope: !9)

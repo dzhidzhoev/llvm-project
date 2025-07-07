@@ -127,7 +127,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 2, !"Debug Info Version", i32 3}
 !5 = !{i32 1, !"wchar_size", i32 4}
 !6 = !{!"clang version 10.0.0 (trunk 374581) (llvm/trunk 374579)"}
-!7 = distinct !DISubprogram(name: "f1", linkageName: "_Z2f1ii", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
+!7 = !DISubprogram(name: "f1", linkageName: "_Z2f1ii", scope: !1, file: !1, line: 1, type: !8, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !11)
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10, !10, !10}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
@@ -141,7 +141,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !18 = !DILocation(line: 0, scope: !7)
 !19 = !DILocation(line: 4, column: 13, scope: !7)
 !20 = !DILocation(line: 8, column: 3, scope: !7)
-!21 = distinct !DISubprogram(name: "f2", linkageName: "_Z2f2v", scope: !1, file: !1, line: 10, type: !22, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
+!21 = !DISubprogram(name: "f2", linkageName: "_Z2f2v", scope: !1, file: !1, line: 10, type: !22, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !2)
 !22 = !DISubroutineType(types: !23)
 !23 = !{null}
 !24 = !DILocation(line: 11, column: 1, scope: !21)

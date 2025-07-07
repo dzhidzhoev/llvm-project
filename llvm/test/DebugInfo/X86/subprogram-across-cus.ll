@@ -79,12 +79,12 @@ entry:
 !13 = !{i32 1, !"wchar_size", i32 4}
 !14 = !{i32 1, !"ThinLTO", i32 0}
 !15 = !{i32 1, !"EnableSplitLTOUnit", i32 1}
-!17 = distinct !DISubprogram(name: "main", scope: !8, file: !8, line: 10, type: !18, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !9, retainedNodes: !2)
+!17 = !DISubprogram(name: "main", scope: !8, file: !8, line: 10, type: !18, scopeLine: 10, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !9, retainedNodes: !2)
 !18 = !DISubroutineType(types: !19)
 !19 = !{!20}
 !20 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !21 = !DILocation(line: 6, column: 5, scope: !22, inlinedAt: !27)
-!22 = distinct !DISubprogram(name: "ccc<local>", linkageName: "_ZN3HHH3cccIZ4mainE5localEEiv", scope: !7, file: !8, line: 5, type: !18, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !9, templateParams: !24, declaration: !23, retainedNodes: !2)
+!22 = !DISubprogram(name: "ccc<local>", linkageName: "_ZN3HHH3cccIZ4mainE5localEEiv", scope: !7, file: !8, line: 5, type: !18, scopeLine: 5, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !9, templateParams: !24, declaration: !23, retainedNodes: !2)
 !23 = !DISubprogram(name: "ccc<local>", linkageName: "_ZN3HHH3cccIZ4mainE5localEEiv", scope: !7, file: !8, line: 5, type: !18, scopeLine: 5, flags: DIFlagPrototyped | DIFlagStaticMember, spFlags: DISPFlagOptimized, templateParams: !24)
 !24 = !{!25}
 !25 = !DITemplateTypeParameter(name: "bbb", type: !26)

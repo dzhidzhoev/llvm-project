@@ -22,7 +22,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !9 = !{i32 8, !"PIC Level", i32 2}
 !16 = distinct !DICompileUnit(language: DW_LANG_Swift, file: !17, producer: "blah", isOptimized: false, runtimeVersion: 5, emissionKind: FullDebug, sysroot: "blah", sdk: "blah")
 !17 = !DIFile(filename: "blah", directory: "blah")
-!38 = distinct !DISubprogram(name: "blah", linkageName: "$blah", scope: !17, file: !17, line: 34, type: !39, scopeLine: 34, spFlags: DISPFlagDefinition, unit: !16, retainedNodes: !43)
+!38 = !DISubprogram(name: "blah", linkageName: "$blah", scope: !17, file: !17, line: 34, type: !39, scopeLine: 34, spFlags: DISPFlagDefinition, unit: !16, retainedNodes: !43)
 !39 = !DISubroutineType(types: !40)
 !40 = !{!41, !41}
 !41 = !DICompositeType(tag: DW_TAG_structure_type, name: "blah")

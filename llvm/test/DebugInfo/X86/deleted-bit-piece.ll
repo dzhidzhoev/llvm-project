@@ -37,7 +37,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !8 = !DIDerivedType(tag: DW_TAG_member, name: "a", scope: !6, baseType: !9, size: 32, align: 32)
 !9 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)
 !10 = !DIDerivedType(tag: DW_TAG_member, name: "b", scope: !6, baseType: !9, size: 32, align: 32)
-!12 = distinct !DISubprogram(name: "foo", scope: null, file: !3, type: !13, isLocal: false, isDefinition: true, isOptimized: false, unit: !2)
+!12 = !DISubprogram(name: "foo", scope: null, file: !3, type: !13, isLocal: false, isDefinition: true, isOptimized: false, unit: !2)
 !13 = !DISubroutineType(types: !14)
 !14 = !{null}
 !15 = !DILocalVariable(name: "v", scope: !12, type: !6)

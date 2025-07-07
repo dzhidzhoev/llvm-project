@@ -247,7 +247,7 @@ attributes #2 = { "frame-pointer"="none" "no-trapping-math"="true" "stack-protec
 !5 = !{i32 7, !"PIC Level", i32 2}
 !6 = !{i32 7, !"uwtable", i32 2}
 !7 = !{!"clang version 15.0.1"}
-!8 = distinct !DISubprogram(name: "func", scope: !9, file: !9, line: 6, type: !10, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
+!8 = !DISubprogram(name: "func", scope: !9, file: !9, line: 6, type: !10, scopeLine: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !13)
 !9 = !DIFile(filename: ".\\jump-table.cpp", directory: "C:\\llvm", checksumkind: CSK_MD5, checksum: "35610c7104c8080f83e2bf6a02dabfc9")
 !10 = !DISubroutineType(types: !11)
 !11 = !{null, !12}

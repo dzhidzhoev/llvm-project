@@ -53,7 +53,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !3 = !{i32 8}
 !4 = !{i32 5}
 !5 = !{i32 2, !"Debug Info Version", i32 3}
-!6 = distinct !DISubprogram(name: "foobar", linkageName: "foobar", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+!6 = !DISubprogram(name: "foobar", linkageName: "foobar", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
 !7 = !DISubroutineType(types: !2)
 !8 = !{!9, !11, !13, !14, !15}
 !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)

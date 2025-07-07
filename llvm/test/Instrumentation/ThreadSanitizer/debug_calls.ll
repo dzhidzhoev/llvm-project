@@ -37,7 +37,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !4 = !{i32 1, !"wchar_size", i32 4}
 !5 = !{i32 7, !"uwtable", i32 1}
 !6 = !{!"clang"}
-!7 = distinct !DISubprogram(name: "Increment", scope: !8, file: !8, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
+!7 = !DISubprogram(name: "Increment", scope: !8, file: !8, line: 1, type: !9, scopeLine: 1, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !13)
 !8 = !DIFile(filename: "test.c", directory: "")
 !9 = !DISubroutineType(types: !10)
 !10 = !{null, !11}
@@ -55,7 +55,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !22 = !DILocation(line: 3, column: 10, scope: !7)
 !23 = !DILocation(line: 3, column: 6, scope: !7)
 !24 = !DILocation(line: 4, column: 1, scope: !7)
-!25 = distinct !DISubprogram(name: "NoAccesses", scope: !8, file: !8, line: 6, type: !26, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !28)
+!25 = !DISubprogram(name: "NoAccesses", scope: !8, file: !8, line: 6, type: !26, scopeLine: 6, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !28)
 !26 = !DISubroutineType(types: !27)
 !27 = !{!12, !12}
 !28 = !{!29}

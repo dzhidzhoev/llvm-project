@@ -47,7 +47,7 @@ for.body:                                         ; preds = %for.body, %entry
 ; _Z5funcAi:6309742469962978389
 ; _Z3fibi:-2016976694713209516
 
-; CHECK: distinct !DISubprogram(name: "main"
+; CHECK: !DISubprogram(name: "main"
 ; CHECK: !{!"function_entry_count", i64 1, i64 446061515086924981, i64 3815895320998406042, i64 7102633082150537521, i64 -2862076748587597320}
 
 ; CHECK-ORDERED: FuncOffsetTableSection {{.*}} {ordered}
@@ -80,7 +80,7 @@ attributes #0 = { nofree noinline norecurse nounwind uwtable "correctly-rounded-
 !15 = !{i32 2, !"Debug Info Version", i32 3}
 !16 = !{i32 1, !"wchar_size", i32 4}
 !17 = !{!"clang version 11.0.0"}
-!18 = distinct !DISubprogram(name: "main", scope: !3, file: !3, line: 11, type: !19, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
+!18 = !DISubprogram(name: "main", scope: !3, file: !3, line: 11, type: !19, scopeLine: 11, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !21)
 !19 = !DISubroutineType(types: !20)
 !20 = !{!9}
 !21 = !{!22, !23}

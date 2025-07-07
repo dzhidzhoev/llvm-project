@@ -22,7 +22,7 @@ declare void @llvm.dbg.value(metadata, metadata, metadata)
 !1 = !DIFile(filename: "test.c", directory: "")
 !2 = !{i32 7, !"Dwarf Version", i32 4}
 !3 = !{i32 2, !"Debug Info Version", i32 3}
-!4 = distinct !DISubprogram(name: "test", scope: !1, file: !1, line: 1, type: !5, unit: !0)
+!4 = !DISubprogram(name: "test", scope: !1, file: !1, line: 1, type: !5, unit: !0)
 !5 = !DISubroutineType(types: !6)
 !6 = !{null}
 !7 = !DILocalVariable(name: "arr", scope: !4, file: !1, line: 1, type: !8)
