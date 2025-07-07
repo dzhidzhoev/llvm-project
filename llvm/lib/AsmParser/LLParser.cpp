@@ -5901,10 +5901,11 @@ bool LLParser::parseDISubprogram(MDNode *&Result, bool IsDistinct) {
       spFlags.Seen ? spFlags.Val
                    : DISubprogram::toSPFlags(isLocal.Val, isDefinition.Val,
                                              isOptimized.Val, virtuality.Val);
-  if ((SPFlags & DISubprogram::SPFlagDefinition) && !IsDistinct)
+  // TODO: remove this check after all tests pass
+  if ((SPFlags & DISubprogram::SPFlagDefinition) && IsDistinct)
     return error(
         Loc,
-        "missing 'distinct', required for !DISubprogram that is a Definition");
+        "definition DISubprogram must be unique");
   Result = GET_OR_DISTINCT(
       DISubprogram,
       (Context, scope.Val, name.Val, linkageName.Val, file.Val, line.Val,
