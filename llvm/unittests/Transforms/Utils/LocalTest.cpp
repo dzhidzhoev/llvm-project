@@ -137,7 +137,7 @@ TEST(Local, ReplaceDbgDeclare) {
       !2 = !{}
       !3 = !{i32 2, !"Dwarf Version", i32 4}
       !4 = !{i32 2, !"Debug Info Version", i32 3}
-      !8 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0, retainedNodes: !2)
+      !8 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0, retainedNodes: !2)
       !9 = !DISubroutineType(types: !10)
       !10 = !{null}
       !11 = !DILocalVariable(name: "x", scope: !8, file: !1, line: 2, type: !12)
@@ -509,7 +509,7 @@ struct SalvageDebugInfoTest : ::testing::Test {
       !2 = !{}
       !3 = !{i32 2, !"Dwarf Version", i32 4}
       !4 = !{i32 2, !"Debug Info Version", i32 3}
-      !8 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0, retainedNodes: !2)
+      !8 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0, retainedNodes: !2)
       !9 = !DISubroutineType(types: !10)
       !10 = !{null}
       !11 = !DILocalVariable(name: "x", scope: !8, file: !1, line: 2, type: !12)
@@ -605,7 +605,7 @@ TEST(Local, ChangeToUnreachable) {
     !3 = !{i32 1}
     !4 = !{i32 0}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, isLocal: true, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !2)
+    !6 = !DISubprogram(name: "foo", linkageName: "foo", scope: null, file: !1, line: 1, type: !7, isLocal: true, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !2)
     !7 = !DISubroutineType(types: !2)
     !8 = !DILocation(line: 1, column: 1, scope: !6)
   )");
@@ -655,7 +655,7 @@ TEST(Local, FindDbgRecords) {
   !4 = !{i32 1, !"wchar_size", i32 4}
   !9 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
   !10 = !{!"clang version 17.0.0"}
-  !11 = distinct !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 1, type: !12, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !14)
+  !11 = !DISubprogram(name: "fun", linkageName: "fun", scope: !1, file: !1, line: 1, type: !12, scopeLine: 1, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !14)
   !12 = !DISubroutineType(types: !13)
   !13 = !{null}
   !14 = !{}
@@ -738,7 +738,7 @@ TEST(Local, ReplaceAllDbgUsesWith) {
     !1 = !DIFile(filename: "/Users/vsk/Desktop/foo.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: true, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9, !11, !13, !14}
     !9 = !DILocalVariable(name: "1", scope: !6, file: !1, line: 1, type: !10)
@@ -1258,7 +1258,7 @@ TEST(Local, ReplaceDbgVariableRecord) {
       !2 = !{}
       !3 = !{i32 2, !"Dwarf Version", i32 4}
       !4 = !{i32 2, !"Debug Info Version", i32 3}
-      !8 = distinct !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0, retainedNodes: !2)
+      !8 = !DISubprogram(name: "f", scope: !1, file: !1, line: 1, type: !9, isLocal: false, isDefinition: true, scopeLine: 1, isOptimized: false, unit: !0, retainedNodes: !2)
       !9 = !DISubroutineType(types: !10)
       !10 = !{null}
       !11 = !DILocalVariable(name: "x", scope: !8, file: !1, line: 2, type: !12)
