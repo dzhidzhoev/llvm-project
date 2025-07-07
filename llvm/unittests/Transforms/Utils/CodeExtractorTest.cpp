@@ -763,7 +763,7 @@ TEST(CodeExtractor, ArgsDebugInfo) {
   !llvm.module.flags = !{!0}
   !0 = !{i32 2, !"Debug Info Version", i32 3}
   !1 = !DILocation(line: 11, column: 7, scope: !2)
-  !2 = distinct !DISubprogram(name: "foo", scope: !3, file: !3, type: !4, spFlags: DISPFlagDefinition, unit: !6)
+  !2 = !DISubprogram(name: "foo", scope: !3, file: !3, type: !4, spFlags: DISPFlagDefinition, unit: !6)
   !3 = !DIFile(filename: "test.f90", directory: "")
   !4 = !DISubroutineType(cc: DW_CC_program, types: !5)
   !5 = !{null}
