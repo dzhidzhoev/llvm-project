@@ -155,7 +155,9 @@ LLVM_ABI Function *CloneFunction(Function *F, ValueToValueMapTy &VMap,
 enum class CloneFunctionChangeType {
   LocalChangesOnly,
   GlobalChanges,
+  // TODO: check if it properly clones distinct DISubprograms (with possibly different LLVM Context
   DifferentModule,
+  // TODO: check if it properly clones distinct DISubprograms (with possibly different LLVM Context
   ClonedModule,
 };
 
