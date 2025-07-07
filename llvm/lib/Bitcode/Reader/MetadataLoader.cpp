@@ -1925,8 +1925,9 @@ Error MetadataLoader::MetadataLoaderImpl::parseOneMetadata(
           /*IsOptimized=*/Record[14], /*Virtuality=*/Record[11],
           /*IsMainSubprogram=*/HasOldMainSubprogramFlag);
 
-    // All definitions should be distinct.
-    IsDistinct = (Record[0] & 1) || (SPFlags & DISubprogram::SPFlagDefinition);
+    // Force-unique all subprograms.
+    IsDistinct = false;
+
     // Version 1 has a Function as Record[15].
     // Version 2 has removed Record[15].
     // Version 3 has the Unit as Record[15].
