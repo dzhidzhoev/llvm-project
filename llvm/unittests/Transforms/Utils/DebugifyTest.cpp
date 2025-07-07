@@ -106,7 +106,7 @@ TEST(DebugInfoDrop, DropOriginalDebugInfo) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "b", scope: !6, file: !1, line: 1, type: !10)
@@ -157,7 +157,7 @@ TEST(DebugValueDrop, DropOriginalDebugValues) {
     !1 = !DIFile(filename: "t.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "b", scope: !6, file: !1, line: 1, type: !10)
@@ -210,7 +210,7 @@ TEST(DebugInfoDummyAnalysis, PreserveOriginalDebugInfo) {
     !1 = !DIFile(filename: "test.ll", directory: "/")
     !2 = !{}
     !5 = !{i32 2, !"Debug Info Version", i32 3}
-    !6 = distinct !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
+    !6 = !DISubprogram(name: "f", linkageName: "f", scope: null, file: !1, line: 1, type: !7, scopeLine: 1, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !8)
     !7 = !DISubroutineType(types: !2)
     !8 = !{!9}
     !9 = !DILocalVariable(name: "c", scope: !6, file: !1, line: 1, type: !10)
