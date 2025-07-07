@@ -1016,7 +1016,7 @@ TEST_F(IRBuilderTest, createArtificialSubprogram) {
       CU, "foo", /*LinkageName=*/"", File,
       /*LineNo=*/1, Type, /*ScopeLine=*/2, DINode::FlagZero,
       DISubprogram::SPFlagDefinition | DISubprogram::SPFlagOptimized);
-  EXPECT_TRUE(SP->isDistinct());
+  EXPECT_TRUE(SP->isUniqued());
 
   F->setSubprogram(SP);
   AllocaInst *I = Builder.CreateAlloca(Builder.getInt8Ty());
@@ -1040,7 +1040,7 @@ TEST_F(IRBuilderTest, createArtificialSubprogram) {
   EXPECT_EQ(SP->getType(), GSP->getType());
   EXPECT_EQ(SP->getLine(), GSP->getLine());
   EXPECT_EQ(SP->getScopeLine(), GSP->getScopeLine());
-  EXPECT_TRUE(GSP->isDistinct());
+  EXPECT_TRUE(GSP->isUniqued());
 
   G->setSubprogram(GSP);
   EXPECT_TRUE(verifyModule(*M));
