@@ -568,12 +568,14 @@ TEST_F(CloneFunc, NewFunctionCreated) {
   EXPECT_NE(OldFunc, NewFunc);
 }
 
-// Test that a new subprogram entry was added and is pointing to the new
-// function, while the original subprogram still points to the old one.
+// Test that the cloned function points to the same DISubprogram as the
+// original function.
 TEST_F(CloneFunc, Subprogram) {
   EXPECT_FALSE(verifyModule(*M, &errs()));
-  EXPECT_EQ(3U, Finder->subprogram_count());
-  EXPECT_NE(NewFunc->getSubprogram(), OldFunc->getSubprogram());
+  EXPECT_EQ(2U, Finder->subprogram_count());
+  auto *SP = OldFunc->getSubprogram();
+  EXPECT_EQ(NewFunc->getSubprogram(), SP);
+  EXPECT_TRUE(SP->isUniqued());
 }
 
 // Test that instructions in the old function still belong to it in the
@@ -779,9 +781,9 @@ TEST(CloneFunction, CloneFunctionWithSubprograms) {
     !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1)
     !1 = !DIFile(filename: "test.cpp",  directory: "")
     !2 = !{i32 1, !"Debug Info Version", i32 3}
-    !3 = distinct !DISubprogram(name: "my_operator", scope: !1, unit: !0, retainedNodes: !{!4})
+    !3 = !DISubprogram(name: "my_operator", scope: !1, unit: !0, retainedNodes: !{!4})
     !4 = !DILocalVariable(name: "awaitables", scope: !3)
-    !5 = distinct !DISubprogram(name: "test", scope: !3, unit: !0)
+    !5 = !DISubprogram(name: "test", scope: !3, unit: !0)
     !6 = !DILocation(line: 55, column: 15, scope: !3, inlinedAt: !7)
     !7 = distinct !DILocation(line: 73, column: 14, scope: !5)
   )";
@@ -823,8 +825,8 @@ TEST(CloneFunction, CloneFunctionWithInlinedSubprograms) {
     !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1)
     !1 = !DIFile(filename: "test.cpp",  directory: "")
     !2 = !{i32 1, !"Debug Info Version", i32 3}
-    !3 = distinct !DISubprogram(name: "test", scope: !0, unit: !0)
-    !4 = distinct !DISubprogram(name: "inlined", scope: !0, unit: !0, retainedNodes: !{!5})
+    !3 = !DISubprogram(name: "test", scope: !0, unit: !0)
+    !4 = !DISubprogram(name: "inlined", scope: !0, unit: !0, retainedNodes: !{!5})
     !5 = !DILocalVariable(name: "awaitables", scope: !4)
     !6 = distinct !DILexicalBlock(scope: !4, file: !1, line: 1)
     !7 = !DILocation(line: 1, scope: !6, inlinedAt: !8)
@@ -855,7 +857,7 @@ TEST(CloneFunction, CloneFunctionWithInlinedSubprograms) {
       ClonedFunc->begin()->begin()->getDbgRecordRange().begin();
   const DebugLoc &DbgLoc = DbgDeclareI->getDebugLoc();
   const DebugLoc &ClonedDbgLoc = ClonedDbgDeclareI->getDebugLoc();
-  EXPECT_NE(DbgLoc.get(), ClonedDbgLoc.get());
+  EXPECT_EQ(DbgLoc.get(), ClonedDbgLoc.get());
   EXPECT_EQ(cast<DILexicalBlock>(DbgLoc.getScope()),
             cast<DILexicalBlock>(ClonedDbgLoc.getScope()));
 }
@@ -869,10 +871,10 @@ TEST(CloneFunction, CloneFunctionToDifferentModule) {
     !llvm.module.flags = !{!0}
     !llvm.dbg.cu = !{!2, !6}
     !0 = !{i32 1, !"Debug Info Version", i32 3}
-    !1 = distinct !DISubprogram(unit: !2)
+    !1 = !DISubprogram(unit: !2)
     !2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3)
     !3 = !DIFile(filename: "foo.c", directory: "/tmp")
-    !4 = distinct !DISubprogram(unit: !2)
+    !4 = !DISubprogram(unit: !2)
     !5 = !DILocation(line: 4, scope: !1)
     !6 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3)
   )";
@@ -909,6 +911,8 @@ TEST(CloneFunction, CloneFunctionToDifferentModule) {
   // DICompileUnit !2 shall be cloned into DeclModule.
   EXPECT_TRUE(GetDICompileUnitCount(*DeclModule) == 1);
   EXPECT_FALSE(haveCompileUnitsInCommon(*ImplModule, *DeclModule));
+  // DISubprogram should point to the cloned unit
+  EXPECT_EQ(DeclFunction->begin()->begin()->getDebugLoc()->getScope()->getSubprogram()->getUnit(), DeclModule->getNamedMetadata("llvm.dbg.cu")->getOperand(0));
 }
 
 class CloneModule : public ::testing::Test {
@@ -1160,7 +1164,7 @@ declare i64 @foo(i32 noundef) local_unnamed_addr
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1, producer: "clang version 19.0.0git", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
 !1 = !DIFile(filename: "<stdin>", directory: "foo")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
-!3 = distinct !DISubprogram(name: "noop", scope: !4, file: !4, line: 17, type: !5, scopeLine: 17, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
+!3 = !DISubprogram(name: "noop", scope: !4, file: !4, line: 17, type: !5, scopeLine: 17, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !9)
 !4 = !DIFile(filename: "file", directory: "foo")
 !5 = !DISubroutineType(types: !6)
 !6 = !{null, !7}
@@ -1192,8 +1196,8 @@ TEST_F(CloneInstruction, cloneKeyInstructions) {
     !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1)
     !1 = !DIFile(filename: "test.cpp",  directory: "")
     !2 = !{i32 1, !"Debug Info Version", i32 3}
-    !3 = distinct !DISubprogram(name: "test", scope: !0, unit: !0, keyInstructions: true)
-    !4 = distinct !DISubprogram(name: "inlined", scope: !0, unit: !0, retainedNodes: !{!5}, keyInstructions: true)
+    !3 = !DISubprogram(name: "test", scope: !0, unit: !0, keyInstructions: true)
+    !4 = !DISubprogram(name: "inlined", scope: !0, unit: !0, retainedNodes: !{!5}, keyInstructions: true)
     !5 = !DILocalVariable(name: "awaitables", scope: !4)
     !6 = !DILocation(line: 1, scope: !4, inlinedAt: !8, atomGroup: 1, atomRank: 1)
     !7 = !DILocation(line: 2, scope: !3, atomGroup: 1, atomRank: 1)
