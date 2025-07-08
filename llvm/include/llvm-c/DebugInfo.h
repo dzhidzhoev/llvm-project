@@ -1452,14 +1452,14 @@ LLVM_C_ABI void LLVMSetSubprogram(LLVMValueRef Func, LLVMMetadataRef SP);
 LLVM_C_ABI unsigned LLVMDISubprogramGetLine(LLVMMetadataRef Subprogram);
 
 /**
- * Replace the subprogram subroutine type.
+ * Clone the subprogram with a new type.
+ * \param Builder           The DIBuilder (could be NULL). If not NULL, the cloned subprogram will be retained and finalized by the builder in LLVMDIBuilderFinalize().
  * \param Subprogram        The subprogram object.
  * \param SubroutineType    The new subroutine type.
  *
  * @see DISubprogram::replaceType()
  */
-LLVM_C_ABI void LLVMDISubprogramReplaceType(LLVMMetadataRef Subprogram,
-                                            LLVMMetadataRef SubroutineType);
+LLVM_C_ABI LLVMMetadataRef LLVMDISubprogramReplaceType(LLVMDIBuilderRef Builder, LLVMMetadataRef Subprogram, LLVMMetadataRef SubroutineType);
 
 /**
  * Get the debug location for the given instruction.

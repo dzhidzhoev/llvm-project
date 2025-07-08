@@ -821,6 +821,11 @@ namespace llvm {
         StringRef UniqueIdentifier = "", DINodeArray Annotations = nullptr,
         std::optional<uint32_t> EnumKind = std::nullopt);
 
+    /// Schedule finalization of the subprogram in finalize().
+    void trackSubprogram(DISubprogram *SP) {
+      AllSubprograms.push_back(SP);
+    }
+
     /// Retain DIScope* in a module even if it is not referenced
     /// through debug info anchors.
     LLVM_ABI void retainType(DIScope *T);

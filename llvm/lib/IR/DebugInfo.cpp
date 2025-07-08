@@ -1775,10 +1775,13 @@ unsigned LLVMDISubprogramGetLine(LLVMMetadataRef Subprogram) {
   return unwrapDI<DISubprogram>(Subprogram)->getLine();
 }
 
-void LLVMDISubprogramReplaceType(LLVMMetadataRef Subprogram,
-                                 LLVMMetadataRef SubroutineType) {
-  unwrapDI<DISubprogram>(Subprogram)
-      ->replaceType(unwrapDI<DISubroutineType>(SubroutineType));
+LLVMMetadataRef LLVMDISubprogramReplaceType(LLVMDIBuilderRef Builder, LLVMMetadataRef Subprogram, LLVMMetadataRef SubroutineType) {
+  auto ClonedSP = unwrapDI<DISubprogram>(Subprogram)->clone();
+  ClonedSP->replaceType(unwrapDI<DISubroutineType>(SubroutineType));
+  DISubprogram *NewSP = MDNode::replaceWithUniqued(std::move(ClonedSP));
+  if (Builder)
+    unwrap(Builder)->trackSubprogram(NewSP);
+  return wrap(NewSP);
 }
 
 LLVMMetadataRef LLVMInstructionGetDebugLoc(LLVMValueRef Inst) {

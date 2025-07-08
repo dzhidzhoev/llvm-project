@@ -28,6 +28,7 @@
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compiler.h"
 #include "llvm/Support/Discriminator.h"
+#include "llvm/Transforms/Utils/ValueMapper.h"
 #include <cassert>
 #include <climits>
 #include <cstddef>
@@ -2430,9 +2431,27 @@ public:
   
   // TODO fix all usages of this
   void replaceType(DISubroutineType *Ty) {
-    assert(isDistinct() && "Only distinct nodes can mutate");
+    assert((isTemporary() || isDistinct()) && "Only temporary or distinct nodes can mutate");
     replaceOperandWith(4, Ty);
   }
+
+  // TODO: write comment
+  static DISubprogram *finalizeClone(DISubprogram *OriginalSP, TempDISubprogram ClonedSP, ValueToValueMapTy &VM, bool IsDistinct = false) {
+    DISubprogram *NewSP = IsDistinct ? MDNode::replaceWithDistinct(std::move(ClonedSP)) : MDNode::replaceWithUniqued(std::move(ClonedSP));
+
+    VM.MD()[OriginalSP].reset(NewSP);
+
+    if (NewSP->getRawRetainedNodes()) {
+      SmallVector<Metadata *, 8> ClonedRetainedNodes(NewSP->getRetainedNodes().begin(), NewSP->getRetainedNodes().end());
+      for (Metadata *&N : ClonedRetainedNodes) {
+        N = MapMetadata(N, VM, RF_IgnoreMissingLocals);
+      }
+      NewSP->replaceRetainedNodes(MDTuple::get(OriginalSP->getContext(), ClonedRetainedNodes));
+    }
+
+    return NewSP;
+  }
+
 
   DICompileUnit *getUnit() const {
     return cast_or_null<DICompileUnit>(getRawUnit());

@@ -77,7 +77,7 @@
 ; CHECK-NEXT: !41 = !DISubrange(count: 10, lowerBound: 0)
 ; CHECK-NEXT: !42 = !DILocalVariable(name: "d", scope: !43, file: !1, line: 43, type: !6)
 ; CHECK-NEXT: !43 = distinct !DILexicalBlock(scope: !44, file: !1, line: 42)
-; CHECK-NEXT: !44 = distinct !DISubprogram(name: "foo", linkageName: "foo", scope: !1, file: !1, line: 42, type: !45, scopeLine: 42, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !48)
+; CHECK-NEXT: !44 = !DISubprogram(name: "foo", linkageName: "foo", scope: !1, file: !1, line: 42, type: !45, scopeLine: 42, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !0, retainedNodes: !48)
 ; CHECK-NEXT: !45 = !DISubroutineType(types: !46)
 ; CHECK-NEXT: !46 = !{!6, !6, !47}
 ; CHECK-NEXT: !47 = !DICompositeType(tag: DW_TAG_array_type, baseType: !6, size: 640, flags: DIFlagVector, elements: !40)

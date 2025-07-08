@@ -132,9 +132,8 @@ int llvm_test_dibuilder(void) {
                                      ReplaceableFunctionMetadata, NULL);
   LLVMMetadataRef FunctionMetadata = LLVMDIBuilderCreateFunction(
       DIB, File, "foo", 3, "foo", 3, File, 42, NULL, true, true, 42, 0, false);
+  FunctionMetadata = LLVMDISubprogramReplaceType(DIB, FunctionMetadata, FunctionTy);
   LLVMMetadataReplaceAllUsesWith(ReplaceableFunctionMetadata, FunctionMetadata);
-
-  LLVMDISubprogramReplaceType(FunctionMetadata, FunctionTy);
 
   LLVMMetadataRef FooParamExpression =
     LLVMDIBuilderCreateExpression(DIB, NULL, 0);

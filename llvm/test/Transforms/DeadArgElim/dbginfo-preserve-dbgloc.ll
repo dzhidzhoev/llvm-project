@@ -36,16 +36,16 @@ declare ptr @foo(...) local_unnamed_addr #1
 define internal zeroext i1 @f1(i1 zeroext %is_y, ptr %str) #4 !dbg !34 {
 entry:
   %frombool = zext i1 %is_y to i8
-; CHECK: #dbg_value(i1 %is_y, !39, !DIExpression(), !42
-  call void @llvm.dbg.value(metadata i1 %is_y, metadata !39, metadata !DIExpression()), !dbg !42
-; CHECK: #dbg_value(ptr %str, !40, !DIExpression(), !43
-  call void @llvm.dbg.value(metadata ptr %str, metadata !40, metadata !DIExpression()), !dbg !43
+; CHECK: #dbg_value(i1 %is_y, !39, !DIExpression(), !48
+  call void @llvm.dbg.value(metadata i1 %is_y, metadata !39, metadata !DIExpression()), !dbg !48
+; CHECK: #dbg_value(ptr %str, !40, !DIExpression(), !49
+  call void @llvm.dbg.value(metadata ptr %str, metadata !40, metadata !DIExpression()), !dbg !49
   call void @llvm.dbg.value(metadata ptr null, metadata !41, metadata !DIExpression()), !dbg !44
   %tobool = icmp ne ptr %str, null, !dbg !45
   br i1 %tobool, label %if.end, label %if.then, !dbg !47
 
 if.then:                                          ; preds = %entry
-  call void (...) @baa(), !dbg !48
+  call void (...) @baa(), !dbg !42
   br label %cleanup, !dbg !50
 
 if.end:                                           ; preds = %entry
@@ -118,15 +118,15 @@ declare void @llvm.dbg.value(metadata, metadata, metadata) #3
 !39 = !DILocalVariable(name: "is_y", arg: 1, scope: !34, file: !1, line: 12, type: !37)
 !40 = !DILocalVariable(name: "str", arg: 2, scope: !34, file: !1, line: 12, type: !15)
 !41 = !DILocalVariable(name: "str2", scope: !34, file: !1, line: 14, type: !15)
-!42 = !DILocation(line: 12, column: 21, scope: !34)
-!43 = !DILocation(line: 12, column: 36, scope: !34)
+!42 = !DILocation(line: 17, column: 3, scope: !43)
+!43 = distinct !DILexicalBlock(scope: !46, file: !1, line: 16, column: 11)
 !44 = !DILocation(line: 14, column: 11, scope: !34)
 !45 = !DILocation(line: 16, column: 7, scope: !46)
 !46 = distinct !DILexicalBlock(scope: !34, file: !1, line: 16, column: 6)
 !47 = !DILocation(line: 16, column: 6, scope: !34)
-!48 = !DILocation(line: 17, column: 3, scope: !49)
-!49 = distinct !DILexicalBlock(scope: !46, file: !1, line: 16, column: 11)
-!50 = !DILocation(line: 18, column: 3, scope: !49)
+!48 = !DILocation(line: 12, column: 21, scope: !34)
+!49 = !DILocation(line: 12, column: 36, scope: !34)
+!50 = !DILocation(line: 18, column: 3, scope: !43)
 !51 = !DILocation(line: 21, column: 9, scope: !34)
 !52 = !DILocation(line: 23, column: 6, scope: !34)
 !53 = !DILocation(line: 24, column: 3, scope: !54)

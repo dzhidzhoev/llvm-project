@@ -47,6 +47,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/IPO.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
+#include "llvm/Transforms/Utils/ValueMapper.h"
 #include <cassert>
 #include <utility>
 #include <vector>
@@ -1091,9 +1092,12 @@ bool DeadArgumentEliminationPass::removeDeadStuffFromFunction(Function *F) {
   // to call this function or try to interpret the return value.
   if (NFTy != FTy && NF->getSubprogram()) {
     DISubprogram *SP = NF->getSubprogram();
-    auto Temp = SP->getType()->cloneWithCC(llvm::dwarf::DW_CC_nocall);
-    // TODO fix this
-    SP->replaceType(MDNode::replaceWithPermanent(std::move(Temp)));
+    auto ClonedSP = SP->clone();
+    ClonedSP->replaceType(MDNode::replaceWithPermanent(SP->getType()->cloneWithCC(llvm::dwarf::DW_CC_nocall)));
+    ValueToValueMapTy VM;
+    DISubprogram::finalizeClone(SP, std::move(ClonedSP), VM);
+
+    RemapFunction(*NF, VM, RF_IgnoreMissingLocals);
   }
 
   // Now that the old function is dead, delete it.
