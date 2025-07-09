@@ -981,7 +981,7 @@ template <> struct MDNodeKeyImpl<DISubprogram> {
            VirtualIndex == RHS->getVirtualIndex() &&
            ThisAdjustment == RHS->getThisAdjustment() &&
            Flags == RHS->getFlags() && SPFlags == RHS->getSPFlags() &&
-           Unit == RHS->getUnit() &&
+           Unit == RHS->getRawUnit() &&
            TemplateParams == RHS->getRawTemplateParams() &&
            Declaration == RHS->getRawDeclaration() &&
            RetainedNodes == RHS->getRawRetainedNodes() &&
