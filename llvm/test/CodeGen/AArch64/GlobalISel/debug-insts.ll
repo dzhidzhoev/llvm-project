@@ -18,12 +18,12 @@ entry:
 }
 
 ; CHECK-LABEL: name: debug_declare_vla
-; CHECK: DBG_VALUE %{{[0-9]+}}(p0), 0, !14, !DIExpression(), debug-location !15
-define void @debug_declare_vla(i32 %in) #0 !dbg !13 {
+; CHECK: DBG_VALUE %{{[0-9]+}}(p0), 0, !11, !DIExpression(), debug-location !12
+define void @debug_declare_vla(i32 %in) #0 !dbg !7 {
 entry:
   %vla.addr = alloca i32, i32 %in
-  call void @llvm.dbg.declare(metadata ptr %vla.addr, metadata !14, metadata !DIExpression()), !dbg !15
-  ret void, !dbg !15
+  call void @llvm.dbg.declare(metadata ptr %vla.addr, metadata !11, metadata !DIExpression()), !dbg !12
+  ret void, !dbg !12
 }
 
 @gv = global i32 zeroinitializer
@@ -32,24 +32,24 @@ entry:
 ; CHECK: stack:
 ; CHECK:    - { id: {{.*}}, name: addr
 ; CHECK: [[IN:%[0-9]+]]:_(s32) = COPY $w0
-define void @debug_value(i32 %in) #0 !dbg !16 {
+define void @debug_value(i32 %in) #0 !dbg !7 {
 ; CHECK: G_FRAME_INDEX %[[stack_slot:.*]]
   %addr = alloca i32
-; CHECK: DBG_VALUE [[IN]](s32), $noreg, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata i32 %in, i64 0, metadata !17, metadata !DIExpression()), !dbg !18
+; CHECK: DBG_VALUE [[IN]](s32), $noreg, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata i32 %in, i64 0, metadata !11, metadata !DIExpression()), !dbg !12
   store i32 %in, ptr %addr
-; CHECK: DBG_VALUE %[[stack_slot]], 0, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata ptr %addr, i64 0, metadata !17, metadata !DIExpression(DW_OP_deref)), !dbg !18
-; CHECK: DBG_VALUE 123, 0, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata i32 123, i64 0, metadata !17, metadata !DIExpression()), !dbg !18
-; CHECK: DBG_VALUE float 1.000000e+00, 0, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata float 1.000000e+00, i64 0, metadata !17, metadata !DIExpression()), !dbg !18
-; CHECK: DBG_VALUE 0, 0, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata ptr null, i64 0, metadata !17, metadata !DIExpression()), !dbg !18
-; CHECK: DBG_VALUE $noreg, 0, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata ptr @gv, i64 0, metadata !17, metadata !DIExpression()), !dbg !18
-; CHECK: DBG_VALUE 42, 0, !17, !DIExpression(), debug-location !18
-  call void @llvm.dbg.value(metadata ptr inttoptr (i64 42 to ptr), i64 0, metadata !17, metadata !DIExpression()), !dbg !18
+; CHECK: DBG_VALUE %[[stack_slot]], 0, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata ptr %addr, i64 0, metadata !11, metadata !DIExpression(DW_OP_deref)), !dbg !12
+; CHECK: DBG_VALUE 123, 0, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata i32 123, i64 0, metadata !11, metadata !DIExpression()), !dbg !12
+; CHECK: DBG_VALUE float 1.000000e+00, 0, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata float 1.000000e+00, i64 0, metadata !11, metadata !DIExpression()), !dbg !12
+; CHECK: DBG_VALUE 0, 0, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata ptr null, i64 0, metadata !11, metadata !DIExpression()), !dbg !12
+; CHECK: DBG_VALUE $noreg, 0, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata ptr @gv, i64 0, metadata !11, metadata !DIExpression()), !dbg !12
+; CHECK: DBG_VALUE 42, 0, !11, !DIExpression(), debug-location !12
+  call void @llvm.dbg.value(metadata ptr inttoptr (i64 42 to ptr), i64 0, metadata !11, metadata !DIExpression()), !dbg !12
   ret void
 }
 
@@ -74,9 +74,3 @@ declare void @llvm.dbg.value(metadata, i64, metadata, metadata)
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !11 = !DILocalVariable(name: "in", arg: 1, scope: !7, file: !1, line: 1, type: !10)
 !12 = !DILocation(line: 1, column: 14, scope: !7)
-!13 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !8, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
-!14 = !DILocalVariable(name: "in", arg: 1, scope: !13, file: !1, line: 1, type: !10)
-!15 = !DILocation(line: 1, column: 14, scope: !13)
-!16 = !DISubprogram(name: "foo", scope: !1, file: !1, line: 1, type: !8, isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: false, unit: !0, retainedNodes: !2)
-!17 = !DILocalVariable(name: "in", arg: 1, scope: !16, file: !1, line: 1, type: !10)
-!18 = !DILocation(line: 1, column: 14, scope: !16)
