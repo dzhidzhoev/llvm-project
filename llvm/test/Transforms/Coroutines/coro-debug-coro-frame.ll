@@ -58,7 +58,8 @@
 ; CHECK-DAG: ![[INT32_IN_BAR]] = !DIDerivedType(tag: DW_TAG_member, name: "__int_32_4", scope: ![[FRAME_TYPE_IN_BAR]], file: ![[FILE]], line: [[BAR_LINE]], baseType: ![[I32_BASE]]
 ; CHECK-DAG: ![[STRUCT_IN_BAR]] = !DIDerivedType(tag: DW_TAG_member, name: "struct_big_structure_5", scope: ![[FRAME_TYPE_IN_BAR]], file: ![[FILE]], line: [[BAR_LINE]], baseType: ![[STRUCT_BASE_IN_BAR:[0-9]+]]
 ; CHECK-DAG: ![[STRUCT_BASE_IN_BAR]] = !DICompositeType(tag: DW_TAG_structure_type, name: "struct_big_structure", scope: ![[FRAME_TYPE_IN_BAR]], file: ![[FILE]], line: [[BAR_LINE]],{{.*}}, align: 64
-; CHECK-DAG: ![[CORO_FRAME_IN_RESUME]] = !DILocalVariable(name: "__coro_frame",{{.*}}type: ![[FRAME_TYPE]]
+; CHECK-DAG: ![[FRAME_TYPE_IN_RESUME:[0-9]+]] = !DICompositeType(tag: DW_TAG_structure_type, name: "f.coro_frame_ty", {{.*}}
+; CHECK-DAG: ![[CORO_FRAME_IN_RESUME]] = !DILocalVariable(name: "__coro_frame",{{.*}}type: ![[FRAME_TYPE_IN_RESUME]]
 
 
 %promise_type = type { i32, i32, double }
@@ -375,7 +376,7 @@ declare void @final_suspend()
 !5 = !{!"clang version 11.0.0"}
 !6 = !DILocalVariable(name: "__promise", scope: !7, file: !1, line: 24, type: !10)
 !7 = distinct !DILexicalBlock(scope: !8, file: !1, line: 23, column: 12)
-!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !8, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!8 = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope: !1, file: !1, line: 23, type: !9, scopeLine: 23, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !9 = !DISubroutineType(types: !2)
 !10 = !DIDerivedType(tag: DW_TAG_typedef, name: "promise_type", scope: !8, file: !1, line: 15, baseType: !11)
 !11 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "promise_type", scope: !8, file: !1, line: 10, size: 128, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !12, identifier: "_ZTSN4coro12promise_typeE")
@@ -386,7 +387,7 @@ declare void @final_suspend()
 !16 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
 !17 = !DIBasicType(name: "double", size: 64, encoding: DW_ATE_float)
 !18 = !DILocation(line: 8, scope: !7)
-!19 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !19, file: !1, line: 54, type: !9, scopeLine: 54, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
+!19 = !DISubprogram(name: "bar", linkageName: "_Z3barv", scope: !1, file: !1, line: 54, type: !9, scopeLine: 54, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !0, retainedNodes: !2)
 !20 = distinct !DILexicalBlock(scope: !19, file: !1, line: 23, column: 12)
 !21 = !DILocalVariable(name: "__promise", scope: !20, file: !1, line: 55, type: !10)
 !22 = !DILocation(line: 10, scope: !20)

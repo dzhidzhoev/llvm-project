@@ -102,8 +102,8 @@ attributes #1 = { nomerge nounwind }
 !2 = !{}
 !3 = !{i32 7, !"Dwarf Version", i32 4}
 !4 = !{i32 2, !"Debug Info Version", i32 3}
-; CHECK-DAG: ![[DECL:[0-9]+]] = !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaF"
-; CHECK-DAG: ![[DECL_Q0:[0-9]+]] = !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaFTQ0_"
+; CHECK-DAG: ![[DECL:[0-9]+]] = !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaF"{{.*}}, spFlags: 0
+; CHECK-DAG: ![[DECL_Q0:[0-9]+]] = !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaFTQ0_"{{.*}}, spFlags: 0
 ; CHECK-DAG: !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaF"{{.*}}, declaration: ![[DECL]]
 ; CHECK-DAG: !DISubprogram({{.*}}, linkageName: "$s3foo3FooO3baryyYaFTQ0_"{{.*}}, declaration: ![[DECL_Q0]]
 !5 = !DISubprogram(name: "bar", linkageName: "$s3foo3FooO3baryyYaF", scope: !6, file: !1, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition, unit: !0, declaration: !9, retainedNodes: !2)

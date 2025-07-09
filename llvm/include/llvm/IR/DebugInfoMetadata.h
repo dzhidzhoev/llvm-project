@@ -2357,7 +2357,7 @@ public:
   int getThisAdjustment() const { return ThisAdjustment; }
   unsigned getScopeLine() const { return ScopeLine; }
   void setScopeLine(unsigned L) {
-    assert(isDistinct());
+    assert(isDistinct() || isTemporary());
     ScopeLine = L;
   }
   DIFlags getFlags() const { return Flags; }
