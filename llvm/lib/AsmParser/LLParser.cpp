@@ -5901,7 +5901,7 @@ bool LLParser::parseDISubprogram(MDNode *&Result, bool IsDistinct) {
       spFlags.Seen ? spFlags.Val
                    : DISubprogram::toSPFlags(isLocal.Val, isDefinition.Val,
                                              isOptimized.Val, virtuality.Val);
-  // TODO: remove this check after all tests pass
+  // TODO: remove this check after all tests pass?
   if ((SPFlags & DISubprogram::SPFlagDefinition) && IsDistinct)
     return error(
         Loc,
