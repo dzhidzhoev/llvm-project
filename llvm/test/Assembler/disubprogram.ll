@@ -70,7 +70,7 @@ define void @_Z3foov() !dbg !9 {
                             unit: !8, thrownTypes: !13)
 
 ; CHECK: !15 = !DISubprogram({{.*}}, flags: DIFlagPrototyped, spFlags: DISPFlagPureVirtual | DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized,
-!15 = !DISubprogram(name: "foo", linkageName: "_Zfoov", scope: !1,
+!15 = !DISubprogram(name: "foo2", linkageName: "_Z4foo2v", scope: !1,
                              file: !2, line: 7, type: !3, scopeLine: 8,
 							 containingType: !4, virtualIndex: 0,
 							 flags: DIFlagPrototyped,
