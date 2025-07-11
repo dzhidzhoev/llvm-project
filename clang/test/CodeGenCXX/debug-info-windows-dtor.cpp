@@ -19,5 +19,5 @@ template struct AB<int>;
 // CHECK: call {{.*}}@"??_G?$AB@H@@UAEPAXI@Z"({{.*}}) #{{[0-9]*}}, !dbg [[THUNK_LOC:![0-9]*]]
 // CHECK: define
 
-// CHECK: [[THUNK_VEC_DEL_DTOR]] = distinct !DISubprogram
+// CHECK: [[THUNK_VEC_DEL_DTOR]] = !DISubprogram
 // CHECK: [[THUNK_LOC]] = !DILocation(line: 0, scope: [[THUNK_VEC_DEL_DTOR]])

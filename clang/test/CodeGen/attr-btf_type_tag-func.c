@@ -15,7 +15,7 @@
 
 int __tag1 * __tag2 *foo(int __tag1 * __tag2 *arg) { return arg; }
 
-// CHECK: distinct !DISubprogram(name: "foo", scope: ![[#]], file: ![[#]], line: [[#]], type: ![[L9:[0-9]+]]
+// CHECK: !DISubprogram(name: "foo", scope: ![[#]], file: ![[#]], line: [[#]], type: ![[L9:[0-9]+]]
 // CHECK: ![[L9]] = !DISubroutineType(types: ![[L10:[0-9]+]]
 // CHECK: ![[L10]] = !{![[L11:[0-9]+]], ![[L11]]}
 // CHECK: ![[L11]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: ![[L12:[0-9]+]], size: [[#]], annotations: ![[L16:[0-9]+]]

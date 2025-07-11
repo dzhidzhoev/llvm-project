@@ -84,5 +84,5 @@ int main(void) {
   return 0;
 }
 
-// CXAATEXIT: ![[GLOBAL_INIT_SP]] = distinct !DISubprogram(linkageName: "__GLOBAL_init_123",
+// CXAATEXIT: ![[GLOBAL_INIT_SP]] = !DISubprogram(linkageName: "__GLOBAL_init_123",
 // CXAATEXIT: ![[GLOBAL_INIT_LOC]] = !DILocation(line: 0, scope: ![[GLOBAL_INIT_SP]])

@@ -5,7 +5,7 @@
 // CHECK: [[IMPS]] = !{[[IMP:![0-9]*]]}
 // CHECK: [[IMP]] = !DIImportedEntity(
 // CHECK-SAME: entity: [[F3:![0-9]*]]
-// CHECK: [[F3]] = distinct !DISubprogram(name: "f3"
+// CHECK: [[F3]] = !DISubprogram(name: "f3"
 // CHECK-SAME:          type: [[SUBROUTINE_TYPE:![0-9]*]]
 // CHECK: [[SUBROUTINE_TYPE]] = !DISubroutineType(types: [[TYPE_LIST:![0-9]*]])
 // CHECK: [[TYPE_LIST]] = !{[[INT:![0-9]*]]}

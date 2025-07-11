@@ -8,7 +8,7 @@ void fn() {
   Foo{}.Bar();
 }
 
-// CHECK: distinct !DISubprogram(name: "Bar", {{.*}}, type: ![[BAR_TYPE:[0-9]+]], {{.*}}, declaration: ![[BAR_DECL:[0-9]+]], {{.*}}
+// CHECK: !DISubprogram(name: "Bar", {{.*}}, type: ![[BAR_TYPE:[0-9]+]], {{.*}}, declaration: ![[BAR_DECL:[0-9]+]], {{.*}}
 // CHECK: ![[FOO:[0-9]+]] = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "Foo"
 // CHECK: ![[BAR_DECL]] = !DISubprogram(name: "Bar", {{.*}}, type: ![[BAR_TYPE]], {{.*}},
 // CHECK: ![[BAR_TYPE]] = !DISubroutineType(types: ![[PARAMS:[0-9]+]])

@@ -86,9 +86,9 @@ void C::c() {}
 // CHECK: [[M2]] = !DIImportedEntity(tag: DW_TAG_imported_module, scope: [[CU]], entity: [[CTXT]],
 // CHECK: [[M3]] = !DIImportedEntity(tag: DW_TAG_imported_declaration, name: "E", scope: [[CU]], entity: [[CTXT]], file: [[FOOCPP]], line: 19)
 // CHECK: [[M4]] = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: [[CTXT]], entity: [[I]]
-// CHECK: [[F1:![0-9]+]] = distinct !DISubprogram(name: "f1",{{.*}} line: 4
+// CHECK: [[F1:![0-9]+]] = !DISubprogram(name: "f1",{{.*}} line: 4
 // CHECK-SAME:                           DISPFlagDefinition
-// CHECK: [[FUNC:![0-9]+]] = distinct !DISubprogram(name: "func",{{.*}} DISPFlagDefinition
+// CHECK: [[FUNC:![0-9]+]] = !DISubprogram(name: "func",{{.*}} DISPFlagDefinition
 // CHECK-SAME:                             retainedNodes: [[FUNC_NODES:![0-9]*]]
 // CHECK: [[FUNC_NODES]] = !{[[M5:![0-9]+]], [[M6:![0-9]+]], [[M7:![0-9]+]], [[M8:![0-9]+]], [[M9:![0-9]+]], [[M10:![0-9]+]], [[M11:![0-9]+]], [[M12:![0-9]+]], [[M13:![0-9]+]], [[M14:![0-9]+]], [[M15:![0-9]+]], [[M16:![0-9]+]], [[M17:![0-9]+]]}
 // CHECK: [[M5]] = !DIImportedEntity(tag: DW_TAG_imported_module, scope: [[LEX2:![0-9]+]], entity: [[NS]], file: [[FOOCPP]], line: 23)
@@ -117,8 +117,8 @@ void C::c() {}
 // CHECK-SAME:                          scope: [[NS]], file: [[FOOCPP]], line: 9
 // CHECK: [[M16]] = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: [[FUNC]], entity: [[VAR_FWD:![0-9]+]]
 // CHECK: [[M17]] = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: [[FUNC]], entity: [[FUNC_FWD:![0-9]+]]
-// CHECK: [[FUNC_FWD]] = distinct !DISubprogram(name: "func_fwd",{{.*}} line: 53,{{.*}} DISPFlagDefinition
-// CHECK: distinct !DISubprogram(name: "c",{{.*}}, scope: ![[C:[0-9]+]],{{.*}}, line: 60,{{.*}} DISPFlagDefinition
+// CHECK: [[FUNC_FWD]] = !DISubprogram(name: "func_fwd",{{.*}} line: 53,{{.*}} DISPFlagDefinition
+// CHECK: !DISubprogram(name: "c",{{.*}}, scope: ![[C:[0-9]+]],{{.*}}, line: 60,{{.*}} DISPFlagDefinition
 // CHECK: ![[C]] = !DINamespace(name: "C",
 
 // CHECK-GMLT: [[CU:![0-9]+]] = distinct !DICompileUnit(

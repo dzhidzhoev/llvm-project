@@ -47,7 +47,7 @@
 // DWARF4-NOT: !DISubprogram(name: "+[Foo(Bar) zero:]", scope: ![[STRUCT]], {{.*}} spFlags: DISPFlagLocalToUnit,
 // DWARF4-NOT: !DISubprogram(name: "-[Foo(Bar) add:]", scope: ![[STRUCT]], {{.*}} spFlags: DISPFlagLocalToUnit,
 
-// CHECK: = distinct !DISubprogram(name: "-[Foo integer]"{{.*}} DISPFlagDefinition
-// CHECK: = distinct !DISubprogram(name: "-[Foo integer:]"{{.*}} DISPFlagDefinition
-// CHECK: = distinct !DISubprogram(name: "+[Foo(Bar) zero:]"{{.*}} DISPFlagDefinition
-// CHECK: = distinct !DISubprogram(name: "-[Foo(Bar) add:]"{{.*}} DISPFlagDefinition
+// CHECK: = !DISubprogram(name: "-[Foo integer]"{{.*}} DISPFlagDefinition
+// CHECK: = !DISubprogram(name: "-[Foo integer:]"{{.*}} DISPFlagDefinition
+// CHECK: = !DISubprogram(name: "+[Foo(Bar) zero:]"{{.*}} DISPFlagDefinition
+// CHECK: = !DISubprogram(name: "-[Foo(Bar) add:]"{{.*}} DISPFlagDefinition

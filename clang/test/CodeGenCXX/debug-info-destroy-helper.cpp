@@ -19,6 +19,6 @@ struct {
 // CHECK-SAME: !dbg ![[LOCATION:[0-9]+]]
 // CHECK: call void @"??1<unnamed-type-e>@@QEAA@XZ"(ptr {{[^,]*}} %arraydestroy.element)
 // CHECK-SAME: !dbg ![[LOCATION]]
-// CHECK: ![[SUBPROGRAM]] = distinct !DISubprogram(name: "__cxx_global_array_dtor"
+// CHECK: ![[SUBPROGRAM]] = !DISubprogram(name: "__cxx_global_array_dtor"
 // CHECK-SAME: flags: DIFlagArtificial
 // CHECK: ![[LOCATION]] = !DILocation(line: 0,

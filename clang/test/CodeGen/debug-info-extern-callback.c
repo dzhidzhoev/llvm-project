@@ -19,4 +19,4 @@ long prog2_2(void) {
 // CHECK: define dso_local i32 @do_work2() #{{[0-9]+}} !dbg ![[FUNC2:[0-9]+]]
 
 // CHECK: ![[FUNC1]] = !DISubprogram(name: "do_work1"
-// CHECK: ![[FUNC2]] = distinct !DISubprogram(name: "do_work2"
+// CHECK: ![[FUNC2]] = !DISubprogram(name: "do_work2"

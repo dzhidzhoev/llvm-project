@@ -29,7 +29,7 @@ void test() {
   // CHECK: ![[FTYPE]] = !{null}
   NS::f();
 
-  // CHECK: ![[M:[0-9]+]] = distinct !DISubprogram(name: "m", scope: ![[C:[0-9]+]],
+  // CHECK: ![[M:[0-9]+]] = !DISubprogram(name: "m", scope: ![[C:[0-9]+]],
   // CHECK-SAME:                                   type: ![[MTYPE:[0-9]+]],
   // CHECK: ![[C]] = !DICompositeType(tag: DW_TAG_structure_type, name: "C",
   // CHECK-SAME:                      flags: DIFlagFwdDecl

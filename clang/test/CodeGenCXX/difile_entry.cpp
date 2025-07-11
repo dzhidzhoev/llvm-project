@@ -9,5 +9,5 @@ static int i = x();
 
 // CHECK: distinct !DIGlobalVariable(name: "i", {{.*}}, file: ![[#FILE:]],
 // CHECK: ![[#FILE]] = !DIFile(filename: "difile_entry.cpp", directory:
-// CHECK: distinct !DISubprogram(name: "__cxx_global_var_init", {{.*}}, file: ![[#FILE]],
-// CHECK: distinct !DISubprogram(linkageName: "_GLOBAL__sub_I_difile_entry.cpp", {{.*}}, file: ![[#FILE]]
+// CHECK: !DISubprogram(name: "__cxx_global_var_init", {{.*}}, file: ![[#FILE]],
+// CHECK: !DISubprogram(linkageName: "_GLOBAL__sub_I_difile_entry.cpp", {{.*}}, file: ![[#FILE]]

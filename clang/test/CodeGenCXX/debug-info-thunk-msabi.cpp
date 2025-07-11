@@ -10,7 +10,7 @@ class __declspec(dllexport) A {
 // CHECK-SAME: !dbg ![[DBG:[0-9]+]]
 // CHECK: ret void, !dbg
 //
-// CHECK: ![[SP]] = distinct !DISubprogram(
+// CHECK: ![[SP]] = !DISubprogram(
 // CHECK-SAME:          line: 4
 // CHECK-SAME:          DIFlagArtificial
 // CHECK-SAME:          DISPFlagDefinition

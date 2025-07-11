@@ -15,8 +15,8 @@ A::A(int i, ...) {}
 // CHECK: #dbg_declare(ptr %{{[^,]+}},
 // CHECK-SAME: ![[THIS:[0-9]+]], !DIExpression(), ![[LOC:[0-9]+]]
 // CHECK: ret void, !dbg ![[NOINL:[0-9]+]]
-// CHECK: ![[FOO:.*]] = distinct !DISubprogram(name: "foo"
-// CHECK-DAG: ![[A:.*]] = distinct !DISubprogram(name: "A", linkageName: "_ZN1BCI11AEiz"
+// CHECK: ![[FOO:.*]] = !DISubprogram(name: "foo"
+// CHECK-DAG: ![[A:.*]] = !DISubprogram(name: "A", linkageName: "_ZN1BCI11AEiz"
 void foo() {
 // CHECK-DAG: ![[LOC]] = !DILocation(line: 0, scope: ![[A]], inlinedAt: ![[INL:[0-9]+]])
 // CHECK-DAG: ![[INL]] = !DILocation(line: [[@LINE+1]], column: 5, scope: ![[FOO]])

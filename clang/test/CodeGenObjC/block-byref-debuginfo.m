@@ -27,7 +27,7 @@
 
 // CHECK: !DILocalVariable(name: "foo", {{.*}}type: ![[FOOTY]])
 
-// CHECK: ![[BYREF_COPY_SP]] = distinct !DISubprogram(linkageName: "__Block_byref_object_copy_",
+// CHECK: ![[BYREF_COPY_SP]] = !DISubprogram(linkageName: "__Block_byref_object_copy_",
 // CHECK: ![[BYREF_COPY_LOC]] = !DILocation(line: 0, scope: ![[BYREF_COPY_SP]])
 
 struct Foo {

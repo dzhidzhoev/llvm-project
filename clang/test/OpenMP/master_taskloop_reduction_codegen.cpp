@@ -220,7 +220,7 @@ sum = 0.0;
 // CHECK: call ptr @__kmpc_task_reduction_get_th_data(
 // CHECK-NOT: call ptr @__kmpc_threadprivate_cached(
 
-// CHECK-DAG: distinct !DISubprogram(linkageName: "[[TASK]]", scope: !
+// CHECK-DAG: !DISubprogram(linkageName: "[[TASK]]", scope: !
 // CHECK-DAG: !DISubprogram(linkageName: "[[RED_INIT1]]"
 // CHECK-DAG: !DISubprogram(linkageName: "[[RED_COMB1]]"
 // CHECK-DAG: !DISubprogram(linkageName: "[[RED_INIT2]]"

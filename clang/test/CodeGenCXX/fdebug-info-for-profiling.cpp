@@ -2,10 +2,10 @@
 // RUN: %clang_cc1 -emit-llvm -triple %itanium_abi_triple -debug-info-kind=line-tables-only %s -o - | FileCheck %s --check-prefix=LINE
 // RUN: %clang_cc1 -emit-llvm -triple %itanium_abi_triple -debug-info-kind=line-tables-only -fdebug-info-for-profiling %s -o - | FileCheck %s
 
-// LINE: = distinct !DISubprogram(name: "foo", scope:
+// LINE: = !DISubprogram(name: "foo", scope:
 
 // CHECK: = distinct !DICompileUnit({{.*}}, debugInfoForProfiling: true,
-// CHECK: = distinct !DISubprogram(name: "foo", linkageName: "_Z3foov", scope:
+// CHECK: = !DISubprogram(name: "foo", linkageName: "_Z3foov", scope:
 
 /// Add a DWARF discriminators pass for PGO.
 // RUN: %clang_cc1 -emit-llvm -fdebug-pass-manager -O1 -fprofile-instrument-path=a.profdata %s -o - 2>&1 | FileCheck %s --check-prefix=NODISCR

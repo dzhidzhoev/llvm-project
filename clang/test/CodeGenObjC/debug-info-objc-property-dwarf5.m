@@ -25,5 +25,5 @@ struct Bar {};
 // CHECK: ![[DECL:[0-9]+]] = !DISubprogram(name: "-[Foo setBar:]",
 // CHECK-SAME:  scope: ![[FOO]]
 
-// CHECK: distinct !DISubprogram(name: "-[Foo setBar:]",
+// CHECK: !DISubprogram(name: "-[Foo setBar:]",
 // CHECK-SAME:  declaration: ![[DECL:[0-9]+]]

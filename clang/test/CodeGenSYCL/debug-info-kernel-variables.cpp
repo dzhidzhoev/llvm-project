@@ -46,7 +46,7 @@ int my_host() {
 // CHECK-SAME:     )
 // CHECK:      }
 
-// CHECK:      [[MY_KERNEL]] = distinct !DISubprogram(
+// CHECK:      [[MY_KERNEL]] = !DISubprogram(
 // CHECK-SAME:   name: "my_kernel"
 // CHECK-SAME:   )
 // CHECK:      [[MY_PARAM]] = !DILocalVariable(

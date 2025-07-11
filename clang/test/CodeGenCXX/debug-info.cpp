@@ -107,7 +107,7 @@ class Cls {
 Cls obj;
 }
 
-// CHECK: [[FUNC:[0-9]+]] = distinct !DISubprogram(name: "func", linkageName: "_ZN7pr147634funcENS_3fooE"
+// CHECK: [[FUNC:[0-9]+]] = !DISubprogram(name: "func", linkageName: "_ZN7pr147634funcENS_3fooE"
 // CHECK-SAME:                                      type: {{![0-9]+}}
 // CHECK-SAME:                                      DISPFlagDefinition
 

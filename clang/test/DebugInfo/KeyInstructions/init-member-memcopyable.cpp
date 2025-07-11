@@ -48,11 +48,11 @@ struct g {
 // CHECK-NEXT: store i32 %3, ptr %h, align 4, !dbg [[S2_G1R1:!.*]]
 // CHECK-NEXT: ret void, !dbg
 
-// CHECK: [[S1:!.*]] = distinct !DISubprogram(name: "operator=",
+// CHECK: [[S1:!.*]] = !DISubprogram(name: "operator=",
 // CHECK: [[S1_G1R2]] = !DILocation(line: 12, scope: [[S1]], atomGroup: 1, atomRank: 2)
 // CHECK: [[S1_G1R1]] = !DILocation(line: 12, scope: [[S1]], atomGroup: 1, atomRank: 1)
 
-// CHECK: [[S2:!.*]] = distinct !DISubprogram(name: "g",
+// CHECK: [[S2:!.*]] = !DISubprogram(name: "g",
 // CHECK: [[S2_G1R2]] = !DILocation(line: 12, scope: [[S2]], atomGroup: 1, atomRank: 2)
 // CHECK: [[S2_G1R1]] = !DILocation(line: 12, scope: [[S2]], atomGroup: 1, atomRank: 1)
 

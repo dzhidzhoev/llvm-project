@@ -58,7 +58,7 @@ void testshortmul(void) {
 // CHECKS: [[META8]] = !DIBasicType(name: "unsigned short", size: 16, encoding: DW_ATE_unsigned)
 // CHECKS: [[META9]] = !DIGlobalVariableExpression(var: [[META10:![0-9]+]], expr: !DIExpression())
 // CHECKS: [[META10]] = distinct !DIGlobalVariable(name: "sk", scope: [[META2]], file: [[META7]], line: 12, type: [[META8]], isLocal: false, isDefinition: true)
-// CHECKS: [[DBG13]] = distinct !DISubprogram(name: "testshortmul", scope: [[META7]], file: [[META7]], line: 44, type: [[META14:![0-9]+]], scopeLine: 44, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META2]])
+// CHECKS: [[DBG13]] = !DISubprogram(name: "testshortmul", scope: [[META7]], file: [[META7]], line: 44, type: [[META14:![0-9]+]], scopeLine: 44, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META2]])
 // CHECKS: [[META14]] = !DISubroutineType(types: [[META15:![0-9]+]])
 // CHECKS: [[META15]] = !{null}
 // CHECKS: [[DBG16]] = !DILocation(line: 47, column: 8, scope: [[DBG13]])
@@ -68,7 +68,7 @@ void testshortmul(void) {
 // CHECKS: [[META20]] = !{!"Simple C/C++ TBAA"}
 // CHECKS: [[DBG21]] = !DILocation(line: 47, column: 13, scope: [[DBG13]])
 // CHECKS: [[DBG22]] = !DILocation(line: 0, scope: [[META23:![0-9]+]], inlinedAt: [[META25:![0-9]+]])
-// CHECKS: [[META23]] = distinct !DISubprogram(name: "__ubsan_check_mul_overflow", scope: [[META7]], file: [[META7]], type: [[META24:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META2]])
+// CHECKS: [[META23]] = !DISubprogram(name: "__ubsan_check_mul_overflow", scope: [[META7]], file: [[META7]], type: [[META24:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META2]])
 // CHECKS: [[META24]] = !DISubroutineType(types: null)
 // CHECKS: [[META25]] = !DILocation(line: 47, column: 11, scope: [[DBG13]])
 // CHECKS: [[META26]] = !{}
@@ -87,7 +87,7 @@ void testshortmul(void) {
 // CHECKU: [[META8]] = !DIBasicType(name: "unsigned short", size: 16, encoding: DW_ATE_unsigned)
 // CHECKU: [[META9]] = !DIGlobalVariableExpression(var: [[META10:![0-9]+]], expr: !DIExpression())
 // CHECKU: [[META10]] = distinct !DIGlobalVariable(name: "sk", scope: [[META2]], file: [[META7]], line: 12, type: [[META8]], isLocal: false, isDefinition: true)
-// CHECKU: [[DBG13]] = distinct !DISubprogram(name: "testshortmul", scope: [[META7]], file: [[META7]], line: 44, type: [[META14:![0-9]+]], scopeLine: 44, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META2]])
+// CHECKU: [[DBG13]] = !DISubprogram(name: "testshortmul", scope: [[META7]], file: [[META7]], line: 44, type: [[META14:![0-9]+]], scopeLine: 44, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META2]])
 // CHECKU: [[META14]] = !DISubroutineType(types: [[META15:![0-9]+]])
 // CHECKU: [[META15]] = !{null}
 // CHECKU: [[DBG16]] = !DILocation(line: 47, column: 8, scope: [[DBG13]])

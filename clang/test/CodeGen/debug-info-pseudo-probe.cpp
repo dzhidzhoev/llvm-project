@@ -7,6 +7,6 @@ int foo() {
 }
 
 // PLAIN: define dso_local noundef i32 @_Z3foov()
-// PLAIN: distinct !DISubprogram(name: "foo", scope:
+// PLAIN: !DISubprogram(name: "foo", scope:
 // MANGLE: define dso_local noundef i32 @_Z3foov()
-// MANGLE: distinct !DISubprogram(name: "foo", linkageName: "_Z3foov"
+// MANGLE: !DISubprogram(name: "foo", linkageName: "_Z3foov"

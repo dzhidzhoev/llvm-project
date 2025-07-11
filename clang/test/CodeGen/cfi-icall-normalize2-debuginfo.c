@@ -67,7 +67,7 @@ void baz(void (*fn)(int, int, int), int arg1, int arg2, int arg3) {
 //.
 // CHECK: [[META0:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[META1:![0-9]+]], isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 // CHECK: [[META1]] = !DIFile(filename: "{{.*}}<stdin>", directory: {{.*}})
-// CHECK: [[DBG7]] = distinct !DISubprogram(name: "foo", scope: [[META8:![0-9]+]], file: [[META8]], line: 24, type: [[META9:![0-9]+]], scopeLine: 24, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META15:![0-9]+]])
+// CHECK: [[DBG7]] = !DISubprogram(name: "foo", scope: [[META8:![0-9]+]], file: [[META8]], line: 24, type: [[META9:![0-9]+]], scopeLine: 24, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META15:![0-9]+]])
 // CHECK: [[META8]] = !DIFile(filename: "{{.*}}cfi-icall-normalize2-debuginfo.c", directory: {{.*}})
 // CHECK: [[META9]] = !DISubroutineType(types: [[META10:![0-9]+]])
 // CHECK: [[META10]] = !{null, [[META11:![0-9]+]], [[META14:![0-9]+]]}
@@ -82,13 +82,13 @@ void baz(void (*fn)(int, int, int), int arg1, int arg2, int arg3) {
 // CHECK: [[META19]] = !{i64 0, !"_ZTSFvPvu3i32E.normalized.generalized"}
 // CHECK: [[META20]] = !DILocation(line: 0, scope: [[DBG7]])
 // CHECK: [[DBG21]] = !DILocation(line: 0, scope: [[META22:![0-9]+]], inlinedAt: [[DBG24]])
-// CHECK: [[META22]] = distinct !DISubprogram(name: "__ubsan_check_cfi_icall", scope: [[META8]], file: [[META8]], type: [[META23:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META0]])
+// CHECK: [[META22]] = !DISubprogram(name: "__ubsan_check_cfi_icall", scope: [[META8]], file: [[META8]], type: [[META23:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META0]])
 // CHECK: [[META23]] = !DISubroutineType(types: null)
 // CHECK: [[DBG24]] = !DILocation(line: 25, column: 5, scope: [[DBG7]])
 // CHECK: [[META25]] = !{}
 // CHECK: [[PROF26]] = !{!"branch_weights", i32 1048575, i32 1}
 // CHECK: [[DBG27]] = !DILocation(line: 26, column: 1, scope: [[DBG7]])
-// CHECK: [[DBG28]] = distinct !DISubprogram(name: "bar", scope: [[META8]], file: [[META8]], line: 43, type: [[META29:![0-9]+]], scopeLine: 43, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META34:![0-9]+]])
+// CHECK: [[DBG28]] = !DISubprogram(name: "bar", scope: [[META8]], file: [[META8]], line: 43, type: [[META29:![0-9]+]], scopeLine: 43, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META34:![0-9]+]])
 // CHECK: [[META29]] = !DISubroutineType(types: [[META30:![0-9]+]])
 // CHECK: [[META30]] = !{null, [[META31:![0-9]+]], [[META14]], [[META14]]}
 // CHECK: [[META31]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META32:![0-9]+]], size: 64)
@@ -104,7 +104,7 @@ void baz(void (*fn)(int, int, int), int arg1, int arg2, int arg3) {
 // CHECK: [[DBG41]] = !DILocation(line: 0, scope: [[META22]], inlinedAt: [[DBG42]])
 // CHECK: [[DBG42]] = !DILocation(line: 44, column: 5, scope: [[DBG28]])
 // CHECK: [[DBG43]] = !DILocation(line: 45, column: 1, scope: [[DBG28]])
-// CHECK: [[DBG44]] = distinct !DISubprogram(name: "baz", scope: [[META8]], file: [[META8]], line: 63, type: [[META45:![0-9]+]], scopeLine: 63, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META50:![0-9]+]])
+// CHECK: [[DBG44]] = !DISubprogram(name: "baz", scope: [[META8]], file: [[META8]], line: 63, type: [[META45:![0-9]+]], scopeLine: 63, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META50:![0-9]+]])
 // CHECK: [[META45]] = !DISubroutineType(types: [[META46:![0-9]+]])
 // CHECK: [[META46]] = !{null, [[META47:![0-9]+]], [[META14]], [[META14]], [[META14]]}
 // CHECK: [[META47]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META48:![0-9]+]], size: 64)

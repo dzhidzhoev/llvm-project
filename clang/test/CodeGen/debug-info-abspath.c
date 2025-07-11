@@ -21,12 +21,12 @@ void foo(void) {}
 // Since %s is an absolute path, directory should be the common
 // prefix, but the directory part should be part of the filename.
 
-// CHECK: = distinct !DISubprogram({{.*}}file: ![[SPFILE:[0-9]+]]
+// CHECK: = !DISubprogram({{.*}}file: ![[SPFILE:[0-9]+]]
 // CHECK: ![[SPFILE]] = !DIFile(filename: "{{.*}}UNIQUEISH_SENTINEL
 // CHECK-SAME:                  debug-info-abspath.c"
 // CHECK-NOT:                   directory: "{{.*}}UNIQUEISH_SENTINEL
 
-// INTREE: = distinct !DISubprogram({{.*}}![[SPFILE:[0-9]+]]
+// INTREE: = !DISubprogram({{.*}}![[SPFILE:[0-9]+]]
 // INTREE: DIFile({{.*}}directory: "{{.+}}CodeGen{{.*}}")
 
 // CURDIR: = distinct !DICompileUnit({{.*}}file: ![[CUFILE:[0-9]+]]

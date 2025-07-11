@@ -63,5 +63,5 @@ void testWeakException(void) {
 
 // CHECK-DAG: [[ARTIFICIAL_LOC_1]] = !DILocation(line: 0
 // CHECK-DAG: [[ARTIFICIAL_LOC_2]] = !DILocation(line: 0
-// CHECK: ![[DTOR_SP]] = distinct !DISubprogram(linkageName: "__destructor_8_w8",
+// CHECK: ![[DTOR_SP]] = !DISubprogram(linkageName: "__destructor_8_w8",
 // CHECK: ![[DTOR_LOC]] = !DILocation(line: 0, scope: ![[DTOR_SP]])

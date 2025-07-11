@@ -65,16 +65,16 @@ void f_coro(int val, MoveOnly moParam, MoveAndCopy mcParam) {
   co_return;
 }
 
-// CHECK: ![[SP:[0-9]+]] = distinct !DISubprogram(name: "f_coro", linkageName: "_Z6f_coroi8MoveOnly11MoveAndCopy"
+// CHECK: ![[SP:[0-9]+]] = !DISubprogram(name: "f_coro", linkageName: "_Z6f_coroi8MoveOnly11MoveAndCopy"
 // CHECK: !{{[0-9]+}} = !DILocalVariable(name: "val", arg: 1, scope: ![[SP]], file: !{{[0-9]+}}, line: {{[0-9]+}}, type: !{{[0-9]+}})
 // CHECK: !{{[0-9]+}} = !DILocalVariable(name: "moParam", arg: 2, scope: ![[SP]], file: !{{[0-9]+}}, line: {{[0-9]+}}, type: !{{[0-9]+}})
 // CHECK: !{{[0-9]+}} = !DILocalVariable(name: "mcParam", arg: 3, scope: ![[SP]], file: !{{[0-9]+}}, line: {{[0-9]+}}, type: !{{[0-9]+}})
 // CHECK: !{{[0-9]+}} = !DILocalVariable(name: "__promise",
 
-// CHECK: ![[INIT:[0-9]+]] = distinct !DISubprogram(linkageName: "_Z6f_coroi8MoveOnly11MoveAndCopy.__await_suspend_wrapper__init"
+// CHECK: ![[INIT:[0-9]+]] = !DISubprogram(linkageName: "_Z6f_coroi8MoveOnly11MoveAndCopy.__await_suspend_wrapper__init"
 // CHECK: !{{[0-9]+}} = !DILocalVariable(arg: 1, scope: ![[INIT]]
 // CHECK: !{{[0-9]+}} = !DILocalVariable(arg: 2, scope: ![[INIT]]
 
-// CHECK: ![[FINAL:[0-9]+]] = distinct !DISubprogram(linkageName: "_Z6f_coroi8MoveOnly11MoveAndCopy.__await_suspend_wrapper__final"
+// CHECK: ![[FINAL:[0-9]+]] = !DISubprogram(linkageName: "_Z6f_coroi8MoveOnly11MoveAndCopy.__await_suspend_wrapper__final"
 // CHECK: !{{[0-9]+}} = !DILocalVariable(arg: 1, scope: ![[FINAL]]
 // CHECK: !{{[0-9]+}} = !DILocalVariable(arg: 2, scope: ![[FINAL]]

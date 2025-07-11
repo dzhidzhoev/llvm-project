@@ -60,7 +60,7 @@ void g(int** (*fp)(const char *, const char **)) {
 // UNGENERALIZED: [[META3]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META4:![0-9]+]], size: 64)
 // UNGENERALIZED: [[META4]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META5:![0-9]+]], size: 64)
 // UNGENERALIZED: [[META5]] = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-// UNGENERALIZED: [[DBG10]] = distinct !DISubprogram(name: "f", scope: [[META11:![0-9]+]], file: [[META11]], line: 22, type: [[META12:![0-9]+]], scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META18:![0-9]+]])
+// UNGENERALIZED: [[DBG10]] = !DISubprogram(name: "f", scope: [[META11:![0-9]+]], file: [[META11]], line: 22, type: [[META12:![0-9]+]], scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META18:![0-9]+]])
 // UNGENERALIZED: [[META11]] = !DIFile(filename: "{{.*}}cfi-icall-generalize-debuginfo.c", directory: {{.*}})
 // UNGENERALIZED: [[META12]] = !DISubroutineType(types: [[META13:![0-9]+]])
 // UNGENERALIZED: [[META13]] = !{[[META3]], [[META14:![0-9]+]], [[META17:![0-9]+]]}
@@ -75,7 +75,7 @@ void g(int** (*fp)(const char *, const char **)) {
 // UNGENERALIZED: [[META22]] = !{i64 0, !"_ZTSFPvPKvS_E.generalized"}
 // UNGENERALIZED: [[META23]] = !DILocation(line: 0, scope: [[DBG10]])
 // UNGENERALIZED: [[DBG24]] = !DILocation(line: 23, column: 3, scope: [[DBG10]])
-// UNGENERALIZED: [[DBG25]] = distinct !DISubprogram(name: "g", scope: [[META11]], file: [[META11]], line: 52, type: [[META26:![0-9]+]], scopeLine: 52, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META29:![0-9]+]])
+// UNGENERALIZED: [[DBG25]] = !DISubprogram(name: "g", scope: [[META11]], file: [[META11]], line: 52, type: [[META26:![0-9]+]], scopeLine: 52, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META29:![0-9]+]])
 // UNGENERALIZED: [[META26]] = !DISubroutineType(types: [[META27:![0-9]+]])
 // UNGENERALIZED: [[META27]] = !{null, [[META28:![0-9]+]]}
 // UNGENERALIZED: [[META28]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META12]], size: 64)
@@ -85,7 +85,7 @@ void g(int** (*fp)(const char *, const char **)) {
 // UNGENERALIZED: [[META32]] = !{i64 0, !"_ZTSFvPvE.generalized"}
 // UNGENERALIZED: [[META33]] = !DILocation(line: 0, scope: [[DBG25]])
 // UNGENERALIZED: [[DBG34]] = !DILocation(line: 0, scope: [[META35:![0-9]+]], inlinedAt: [[DBG37]])
-// UNGENERALIZED: [[META35]] = distinct !DISubprogram(name: "__ubsan_check_cfi_icall", scope: [[META11]], file: [[META11]], type: [[META36:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META0]])
+// UNGENERALIZED: [[META35]] = !DISubprogram(name: "__ubsan_check_cfi_icall", scope: [[META11]], file: [[META11]], type: [[META36:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META0]])
 // UNGENERALIZED: [[META36]] = !DISubroutineType(types: null)
 // UNGENERALIZED: [[DBG37]] = !DILocation(line: 53, column: 3, scope: [[DBG25]])
 // UNGENERALIZED: [[META38]] = !{}
@@ -98,7 +98,7 @@ void g(int** (*fp)(const char *, const char **)) {
 // GENERALIZED: [[META3]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META4:![0-9]+]], size: 64)
 // GENERALIZED: [[META4]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META5:![0-9]+]], size: 64)
 // GENERALIZED: [[META5]] = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-// GENERALIZED: [[DBG10]] = distinct !DISubprogram(name: "f", scope: [[META11:![0-9]+]], file: [[META11]], line: 22, type: [[META12:![0-9]+]], scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META18:![0-9]+]])
+// GENERALIZED: [[DBG10]] = !DISubprogram(name: "f", scope: [[META11:![0-9]+]], file: [[META11]], line: 22, type: [[META12:![0-9]+]], scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META18:![0-9]+]])
 // GENERALIZED: [[META11]] = !DIFile(filename: "{{.*}}cfi-icall-generalize-debuginfo.c", directory: {{.*}})
 // GENERALIZED: [[META12]] = !DISubroutineType(types: [[META13:![0-9]+]])
 // GENERALIZED: [[META13]] = !{[[META3]], [[META14:![0-9]+]], [[META17:![0-9]+]]}
@@ -113,7 +113,7 @@ void g(int** (*fp)(const char *, const char **)) {
 // GENERALIZED: [[META22]] = !{i64 0, !"_ZTSFPvPKvS_E.generalized"}
 // GENERALIZED: [[META23]] = !DILocation(line: 0, scope: [[DBG10]])
 // GENERALIZED: [[DBG24]] = !DILocation(line: 23, column: 3, scope: [[DBG10]])
-// GENERALIZED: [[DBG25]] = distinct !DISubprogram(name: "g", scope: [[META11]], file: [[META11]], line: 52, type: [[META26:![0-9]+]], scopeLine: 52, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META29:![0-9]+]])
+// GENERALIZED: [[DBG25]] = !DISubprogram(name: "g", scope: [[META11]], file: [[META11]], line: 52, type: [[META26:![0-9]+]], scopeLine: 52, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: [[META0]], retainedNodes: [[META29:![0-9]+]])
 // GENERALIZED: [[META26]] = !DISubroutineType(types: [[META27:![0-9]+]])
 // GENERALIZED: [[META27]] = !{null, [[META28:![0-9]+]]}
 // GENERALIZED: [[META28]] = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: [[META12]], size: 64)
@@ -123,7 +123,7 @@ void g(int** (*fp)(const char *, const char **)) {
 // GENERALIZED: [[META32]] = !{i64 0, !"_ZTSFvPvE.generalized"}
 // GENERALIZED: [[META33]] = !DILocation(line: 0, scope: [[DBG25]])
 // GENERALIZED: [[DBG34]] = !DILocation(line: 0, scope: [[META35:![0-9]+]], inlinedAt: [[DBG37]])
-// GENERALIZED: [[META35]] = distinct !DISubprogram(name: "__ubsan_check_cfi_icall", scope: [[META11]], file: [[META11]], type: [[META36:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META0]])
+// GENERALIZED: [[META35]] = !DISubprogram(name: "__ubsan_check_cfi_icall", scope: [[META11]], file: [[META11]], type: [[META36:![0-9]+]], flags: DIFlagArtificial, spFlags: DISPFlagDefinition, unit: [[META0]])
 // GENERALIZED: [[META36]] = !DISubroutineType(types: null)
 // GENERALIZED: [[DBG37]] = !DILocation(line: 53, column: 3, scope: [[DBG25]])
 // GENERALIZED: [[META38]] = !{}

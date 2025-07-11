@@ -5,7 +5,7 @@
 // CHECK-NOT: define
 // CHECK: ret {{.*}}, !dbg [[DBG:.*]]
 // CHECK: [[HPP:.*]] = !DIFile(filename: "./template.hpp",
-// CHECK: [[SP:.*]] = distinct !DISubprogram(name: "bar",
+// CHECK: [[SP:.*]] = !DISubprogram(name: "bar",
 // CHECK-SAME:                               file: [[HPP]], line: 22
 // CHECK-SAME:                               DISPFlagDefinition
 // We shouldn't need a lexical block for this function.
