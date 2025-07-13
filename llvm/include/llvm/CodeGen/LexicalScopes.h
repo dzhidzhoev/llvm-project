@@ -147,6 +147,7 @@ public:
   /// the instance if necessary.
   LLVM_ABI void initialize(const MachineFunction &);
 
+  /// TODO update outdated commit
   /// releaseMemory - release memory.
   LLVM_ABI void reset();
 
