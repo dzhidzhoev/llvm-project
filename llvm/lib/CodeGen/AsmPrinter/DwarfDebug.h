@@ -364,6 +364,7 @@ class DwarfDebug : public DebugHandlerBase {
   /// Size of each symbol emitted (for those symbols that have a specific size).
   DenseMap<const MCSymbol *, uint64_t> SymSize;
 
+  /// TODO: fix outdated comment
   /// Collection of abstract variables/labels.
   SmallVector<std::unique_ptr<DbgEntity>, 64> ConcreteEntities;
 
