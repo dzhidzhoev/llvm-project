@@ -240,12 +240,17 @@ private:
                      pair_hash<const DILocalScope *, const DILocation *>>
       InlinedLexicalScopeMap;
 
+  /// ModuleConcreteScopes -- Tracks DILocalScopes for which concrete
+  /// scopes were created during previous functions processing.
+  /// TODO Will we have correct abstract subprogram DIE if function has body, but is also inlined? Won’t we get duplicate abstract subprogram DIEs?
+  SmallPtrSet<const DILocalScope *, 8> ProcessedScopes;
+
   /// AbstractScopeMap - These scopes are  not included LexicalScopeMap.
   // Use an unordered_map to ensure value pointer validity over insertion.
   std::unordered_map<const DILocalScope *, LexicalScope> AbstractScopeMap;
 
   /// AbstractScopesList - Tracks abstract scopes constructed while processing
-  /// a function.
+  /// a module.
   SmallVector<LexicalScope *, 4> AbstractScopesList;
 
   /// CurrentFnLexicalScope - Top level scope for the current function.

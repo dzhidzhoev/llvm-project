@@ -40,10 +40,14 @@ using namespace llvm;
 void LexicalScopes::reset() {
   MF = nullptr;
   CurrentFnLexicalScope = nullptr;
+
+  for (auto [Scope, LexS] : LexicalScopeMap)
+    ProcessedScopes.insert(Scope);
+  for (auto [ScopeLoc, LexS] : InlinedLexicalScopeMap)
+    ProcessedScopes.insert(ScopeLoc.first);
+  
   LexicalScopeMap.clear();
-  AbstractScopeMap.clear();
   InlinedLexicalScopeMap.clear();
-  AbstractScopesList.clear();
   DominatedBlocks.clear();
 }
 
@@ -152,6 +156,11 @@ LexicalScope *LexicalScopes::getOrCreateLexicalScope(const DILocalScope *Scope,
     return getOrCreateInlinedScope(Scope, IA);
   }
 
+  // If a concrete lexical scope for Scope was created during
+  // the processing of a previous function, create abstract scope.
+  // TODO: test this
+  if (ProcessedScopes.contains(Scope))
+    getOrCreateAbstractScope(Scope);
   return getOrCreateRegularScope(Scope);
 }
 
