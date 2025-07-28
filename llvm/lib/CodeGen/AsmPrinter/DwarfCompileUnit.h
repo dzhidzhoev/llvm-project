@@ -77,7 +77,7 @@ class DwarfCompileUnit final : public DwarfUnit {
   MDNodeSetVector DeferredLocalDecls;
 
   // List of concrete lexical block scopes belong to subprograms within this CU.
-  DenseMap<const DILocalScope *, DIE *> LexicalBlockDIEs;
+  DenseMap<const LexicalScope *, DIE *> LexicalBlockDIEs;
 
   // List of abstract local scopes (either DISubprogram or DILexicalBlock).
   DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
@@ -216,7 +216,7 @@ public:
   /// DW_AT_low_pc, DW_AT_high_pc and DW_AT_LLVM_stmt_sequence attributes.
   /// If there are global variables in this scope then create and insert DIEs
   /// for these variables.
-  DIE &updateSubprogramScopeDIE(const DISubprogram *SP, MCSymbol *LineTableSym);
+  DIE &updateSubprogramScopeDIE(DwarfFile::SubprogramKeyT Sub, MCSymbol *LineTableSym);
 
   void constructScopeDIE(LexicalScope *Scope, DIE &ParentScopeDIE);
 
@@ -237,10 +237,10 @@ public:
   /// attach DW_AT_low_pc/DW_AT_high_pc labels.
   DIE *constructLexicalScopeDIE(LexicalScope *Scope);
 
-  /// Get a DIE for the given DILexicalBlock.
+  /// Get an abstract DIE for the given DILexicalBlock.
   /// Note that this function assumes that the DIE has been already created
   /// and it's an error, if it hasn't.
-  DIE *getLexicalBlockDIE(const DILexicalBlock *LB);
+  DIE *getAbstractBlockDIE(const DILexicalBlock *LB);
 
   /// Construct a DIE for the given DbgVariable.
   DIE *constructVariableDIE(DbgVariable &DV, bool Abstract = false);
@@ -260,7 +260,7 @@ public:
   DIE *getOrCreateContextDIE(const DIScope *Ty) override;
 
   /// Construct a DIE for this subprogram scope.
-  DIE &constructSubprogramScopeDIE(const DISubprogram *Sub, LexicalScope *Scope,
+  DIE &constructSubprogramScopeDIE(DwarfFile::SubprogramKeyT SP, LexicalScope *Scope,
                                    MCSymbol *LineTableSym);
 
   DIE *createAndAddScopeChildren(LexicalScope *Scope, DIE &ScopeDIE);
@@ -287,7 +287,7 @@ public:
   /// \p CallAddr points to the PC value at the call instruction (or is null).
   /// \p CallReg is a register location for an indirect call. For direct calls
   /// the \p CallReg is set to 0.
-  DIE &constructCallSiteEntryDIE(DIE &ScopeDIE, const DISubprogram *CalleeSP,
+  DIE &constructCallSiteEntryDIE(DIE &ScopeDIE, DwarfFile::SubprogramKeyT CalleeSP,
                                  bool IsTail, const MCSymbol *PCAddr,
                                  const MCSymbol *CallAddr, unsigned CallReg);
   /// Construct call site parameter DIEs for the \p CallSiteDIE. The \p Params

@@ -992,7 +992,7 @@ void DwarfDebug::constructCallSiteEntryDIEs(const DISubprogram &SP,
                         << (IsTail ? " [IsTail]" : "") << "\n");
 
       DIE &CallSiteDIE = CU.constructCallSiteEntryDIE(
-          ScopeDIE, CalleeSP, IsTail, PCAddr, CallAddr, CallReg);
+          ScopeDIE, std::make_pair(CalleeSP, CalleeDecl), IsTail, PCAddr, CallAddr, CallReg);
 
       // Optionally emit call-site-param debug info.
       if (emitDebugEntryValues()) {
@@ -2751,6 +2751,7 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
       // Ensure LexicalScope is created for the scope of this node.
       auto *LexS = LScopes.getOrCreateAbstractScope(LS);
       assert(LexS && "Expected the LexicalScope to be created.");
+      // TODO ensure that abstract scope is created for all DIImportedEntities.
       if (isa<DILocalVariable>(DN) || isa<DILabel>(DN)) {
         // Collect info for variables/labels that were optimized out.
         if (!Processed.insert(InlinedEntity(DN, nullptr)).second ||
@@ -2770,11 +2771,11 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
 
   ProcessedSPNodes.insert(SP);
   DIE &ScopeDIE =
-      TheCU.constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
+      TheCU.constructSubprogramScopeDIE(std::make_pair(SP, &MF->getFunction()), FnScope, FunctionLineTableLabel);
   if (auto *SkelCU = TheCU.getSkeleton())
     if (!LScopes.getAbstractScopesList().empty() &&
         TheCU.getCUNode()->getSplitDebugInlining())
-      SkelCU->constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
+      SkelCU->constructSubprogramScopeDIE(std::make_pair(SP, &MF->getFunction()), FnScope, FunctionLineTableLabel);
 
   FunctionLineTableLabel = nullptr;
 

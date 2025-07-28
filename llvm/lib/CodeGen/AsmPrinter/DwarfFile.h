@@ -27,8 +27,10 @@ class DbgVariable;
 class DbgLabel;
 class DINode;
 class DILocalScope;
+class DISubprogram;
 class DwarfCompileUnit;
 class DwarfUnit;
+class Function;
 class LexicalScope;
 class MCSection;
 class MDNode;
@@ -52,6 +54,9 @@ struct RangeSpanList {
 };
 
 class DwarfFile {
+public:
+  using SubprogramKeyT = std::pair<const DISubprogram *, const Function *>;
+private:
   // Target of Dwarf emission, used for sizing of abbreviations.
   AsmPrinter *Asm;
 
@@ -99,6 +104,8 @@ class DwarfFile {
   /// be shared across CUs, that is why we keep the map here instead
   /// of in DwarfCompileUnit.
   DenseMap<const MDNode *, DIE *> DITypeNodeToDieMap;
+
+  DenseMap<SubprogramKeyT, DIE *> SubprogramMap;
 
 public:
   DwarfFile(AsmPrinter *AP, StringRef Pref, BumpPtrAllocator &DA);
@@ -175,11 +182,21 @@ public:
   }
 
   void insertDIE(const MDNode *TypeMD, DIE *Die) {
+    assert(!isa<DISubprogram>(TypeMD) && "insertSubprogramDIE should be used for DISubprogram");
     DITypeNodeToDieMap.insert(std::make_pair(TypeMD, Die));
   }
 
   DIE *getDIE(const MDNode *TypeMD) {
+    assert(!isa<DISubprogram>(TypeMD) && "getSubprogramDIE should be used for DISubprogram");
     return DITypeNodeToDieMap.lookup(TypeMD);
+  }
+
+  void insertSubprogramDIE(SubprogramKeyT SP, DIE *Die) {
+    SubprogramMap.insert(std::make_pair(SP, Die));
+  }
+
+  DIE *getSubprogramDIE(SubprogramKeyT SP) {
+    return SubprogramMap.lookup(SP);
   }
 };
 

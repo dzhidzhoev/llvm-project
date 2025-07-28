@@ -61,6 +61,7 @@ protected:
   /// Tracks the mapping of unit level debug information variables to debug
   /// information entries.
   DenseMap<const MDNode *, DIE *> MDNodeToDieMap;
+  DenseMap<DwarfFile::SubprogramKeyT, DIE *> DISubprogramToDieMap;
 
   /// A list of all the DIEBlocks in use.
   std::vector<DIEBlock *> DIEBlocks;
@@ -139,6 +140,7 @@ public:
   /// type system, since DIEs for the type system can be shared across CUs and
   /// the mappings are kept in DwarfDebug.
   DIE *getDIE(const DINode *D) const;
+  DIE *getSubprogramDIE(DwarfFile::SubprogramKeyT SP) const;
 
   /// Returns a fresh newly allocated DIELoc.
   DIELoc *getDIELoc() { return new (DIEValueAllocator) DIELoc; }
@@ -149,6 +151,7 @@ public:
   /// type system, since DIEs for the type system can be shared across CUs and
   /// the mappings are kept in DwarfDebug.
   void insertDIE(const DINode *Desc, DIE *D);
+  void insertSubprogramDIE(DwarfFile::SubprogramKeyT SP, DIE *D);
 
   void insertDIE(DIE *D);
 
@@ -256,7 +259,7 @@ public:
 
   DIE *getOrCreateNameSpace(const DINamespace *NS);
   DIE *getOrCreateModule(const DIModule *M);
-  DIE *getOrCreateSubprogramDIE(const DISubprogram *SP, bool Minimal = false);
+  DIE *getOrCreateSubprogramDIE(DwarfFile::SubprogramKeyT SPKey, bool Minimal = false);
 
   void applySubprogramAttributes(const DISubprogram *SP, DIE &SPDie,
                                  bool SkipSPAttributes = false);
@@ -283,6 +286,7 @@ public:
   /// Create a DIE with the given Tag, add the DIE to its parent, and
   /// call insertDIE if MD is not null.
   DIE &createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N = nullptr);
+  DIE &createAndAddSubprogramDIE(DIE &Parent, DwarfFile::SubprogramKeyT SP);
 
   bool useSegmentedStringOffsetsTable() const {
     return DD->useSegmentedStringOffsetsTable();

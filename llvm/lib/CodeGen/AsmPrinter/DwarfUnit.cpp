@@ -16,6 +16,7 @@
 #include "DwarfExpression.h"
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/APInt.h"
+#include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DataLayout.h"
@@ -207,8 +208,12 @@ void DwarfUnit::insertDIE(const DINode *Desc, DIE *D) {
   MDNodeToDieMap.insert(std::make_pair(Desc, D));
 }
 
-void DwarfUnit::insertDIE(DIE *D) {
-  MDNodeToDieMap.insert(std::make_pair(nullptr, D));
+void DwarfUnit::insertSubprogramDIE(DwarfFile::SubprogramKeyT SP, DIE *D) {
+  if (isShareableAcrossCUs(SP.first)) {
+    DU->insertSubprogramDIE(SP, D);
+    return;
+  }
+  DISubprogramToDieMap.insert(std::make_pair(SP, D));
 }
 
 void DwarfUnit::addFlag(DIE &Die, dwarf::Attribute Attribute) {
@@ -424,6 +429,12 @@ DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
   return Die;
 }
 
+DIE &DwarfUnit::createAndAddSubprogramDIE(DIE &Parent, DwarfFile::SubprogramKeyT SP) {
+  DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, dwarf::DW_TAG_subprogram));
+  insertSubprogramDIE(SP, &Die);
+  return Die;
+}
+
 void DwarfUnit::addBlock(DIE &Die, dwarf::Attribute Attribute, DIELoc *Loc) {
   Loc->computeSize(Asm->getDwarfFormParams());
   DIELocs.push_back(Loc); // Memoize so we can call the destructor later on.
@@ -573,7 +584,7 @@ DIE *DwarfUnit::getOrCreateContextDIE(const DIScope *Context) {
   if (auto *NS = dyn_cast<DINamespace>(Context))
     return getOrCreateNameSpace(NS);
   if (auto *SP = dyn_cast<DISubprogram>(Context))
-    return getOrCreateSubprogramDIE(SP);
+    return getOrCreateSubprogramDIE(std::make_pair(SP, nullptr));
   if (auto *M = dyn_cast<DIModule>(Context))
     return getOrCreateModule(M);
   return getDIE(Context);
@@ -1066,7 +1077,7 @@ void DwarfUnit::constructTypeDIE(DIE &Buffer, const DICompositeType *CTy) {
       if (!Element)
         continue;
       if (auto *SP = dyn_cast<DISubprogram>(Element))
-        getOrCreateSubprogramDIE(SP);
+        getOrCreateSubprogramDIE(std::make_pair(SP, nullptr));
       else if (auto *DDTy = dyn_cast<DIDerivedType>(Element)) {
         if (DDTy->getTag() == dwarf::DW_TAG_friend) {
           DIE &ElemDie = createAndAddDIE(dwarf::DW_TAG_friend, Buffer);
@@ -1335,14 +1346,15 @@ DIE *DwarfUnit::getOrCreateModule(const DIModule *M) {
   return &MDie;
 }
 
-DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP, bool Minimal) {
+DIE *DwarfUnit::getOrCreateSubprogramDIE(DwarfFile::SubprogramKeyT SPKey, bool Minimal) {
+  const DISubprogram *SP = SPKey.first;
   // Construct the context before querying for the existence of the DIE in case
   // such construction creates the DIE (as is the case for member function
   // declarations).
   DIE *ContextDIE =
       Minimal ? &getUnitDie() : getOrCreateContextDIE(SP->getScope());
 
-  if (DIE *SPDie = getDIE(SP))
+  if (DIE *SPDie = getSubprogramDIE(SPKey))
     return SPDie;
 
   if (auto *SPDecl = SP->getDeclaration()) {
@@ -1350,12 +1362,12 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP, bool Minimal) {
       // Add subprogram definitions to the CU die directly.
       ContextDIE = &getUnitDie();
       // Build the decl now to ensure it precedes the definition.
-      getOrCreateSubprogramDIE(SPDecl);
+      getOrCreateSubprogramDIE(std::make_pair(SPDecl, nullptr));
     }
   }
 
   // DW_TAG_inlined_subroutine may refer to this DIE.
-  DIE &SPDie = createAndAddDIE(dwarf::DW_TAG_subprogram, *ContextDIE, SP);
+  DIE &SPDie = createAndAddSubprogramDIE(*ContextDIE, SPKey);
 
   // Stop here and fill this in later, depending on whether or not this
   // subprogram turns out to have inlined instances or not.
