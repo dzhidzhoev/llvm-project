@@ -1006,6 +1006,7 @@ DIE *DwarfCompileUnit::constructVariableDIE(DbgVariable &DV,
 
 DIE *DwarfCompileUnit::constructLabelDIE(DbgLabel &DL,
                                          const LexicalScope &Scope) {
+  // TODO should we update this?
   auto LabelDie = DIE::get(DIEValueAllocator, DL.getTag());
   insertDIE(DL.getLabel(), LabelDie);
   DL.setDIE(*LabelDie);
@@ -1354,6 +1355,7 @@ DIE &DwarfCompileUnit::constructCallSiteEntryDIE(DIE &ScopeDIE,
 
 void DwarfCompileUnit::constructCallSiteParmEntryDIEs(
     DIE &CallSiteDIE, SmallVector<DbgCallSiteParam, 4> &Params) {
+  // TODO should we update this?
   for (const auto &Param : Params) {
     unsigned Register = Param.getRegister();
     auto CallSiteDieParam =
@@ -1378,6 +1380,7 @@ void DwarfCompileUnit::constructCallSiteParmEntryDIEs(
 
 DIE *DwarfCompileUnit::constructImportedEntityDIE(
     const DIImportedEntity *Module) {
+  // TODO should we update this?
   DIE *IMDie = DIE::get(DIEValueAllocator, Module->getTag());
   insertDIE(Module, IMDie);
   DIE *EntityDie;

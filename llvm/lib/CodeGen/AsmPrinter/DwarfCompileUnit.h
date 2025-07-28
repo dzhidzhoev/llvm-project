@@ -216,7 +216,7 @@ public:
   /// DW_AT_low_pc, DW_AT_high_pc and DW_AT_LLVM_stmt_sequence attributes.
   /// If there are global variables in this scope then create and insert DIEs
   /// for these variables.
-  DIE &updateSubprogramScopeDIE(DwarfFile::SubprogramKeyT Sub, MCSymbol *LineTableSym);
+  DIE &updateSubprogramScopeDIE(ConcreteNode Sub, MCSymbol *LineTableSym);
 
   void constructScopeDIE(LexicalScope *Scope, DIE &ParentScopeDIE);
 
@@ -243,6 +243,7 @@ public:
   DIE *getAbstractBlockDIE(const DILexicalBlock *LB);
 
   /// Construct a DIE for the given DbgVariable.
+  /// TODO update this
   DIE *constructVariableDIE(DbgVariable &DV, bool Abstract = false);
 
   /// Convenience overload which writes the DIE pointer into an out variable
@@ -260,7 +261,7 @@ public:
   DIE *getOrCreateContextDIE(const DIScope *Ty) override;
 
   /// Construct a DIE for this subprogram scope.
-  DIE &constructSubprogramScopeDIE(DwarfFile::SubprogramKeyT SP, LexicalScope *Scope,
+  DIE &constructSubprogramScopeDIE(ConcreteNode SP, LexicalScope *Scope,
                                    MCSymbol *LineTableSym);
 
   DIE *createAndAddScopeChildren(LexicalScope *Scope, DIE &ScopeDIE);
@@ -287,7 +288,7 @@ public:
   /// \p CallAddr points to the PC value at the call instruction (or is null).
   /// \p CallReg is a register location for an indirect call. For direct calls
   /// the \p CallReg is set to 0.
-  DIE &constructCallSiteEntryDIE(DIE &ScopeDIE, DwarfFile::SubprogramKeyT CalleeSP,
+  DIE &constructCallSiteEntryDIE(DIE &ScopeDIE, ConcreteNode CalleeSP,
                                  bool IsTail, const MCSymbol *PCAddr,
                                  const MCSymbol *CallAddr, unsigned CallReg);
   /// Construct call site parameter DIEs for the \p CallSiteDIE. The \p Params

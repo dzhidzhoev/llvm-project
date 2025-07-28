@@ -194,26 +194,26 @@ bool DwarfUnit::isShareableAcrossCUs(const DINode *D) const {
          !DD->generateTypeUnits();
 }
 
-DIE *DwarfUnit::getDIE(const DINode *D) const {
+DIE *DwarfUnit::getAbstractDIE(const DINode *D) const {
   if (isShareableAcrossCUs(D))
-    return DU->getDIE(D);
+    return DU->getAbstractDIE(D);
   return MDNodeToDieMap.lookup(D);
 }
 
-void DwarfUnit::insertDIE(const DINode *Desc, DIE *D) {
+void DwarfUnit::insertAbstractDIE(const DINode *Desc, DIE *D) {
   if (isShareableAcrossCUs(Desc)) {
-    DU->insertDIE(Desc, D);
+    DU->insertAbstractDIE(Desc, D);
     return;
   }
   MDNodeToDieMap.insert(std::make_pair(Desc, D));
 }
 
-void DwarfUnit::insertSubprogramDIE(DwarfFile::SubprogramKeyT SP, DIE *D) {
-  if (isShareableAcrossCUs(SP.first)) {
-    DU->insertSubprogramDIE(SP, D);
+void DwarfUnit::insertConcreteDIE(ConcreteNode N, DIE *D) {
+  if (isShareableAcrossCUs(N.Node)) {
+    DU->insertConcreteDIE(N, D);
     return;
   }
-  DISubprogramToDieMap.insert(std::make_pair(SP, D));
+  ConcreteDieMap.insert(std::make_pair(N, D));
 }
 
 void DwarfUnit::addFlag(DIE &Die, dwarf::Attribute Attribute) {
@@ -422,16 +422,16 @@ void DwarfUnit::addDIEEntry(DIE &Die, dwarf::Attribute Attribute,
                Entry);
 }
 
-DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
+DIE &DwarfUnit::createAndAddAbstractDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
   DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, Tag));
   if (N)
-    insertDIE(N, &Die);
+    insertAbstractDIE(N, &Die);
   return Die;
 }
 
-DIE &DwarfUnit::createAndAddSubprogramDIE(DIE &Parent, DwarfFile::SubprogramKeyT SP) {
+DIE &DwarfUnit::createAndAddConcreteDIE(DIE &Parent, ConcreteNode N) {
   DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, dwarf::DW_TAG_subprogram));
-  insertSubprogramDIE(SP, &Die);
+  insertConcreteDIE(N, &Die);
   return Die;
 }
 
@@ -559,7 +559,7 @@ void DwarfUnit::addTemplateParams(DIE &Buffer, DINodeArray TParams) {
 /// Add thrown types.
 void DwarfUnit::addThrownTypes(DIE &Die, DINodeArray ThrownTypes) {
   for (const auto *Ty : ThrownTypes) {
-    DIE &TT = createAndAddDIE(dwarf::DW_TAG_thrown_type, Die);
+    DIE &TT = createAndAddAbstractDIE(dwarf::DW_TAG_thrown_type, Die);
     addType(TT, cast<DIType>(Ty));
   }
 }
@@ -1346,8 +1346,10 @@ DIE *DwarfUnit::getOrCreateModule(const DIModule *M) {
   return &MDie;
 }
 
-DIE *DwarfUnit::getOrCreateSubprogramDIE(DwarfFile::SubprogramKeyT SPKey, bool Minimal) {
-  const DISubprogram *SP = SPKey.first;
+DIE *DwarfUnit::getOrCreateConcreteSubprogramDIE(ConcreteNode SP, bool Minimal) {
+  assert(isa<DISubprogram>(SP.Node) && "ConcreteNode should correspond to a DISubprogram");
+  const DISubprogram *SP = cast<DISubprogram>(SP.Node);
+
   // Construct the context before querying for the existence of the DIE in case
   // such construction creates the DIE (as is the case for member function
   // declarations).

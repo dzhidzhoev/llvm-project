@@ -27,13 +27,19 @@ class DbgVariable;
 class DbgLabel;
 class DINode;
 class DILocalScope;
-class DISubprogram;
 class DwarfCompileUnit;
 class DwarfUnit;
-class Function;
 class LexicalScope;
+class MachineFunction;
 class MCSection;
 class MDNode;
+
+// Concrete node is represented by (abstract) DINode and a machine function,
+// in context of which it is produced.
+struct ConcreteNode {
+  const DINode *Node;
+  const MachineFunction *MF;
+};
 
 // Data structure to hold a range for range lists.
 struct RangeSpan {
@@ -54,9 +60,6 @@ struct RangeSpanList {
 };
 
 class DwarfFile {
-public:
-  using SubprogramKeyT = std::pair<const DISubprogram *, const Function *>;
-private:
   // Target of Dwarf emission, used for sizing of abbreviations.
   AsmPrinter *Asm;
 
@@ -105,7 +108,7 @@ private:
   /// of in DwarfCompileUnit.
   DenseMap<const MDNode *, DIE *> DITypeNodeToDieMap;
 
-  DenseMap<SubprogramKeyT, DIE *> SubprogramMap;
+  DenseMap<std::pair<const DINode *, const MachineFunction *>, DIE *> ConcreteDieMap;
 
 public:
   DwarfFile(AsmPrinter *AP, StringRef Pref, BumpPtrAllocator &DA);
@@ -181,22 +184,20 @@ public:
     return AbstractEntities;
   }
 
-  void insertDIE(const MDNode *TypeMD, DIE *Die) {
-    assert(!isa<DISubprogram>(TypeMD) && "insertSubprogramDIE should be used for DISubprogram");
+  void insertAbstractDIE(const MDNode *TypeMD, DIE *Die) {
     DITypeNodeToDieMap.insert(std::make_pair(TypeMD, Die));
   }
 
-  DIE *getDIE(const MDNode *TypeMD) {
-    assert(!isa<DISubprogram>(TypeMD) && "getSubprogramDIE should be used for DISubprogram");
+  DIE *getAbstractDIE(const MDNode *TypeMD) {
     return DITypeNodeToDieMap.lookup(TypeMD);
   }
 
-  void insertSubprogramDIE(SubprogramKeyT SP, DIE *Die) {
-    SubprogramMap.insert(std::make_pair(SP, Die));
+  void insertConcreteDIE(ConcreteNode N, DIE *Die) {
+    ConcreteDieMap.insert(std::make_pair(std::make_pair(N.Node, N.MF), Die));
   }
 
-  DIE *getSubprogramDIE(SubprogramKeyT SP) {
-    return SubprogramMap.lookup(SP);
+  DIE *getAbstractDIE(const ConcreteNode &N) {
+    return ConcreteDieMap.lookup(std::make_pair(N.Node, N.MF));
   }
 };
 
