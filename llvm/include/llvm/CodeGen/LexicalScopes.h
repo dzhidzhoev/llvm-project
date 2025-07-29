@@ -16,8 +16,8 @@
 #ifndef LLVM_CODEGEN_LEXICALSCOPES_H
 #define LLVM_CODEGEN_LEXICALSCOPES_H
 
-#include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
+#include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/DebugInfoMetadata.h"
@@ -143,12 +143,18 @@ class LexicalScopes {
 public:
   LexicalScopes() = default;
 
-  /// initialize - Scan machine function and constuct lexical scope nest, resets
-  /// the instance if necessary.
-  LLVM_ABI void initialize(const MachineFunction &);
+  /// initialize - Scan module to build subprogram-to-function map.
+  LLVM_ABI void initialize(const Module &);
 
-  /// releaseMemory - release memory.
-  LLVM_ABI void reset();
+  /// scanFunction - Scan machine function and constuct lexical scope nest, resets
+  /// the instance if necessary.
+  LLVM_ABI void scanFunction(const MachineFunction &);
+
+  /// resetModule - Reset the instance so that it's prepared for another module.
+  LLVM_ABI void resetModule();
+
+  /// functionReset - Reset the instance so that it's prepared for another function.
+  LLVM_ABI void resetFunction();
 
   /// empty - Return true if there is any lexical scope information available.
   bool empty() { return CurrentFnLexicalScope == nullptr; }
@@ -174,7 +180,7 @@ public:
   LLVM_ABI LexicalScope *findLexicalScope(const DILocation *DL);
 
   /// getAbstractScopesList - Return a reference to list of abstract scopes.
-  ArrayRef<LexicalScope *> getAbstractScopesList() const {
+  const SetVector<LexicalScope *> &getAbstractScopesList() const {
     return AbstractScopesList;
   }
 
@@ -245,7 +251,7 @@ private:
 
   /// AbstractScopesList - Tracks abstract scopes constructed while processing
   /// a function.
-  SmallVector<LexicalScope *, 4> AbstractScopesList;
+  SetVector<LexicalScope *> AbstractScopesList;
 
   /// CurrentFnLexicalScope - Top level scope for the current function.
   ///

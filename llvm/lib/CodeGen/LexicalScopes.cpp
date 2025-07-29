@@ -23,6 +23,7 @@
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Metadata.h"
+#include "llvm/IR/Module.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
@@ -36,23 +37,33 @@ using namespace llvm;
 
 #define DEBUG_TYPE "lexicalscopes"
 
-/// reset - Reset the instance so that it's prepared for another function.
-void LexicalScopes::reset() {
+static bool skipUnit(const DICompileUnit *CU) {
+  return CU->getEmissionKind() == DICompileUnit::NoDebug;
+}
+
+void LexicalScopes::resetModule() {
+  AbstractScopeMap.clear();
+  resetFunction();
+}
+
+void LexicalScopes::resetFunction() {
   MF = nullptr;
   CurrentFnLexicalScope = nullptr;
   LexicalScopeMap.clear();
-  AbstractScopeMap.clear();
   InlinedLexicalScopeMap.clear();
   AbstractScopesList.clear();
   DominatedBlocks.clear();
 }
 
+void LexicalScopes::initialize(const Module &M) {
+  resetModule();
+}
+
 /// initialize - Scan machine function and constuct lexical scope nest.
-void LexicalScopes::initialize(const MachineFunction &Fn) {
-  reset();
+void LexicalScopes::scanFunction(const MachineFunction &Fn) {
+  resetFunction();
   // Don't attempt any lexical scope creation for a NoDebug compile unit.
-  if (Fn.getFunction().getSubprogram()->getUnit()->getEmissionKind() ==
-      DICompileUnit::NoDebug)
+  if (skipUnit(Fn.getFunction().getSubprogram()->getUnit()))
     return;
   MF = &Fn;
   SmallVector<InsnRange, 4> MIRanges;
@@ -143,8 +154,7 @@ LexicalScope *LexicalScopes::getOrCreateLexicalScope(const DILocalScope *Scope,
                                                      const DILocation *IA) {
   if (IA) {
     // Skip scopes inlined from a NoDebug compile unit.
-    if (Scope->getSubprogram()->getUnit()->getEmissionKind() ==
-        DICompileUnit::NoDebug)
+    if (skipUnit(Scope->getSubprogram()->getUnit()))
       return getOrCreateLexicalScope(IA);
     // Create an abstract scope for inlined function.
     getOrCreateAbstractScope(Scope);
@@ -213,8 +223,13 @@ LexicalScopes::getOrCreateAbstractScope(const DILocalScope *Scope) {
   assert(Scope && "Invalid Scope encoding!");
   Scope = Scope->getNonLexicalBlockFileScope();
   auto I = AbstractScopeMap.find(Scope);
-  if (I != AbstractScopeMap.end())
+  if (I != AbstractScopeMap.end()) {
+    // Abstact scope might be created before the current function processing.
+    if (isa<DISubprogram>(Scope))
+      AbstractScopesList.insert(&I->second);
+
     return &I->second;
+  }
 
   // FIXME: Should the following isa be DILexicalBlock?
   LexicalScope *Parent = nullptr;
@@ -226,7 +241,7 @@ LexicalScopes::getOrCreateAbstractScope(const DILocalScope *Scope) {
                                std::forward_as_tuple(Parent, Scope,
                                                      nullptr, true)).first;
   if (isa<DISubprogram>(Scope))
-    AbstractScopesList.push_back(&I->second);
+    AbstractScopesList.insert(&I->second);
   return &I->second;
 }
 
