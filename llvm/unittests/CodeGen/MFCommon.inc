@@ -128,9 +128,10 @@ BogusTargetMachine *createTargetMachine() {
 }
 
 std::unique_ptr<MachineFunction> createMachineFunction(LLVMContext &Ctx,
-                                                       Module &M) {
+                                                       Module &M,
+                                                       const Twine &Name = "Test") {
   auto Type = FunctionType::get(Type::getVoidTy(Ctx), false);
-  auto F = Function::Create(Type, GlobalValue::ExternalLinkage, "Test", &M);
+  auto F = Function::Create(Type, GlobalValue::ExternalLinkage, Name, &M);
 
   auto TM = createTargetMachine();
   unsigned FunctionNum = 42;

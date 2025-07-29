@@ -2741,7 +2741,7 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
   // is still needed as we need its source location.
   if (!TheCU.getCUNode()->getDebugInfoForProfiling() &&
       TheCU.getCUNode()->getEmissionKind() == DICompileUnit::LineTablesOnly &&
-      LScopes.getAbstractScopesList().empty() && !IsDarwin) {
+      !LScopes.currentFunctionHasInlinedScopes() && !IsDarwin) {
     for (const auto &R : Asm->MBBSectionRanges)
       addArangeLabel(SymbolCU(&TheCU, R.second.BeginLabel));
 
@@ -2782,7 +2782,7 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
   DIE &ScopeDIE =
       TheCU.constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
   if (auto *SkelCU = TheCU.getSkeleton())
-    if (!LScopes.getAbstractScopesList().empty() &&
+    if (LScopes.currentFunctionHasInlinedScopes() &&
         TheCU.getCUNode()->getSplitDebugInlining())
       SkelCU->constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
 

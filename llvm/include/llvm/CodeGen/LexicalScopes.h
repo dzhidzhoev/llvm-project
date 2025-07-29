@@ -143,13 +143,18 @@ class LexicalScopes {
 public:
   LexicalScopes() = default;
 
-  /// initialize - Scan machine function and constuct lexical scope nest, resets
-  /// the instance if necessary.
-  LLVM_ABI void initialize(const MachineFunction &);
+  /// initialize - Scan module to construct top-level abstract scopes.
+  LLVM_ABI void initialize(const Module &);
 
-  /// TODO update outdated commit
-  /// releaseMemory - release memory.
-  LLVM_ABI void reset();
+  /// scanFunction - Scan machine function and constuct lexical scope nest, resets
+  /// the instance if necessary.
+  LLVM_ABI void scanFunction(const MachineFunction &);
+
+  /// resetModule - Reset the instance so that it's prepared for another module.
+  LLVM_ABI void resetModule();
+
+  /// functionReset - Reset the instance so that it's prepared for another function.
+  LLVM_ABI void resetFunction();
 
   /// empty - Return true if there is any lexical scope information available.
   bool empty() { return CurrentFnLexicalScope == nullptr; }
@@ -195,6 +200,10 @@ public:
   LexicalScope *findLexicalScope(const DILocalScope *N) {
     auto I = LexicalScopeMap.find(N);
     return I != LexicalScopeMap.end() ? &I->second : nullptr;
+  }
+
+  bool currentFunctionHasInlinedScopes() {
+    return !InlinedLexicalScopeMap.empty();
   }
 
   /// getOrCreateAbstractScope - Find or create an abstract lexical scope.
@@ -245,7 +254,7 @@ private:
   std::unordered_map<const DILocalScope *, LexicalScope> AbstractScopeMap;
 
   /// AbstractScopesList - Tracks abstract scopes constructed while processing
-  /// a function.
+  /// a module.
   SmallVector<LexicalScope *, 4> AbstractScopesList;
 
   /// CurrentFnLexicalScope - Top level scope for the current function.
