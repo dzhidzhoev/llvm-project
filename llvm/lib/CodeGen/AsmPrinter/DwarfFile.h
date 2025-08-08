@@ -105,15 +105,24 @@ class DwarfInfoHolder {
   // DIEs of local DbgVariables.
   DINodeInfoHolder<DILocalVariable, DbgVariable> LVHolder;
   DINodeInfoHolder<DILabel, DbgLabel> LabelHolder;
+  DINodeInfoHolder<DILocalScope, LexicalScope> LSHolder;
 
   /// Other DINodes with the corresponding DIEs.
   DenseMap<const DINode *, DIE *> MDNodeToDieMap;
 
+  template <typename DINodeT, typename U>
+  DIE *getAbstractOrAnyConcreteDIE(const DINodeInfoHolder<DINodeT, U> &InfoHolder, const DINode *N) {
+    if (auto *TypedN = dyn_cast<DINodeT>(N))
+      if (DIE *D = InfoHolder.getDIE(TypedN))
+        return D;
+    return getDIE(N);
+  }
+
 public:
   void insertDIE(const DINode *N, DIE *Die) {
-    assert((!isa<DILabel>(N) && !isa<DILocalVariable>(N)) &&
-           "Use Labels().insertDIE() for labels or LVs().insertDIE() for "
-           "local variables");
+    assert((!isa<DILabel>(N) && !isa<DILocalVariable>(N) && !isa<DILocalScope>(N)) &&
+           "Use Labels().insertDIE() for labels, LVs().insertDIE() for "
+           "local variables, or LocalScopes().insertDIE() for local scopes.");
     auto [_, Inserted] = MDNodeToDieMap.try_emplace(N, Die);
     assert((Inserted || isa<DISubprogram>(N) || isa<DIType>(N)) &&
            "DIE for this DINode has already been added");
@@ -123,9 +132,9 @@ public:
 
   DIE *getDIE(const DINode *N) const {
     DIE *D = MDNodeToDieMap.lookup(N);
-    assert((!D || (!isa<DILabel>(N) && !isa<DILocalVariable>(N))) &&
-           "Use Labels().getDIE() for labels or LVs().getDIE() for "
-           "local variables");
+    assert((!D || (!isa<DILabel>(N) && !isa<DILocalVariable>(N) && !isa<DILocalScope>(N))) &&
+           "Use Labels().getDIE() for labels, LVs().getDIE() for "
+           "local variables, or LocalScopes().getDIE() for local scopes.");
     return D;
   }
 
@@ -133,15 +142,18 @@ public:
 
   decltype(LabelHolder) &Labels() { return LabelHolder; }
 
+  decltype(LabelHolder) &LocalScopes() { return LabelHolder; }
+
   /// For a global variable, returns DIE of the variable.
   ///
   /// For a local variable, returns abstract DIE of the variable.
   /// If no abstract DIE was created, returns any concrete DIE of the variable.
   DIE *getVariableDIE(const DIVariable *V) {
-    if (auto *LV = dyn_cast<DILocalVariable>(V))
-      if (DIE *D = LVs().getDIE(LV))
-        return D;
-    return getDIE(V);
+    return getAbstractOrAnyConcreteDIE(LVs(), V);
+  }
+
+  DIE *getScopeDIE(const DIScope *V) {
+    return getAbstractOrAnyConcreteDIE(LocalScopes(), V);
   }
 };
 
