@@ -470,8 +470,7 @@ public:
 
   /// Compute the live intervals of all locations after collecting all their
   /// def points.
-  void computeIntervals(MachineRegisterInfo &MRI, const TargetRegisterInfo &TRI,
-                        LiveIntervals &LIS, LexicalScopes &LS);
+  void computeIntervals(MachineFunction &MF, const TargetRegisterInfo &TRI, LiveIntervals &LIS, LexicalScopes &LS);
 
   /// Replace OldReg ranges with NewRegs ranges where NewRegs is
   /// live. Returns true if any changes were made.
@@ -1112,9 +1111,8 @@ void UserValue::addDefsFromCopies(
   NewDefs.push_back(std::make_pair(KilledAt, NewValue));
 }
 
-void UserValue::computeIntervals(MachineRegisterInfo &MRI,
-                                 const TargetRegisterInfo &TRI,
-                                 LiveIntervals &LIS, LexicalScopes &LS) {
+void UserValue::computeIntervals(MachineFunction &MF, const TargetRegisterInfo &TRI, LiveIntervals &LIS, LexicalScopes &LS) {
+  MachineRegisterInfo &MRI = MF.getRegInfo();
   SmallVector<std::pair<SlotIndex, DbgVariableValue>, 16> Defs;
 
   // Collect all defs to be extended (Skipping undefs).
@@ -1193,7 +1191,7 @@ void UserValue::computeIntervals(MachineRegisterInfo &MRI,
   if (!dl.getInlinedAt())
     return;
 
-  LexicalScope *Scope = LS.findLexicalScope(dl);
+  LexicalScope *Scope = LS.getCurrentFnScopes()->findLexicalScope(dl);
   if (!Scope)
     return;
 
@@ -1266,7 +1264,7 @@ void LiveDebugVariables::LDVImpl::computeIntervals() {
   LS.scanFunction(*MF);
 
   for (const auto &UV : userValues) {
-    UV->computeIntervals(MF->getRegInfo(), *TRI, *LIS, LS);
+    UV->computeIntervals(*MF, *TRI, *LIS, LS);
     UV->mapVirtRegs(this);
   }
 }

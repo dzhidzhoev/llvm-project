@@ -1293,7 +1293,7 @@ void CodeViewDebug::collectVariableInfoFromMFTable(
            "Expected inlined-at fields to agree");
 
     Processed.insert(InlinedEntity(VI.Var, VI.Loc->getInlinedAt()));
-    LexicalScope *Scope = LScopes.findLexicalScope(VI.Loc);
+    LexicalScope *Scope = LScopes.getCurrentFnScopes()->findLexicalScope(VI.Loc);
 
     // If variable scope is not found then skip this variable.
     if (!Scope)
@@ -1471,9 +1471,9 @@ void CodeViewDebug::collectVariableInfo(const DISubprogram *SP) {
 
     LexicalScope *Scope = nullptr;
     if (InlinedAt)
-      Scope = LScopes.findInlinedScope(DIVar->getScope(), InlinedAt);
+      Scope = LScopes.getCurrentFnScopes()->findInlinedScope(DIVar->getScope(), InlinedAt);
     else
-      Scope = LScopes.findLexicalScope(DIVar->getScope());
+      Scope = LScopes.getCurrentFnScopes()->findLexicalScope(DIVar->getScope());
     // If variable scope is not found then skip this variable.
     if (!Scope)
       continue;

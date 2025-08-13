@@ -1557,7 +1557,7 @@ void DwarfDebug::collectVariableInfoFromMFTable(
 
     InlinedEntity Var(VI.Var, VI.Loc->getInlinedAt());
     Processed.insert(Var);
-    LexicalScope *Scope = LScopes.findLexicalScope(VI.Loc);
+    LexicalScope *Scope = LScopes.getCurrentFnScopes()->findLexicalScope(VI.Loc);
 
     // If variable scope is not found then skip this variable.
     if (!Scope) {
@@ -1617,7 +1617,7 @@ static bool validThroughout(LexicalScopes &LScopes,
   assert(DbgValue->getDebugLoc() && "DBG_VALUE without a debug location");
   auto MBB = DbgValue->getParent();
   auto DL = DbgValue->getDebugLoc();
-  auto *LScope = LScopes.findLexicalScope(DL);
+  auto *LScope = LScopes.getCurrentFnScopes()->findLexicalScope(DL);
   // Scope doesn't exist; this is a dead DBG_VALUE.
   if (!LScope)
     return false;
@@ -1645,7 +1645,7 @@ static bool validThroughout(LexicalScopes &LScopes,
       // (sub)scope as the DBG_VALUE.
       if (DL->getScope() == PredDL->getScope())
         return false;
-      auto *PredScope = LScopes.findLexicalScope(PredDL);
+      auto *PredScope = LScopes.getCurrentFnScopes()->findLexicalScope(PredDL);
       if (!PredScope || LScope->dominates(PredScope))
         return false;
     }
@@ -1913,9 +1913,9 @@ void DwarfDebug::collectEntityInfo(DwarfCompileUnit &TheCU,
     LexicalScope *Scope = nullptr;
     const DILocalVariable *LocalVar = cast<DILocalVariable>(IV.first);
     if (const DILocation *IA = IV.second)
-      Scope = LScopes.findInlinedScope(LocalVar->getScope(), IA);
+      Scope = LScopes.getCurrentFnScopes()->findInlinedScope(LocalVar->getScope(), IA);
     else
-      Scope = LScopes.findLexicalScope(LocalVar->getScope());
+      Scope = LScopes.getCurrentFnScopes()->findLexicalScope(LocalVar->getScope());
     // If variable scope is not found then skip this variable.
     if (!Scope)
       continue;
@@ -1983,9 +1983,9 @@ void DwarfDebug::collectEntityInfo(DwarfCompileUnit &TheCU,
         Label->getScope()->getNonLexicalBlockFileScope();
     // Get inlined DILocation if it is inlined label.
     if (const DILocation *IA = IL.second)
-      Scope = LScopes.findInlinedScope(LocalScope, IA);
+      Scope = LScopes.getCurrentFnScopes()->findInlinedScope(LocalScope, IA);
     else
-      Scope = LScopes.findLexicalScope(LocalScope);
+      Scope = LScopes.getCurrentFnScopes()->findLexicalScope(LocalScope);
     // If label scope is not found then skip this label.
     if (!Scope)
       continue;
@@ -2004,7 +2004,7 @@ void DwarfDebug::collectEntityInfo(DwarfCompileUnit &TheCU,
     if (isa<DILocalVariable>(DN) || isa<DILabel>(DN)) {
       if (!Processed.insert(InlinedEntity(DN, nullptr)).second)
         continue;
-      LexicalScope *LexS = LScopes.findLexicalScope(LS);
+      LexicalScope *LexS = LScopes.getCurrentFnScopes()->findLexicalScope(LS);
       if (LexS)
         createConcreteEntity(TheCU, *LexS, DN, nullptr);
     } else {
@@ -2741,7 +2741,7 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
   // is still needed as we need its source location.
   if (!TheCU.getCUNode()->getDebugInfoForProfiling() &&
       TheCU.getCUNode()->getEmissionKind() == DICompileUnit::LineTablesOnly &&
-      !LScopes.currentFunctionHasInlinedScopes() && !IsDarwin) {
+      !LScopes.getCurrentFnScopes()->hasInlinedScopes() && !IsDarwin) {
     for (const auto &R : Asm->MBBSectionRanges)
       addArangeLabel(SymbolCU(&TheCU, R.second.BeginLabel));
 
@@ -2782,7 +2782,7 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
   DIE &ScopeDIE =
       TheCU.constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
   if (auto *SkelCU = TheCU.getSkeleton())
-    if (LScopes.currentFunctionHasInlinedScopes() &&
+    if (LScopes.getCurrentFnScopes()->hasInlinedScopes() &&
         TheCU.getCUNode()->getSplitDebugInlining())
       SkelCU->constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
 

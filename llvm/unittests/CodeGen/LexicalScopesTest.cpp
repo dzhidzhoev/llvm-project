@@ -160,16 +160,16 @@ TEST_F(LexicalScopesTest, FlatLayout) {
 
   EXPECT_TRUE(FuncScope->dominates(FuncScope));
   SmallPtrSet<const MachineBasicBlock *, 4> MBBVec;
-  LS.getMachineBasicBlocks(OutermostLoc.get(), MBBVec);
+  LS.getCurrentFnScopes()->getMachineBasicBlocks(LS, OutermostLoc.get(), MBBVec);
 
   EXPECT_EQ(MBBVec.size(), 4u);
   // All the blocks should be in that set; the outermost loc should dominate
   // them; and no other scope should.
   for (auto &MBB : *MF) {
     EXPECT_EQ(MBBVec.count(&MBB), 1u);
-    EXPECT_TRUE(LS.dominates(OutermostLoc.get(), &MBB));
-    EXPECT_FALSE(LS.dominates(InBlockLoc.get(), &MBB));
-    EXPECT_FALSE(LS.dominates(InlinedLoc.get(), &MBB));
+    EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), &MBB));
+    EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), &MBB));
+    EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InlinedLoc.get(), &MBB));
   }
 }
 
@@ -188,7 +188,7 @@ TEST_F(LexicalScopesTest, BlockScopes) {
   auto &Children = FuncScope->getChildren();
   ASSERT_EQ(Children.size(), 1u);
   auto *BlockScope = Children[0];
-  EXPECT_EQ(LS.findLexicalScope(InBlockLoc.get()), BlockScope);
+  EXPECT_EQ(LS.getCurrentFnScopes()->findLexicalScope(InBlockLoc.get()), BlockScope);
   EXPECT_EQ(BlockScope->getDesc(), InBlockLoc->getScope());
   EXPECT_FALSE(BlockScope->isAbstractScope());
 
@@ -198,14 +198,14 @@ TEST_F(LexicalScopesTest, BlockScopes) {
   EXPECT_EQ(BlockScope->getParent(), FuncScope);
 
   SmallPtrSet<const MachineBasicBlock *, 4> MBBVec;
-  LS.getMachineBasicBlocks(OutermostLoc.get(), MBBVec);
+  LS.getCurrentFnScopes()->getMachineBasicBlocks(LS, OutermostLoc.get(), MBBVec);
 
   EXPECT_EQ(MBBVec.size(), 4u);
   for (auto &MBB : *MF) {
     EXPECT_EQ(MBBVec.count(&MBB), 1u);
-    EXPECT_TRUE(LS.dominates(OutermostLoc.get(), &MBB));
-    EXPECT_TRUE(LS.dominates(InBlockLoc.get(), &MBB));
-    EXPECT_FALSE(LS.dominates(InlinedLoc.get(), &MBB));
+    EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), &MBB));
+    EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), &MBB));
+    EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InlinedLoc.get(), &MBB));
   }
 }
 
@@ -274,7 +274,7 @@ TEST_F(LexicalScopesTest, FuncWithRealGap) {
 
   LexicalScopes LS;
   LS.scanFunction(*MF);
-  LexicalScope *BlockScope = LS.findLexicalScope(InBlockLoc.get());
+  LexicalScope *BlockScope = LS.getCurrentFnScopes()->findLexicalScope(InBlockLoc.get());
   ASSERT_NE(BlockScope, nullptr);
 
   // Within the block scope, there's a gap between the first and last
@@ -308,8 +308,8 @@ TEST_F(LexicalScopesTest, NotNested) {
   LexicalScopes LS;
   LS.scanFunction(*MF);
   LexicalScope *FuncScope = LS.getCurrentFunctionScope();
-  LexicalScope *BlockScope = LS.findLexicalScope(InBlockLoc.get());
-  LexicalScope *OtherBlockScope = LS.findLexicalScope(NotNestedBlockLoc.get());
+  LexicalScope *BlockScope = LS.getCurrentFnScopes()->findLexicalScope(InBlockLoc.get());
+  LexicalScope *OtherBlockScope = LS.getCurrentFnScopes()->findLexicalScope(NotNestedBlockLoc.get());
   ASSERT_NE(FuncScope, nullptr);
   ASSERT_NE(BlockScope, nullptr);
   ASSERT_NE(OtherBlockScope, nullptr);
@@ -336,7 +336,7 @@ TEST_F(LexicalScopesTest, NotNested) {
   EXPECT_EQ(OtherBlockRanges[0].second, ThirdI);
 }
 
-// Test the scope-specific and block-specific dominates methods.
+// Test the scope-specific and block-specific getCurrentFnScopes()->dominates methods.
 TEST_F(LexicalScopesTest, TestDominates) {
   BuildMI(*MBB1, MBB1->end(), InBlockLoc, BeanInst);
   BuildMI(*MBB2, MBB2->end(), NotNestedBlockLoc, BeanInst);
@@ -346,8 +346,8 @@ TEST_F(LexicalScopesTest, TestDominates) {
   LexicalScopes LS;
   LS.scanFunction(*MF);
   LexicalScope *FuncScope = LS.getCurrentFunctionScope();
-  LexicalScope *BlockScope = LS.findLexicalScope(InBlockLoc.get());
-  LexicalScope *OtherBlockScope = LS.findLexicalScope(NotNestedBlockLoc.get());
+  LexicalScope *BlockScope = LS.getCurrentFnScopes()->findLexicalScope(InBlockLoc.get());
+  LexicalScope *OtherBlockScope = LS.getCurrentFnScopes()->findLexicalScope(NotNestedBlockLoc.get());
   ASSERT_NE(FuncScope, nullptr);
   ASSERT_NE(BlockScope, nullptr);
   ASSERT_NE(OtherBlockScope, nullptr);
@@ -359,26 +359,26 @@ TEST_F(LexicalScopesTest, TestDominates) {
   EXPECT_FALSE(OtherBlockScope->dominates(FuncScope));
   EXPECT_FALSE(OtherBlockScope->dominates(BlockScope));
 
-  // Outermost scope dominates everything, as all insts are within it.
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB1));
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB2));
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB3));
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB4));
+  // Outermost scope getCurrentFnScopes()->dominates everything, as all insts are within it.
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB1));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB2));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB3));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB4));
 
-  // One inner block dominates the outer pair of blocks,
-  EXPECT_TRUE(LS.dominates(InBlockLoc.get(), MBB1));
-  EXPECT_FALSE(LS.dominates(InBlockLoc.get(), MBB2));
-  EXPECT_FALSE(LS.dominates(InBlockLoc.get(), MBB3));
-  EXPECT_TRUE(LS.dominates(InBlockLoc.get(), MBB4));
+  // One inner block getCurrentFnScopes()->dominates the outer pair of blocks,
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB1));
+  EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB2));
+  EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB3));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB4));
 
-  // While the other dominates the inner two blocks.
-  EXPECT_FALSE(LS.dominates(NotNestedBlockLoc.get(), MBB1));
-  EXPECT_TRUE(LS.dominates(NotNestedBlockLoc.get(), MBB2));
-  EXPECT_TRUE(LS.dominates(NotNestedBlockLoc.get(), MBB3));
-  EXPECT_FALSE(LS.dominates(NotNestedBlockLoc.get(), MBB4));
+  // While the other getCurrentFnScopes()->dominates the inner two blocks.
+  EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, NotNestedBlockLoc.get(), MBB1));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, NotNestedBlockLoc.get(), MBB2));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, NotNestedBlockLoc.get(), MBB3));
+  EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, NotNestedBlockLoc.get(), MBB4));
 }
 
-// Test getMachineBasicBlocks returns all dominated blocks.
+// Test getCurrentFnScopes()->getMachineBasicBlocks returns all dominated blocks.
 TEST_F(LexicalScopesTest, TestGetBlocks) {
   BuildMI(*MBB1, MBB1->end(), InBlockLoc, BeanInst);
   BuildMI(*MBB2, MBB2->end(), NotNestedBlockLoc, BeanInst);
@@ -388,17 +388,17 @@ TEST_F(LexicalScopesTest, TestGetBlocks) {
   LexicalScopes LS;
   LS.scanFunction(*MF);
   LexicalScope *FuncScope = LS.getCurrentFunctionScope();
-  LexicalScope *BlockScope = LS.findLexicalScope(InBlockLoc.get());
-  LexicalScope *OtherBlockScope = LS.findLexicalScope(NotNestedBlockLoc.get());
+  LexicalScope *BlockScope = LS.getCurrentFnScopes()->findLexicalScope(InBlockLoc.get());
+  LexicalScope *OtherBlockScope = LS.getCurrentFnScopes()->findLexicalScope(NotNestedBlockLoc.get());
   ASSERT_NE(FuncScope, nullptr);
   ASSERT_NE(BlockScope, nullptr);
   ASSERT_NE(OtherBlockScope, nullptr);
 
   SmallPtrSet<const MachineBasicBlock *, 4> OutermostBlocks, InBlockBlocks,
       NotNestedBlockBlocks;
-  LS.getMachineBasicBlocks(OutermostLoc.get(), OutermostBlocks);
-  LS.getMachineBasicBlocks(InBlockLoc.get(), InBlockBlocks);
-  LS.getMachineBasicBlocks(NotNestedBlockLoc.get(), NotNestedBlockBlocks);
+  LS.getCurrentFnScopes()->getMachineBasicBlocks(LS, OutermostLoc.get(), OutermostBlocks);
+  LS.getCurrentFnScopes()->getMachineBasicBlocks(LS, InBlockLoc.get(), InBlockBlocks);
+  LS.getCurrentFnScopes()->getMachineBasicBlocks(LS, NotNestedBlockLoc.get(), NotNestedBlockBlocks);
 
   EXPECT_EQ(OutermostBlocks.count(MBB1), 1u);
   EXPECT_EQ(OutermostBlocks.count(MBB2), 1u);
@@ -445,18 +445,18 @@ TEST_F(LexicalScopesTest, TestMetaInst) {
   LexicalScopes LS;
   LS.scanFunction(*MF);
   LexicalScope *FuncScope = LS.getCurrentFunctionScope();
-  LexicalScope *BlockScope = LS.findLexicalScope(InBlockLoc.get());
+  LexicalScope *BlockScope = LS.getCurrentFnScopes()->findLexicalScope(InBlockLoc.get());
   ASSERT_NE(FuncScope, nullptr);
   ASSERT_NE(BlockScope, nullptr);
 
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB1));
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB2));
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB3));
-  EXPECT_TRUE(LS.dominates(OutermostLoc.get(), MBB4));
-  EXPECT_TRUE(LS.dominates(InBlockLoc.get(), MBB1));
-  EXPECT_FALSE(LS.dominates(InBlockLoc.get(), MBB2));
-  EXPECT_FALSE(LS.dominates(InBlockLoc.get(), MBB3));
-  EXPECT_TRUE(LS.dominates(InBlockLoc.get(), MBB4));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB1));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB2));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB3));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, OutermostLoc.get(), MBB4));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB1));
+  EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB2));
+  EXPECT_FALSE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB3));
+  EXPECT_TRUE(LS.getCurrentFnScopes()->dominates(LS, InBlockLoc.get(), MBB4));
 }
 
 TEST_F(LexicalScopesTest, TestRepeatingSubprogram) {
@@ -494,7 +494,7 @@ TEST_F(LexicalScopesTest, TestRepeatingSubprogram) {
   LS.scanFunction(*FooMF);
   EXPECT_EQ(LS.getAbstractScopesList().size(), 1u);
   EXPECT_EQ(LS.getAbstractScopesList()[0]->getScopeNode(), OurFunc);
-  EXPECT_NE(LS.findLexicalScope(FooFunc), nullptr);
+  EXPECT_NE(LS.getCurrentFnScopes()->findLexicalScope(FooFunc), nullptr);
 }
 
 } // anonymous namespace

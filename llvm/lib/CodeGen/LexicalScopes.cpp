@@ -44,15 +44,14 @@ static bool skipUnit(const DICompileUnit *CU) {
 void LexicalScopes::resetModule() {
   AbstractScopeMap.clear();
   AbstractScopesList.clear();
+  ConcreteScopes.clear();
   resetFunction();
 }
 
 void LexicalScopes::resetFunction() {
   MF = nullptr;
   CurrentFnLexicalScope = nullptr;
-  LexicalScopeMap.clear();
-  InlinedLexicalScopeMap.clear();
-  DominatedBlocks.clear();
+  CurrentFnScopes = nullptr;
 }
 
 void LexicalScopes::initialize(const Module &M) {
@@ -70,13 +69,14 @@ void LexicalScopes::initialize(const Module &M) {
 /// initialize - Scan machine function and constuct lexical scope nest.
 void LexicalScopes::scanFunction(const MachineFunction &Fn) {
   resetFunction();
+  CurrentFnScopes = &ConcreteScopes.try_emplace(&Fn.getFunction()).first->second;
   // Don't attempt any lexical scope creation for a NoDebug compile unit.
   if (skipUnit(Fn.getFunction().getSubprogram()->getUnit()))
     return;
   MF = &Fn;
   SmallVector<InsnRange, 4> MIRanges;
   DenseMap<const MachineInstr *, LexicalScope *> MI2ScopeMap;
-  extractLexicalScopes(MIRanges, MI2ScopeMap);
+  CurrentFnScopes->extractLexicalScopes(*this, MIRanges, MI2ScopeMap);
   if (CurrentFnLexicalScope) {
     constructScopeNest(CurrentFnLexicalScope);
     assignInstructionRanges(MIRanges, MI2ScopeMap);
@@ -85,11 +85,11 @@ void LexicalScopes::scanFunction(const MachineFunction &Fn) {
 
 /// extractLexicalScopes - Extract instruction ranges for each lexical scopes
 /// for the given machine function.
-void LexicalScopes::extractLexicalScopes(
-    SmallVectorImpl<InsnRange> &MIRanges,
+void FunctionScopes::extractLexicalScopes(
+    LexicalScopes &Context, SmallVectorImpl<InsnRange> &MIRanges,
     DenseMap<const MachineInstr *, LexicalScope *> &MI2ScopeMap) {
   // Scan each instruction and create scopes. First build working set of scopes.
-  for (const auto &MBB : *MF) {
+  for (const auto &MBB : *Context.MF) {
     const MachineInstr *RangeBeginMI = nullptr;
     const MachineInstr *PrevMI = nullptr;
     const DILocation *PrevDL = nullptr;
@@ -117,7 +117,7 @@ void LexicalScopes::extractLexicalScopes(
         // current instruction scope does not match scope of first instruction
         // in this range then create a new instruction range.
         InsnRange R(RangeBeginMI, PrevMI);
-        MI2ScopeMap[RangeBeginMI] = getOrCreateLexicalScope(PrevDL);
+        MI2ScopeMap[RangeBeginMI] = getOrCreateLexicalScope(Context, PrevDL);
         MIRanges.push_back(R);
       }
 
@@ -133,14 +133,14 @@ void LexicalScopes::extractLexicalScopes(
     if (RangeBeginMI && PrevMI && PrevDL) {
       InsnRange R(RangeBeginMI, PrevMI);
       MIRanges.push_back(R);
-      MI2ScopeMap[RangeBeginMI] = getOrCreateLexicalScope(PrevDL);
+      MI2ScopeMap[RangeBeginMI] = getOrCreateLexicalScope(Context, PrevDL);
     }
   }
 }
 
 /// findLexicalScope - Find lexical scope, either regular or inlined, for the
 /// given DebugLoc. Return NULL if not found.
-LexicalScope *LexicalScopes::findLexicalScope(const DILocation *DL) {
+LexicalScope *FunctionScopes::findLexicalScope(const DILocation *DL) {
   DILocalScope *Scope = DL->getScope();
   if (!Scope)
     return nullptr;
@@ -158,24 +158,24 @@ LexicalScope *LexicalScopes::findLexicalScope(const DILocation *DL) {
 
 /// getOrCreateLexicalScope - Find lexical scope for the given DebugLoc. If
 /// not available then create new lexical scope.
-LexicalScope *LexicalScopes::getOrCreateLexicalScope(const DILocalScope *Scope,
+LexicalScope *FunctionScopes::getOrCreateLexicalScope(LexicalScopes &Context, const DILocalScope *Scope,
                                                      const DILocation *IA) {
   if (IA) {
     // Skip scopes inlined from a NoDebug compile unit.
     if (skipUnit(Scope->getSubprogram()->getUnit()))
-      return getOrCreateLexicalScope(IA);
+      return getOrCreateLexicalScope(Context, IA);
     // Create an abstract scope for inlined function.
-    getOrCreateAbstractScope(Scope);
+    Context.getOrCreateAbstractScope(Scope);
     // Create an inlined scope for inlined function.
-    return getOrCreateInlinedScope(Scope, IA);
+    return getOrCreateInlinedScope(Context, Scope, IA);
   }
 
-  return getOrCreateRegularScope(Scope);
+  return getOrCreateRegularScope(Context, Scope);
 }
 
 /// getOrCreateRegularScope - Find or create a regular lexical scope.
 LexicalScope *
-LexicalScopes::getOrCreateRegularScope(const DILocalScope *Scope) {
+FunctionScopes::getOrCreateRegularScope(LexicalScopes &Context, const DILocalScope *Scope) {
   assert(Scope && "Invalid Scope encoding!");
   Scope = Scope->getNonLexicalBlockFileScope();
 
@@ -186,16 +186,16 @@ LexicalScopes::getOrCreateRegularScope(const DILocalScope *Scope) {
   // FIXME: Should the following dyn_cast be DILexicalBlock?
   LexicalScope *Parent = nullptr;
   if (auto *Block = dyn_cast<DILexicalBlockBase>(Scope))
-    Parent = getOrCreateLexicalScope(Block->getScope());
+    Parent = getOrCreateLexicalScope(Context, Block->getScope());
   I = LexicalScopeMap.emplace(std::piecewise_construct,
                               std::forward_as_tuple(Scope),
                               std::forward_as_tuple(Parent, Scope, nullptr,
                                                     false)).first;
 
   if (!Parent) {
-    assert(cast<DISubprogram>(Scope)->describes(&MF->getFunction()));
-    assert(!CurrentFnLexicalScope);
-    CurrentFnLexicalScope = &I->second;
+    assert(cast<DISubprogram>(Scope)->describes(&Context.MF->getFunction()));
+    assert(!Context.CurrentFnLexicalScope);
+    Context.CurrentFnLexicalScope = &I->second;
   }
 
   return &I->second;
@@ -203,7 +203,7 @@ LexicalScopes::getOrCreateRegularScope(const DILocalScope *Scope) {
 
 /// getOrCreateInlinedScope - Find or create an inlined lexical scope.
 LexicalScope *
-LexicalScopes::getOrCreateInlinedScope(const DILocalScope *Scope,
+FunctionScopes::getOrCreateInlinedScope(LexicalScopes &Context, const DILocalScope *Scope,
                                        const DILocation *InlinedAt) {
   assert(Scope && "Invalid Scope encoding!");
   Scope = Scope->getNonLexicalBlockFileScope();
@@ -214,9 +214,9 @@ LexicalScopes::getOrCreateInlinedScope(const DILocalScope *Scope,
 
   LexicalScope *Parent;
   if (auto *Block = dyn_cast<DILexicalBlockBase>(Scope))
-    Parent = getOrCreateInlinedScope(Block->getScope(), InlinedAt);
+    Parent = getOrCreateInlinedScope(Context, Block->getScope(), InlinedAt);
   else
-    Parent = getOrCreateLexicalScope(InlinedAt);
+    Parent = getOrCreateLexicalScope(Context, InlinedAt);
 
   I = InlinedLexicalScopeMap
           .emplace(std::piecewise_construct, std::forward_as_tuple(P),
@@ -295,17 +295,16 @@ void LexicalScopes::assignInstructionRanges(
 /// getMachineBasicBlocks - Populate given set using machine basic blocks which
 /// have machine instructions that belong to lexical scope identified by
 /// DebugLoc.
-void LexicalScopes::getMachineBasicBlocks(
-    const DILocation *DL, SmallPtrSetImpl<const MachineBasicBlock *> &MBBs) {
-  assert(MF && "Method called on a uninitialized LexicalScopes object!");
+void FunctionScopes::getMachineBasicBlocks(LexicalScopes &Context, const DILocation *DL, SmallPtrSetImpl<const MachineBasicBlock *> &MBBs) {
+  assert(Context.MF && "Method called on a uninitialized LexicalScopes object!");
   MBBs.clear();
 
-  LexicalScope *Scope = getOrCreateLexicalScope(DL);
+  LexicalScope *Scope = getOrCreateLexicalScope(Context, DL);
   if (!Scope)
     return;
 
-  if (Scope == CurrentFnLexicalScope) {
-    MBBs.insert_range(llvm::make_pointer_range(*MF));
+  if (Scope == Context.CurrentFnLexicalScope) {
+    MBBs.insert_range(llvm::make_pointer_range(*Context.MF));
     return;
   }
 
@@ -320,14 +319,14 @@ void LexicalScopes::getMachineBasicBlocks(
       MBBs.insert(&*CurMBBIt);
 }
 
-bool LexicalScopes::dominates(const DILocation *DL, MachineBasicBlock *MBB) {
-  assert(MF && "Unexpected uninitialized LexicalScopes object!");
-  LexicalScope *Scope = getOrCreateLexicalScope(DL);
+bool FunctionScopes::dominates(LexicalScopes &Context, const DILocation *DL, MachineBasicBlock *MBB) {
+  assert(Context.MF && "Unexpected uninitialized LexicalScopes object!");
+  LexicalScope *Scope = getOrCreateLexicalScope(Context, DL);
   if (!Scope)
     return false;
 
   // Current function scope covers all basic blocks in the function.
-  if (Scope == CurrentFnLexicalScope && MBB->getParent() == MF)
+  if (Scope == Context.CurrentFnLexicalScope && MBB->getParent() == Context.MF)
     return true;
 
   // Fetch all the blocks in DLs scope. Because the range / block list also
@@ -339,7 +338,7 @@ bool LexicalScopes::dominates(const DILocation *DL, MachineBasicBlock *MBB) {
   std::unique_ptr<BlockSetT> &Set = DominatedBlocks[DL];
   if (!Set) {
     Set = std::make_unique<BlockSetT>();
-    getMachineBasicBlocks(DL, *Set);
+    getMachineBasicBlocks(Context, DL, *Set);
   }
   return Set->contains(MBB);
 }

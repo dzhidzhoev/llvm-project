@@ -151,9 +151,9 @@ void DbgValueHistoryMap::trimLocationRanges(
 
     LexicalScope *Scope = nullptr;
     if (const DILocation *InlinedAt = Entity.second) {
-      Scope = LScopes.findInlinedScope(LocalVar->getScope(), InlinedAt);
+      Scope = LScopes.getCurrentFnScopes()->findInlinedScope(LocalVar->getScope(), InlinedAt);
     } else {
-      Scope = LScopes.findLexicalScope(LocalVar->getScope());
+      Scope = LScopes.getCurrentFnScopes()->findLexicalScope(LocalVar->getScope());
       // Ignore variables for non-inlined function level scopes. The scope
       // ranges (from scope->getRanges()) will not include any instructions
       // before the first one with a debug-location, which could cause us to

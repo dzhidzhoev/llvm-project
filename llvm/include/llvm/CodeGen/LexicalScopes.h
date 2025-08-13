@@ -20,6 +20,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/CodeGen/MachineFunction.h"
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/Support/Compiler.h"
 #include <cassert>
@@ -28,6 +29,7 @@
 
 namespace llvm {
 
+class LexicalScopes;
 class MachineBasicBlock;
 class MachineFunction;
 class MachineInstr;
@@ -135,6 +137,79 @@ private:
   unsigned DFSOut = 0;
 };
 
+class FunctionScopes {
+  /// LexicalScopeMap - Tracks the scopes in the function.
+  // Use an unordered_map to ensure value pointer validity over insertion.
+  std::unordered_map<const DILocalScope *, LexicalScope> LexicalScopeMap;
+
+  /// InlinedLexicalScopeMap - Tracks inlined function scopes in current
+  /// function.
+  std::unordered_map<std::pair<const DILocalScope *, const DILocation *>, LexicalScope, pair_hash<const DILocalScope *, const DILocation *>> InlinedLexicalScopeMap;
+
+  /// Map a location to the set of basic blocks it dominates. This is a cache
+  /// for \ref FunctionScopes::getMachineBasicBlocks results.
+  using BlockSetT = SmallPtrSet<const MachineBasicBlock *, 4>;
+  DenseMap<const DILocation *, std::unique_ptr<BlockSetT>> DominatedBlocks;
+
+  /// getOrCreateRegularScope - Find or create a regular lexical scope.
+  LexicalScope *getOrCreateRegularScope(LexicalScopes &Context, const DILocalScope *Scope);
+
+  /// getOrCreateInlinedScope - Find or create an inlined lexical scope.
+  LexicalScope *getOrCreateInlinedScope(LexicalScopes &Context, const DILocalScope *Scope,
+                                        const DILocation *InlinedAt);
+
+  /// getOrCreateLexicalScope - Find lexical scope for the given Scope/IA. If
+  /// not available then create new lexical scope.
+  LLVM_ABI LexicalScope *
+  getOrCreateLexicalScope(LexicalScopes &Context, const DILocalScope *Scope,
+                          const DILocation *IA = nullptr);
+  LexicalScope *getOrCreateLexicalScope(LexicalScopes &Context, const DILocation *DL) {
+    return DL ? getOrCreateLexicalScope(Context, DL->getScope(), DL->getInlinedAt())
+              : nullptr;
+  }
+
+  /// extractLexicalScopes - Extract instruction ranges for each lexical scopes
+  /// for the given machine function.
+  void extractLexicalScopes(LexicalScopes &Context, SmallVectorImpl<InsnRange> &MIRanges,
+                            DenseMap<const MachineInstr *, LexicalScope *> &M);
+
+  friend LexicalScopes;
+
+public:
+  FunctionScopes() {}
+
+  /// findInlinedScope - Find an inlined scope for the given scope/inlined-at.
+  LLVM_ABI LexicalScope *findInlinedScope(const DILocalScope *N, const DILocation *IA) {
+    auto I = InlinedLexicalScopeMap.find(std::make_pair(N, IA));
+    return I != InlinedLexicalScopeMap.end() ? &I->second : nullptr;
+  }
+
+  /// findLexicalScope - Find regular lexical scope or return null.
+  LLVM_ABI LexicalScope *findLexicalScope(const DILocalScope *N) {
+    auto I = LexicalScopeMap.find(N);
+    return I != LexicalScopeMap.end() ? &I->second : nullptr;
+  }
+
+  LLVM_ABI bool hasInlinedScopes() {
+    return !InlinedLexicalScopeMap.empty();
+  }
+
+  /// findLexicalScope - Find lexical scope, either regular or inlined, for the
+  /// given DebugLoc. Return NULL if not found.
+  LLVM_ABI LexicalScope *findLexicalScope(const DILocation *DL);
+
+  /// getMachineBasicBlocks - Populate given set using machine basic blocks
+  /// which have machine instructions that belong to lexical scope identified by
+  /// DebugLoc.
+  LLVM_ABI void
+  getMachineBasicBlocks(LexicalScopes &Context, const DILocation *DL,
+                        SmallPtrSetImpl<const MachineBasicBlock *> &MBBs);
+
+  /// Return true if DebugLoc's lexical scope dominates at least one machine
+  /// instruction's lexical scope in a given machine basic block.
+  LLVM_ABI bool dominates(LexicalScopes &Context, const DILocation *DL, MachineBasicBlock *MBB);
+};
+
 //===----------------------------------------------------------------------===//
 /// LexicalScopes -  This class provides interface to collect and use lexical
 /// scoping information from machine instruction.
@@ -164,20 +239,14 @@ public:
     return CurrentFnLexicalScope;
   }
 
-  /// getMachineBasicBlocks - Populate given set using machine basic blocks
-  /// which have machine instructions that belong to lexical scope identified by
-  /// DebugLoc.
-  LLVM_ABI void
-  getMachineBasicBlocks(const DILocation *DL,
-                        SmallPtrSetImpl<const MachineBasicBlock *> &MBBs);
+  LLVM_ABI FunctionScopes *getFunctionScopes(const MachineFunction *MF) {
+    auto I = ConcreteScopes.find(&MF->getFunction());
+    return I != ConcreteScopes.end() ? &I->second : nullptr;
+  }
 
-  /// Return true if DebugLoc's lexical scope dominates at least one machine
-  /// instruction's lexical scope in a given machine basic block.
-  LLVM_ABI bool dominates(const DILocation *DL, MachineBasicBlock *MBB);
-
-  /// findLexicalScope - Find lexical scope, either regular or inlined, for the
-  /// given DebugLoc. Return NULL if not found.
-  LLVM_ABI LexicalScope *findLexicalScope(const DILocation *DL);
+  LLVM_ABI FunctionScopes *getCurrentFnScopes() const {
+    return CurrentFnScopes;
+  }
 
   /// getAbstractScopesList - Return a reference to list of abstract scopes.
   ArrayRef<LexicalScope *> getAbstractScopesList() const {
@@ -190,64 +259,16 @@ public:
     return I != AbstractScopeMap.end() ? &I->second : nullptr;
   }
 
-  /// findInlinedScope - Find an inlined scope for the given scope/inlined-at.
-  LexicalScope *findInlinedScope(const DILocalScope *N, const DILocation *IA) {
-    auto I = InlinedLexicalScopeMap.find(std::make_pair(N, IA));
-    return I != InlinedLexicalScopeMap.end() ? &I->second : nullptr;
-  }
-
-  /// findLexicalScope - Find regular lexical scope or return null.
-  LexicalScope *findLexicalScope(const DILocalScope *N) {
-    auto I = LexicalScopeMap.find(N);
-    return I != LexicalScopeMap.end() ? &I->second : nullptr;
-  }
-
-  bool currentFunctionHasInlinedScopes() {
-    return !InlinedLexicalScopeMap.empty();
-  }
-
   /// getOrCreateAbstractScope - Find or create an abstract lexical scope.
   LLVM_ABI LexicalScope *getOrCreateAbstractScope(const DILocalScope *Scope);
 
 private:
-  /// getOrCreateLexicalScope - Find lexical scope for the given Scope/IA. If
-  /// not available then create new lexical scope.
-  LLVM_ABI LexicalScope *
-  getOrCreateLexicalScope(const DILocalScope *Scope,
-                          const DILocation *IA = nullptr);
-  LexicalScope *getOrCreateLexicalScope(const DILocation *DL) {
-    return DL ? getOrCreateLexicalScope(DL->getScope(), DL->getInlinedAt())
-              : nullptr;
-  }
-
-  /// getOrCreateRegularScope - Find or create a regular lexical scope.
-  LexicalScope *getOrCreateRegularScope(const DILocalScope *Scope);
-
-  /// getOrCreateInlinedScope - Find or create an inlined lexical scope.
-  LexicalScope *getOrCreateInlinedScope(const DILocalScope *Scope,
-                                        const DILocation *InlinedAt);
-
-  /// extractLexicalScopes - Extract instruction ranges for each lexical scopes
-  /// for the given machine function.
-  void extractLexicalScopes(SmallVectorImpl<InsnRange> &MIRanges,
-                            DenseMap<const MachineInstr *, LexicalScope *> &M);
   void constructScopeNest(LexicalScope *Scope);
   void
   assignInstructionRanges(SmallVectorImpl<InsnRange> &MIRanges,
                           DenseMap<const MachineInstr *, LexicalScope *> &M);
 
   const MachineFunction *MF = nullptr;
-
-  /// LexicalScopeMap - Tracks the scopes in the current function.
-  // Use an unordered_map to ensure value pointer validity over insertion.
-  std::unordered_map<const DILocalScope *, LexicalScope> LexicalScopeMap;
-
-  /// InlinedLexicalScopeMap - Tracks inlined function scopes in current
-  /// function.
-  std::unordered_map<std::pair<const DILocalScope *, const DILocation *>,
-                     LexicalScope,
-                     pair_hash<const DILocalScope *, const DILocation *>>
-      InlinedLexicalScopeMap;
 
   /// AbstractScopeMap - These scopes are  not included LexicalScopeMap.
   // Use an unordered_map to ensure value pointer validity over insertion.
@@ -261,10 +282,12 @@ private:
   ///
   LexicalScope *CurrentFnLexicalScope = nullptr;
 
-  /// Map a location to the set of basic blocks it dominates. This is a cache
-  /// for \ref LexicalScopes::getMachineBasicBlocks results.
-  using BlockSetT = SmallPtrSet<const MachineBasicBlock *, 4>;
-  DenseMap<const DILocation *, std::unique_ptr<BlockSetT>> DominatedBlocks;
+  std::unordered_map<const Function *, FunctionScopes> ConcreteScopes;
+
+  /// CurrentFnScopes - Scopes of the current functioon
+  FunctionScopes *CurrentFnScopes = nullptr;
+
+  friend FunctionScopes;
 };
 
 } // end namespace llvm

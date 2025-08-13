@@ -1446,7 +1446,7 @@ bool InstrRefBasedLDV::transferDebugValue(const MachineInstr &MI) {
 
   // If there are no instructions in this lexical scope, do no location tracking
   // at all, this variable shouldn't get a legitimate location range.
-  auto *Scope = LS.findLexicalScope(MI.getDebugLoc().get());
+  auto *Scope = LS.getCurrentFnScopes()->findLexicalScope(MI.getDebugLoc().get());
   if (Scope == nullptr)
     return true; // handled it; by doing nothing
 
@@ -1653,7 +1653,7 @@ bool InstrRefBasedLDV::transferDebugInstrRef(MachineInstr &MI,
 
   DebugVariable V(Var, Expr, InlinedAt);
 
-  auto *Scope = LS.findLexicalScope(MI.getDebugLoc().get());
+  auto *Scope = LS.getCurrentFnScopes()->findLexicalScope(MI.getDebugLoc().get());
   if (Scope == nullptr)
     return true; // Handled by doing nothing. This variable is never in scope.
 
@@ -3096,7 +3096,7 @@ void InstrRefBasedLDV::getBlocksForScope(
     SmallPtrSetImpl<const MachineBasicBlock *> &BlocksToExplore,
     const SmallPtrSetImpl<MachineBasicBlock *> &AssignBlocks) {
   // Get the set of "normal" in-lexical-scope blocks.
-  LS.getMachineBasicBlocks(DILoc, BlocksToExplore);
+  LS.getCurrentFnScopes()->getMachineBasicBlocks(LS, DILoc, BlocksToExplore);
 
   // VarLoc LiveDebugValues tracks variable locations that are defined in
   // blocks not in scope. This is something we could legitimately ignore, but
@@ -3823,7 +3823,7 @@ bool InstrRefBasedLDV::ExtendRanges(MachineFunction &MF,
       DebugVariableID VarID = idx.first;
       const DILocation *ScopeLoc = VTracker->Scopes[VarID];
       assert(ScopeLoc != nullptr);
-      auto *Scope = LS.findLexicalScope(ScopeLoc);
+      auto *Scope = LS.getCurrentFnScopes()->findLexicalScope(ScopeLoc);
 
       // No insts in scope -> shouldn't have been recorded.
       assert(Scope != nullptr);

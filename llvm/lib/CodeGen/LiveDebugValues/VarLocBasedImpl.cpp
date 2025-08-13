@@ -707,7 +707,7 @@ private:
     /// Determine whether the lexical scope of this value's debug location
     /// dominates MBB.
     bool dominates(LexicalScopes &LS, MachineBasicBlock &MBB) const {
-      return LS.dominates(MI.getDebugLoc().get(), &MBB);
+      return LS.getCurrentFnScopes()->dominates(LS, MI.getDebugLoc().get(), &MBB);
     }
 
 #if !defined(NDEBUG) || defined(LLVM_ENABLE_DUMP)
