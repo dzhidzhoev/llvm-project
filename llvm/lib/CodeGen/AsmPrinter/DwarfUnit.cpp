@@ -188,6 +188,10 @@ bool DwarfUnit::isShareableAcrossCUs(const DINode *D) const {
   // together.
   if (isDwoUnit() && !DD->shareAcrossDWOCUs())
     return false;
+
+  if (!D)
+    return true;
+
   return (isa<DIType>(D) ||
           (isa<DISubprogram>(D) && !cast<DISubprogram>(D)->isDefinition())) &&
          !DD->generateTypeUnits();
@@ -408,9 +412,19 @@ void DwarfUnit::addDIEEntry(DIE &Die, dwarf::Attribute Attribute,
 }
 
 DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
+  assert(!isa_and_nonnull<DISubprogram>(N) && "Use createAndAddSubprogramDIE for subprograms");
   DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, Tag));
   if (N)
     insertDIE(N, &Die);
+  return Die;
+}
+
+DIE &DwarfUnit::createAndAddSubprogramDIE(dwarf::Tag Tag, DIE &Parent, SubprogramKey Sub) {
+  DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, Tag));
+  if (Sub.LexS)
+    InfoHolder.LocalScopes().insertConcreteDIE(*Sub.LexS, &Die);
+  else
+    InfoHolder.LocalScopes().insertAbstractDIE(Sub.SP, &Die);
   return Die;
 }
 
@@ -563,7 +577,7 @@ DIE *DwarfUnit::getOrCreateContextDIE(const DIScope *Context) {
   if (auto *NS = dyn_cast<DINamespace>(Context))
     return getOrCreateNameSpace(NS);
   if (auto *SP = dyn_cast<DISubprogram>(Context))
-    return getOrCreateSubprogramDIE(SP);
+    return getOrCreateSubprogramDIE(SubprogramKey{SP, nullptr});
   if (auto *M = dyn_cast<DIModule>(Context))
     return getOrCreateModule(M);
   return getDIE(Context);
@@ -1056,7 +1070,7 @@ void DwarfUnit::constructTypeDIE(DIE &Buffer, const DICompositeType *CTy) {
       if (!Element)
         continue;
       if (auto *SP = dyn_cast<DISubprogram>(Element))
-        getOrCreateSubprogramDIE(SP);
+        getOrCreateSubprogramDIE(SubprogramKey{SP, nullptr});
       else if (auto *DDTy = dyn_cast<DIDerivedType>(Element)) {
         if (DDTy->getTag() == dwarf::DW_TAG_friend) {
           DIE &ElemDie = createAndAddDIE(dwarf::DW_TAG_friend, Buffer);
@@ -1325,35 +1339,42 @@ DIE *DwarfUnit::getOrCreateModule(const DIModule *M) {
   return &MDie;
 }
 
-DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP, bool Minimal) {
+DIE *DwarfUnit::getOrCreateSubprogramDIE(SubprogramKey Sub, bool Minimal) {
   // Construct the context before querying for the existence of the DIE in case
   // such construction creates the DIE (as is the case for member function
   // declarations).
   DIE *ContextDIE =
-      Minimal ? &getUnitDie() : getOrCreateContextDIE(SP->getScope());
+      Minimal ? &getUnitDie() : getOrCreateContextDIE(Sub.SP->getScope());
 
-  if (DIE *SPDie = getDIE(SP))
-    return SPDie;
+  if  (Sub.LexS) {
+    // A specific concrete DIE is requested.
+    if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(*Sub.LexS))
+      return SPDie;
+  } else {
+    // LexicalScope is not specificed. Find abstract or any concrete DIE.
+    if (DIE *SPDie = DIEs(Sub.SP).getScopeDIE(Sub.SP))
+      return SPDie;
+  }
 
-  if (auto *SPDecl = SP->getDeclaration()) {
+  if (auto *SPDecl = Sub.SP->getDeclaration()) {
     if (!Minimal) {
       // Add subprogram definitions to the CU die directly.
       ContextDIE = &getUnitDie();
       // Build the decl now to ensure it precedes the definition.
-      getOrCreateSubprogramDIE(SPDecl);
+      getOrCreateSubprogramDIE(SubprogramKey{SPDecl, nullptr});
     }
   }
 
   // DW_TAG_inlined_subroutine may refer to this DIE.
-  DIE &SPDie = createAndAddDIE(dwarf::DW_TAG_subprogram, *ContextDIE, SP);
+  DIE &SPDie = createAndAddSubprogramDIE(dwarf::DW_TAG_subprogram, *ContextDIE, Sub);
 
   // Stop here and fill this in later, depending on whether or not this
   // subprogram turns out to have inlined instances or not.
-  if (SP->isDefinition())
+  if (Sub.SP->isDefinition())
     return &SPDie;
 
   static_cast<DwarfUnit *>(SPDie.getUnit())
-      ->applySubprogramAttributes(SP, SPDie);
+      ->applySubprogramAttributes(Sub.SP, SPDie);
   return &SPDie;
 }
 
@@ -1398,7 +1419,7 @@ bool DwarfUnit::applySubprogramDefinitionAttributes(const DISubprogram *SP,
          "decl has a linkage name and it is different");
   if (DeclLinkageName.empty() &&
       // Always emit it for abstract subprograms.
-      (DD->useAllLinkageNames() || DU->getAbstractScopeDIEs().lookup(SP)))
+      (DD->useAllLinkageNames() || DU->DIEs().LocalScopes().getAbstractDIE(SP)))
     addLinkageName(SPDie, LinkageName);
 
   if (!DeclDie)

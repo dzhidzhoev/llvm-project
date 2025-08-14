@@ -268,7 +268,7 @@ public:
 
   DIE *getOrCreateNameSpace(const DINamespace *NS);
   DIE *getOrCreateModule(const DIModule *M);
-  DIE *getOrCreateSubprogramDIE(const DISubprogram *SP, bool Minimal = false);
+  DIE *getOrCreateSubprogramDIE(SubprogramKey Sub, bool Minimal = false);
 
   void applySubprogramAttributes(const DISubprogram *SP, DIE &SPDie,
                                  bool SkipSPAttributes = false);
@@ -295,6 +295,7 @@ public:
   /// Create a DIE with the given Tag, add the DIE to its parent, and
   /// call insertDIE if MD is not null.
   DIE &createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N = nullptr);
+  DIE &createAndAddSubprogramDIE(dwarf::Tag Tag, DIE &Parent, SubprogramKey Sub);
 
   bool useSegmentedStringOffsetsTable() const {
     return DD->useSegmentedStringOffsetsTable();

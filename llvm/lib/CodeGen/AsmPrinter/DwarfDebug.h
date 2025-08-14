@@ -374,7 +374,7 @@ class DwarfDebug : public DebugHandlerBase {
 
   /// This is a collection of subprogram MDNodes that are processed to
   /// create DIEs.
-  SmallSetVector<const DISubprogram *, 16> ProcessedSPNodes;
+  SmallSetVector<std::pair<const DISubprogram *, const LexicalScope *>, 16> ProcessedSPNodes;
 
   /// Map function-local imported entities to their parent local scope
   /// (either DILexicalBlock or DISubprogram) for a processed function

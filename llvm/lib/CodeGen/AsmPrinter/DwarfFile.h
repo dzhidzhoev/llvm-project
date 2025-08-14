@@ -49,14 +49,30 @@ struct RangeSpanList {
   SmallVector<RangeSpan, 2> Ranges;
 };
 
+struct LocalScopeKey {
+  const DILocalScope *LS;
+  const LexicalScope *LexS;
+};
+
+struct SubprogramKey {
+  const DISubprogram *SP;
+  const LexicalScope *LexS;
+
+  operator LocalScopeKey() { return LocalScopeKey { SP, LexS }; }
+};
+
 /// Tracks abstract and concrete DIEs for debug info entities of a certain type.
 template <typename DINodeT, typename DbgEntityT> class DINodeInfoHolder {
+  using ConcreteMapT = DenseMap<const DINodeT *, SmallDenseMap<const DbgEntityT *, DIE *, 2>>;
+
   DenseMap<const DINodeT *, DIE *> AbstractMap;
-  DenseMap<const DINodeT *, SmallDenseMap<const DbgEntityT *, DIE *, 2>>
-      ConcreteMap;
+  ConcreteMapT ConcreteMap;
 
   static const DINodeT *getNode(const DbgEntityT &N) {
-    return cast<DINodeT>(N.getEntity());
+    if constexpr (std::is_same_v<DbgEntityT, LexicalScope>)
+      return N.getScopeNode();
+    else
+      return cast<DINodeT>(N.getEntity());
   }
 
 public:
@@ -95,6 +111,10 @@ public:
       return I->second.empty() ? nullptr : I->second.begin()->second;
 
     return nullptr;
+  }
+
+  const ConcreteMapT &concreteDIEs() const {
+    return ConcreteMap;
   }
 };
 
@@ -142,7 +162,7 @@ public:
 
   decltype(LabelHolder) &Labels() { return LabelHolder; }
 
-  decltype(LabelHolder) &LocalScopes() { return LabelHolder; }
+  decltype(LSHolder) &LocalScopes() { return LSHolder; }
 
   /// For a global variable, returns DIE of the variable.
   ///
@@ -197,9 +217,6 @@ class DwarfFile {
   using LabelList = SmallVector<DbgLabel *, 4>;
   DenseMap<LexicalScope *, LabelList> ScopeLabels;
 
-  // Collection of abstract subprogram DIEs.
-  // TODO: move it to InfoHolder?
-  DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
   DenseMap<const DINode *, std::unique_ptr<DbgEntity>> AbstractEntities;
 
   DwarfInfoHolder InfoHolder;
@@ -268,10 +285,6 @@ public:
 
   DenseMap<LexicalScope *, LabelList> &getScopeLabels() {
     return ScopeLabels;
-  }
-
-  DenseMap<const DILocalScope *, DIE *> &getAbstractScopeDIEs() {
-    return AbstractLocalScopeDIEs;
   }
 
   DenseMap<const DINode *, std::unique_ptr<DbgEntity>> &getAbstractEntities() {

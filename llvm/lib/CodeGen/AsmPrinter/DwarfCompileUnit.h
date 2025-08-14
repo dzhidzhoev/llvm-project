@@ -76,16 +76,6 @@ class DwarfCompileUnit final : public DwarfUnit {
   // belong to subprograms within this CU.
   MDNodeSetVector DeferredLocalDecls;
 
-  // List of concrete lexical block scopes belong to subprograms within this CU.
-  DenseMap<const DILocalScope *, DIE *> LexicalBlockDIEs;
-
-  // List of abstract local scopes (either DISubprogram or DILexicalBlock).
-  DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
-
-  // List of inlined lexical block scopes that belong to subprograms within this
-  // CU.
-  DenseMap<const DILocalScope *, SmallVector<DIE *, 2>> InlinedLocalScopeDIEs;
-
   DenseMap<const DINode *, std::unique_ptr<DbgEntity>> AbstractEntities;
 
   /// DWO ID for correlating skeleton and split units.
@@ -125,12 +115,6 @@ class DwarfCompileUnit final : public DwarfUnit {
 
   bool isDwoUnit() const override;
 
-  DenseMap<const DILocalScope *, DIE *> &getAbstractScopeDIEs() {
-    if (isDwoUnit() && !DD->shareAcrossDWOCUs())
-      return AbstractLocalScopeDIEs;
-    return DU->getAbstractScopeDIEs();
-  }
-
   DenseMap<const DINode *, std::unique_ptr<DbgEntity>> &getAbstractEntities() {
     if (isDwoUnit() && !DD->shareAcrossDWOCUs())
       return AbstractEntities;
@@ -142,6 +126,16 @@ class DwarfCompileUnit final : public DwarfUnit {
   /// Add info for Wasm-global-based relocation.
   void addWasmRelocBaseGlobal(DIELoc *Loc, StringRef GlobalName,
                               uint64_t GlobalIndex);
+
+  const DwarfInfoHolder &AbstractScopeDIEs() const {
+    if (isDwoUnit() && !DD->shareAcrossDWOCUs())
+      return InfoHolder;
+    return DU->DIEs();
+  }
+
+  DwarfInfoHolder &AbstractScopeDIEs() {
+    return const_cast<DwarfInfoHolder &>(const_cast<const DwarfCompileUnit *>(this)->AbstractScopeDIEs());
+  }
 
 public:
   DwarfCompileUnit(unsigned UID, const DICompileUnit *Node, AsmPrinter *A,
@@ -216,7 +210,7 @@ public:
   /// DW_AT_low_pc, DW_AT_high_pc and DW_AT_LLVM_stmt_sequence attributes.
   /// If there are global variables in this scope then create and insert DIEs
   /// for these variables.
-  DIE &updateSubprogramScopeDIE(const DISubprogram *SP, MCSymbol *LineTableSym);
+  DIE &updateSubprogramScopeDIE(SubprogramKey Sub, MCSymbol *LineTableSym);
 
   void constructScopeDIE(LexicalScope *Scope, DIE &ParentScopeDIE);
 
@@ -302,7 +296,7 @@ public:
   DIE *getOrCreateImportedEntityDIE(const DIImportedEntity *IE);
   DIE *constructImportedEntityDIE(const DIImportedEntity *IE);
 
-  void finishSubprogramDefinition(const DISubprogram *SP);
+  void finishSubprogramDefinition(SubprogramKey SP);
   void finishEntityDefinition(const DbgEntity *Entity);
   void attachLexicalScopesAbstractOrigins();
 

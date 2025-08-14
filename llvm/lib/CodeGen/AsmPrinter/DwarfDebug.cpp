@@ -502,7 +502,7 @@ void DwarfDebug::addSubprogramNames(
   // well into the name table. Only do that if we are going to actually emit
   // that name.
   if (LinkageName != "" && SP->getName() != LinkageName &&
-      (useAllLinkageNames() || InfoHolder.getAbstractScopeDIEs().lookup(SP)))
+      (useAllLinkageNames() || InfoHolder.DIEs().LocalScopes().getAbstractDIE(SP)))
     addAccelName(Unit, NameTableKind, LinkageName, Die);
 
   // If this is an Objective-C selector name add it to the ObjC accelerator
@@ -1258,11 +1258,13 @@ void DwarfDebug::finishEntityDefinitions() {
 }
 
 void DwarfDebug::finishSubprogramDefinitions() {
-  for (const DISubprogram *SP : ProcessedSPNodes) {
+  for (auto SPLexS : ProcessedSPNodes) {
+    const DISubprogram *SP = SPLexS.first;
+    const LexicalScope *LexS = SPLexS.second;
     assert(SP->getUnit()->getEmissionKind() != DICompileUnit::NoDebug);
     forBothCUs(
         getOrCreateDwarfCompileUnit(SP->getUnit()),
-        [&](DwarfCompileUnit &CU) { CU.finishSubprogramDefinition(SP); });
+        [&](DwarfCompileUnit &CU) { CU.finishSubprogramDefinition(SubprogramKey{SP, LexS}); });
   }
 }
 
@@ -2778,7 +2780,7 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
     constructAbstractSubprogramScopeDIE(TheCU, AScope);
   }
 
-  ProcessedSPNodes.insert(SP);
+  ProcessedSPNodes.insert({SP, FnScope});
   DIE &ScopeDIE =
       TheCU.constructSubprogramScopeDIE(SP, FnScope, FunctionLineTableLabel);
   if (auto *SkelCU = TheCU.getSkeleton())
