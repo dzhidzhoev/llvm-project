@@ -422,9 +422,9 @@ DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
 DIE &DwarfUnit::createAndAddSubprogramDIE(dwarf::Tag Tag, DIE &Parent, SubprogramKey Sub) {
   DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, Tag));
   if (Sub.LexS)
-    InfoHolder.LocalScopes().insertConcreteDIE(*Sub.LexS, &Die);
+    DIEs(Sub.SP).LocalScopes().insertConcreteDIE(*Sub.LexS, &Die);
   else
-    InfoHolder.LocalScopes().insertAbstractDIE(Sub.SP, &Die);
+    DIEs(Sub.SP).LocalScopes().insertAbstractDIE(Sub.SP, &Die);
   return Die;
 }
 
@@ -1392,7 +1392,7 @@ bool DwarfUnit::applySubprogramDefinitionAttributes(const DISubprogram *SP,
         if (DefinitionArgs[0] != nullptr && DeclArgs[0] != DefinitionArgs[0])
           addType(SPDie, DefinitionArgs[0]);
 
-      DeclDie = getDIE(SPDecl);
+      DeclDie = DIEs(SPDecl).getScopeDIE(SPDecl);
       assert(DeclDie && "This DIE should've already been constructed when the "
                         "definition DIE was created in "
                         "getOrCreateSubprogramDIE");
