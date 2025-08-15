@@ -49,16 +49,9 @@ struct RangeSpanList {
   SmallVector<RangeSpan, 2> Ranges;
 };
 
-struct LocalScopeKey {
-  const DILocalScope *LS;
-  const LexicalScope *LexS;
-};
-
 struct SubprogramKey {
   const DISubprogram *SP;
   const LexicalScope *LexS;
-
-  operator LocalScopeKey() { return LocalScopeKey { SP, LexS }; }
 };
 
 /// Tracks abstract and concrete DIEs for debug info entities of a certain type.
