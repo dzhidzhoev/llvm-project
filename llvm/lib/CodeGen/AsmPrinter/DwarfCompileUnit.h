@@ -115,6 +115,12 @@ class DwarfCompileUnit final : public DwarfUnit {
 
   bool isDwoUnit() const override;
 
+  DwarfInfoHolder::AbstractScopeMapT &getAbstractScopeDIEs() {
+    if (isDwoUnit() && !DD->shareAcrossDWOCUs())
+      return InfoHolder.LocalScopes().AbstractDIEs();
+    return DU->getAbstractScopeDIEs();
+  }
+
   DenseMap<const DINode *, std::unique_ptr<DbgEntity>> &getAbstractEntities() {
     if (isDwoUnit() && !DD->shareAcrossDWOCUs())
       return AbstractEntities;
@@ -126,12 +132,6 @@ class DwarfCompileUnit final : public DwarfUnit {
   /// Add info for Wasm-global-based relocation.
   void addWasmRelocBaseGlobal(DIELoc *Loc, StringRef GlobalName,
                               uint64_t GlobalIndex);
-
-  auto AbstractScopeDIEs() const {
-    if (isDwoUnit() && !DD->shareAcrossDWOCUs())
-      return InfoHolder.LocalScopes().AbstractDIEs();
-    return DU->DIEs().LocalScopes().AbstractDIEs();
-  }
 
 public:
   DwarfCompileUnit(unsigned UID, const DICompileUnit *Node, AsmPrinter *A,
