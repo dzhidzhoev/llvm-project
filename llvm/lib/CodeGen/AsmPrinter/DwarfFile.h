@@ -64,36 +64,29 @@ private:
   AbstractMapT AbstractMap;
   ConcreteMapT ConcreteMap;
 
-  static const DINodeT *getNode(const DbgEntityT &N) {
-    if constexpr (std::is_same_v<DbgEntityT, LexicalScope>)
-      return N.getScopeNode();
-    else
-      return cast<DINodeT>(N.getEntity());
-  }
-
 public:
   void insertAbstractDIE(const DINodeT *N, DIE *D) {
     auto [_, Inserted] = AbstractMap.try_emplace(N, D);
     assert(Inserted && "Duplicate abstract DIE for debug info node");
   }
 
-  void insertConcreteDIE(const DbgEntityT &N, DIE *D) {
-    auto [_, Inserted] = ConcreteMap[getNode(N)].try_emplace(&N, D);
+  void insertConcreteDIE(const DINodeT *N, const DbgEntityT *E, DIE *D) {
+    auto [_, Inserted] = ConcreteMap[N].try_emplace(E, D);
     assert(Inserted && "Duplicate concrete DIE for debug info node");
   }
 
-  void insertDIE(const DbgEntityT &N, DIE *D, bool Abstract) {
+  void insertDIE(const DINodeT *N, const DbgEntityT *E, DIE *D, bool Abstract) {
     if (Abstract)
-      insertAbstractDIE(getNode(N), D);
+      insertAbstractDIE(N, D);
     else
-      insertConcreteDIE(N, D);
+      insertConcreteDIE(N, E, D);
   }
 
   DIE *getAbstractDIE(const DINodeT *N) const { return AbstractMap.lookup(N); }
 
-  DIE *getConcreteDIE(const DbgEntityT &N) const {
-    if (auto I = ConcreteMap.find(getNode(N)); I != ConcreteMap.end())
-      return I->second.lookup(&N);
+  DIE *getConcreteDIE(const DINodeT *N, const DbgEntityT *E) const {
+    if (auto I = ConcreteMap.find(N); I != ConcreteMap.end())
+      return I->second.lookup(E);
     return nullptr;
   }
 

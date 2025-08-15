@@ -422,7 +422,7 @@ DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
 DIE &DwarfUnit::createAndAddSubprogramDIE(dwarf::Tag Tag, DIE &Parent, SubprogramKey Sub) {
   DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, Tag));
   if (Sub.LexS)
-    DIEs(Sub.SP).LocalScopes().insertConcreteDIE(*Sub.LexS, &Die);
+    DIEs(Sub.SP).LocalScopes().insertConcreteDIE(Sub.SP, Sub.LexS, &Die);
   else
     DIEs(Sub.SP).LocalScopes().insertAbstractDIE(Sub.SP, &Die);
   return Die;
@@ -1348,7 +1348,7 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(SubprogramKey Sub, bool Minimal) {
 
   if  (Sub.LexS) {
     // A specific concrete DIE is requested.
-    if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(*Sub.LexS))
+    if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(Sub.SP, Sub.LexS))
       return SPDie;
   } else {
     // LexicalScope is not specificed. Find abstract or any concrete DIE.

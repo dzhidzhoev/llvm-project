@@ -778,9 +778,9 @@ DIE *DwarfCompileUnit::constructLexicalScopeDIE(LexicalScope *Scope) {
     return ScopeDIE;
   }
 
-  assert(!InfoHolder.LocalScopes().getConcreteDIE(*Scope) &&
+  assert(!InfoHolder.LocalScopes().getConcreteDIE(DS, Scope) &&
          "Concrete DIE for this scope exists!");
-  InfoHolder.LocalScopes().insertConcreteDIE(*Scope, ScopeDIE);
+  InfoHolder.LocalScopes().insertConcreteDIE(DS, Scope, ScopeDIE);
 
   attachRangesOrLowHighPC(*ScopeDIE, Scope->getRanges());
 
@@ -789,7 +789,7 @@ DIE *DwarfCompileUnit::constructLexicalScopeDIE(LexicalScope *Scope) {
 
 DIE *DwarfCompileUnit::constructVariableDIE(DbgVariable &DV, bool Abstract) {
   auto *VariableDie = DIE::get(DIEValueAllocator, DV.getTag());
-  DIEs(DV.getVariable()).LVs().insertDIE(DV, VariableDie, Abstract);
+  DIEs(DV.getVariable()).LVs().insertDIE(DV.getVariable(), &DV, VariableDie, Abstract);
   DV.setDIE(*VariableDie);
   // Abstract variables don't get common attributes later, so apply them now.
   if (Abstract) {
@@ -1004,7 +1004,7 @@ DIE *DwarfCompileUnit::constructVariableDIE(DbgVariable &DV,
 DIE *DwarfCompileUnit::constructLabelDIE(DbgLabel &DL,
                                          const LexicalScope &Scope) {
   auto LabelDie = DIE::get(DIEValueAllocator, DL.getTag());
-  DIEs(DL.getLabel()).Labels().insertDIE(DL, LabelDie, Scope.isAbstractScope());
+  DIEs(DL.getLabel()).Labels().insertDIE(DL.getLabel(), &DL, LabelDie, Scope.isAbstractScope());
   DL.setDIE(*LabelDie);
 
   if (Scope.isAbstractScope())
@@ -1448,7 +1448,7 @@ DIE *DwarfCompileUnit::getOrCreateImportedEntityDIE(
 
 void DwarfCompileUnit::finishSubprogramDefinition(SubprogramKey Sub) {
   const DISubprogram *SP = Sub.SP;
-  DIE *D = DIEs(SP).LocalScopes().getConcreteDIE(*Sub.LexS);
+  DIE *D = DIEs(SP).LocalScopes().getConcreteDIE(Sub.SP, Sub.LexS);
   if (DIE *AbsSPDIE = getAbstractScopeDIEs().lookup(SP)) {
     if (D)
       // If this subprogram has an abstract definition, reference that
