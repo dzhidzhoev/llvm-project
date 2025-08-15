@@ -1210,7 +1210,7 @@ void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
   // any). It could be refactored to some common utility function.
   else if (auto *SPDecl = SP->getDeclaration()) {
     ContextDIE = &getUnitDie();
-    getOrCreateSubprogramDIE(SubprogramKey{SPDecl, nullptr});
+    getOrCreateSubprogramDIE(SubprogramKey{SPDecl, std::nullopt});
   } else {
     ContextDIE = getOrCreateContextDIE(SP->getScope());
     // The scope may be shared with a subprogram that has already been
@@ -1220,7 +1220,7 @@ void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
   }
 
   DIE &AbsDef = ContextCU->createAndAddSubprogramDIE(dwarf::DW_TAG_subprogram,
-                                           *ContextDIE, SubprogramKey{SP, nullptr});
+                                           *ContextDIE, SubprogramKey{SP, std::nullopt});
   // Store the DIE before creating children.
   ContextCU->getAbstractScopeDIEs()[SP] = &AbsDef;
 
@@ -1300,7 +1300,7 @@ DIE &DwarfCompileUnit::constructCallSiteEntryDIE(
     // TODO will it refer to the correct subprogram?
     DIE *CalleeDIE = getAbstractScopeDIEs().lookup(CalleeSP);
     if (!CalleeDIE)
-      CalleeDIE = getOrCreateSubprogramDIE(SubprogramKey{CalleeSP, nullptr});
+      CalleeDIE = getOrCreateSubprogramDIE(SubprogramKey{CalleeSP, std::nullopt});
     assert(CalleeDIE && "Could not create DIE for call site entry origin");
     if (AddLinkageNamesToDeclCallOriginsForTuning(DD) &&
         !CalleeSP->isDefinition() &&
@@ -1394,7 +1394,7 @@ DIE *DwarfCompileUnit::constructImportedEntityDIE(
       EntityDie = SPDie;
     else
       // TODO do we need to separate getOrCreateAbstractSubprogramDIE and getOrCreateConcreteSubprogramDIE?
-      EntityDie = getOrCreateSubprogramDIE(SubprogramKey{SP, nullptr});
+      EntityDie = getOrCreateSubprogramDIE(SubprogramKey{SP, std::nullopt});
   } else if (auto *T = dyn_cast<DIType>(Entity))
     EntityDie = getOrCreateTypeDIE(T);
   else if (auto *GV = dyn_cast<DIGlobalVariable>(Entity))
@@ -1448,7 +1448,7 @@ DIE *DwarfCompileUnit::getOrCreateImportedEntityDIE(
 
 void DwarfCompileUnit::finishSubprogramDefinition(SubprogramKey Sub) {
   const DISubprogram *SP = Sub.SP;
-  DIE *D = DIEs(SP).LocalScopes().getConcreteDIE(Sub.SP, Sub.LexS);
+  DIE *D = DIEs(SP).LocalScopes().getConcreteDIE(Sub.SP, *Sub.LexS);
   if (DIE *AbsSPDIE = getAbstractScopeDIEs().lookup(SP)) {
     if (D)
       // If this subprogram has an abstract definition, reference that

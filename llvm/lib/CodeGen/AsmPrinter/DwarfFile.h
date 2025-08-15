@@ -51,7 +51,7 @@ struct RangeSpanList {
 
 struct SubprogramKey {
   const DISubprogram *SP;
-  const LexicalScope *LexS;
+  std::optional<const LexicalScope *> LexS;
 };
 
 /// Tracks abstract and concrete DIEs for debug info entities of a certain type.

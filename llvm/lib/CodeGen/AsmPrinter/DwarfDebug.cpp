@@ -1264,7 +1264,7 @@ void DwarfDebug::finishSubprogramDefinitions() {
     assert(SP->getUnit()->getEmissionKind() != DICompileUnit::NoDebug);
     forBothCUs(
         getOrCreateDwarfCompileUnit(SP->getUnit()),
-        [&](DwarfCompileUnit &CU) { CU.finishSubprogramDefinition(SubprogramKey{SP, LexS}); });
+        [&](DwarfCompileUnit &CU) { CU.finishSubprogramDefinition(SubprogramKey{SP, std::make_optional(LexS)}); });
   }
 }
 
