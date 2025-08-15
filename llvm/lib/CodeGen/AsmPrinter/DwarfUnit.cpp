@@ -1346,6 +1346,17 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(SubprogramKey Sub, bool Minimal) {
   DIE *ContextDIE =
       Minimal ? &getUnitDie() : getOrCreateContextDIE(Sub.SP->getScope());
 
+  // Check for existing definition DIE after constructing declaration DIE
+  // to avoid duplicate abstract definition DIE insertion.
+  if (auto *SPDecl = Sub.SP->getDeclaration()) {
+    if (!Minimal) {
+      // Add subprogram definitions to the CU die directly.
+      ContextDIE = &getUnitDie();
+      // Build the decl now to ensure it precedes the definition.
+      getOrCreateSubprogramDIE(SubprogramKey{SPDecl, std::nullopt});
+    }
+  }
+
   if  (Sub.LexS) {
     // A specific concrete DIE is requested.
     if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(Sub.SP, *Sub.LexS))
@@ -1354,15 +1365,6 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(SubprogramKey Sub, bool Minimal) {
     // LexicalScope is not specificed. Find abstract or any concrete DIE.
     if (DIE *SPDie = DIEs(Sub.SP).getScopeDIE(Sub.SP))
       return SPDie;
-  }
-
-  if (auto *SPDecl = Sub.SP->getDeclaration()) {
-    if (!Minimal) {
-      // Add subprogram definitions to the CU die directly.
-      ContextDIE = &getUnitDie();
-      // Build the decl now to ensure it precedes the definition.
-      getOrCreateSubprogramDIE(SubprogramKey{SPDecl, std::nullopt});
-    }
   }
 
   // DW_TAG_inlined_subroutine may refer to this DIE.
