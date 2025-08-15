@@ -421,10 +421,20 @@ DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
 
 DIE &DwarfUnit::createAndAddSubprogramDIE(dwarf::Tag Tag, DIE &Parent, SubprogramKey Sub) {
   DIE &Die = Parent.addChild(DIE::get(DIEValueAllocator, Tag));
-  if (Sub.LexS)
-    DIEs(Sub.SP).LocalScopes().insertConcreteDIE(Sub.SP, *Sub.LexS, &Die);
-  else
-    DIEs(Sub.SP).LocalScopes().insertAbstractDIE(Sub.SP, &Die);
+
+  // Keep consistent with with SubprogramKey.
+  switch (Sub.getType()){
+    case SubprogramKey::Type::DECLARATION:
+      DIEs(Sub.SP).LocalScopes().insertConcreteDIE(Sub.SP, nullptr, &Die);
+      break;
+    case SubprogramKey::Type::ABSTRACT_DEFINITION_OR_ANY:
+      DIEs(Sub.SP).LocalScopes().insertAbstractDIE(Sub.SP, &Die);
+      break;
+    case SubprogramKey::CONCRETE_DEFINITION:
+      DIEs(Sub.SP).LocalScopes().insertConcreteDIE(Sub.SP, *Sub.LexS, &Die);
+      break;
+  }
+
   return Die;
 }
 
@@ -577,7 +587,7 @@ DIE *DwarfUnit::getOrCreateContextDIE(const DIScope *Context) {
   if (auto *NS = dyn_cast<DINamespace>(Context))
     return getOrCreateNameSpace(NS);
   if (auto *SP = dyn_cast<DISubprogram>(Context))
-    return getOrCreateSubprogramDIE(SubprogramKey{SP, std::nullopt});
+    return getOrCreateSubprogramDIE(SubprogramKey::any(SP));
   if (auto *M = dyn_cast<DIModule>(Context))
     return getOrCreateModule(M);
   return getDIE(Context);
@@ -1070,7 +1080,7 @@ void DwarfUnit::constructTypeDIE(DIE &Buffer, const DICompositeType *CTy) {
       if (!Element)
         continue;
       if (auto *SP = dyn_cast<DISubprogram>(Element))
-        getOrCreateSubprogramDIE(SubprogramKey{SP, std::nullopt});
+        getOrCreateSubprogramDIE(SubprogramKey::any(SP));
       else if (auto *DDTy = dyn_cast<DIDerivedType>(Element)) {
         if (DDTy->getTag() == dwarf::DW_TAG_friend) {
           DIE &ElemDie = createAndAddDIE(dwarf::DW_TAG_friend, Buffer);
@@ -1353,18 +1363,24 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(SubprogramKey Sub, bool Minimal) {
       // Add subprogram definitions to the CU die directly.
       ContextDIE = &getUnitDie();
       // Build the decl now to ensure it precedes the definition.
-      getOrCreateSubprogramDIE(SubprogramKey{SPDecl, std::nullopt});
+      getOrCreateSubprogramDIE(SubprogramKey::declaration(SPDecl));
     }
   }
 
-  if  (Sub.LexS) {
-    // A specific concrete DIE is requested.
-    if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(Sub.SP, *Sub.LexS))
-      return SPDie;
-  } else {
-    // LexicalScope is not specificed. Find abstract or any concrete DIE.
-    if (DIE *SPDie = DIEs(Sub.SP).getScopeDIE(Sub.SP))
-      return SPDie;
+  // Keep consistent with with SubprogramKey.
+  switch (Sub.getType()) {
+    case SubprogramKey::Type::DECLARATION:
+      if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(Sub.SP, nullptr))
+        return SPDie;
+      break;
+    case SubprogramKey::Type::ABSTRACT_DEFINITION_OR_ANY:
+      if (DIE *SPDie = DIEs(Sub.SP).getScopeDIE(Sub.SP))
+        return SPDie;
+      break;
+    case SubprogramKey::CONCRETE_DEFINITION:
+      if (DIE *SPDie = DIEs(Sub.SP).LocalScopes().getConcreteDIE(Sub.SP, *Sub.LexS))
+        return SPDie;
+      break;
   }
 
   // DW_TAG_inlined_subroutine may refer to this DIE.

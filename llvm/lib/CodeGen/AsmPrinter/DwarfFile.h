@@ -49,9 +49,42 @@ struct RangeSpanList {
   SmallVector<RangeSpan, 2> Ranges;
 };
 
-struct SubprogramKey {
+class SubprogramKey {
+  SubprogramKey(const DISubprogram *SP, std::optional<const LexicalScope *> LexS): SP(SP), LexS(LexS) {}
+
+public:
+  enum Type {
+    DECLARATION,
+    ABSTRACT_DEFINITION_OR_ANY,
+    CONCRETE_DEFINITION,
+  };
+
   const DISubprogram *SP;
   std::optional<const LexicalScope *> LexS;
+
+  Type getType() const {
+    if (!SP->isDefinition())
+      return Type::DECLARATION;
+    if (!LexS)
+      return Type::ABSTRACT_DEFINITION_OR_ANY;
+    return Type::CONCRETE_DEFINITION;
+  }
+
+  static SubprogramKey abstractDefinition(const DISubprogram *SP) {
+    return SubprogramKey(SP, std::nullopt);
+  }
+
+  static SubprogramKey concreteDefinition(const DISubprogram *SP, const LexicalScope *LexS) {
+    return SubprogramKey(SP, LexS);
+  }
+
+  static SubprogramKey declaration(const DISubprogram *SP) {
+    return SubprogramKey(SP, std::nullopt);
+  }
+
+  static SubprogramKey any(const DISubprogram *SP) {
+    return SubprogramKey(SP, std::nullopt);
+  }
 };
 
 /// Tracks abstract and concrete DIEs for debug info entities of a certain type.

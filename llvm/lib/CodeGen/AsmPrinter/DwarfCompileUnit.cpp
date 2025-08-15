@@ -739,7 +739,7 @@ DIE *DwarfCompileUnit::constructInlinedScopeDIE(LexicalScope *Scope,
   DIE *OriginDIE = getAbstractScopeDIEs()[InlinedSP];
   assert(OriginDIE && "Unable to find original DIE for an inlined subprogram.");
 
-  auto *ScopeDIE = &createAndAddSubprogramDIE(dwarf::DW_TAG_inlined_subroutine, ParentScopeDIE, SubprogramKey{InlinedSP, Scope});
+  auto *ScopeDIE = &createAndAddSubprogramDIE(dwarf::DW_TAG_inlined_subroutine, ParentScopeDIE, SubprogramKey::concreteDefinition(InlinedSP, Scope));
   addDIEEntry(*ScopeDIE, dwarf::DW_AT_abstract_origin, *OriginDIE);
 
   attachRangesOrLowHighPC(*ScopeDIE, Scope->getRanges());
@@ -1119,7 +1119,7 @@ sortLocalVars(SmallVectorImpl<DbgVariable *> &Input) {
 DIE &DwarfCompileUnit::constructSubprogramScopeDIE(const DISubprogram *Sub,
                                                    LexicalScope *Scope,
                                                    MCSymbol *LineTableSym) {
-  DIE &ScopeDIE = updateSubprogramScopeDIE(SubprogramKey{Sub, Scope}, LineTableSym);
+  DIE &ScopeDIE = updateSubprogramScopeDIE(SubprogramKey::concreteDefinition(Sub, Scope), LineTableSym);
 
   if (Scope) {
     assert(!Scope->getInlinedAt());
@@ -1210,7 +1210,7 @@ void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
   // any). It could be refactored to some common utility function.
   else if (auto *SPDecl = SP->getDeclaration()) {
     ContextDIE = &getUnitDie();
-    getOrCreateSubprogramDIE(SubprogramKey{SPDecl, std::nullopt});
+    getOrCreateSubprogramDIE(SubprogramKey::declaration(SPDecl));
   } else {
     ContextDIE = getOrCreateContextDIE(SP->getScope());
     // The scope may be shared with a subprogram that has already been
@@ -1220,7 +1220,7 @@ void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
   }
 
   DIE &AbsDef = ContextCU->createAndAddSubprogramDIE(dwarf::DW_TAG_subprogram,
-                                           *ContextDIE, SubprogramKey{SP, std::nullopt});
+                                           *ContextDIE, SubprogramKey::abstractDefinition(SP));
   // Store the DIE before creating children.
   ContextCU->getAbstractScopeDIEs()[SP] = &AbsDef;
 
@@ -1300,7 +1300,7 @@ DIE &DwarfCompileUnit::constructCallSiteEntryDIE(
     // TODO will it refer to the correct subprogram?
     DIE *CalleeDIE = getAbstractScopeDIEs().lookup(CalleeSP);
     if (!CalleeDIE)
-      CalleeDIE = getOrCreateSubprogramDIE(SubprogramKey{CalleeSP, std::nullopt});
+      CalleeDIE = getOrCreateSubprogramDIE(SubprogramKey::any(CalleeSP));
     assert(CalleeDIE && "Could not create DIE for call site entry origin");
     if (AddLinkageNamesToDeclCallOriginsForTuning(DD) &&
         !CalleeSP->isDefinition() &&
@@ -1394,7 +1394,7 @@ DIE *DwarfCompileUnit::constructImportedEntityDIE(
       EntityDie = SPDie;
     else
       // TODO do we need to separate getOrCreateAbstractSubprogramDIE and getOrCreateConcreteSubprogramDIE?
-      EntityDie = getOrCreateSubprogramDIE(SubprogramKey{SP, std::nullopt});
+      EntityDie = getOrCreateSubprogramDIE(SubprogramKey::any(SP));
   } else if (auto *T = dyn_cast<DIType>(Entity))
     EntityDie = getOrCreateTypeDIE(T);
   else if (auto *GV = dyn_cast<DIGlobalVariable>(Entity))
