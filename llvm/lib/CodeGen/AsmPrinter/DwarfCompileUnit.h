@@ -127,14 +127,10 @@ class DwarfCompileUnit final : public DwarfUnit {
   void addWasmRelocBaseGlobal(DIELoc *Loc, StringRef GlobalName,
                               uint64_t GlobalIndex);
 
-  const DwarfInfoHolder &AbstractScopeDIEs() const {
+  auto AbstractScopeDIEs() const {
     if (isDwoUnit() && !DD->shareAcrossDWOCUs())
-      return InfoHolder;
-    return DU->DIEs();
-  }
-
-  DwarfInfoHolder &AbstractScopeDIEs() {
-    return const_cast<DwarfInfoHolder &>(const_cast<const DwarfCompileUnit *>(this)->AbstractScopeDIEs());
+      return InfoHolder.LocalScopes().AbstractDIEs();
+    return DU->DIEs().LocalScopes().AbstractDIEs();
   }
 
 public:

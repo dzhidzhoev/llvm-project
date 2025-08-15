@@ -63,9 +63,10 @@ struct SubprogramKey {
 
 /// Tracks abstract and concrete DIEs for debug info entities of a certain type.
 template <typename DINodeT, typename DbgEntityT> class DINodeInfoHolder {
+  using AbstractMapT = DenseMap<const DINodeT *, DIE *>;
   using ConcreteMapT = DenseMap<const DINodeT *, SmallDenseMap<const DbgEntityT *, DIE *, 2>>;
 
-  DenseMap<const DINodeT *, DIE *> AbstractMap;
+  AbstractMapT AbstractMap;
   ConcreteMapT ConcreteMap;
 
   static const DINodeT *getNode(const DbgEntityT &N) {
@@ -113,7 +114,11 @@ public:
     return nullptr;
   }
 
-  const ConcreteMapT &concreteDIEs() const {
+  const AbstractMapT &AbstractDIEs() const {
+    return AbstractMap;
+  }
+
+  const ConcreteMapT &ConcreteDIEs() const {
     return ConcreteMap;
   }
 };
@@ -159,10 +164,11 @@ public:
   }
 
   decltype(LVHolder) &LVs() { return LVHolder; }
-
   decltype(LabelHolder) &Labels() { return LabelHolder; }
-
   decltype(LSHolder) &LocalScopes() { return LSHolder; }
+  const decltype(LVHolder) &LVs() const { return LVHolder; }
+  const decltype(LabelHolder) &Labels() const { return LabelHolder; }
+  const decltype(LSHolder) &LocalScopes() const { return LSHolder; }
 
   /// For a global variable, returns DIE of the variable.
   ///
