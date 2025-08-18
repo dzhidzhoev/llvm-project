@@ -564,4 +564,31 @@ TEST_F(LexicalScopesTest, TestRepeatingSubprogram) {
   EXPECT_NE(LS.findLexicalScope(FooFunc), nullptr);
 }
 
+// Test that if a DISubprogram is attached to two functions,
+// an abstract lexical block is created after scanning a first function.
+TEST_F(LexicalScopesTest, TestRepeatingLexicalBlocks) {
+  BuildMI(*MBB1, MBB1->end(), InBlockLoc, BeanInst);
+
+  std::unique_ptr<MachineFunction> MF2 = createMachineFunction(Ctx, Mod, "Foo");
+  auto BB = BasicBlock::Create(Ctx, "a", &MF2->getFunction());
+  IRBuilder<> IRB(BB);
+  IRB.CreateRetVoid();
+  auto MBB = MF2->CreateMachineBasicBlock(BB);
+  MF2->insert(MF2->end(), MBB);
+
+  MF2->getFunction().setSubprogram(OurFunc);
+
+  BuildMI(*MBB, MBB->end(), InBlockLoc, BeanInst);
+
+  LexicalScopes LS;
+  LS.initialize(Mod);
+  LS.scanFunction(*MF2);
+  EXPECT_NE(LS.findAbstractScope(OurFunc), nullptr);
+  EXPECT_NE(LS.findAbstractScope(OurBlock), nullptr);
+
+  LS.scanFunction(*MF);
+  EXPECT_NE(LS.findAbstractScope(OurFunc), nullptr);
+  EXPECT_NE(LS.findAbstractScope(OurBlock), nullptr);
+}
+
 } // anonymous namespace
