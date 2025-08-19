@@ -412,6 +412,14 @@ DIE &DwarfUnit::createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N) {
   return Die;
 }
 
+DIE &DwarfUnit::createAndAddSubprogramDIE(DIE &Parent, const DISubprogram *SP,
+                                          const Function *F) {
+  DIE &Die =
+      Parent.addChild(DIE::get(DIEValueAllocator, dwarf::DW_TAG_subprogram));
+  getDIEs(SP).getLocalScopes().insertConcreteDIE(SP, F, &Die);
+  return Die;
+}
+
 void DwarfUnit::addBlock(DIE &Die, dwarf::Attribute Attribute, DIELoc *Loc) {
   Loc->computeSize(Asm->getDwarfFormParams());
   DIELocs.push_back(Loc); // Memoize so we can call the destructor later on.
@@ -1323,6 +1331,19 @@ DIE *DwarfUnit::getOrCreateModule(const DIModule *M) {
   return &MDie;
 }
 
+DIE *DwarfUnit::getExistingSubprogramDIE(const DISubprogram *SP,
+                                         const Function *F) const {
+  if (!F) {
+    if (DIE *SPDie = getDIEs(SP).getLocalScopes().getAnyConcreteDIE(SP))
+      return SPDie;
+  } else {
+    if (DIE *SPDie = getDIEs(SP).getLocalScopes().getConcreteDIE(SP, F))
+      return SPDie;
+  }
+
+  return nullptr;
+}
+
 DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP,
                                          const Function *FnHint, bool Minimal) {
   // Construct the context before querying for the existence of the DIE in case
@@ -1331,7 +1352,7 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP,
   DIE *ContextDIE =
       getOrCreateSubprogramContextDIE(SP, shouldPlaceInUnitDIE(SP, Minimal));
 
-  if (DIE *SPDie = getDIE(SP))
+  if (DIE *SPDie = getExistingSubprogramDIE(SP, FnHint))
     return SPDie;
 
   if (auto *SPDecl = SP->getDeclaration()) {
@@ -1343,13 +1364,13 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP,
       // FIXME: Should the creation of definition subprogram DIE during
       // the creation of declaration subprogram DIE be allowed?
       // See https://github.com/llvm/llvm-project/pull/154636.
-      if (DIE *SPDie = getDIE(SP))
+      if (DIE *SPDie = getExistingSubprogramDIE(SP, FnHint))
         return SPDie;
     }
   }
 
   // DW_TAG_inlined_subroutine may refer to this DIE.
-  DIE &SPDie = createAndAddDIE(dwarf::DW_TAG_subprogram, *ContextDIE, SP);
+  DIE &SPDie = createAndAddSubprogramDIE(*ContextDIE, SP, FnHint);
 
   // Stop here and fill this in later, depending on whether or not this
   // subprogram turns out to have inlined instances or not.
@@ -1375,7 +1396,8 @@ bool DwarfUnit::applySubprogramDefinitionAttributes(const DISubprogram *SP,
         if (DefinitionArgs[0] != nullptr && DeclArgs[0] != DefinitionArgs[0])
           addType(SPDie, DefinitionArgs[0]);
 
-      DeclDie = getDIE(SPDecl);
+      DeclDie =
+          getDIEs(SPDecl).getLocalScopes().getConcreteDIE(SPDecl, nullptr);
       assert(DeclDie && "This DIE should've already been constructed when the "
                         "definition DIE was created in "
                         "getOrCreateSubprogramDIE");
@@ -1399,7 +1421,8 @@ bool DwarfUnit::applySubprogramDefinitionAttributes(const DISubprogram *SP,
   StringRef LinkageName = SP->getLinkageName();
   // Always emit linkage name for abstract subprograms.
   if (DeclLinkageName != LinkageName &&
-      (DD->useAllLinkageNames() || DU->getAbstractScopeDIEs().lookup(SP)))
+      (DD->useAllLinkageNames() ||
+       DU->getDIEs().getLocalScopes().getAbstractDIEs().lookup(SP)))
     addLinkageName(SPDie, LinkageName);
 
   if (!DeclDie)

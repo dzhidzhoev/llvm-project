@@ -138,9 +138,7 @@ public:
   /// We delegate the request to DwarfDebug when the MDNode can be part of the
   /// type system, since DIEs for the type system can be shared across CUs and
   /// the mappings are kept in DwarfDebug.
-  DIE *getDIE(const DINode *D) const {
-    return getDIEs(D).getDIE(D);
-  }
+  DIE *getDIE(const DINode *D) const { return getDIEs(D).getDIE(D); }
 
   /// Returns a fresh newly allocated DIELoc.
   DIELoc *getDIELoc() { return new (DIEValueAllocator) DIELoc; }
@@ -299,6 +297,8 @@ public:
   /// Create a DIE with the given Tag, add the DIE to its parent, and
   /// call insertDIE if MD is not null.
   DIE &createAndAddDIE(dwarf::Tag Tag, DIE &Parent, const DINode *N = nullptr);
+  DIE &createAndAddSubprogramDIE(DIE &Parent, const DISubprogram *SP,
+                                 const Function *F);
 
   bool useSegmentedStringOffsetsTable() const {
     return DD->useSegmentedStringOffsetsTable();
@@ -395,6 +395,9 @@ private:
                                          const DITemplateTypeParameter *TP);
   void constructTemplateValueParameterDIE(DIE &Buffer,
                                           const DITemplateValueParameter *TVP);
+
+  DIE *getExistingSubprogramDIE(const DISubprogram *SP,
+                                const Function *FnHint) const;
 
   /// Return the default lower bound for an array.
   ///

@@ -17,8 +17,10 @@
 #include "llvm/CodeGen/DIE.h"
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/Support/Allocator.h"
+#include <functional>
 #include <map>
 #include <memory>
+#include <optional>
 #include <utility>
 
 namespace llvm {
@@ -53,9 +55,14 @@ struct RangeSpanList {
 
 /// Tracks abstract and concrete DIEs for debug info entities of a certain type.
 template <typename DINodeT, typename DbgEntityT> class DINodeInfoHolder {
-  DenseMap<const DINodeT *, DIE *> AbstractMap;
-  DenseMap<const DINodeT *, SmallDenseMap<const DbgEntityT *, DIE *, 2>>
-      ConcreteMap;
+public:
+  using AbstractMapT = DenseMap<const DINodeT *, DIE *>;
+  using ConcreteMapT =
+      DenseMap<const DINodeT *, SmallDenseMap<const DbgEntityT *, DIE *, 2>>;
+
+private:
+  AbstractMapT AbstractMap;
+  ConcreteMapT ConcreteMap;
 
 public:
   void insertAbstractDIE(const DINodeT *N, DIE *D) {
@@ -77,9 +84,23 @@ public:
 
   DIE *getAbstractDIE(const DINodeT *N) const { return AbstractMap.lookup(N); }
 
-  DIE *getConcreteDIE(const DINodeT *N, const DbgEntityT *E) const {
+  std::optional<
+      std::reference_wrapper<const typename ConcreteMapT::mapped_type>>
+  getConcreteDIEs(const DINodeT *N) const {
     if (auto I = ConcreteMap.find(N); I != ConcreteMap.end())
-      return I->second.lookup(E);
+      return std::make_optional(std::ref(I->second));
+    return std::nullopt;
+  }
+
+  DIE *getConcreteDIE(const DINodeT *N, const DbgEntityT *E) const {
+    if (auto I = getConcreteDIEs(N))
+      return I->get().lookup(E);
+    return nullptr;
+  }
+
+  DIE *getAnyConcreteDIE(const DINodeT *N) const {
+    if (auto I = getConcreteDIEs(N))
+      return I->get().empty() ? nullptr : I->get().begin()->second;
     return nullptr;
   }
 
@@ -89,31 +110,44 @@ public:
     if (DIE *D = getAbstractDIE(N))
       return D;
 
-    if (auto I = ConcreteMap.find(N); I != ConcreteMap.end())
-      return I->second.empty() ? nullptr : I->second.begin()->second;
-
-    return nullptr;
+    return getAnyConcreteDIE(N);
   }
+
+  AbstractMapT &getAbstractDIEs() { return AbstractMap; }
 };
 
 /// Tracks DIEs for debug info entites.
 /// These DIEs can be shared across CUs, that is why we keep the map here
 /// instead of in DwarfCompileUnit.
 class DwarfInfoHolder {
-  // DIEs of local DbgVariables.
+public:
+  using LocalScopeHolderT = DINodeInfoHolder<DILocalScope, Function>;
+  using AbstractScopeMapT = LocalScopeHolderT::AbstractMapT;
+
+private:
+  /// DIEs of local DbgVariables.
   DINodeInfoHolder<DILocalVariable, DbgVariable> LVHolder;
+  /// DIEs of labels.
   DINodeInfoHolder<DILabel, DbgLabel> LabelHolder;
+  /// DIEs of abstract local scopes and concrete non-inlined subprograms.
+  /// Inlined subprograms and concrete lexical blocks are not stored here.
+  LocalScopeHolderT LSHolder;
+  DenseMap<const DINode *, std::unique_ptr<DbgEntity>> AbstractEntities;
+  /// Keeps track of abstract subprograms to populate them only once.
+  // FIXME: merge creation and population of abstract scopes.
+  SmallPtrSet<const DISubprogram *, 8> FinalizedAbstractSubprograms;
 
   /// Other DINodes with the corresponding DIEs.
   DenseMap<const DINode *, DIE *> MDNodeToDieMap;
 
 public:
   void insertDIE(const DINode *N, DIE *Die) {
-    assert((!isa<DILabel>(N) && !isa<DILocalVariable>(N)) &&
+    assert((!isa<DILabel>(N) && !isa<DILocalVariable>(N) &&
+            !isa<DILocalScope>(N)) &&
            "Use getLabels().insertDIE() for labels or getLVs().insertDIE() for "
-           "local variables");
+           "local variables, or getSubprogram().insertDIE() for subprograms.");
     auto [_, Inserted] = MDNodeToDieMap.try_emplace(N, Die);
-    assert((Inserted || isa<DISubprogram>(N) || isa<DIType>(N)) &&
+    assert((Inserted || isa<DIType>(N)) &&
            "DIE for this DINode has already been added");
   }
 
@@ -121,16 +155,21 @@ public:
 
   DIE *getDIE(const DINode *N) const {
     DIE *D = MDNodeToDieMap.lookup(N);
-    assert((!D || (!isa<DILabel>(N) && !isa<DILocalVariable>(N))) &&
+    assert((!D || (!isa<DILabel>(N) && !isa<DILocalVariable>(N) &&
+                   !isa<DILocalScope>(N))) &&
            "Use getLabels().getDIE() for labels or getLVs().getDIE() for "
-           "local variables");
+           "local variables, or getLocalScopes().getDIE() for local scopes.");
     return D;
   }
 
   auto &getLVs() { return LVHolder; }
   auto &getLVs() const { return LVHolder; }
+
   auto &getLabels() { return LabelHolder; }
   auto &getLabels() const { return LabelHolder; }
+
+  auto &getLocalScopes() { return LSHolder; }
+  auto &getLocalScopes() const { return LSHolder; }
 
   /// For a global variable, returns DIE of the variable.
   ///
@@ -141,6 +180,14 @@ public:
       if (DIE *D = getLVs().getDIE(LV))
         return D;
     return getDIE(V);
+  }
+
+  DenseMap<const DINode *, std::unique_ptr<DbgEntity>> &getAbstractEntities() {
+    return AbstractEntities;
+  }
+
+  auto &getFinalizedAbstractSubprograms() {
+    return FinalizedAbstractSubprograms;
   }
 };
 
@@ -183,14 +230,6 @@ class DwarfFile {
   /// Collection of DbgLabels of each lexical scope.
   using LabelList = SmallVector<DbgLabel *, 4>;
   DenseMap<LexicalScope *, LabelList> ScopeLabels;
-
-  // Collection of abstract subprogram DIEs.
-  // TODO: move it to InfoHolder?
-  DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
-  DenseMap<const DINode *, std::unique_ptr<DbgEntity>> AbstractEntities;
-  /// Keeps track of abstract subprograms to populate them only once.
-  // FIXME: merge creation and population of abstract scopes.
-  SmallPtrSet<const DISubprogram *, 8> FinalizedAbstractSubprograms;
 
   DwarfInfoHolder InfoHolder;
 
@@ -258,18 +297,6 @@ public:
 
   DenseMap<LexicalScope *, LabelList> &getScopeLabels() {
     return ScopeLabels;
-  }
-
-  DenseMap<const DILocalScope *, DIE *> &getAbstractScopeDIEs() {
-    return AbstractLocalScopeDIEs;
-  }
-
-  DenseMap<const DINode *, std::unique_ptr<DbgEntity>> &getAbstractEntities() {
-    return AbstractEntities;
-  }
-
-  auto &getFinalizedAbstractSubprograms() {
-    return FinalizedAbstractSubprograms;
   }
 
   DwarfInfoHolder &getDIEs() { return InfoHolder; }
