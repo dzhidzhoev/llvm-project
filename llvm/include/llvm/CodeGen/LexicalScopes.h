@@ -205,6 +205,11 @@ public:
   /// getOrCreateAbstractScope - Find or create an abstract lexical scope.
   LLVM_ABI LexicalScope *getOrCreateAbstractScope(const DILocalScope *Scope);
 
+  /// getFunction - Get function to which the given subprogram is attached, if exists.
+  const Function *getFunction(const DISubprogram *SP) const {
+    return FunctionMap.lookup(SP);
+  }
+
 private:
   /// getOrCreateLexicalScope - Find lexical scope for the given Scope/IA. If
   /// not available then create new lexical scope.
@@ -233,6 +238,8 @@ private:
                           DenseMap<const MachineInstr *, LexicalScope *> &M);
 
   const MachineFunction *MF = nullptr;
+
+  DenseMap<const DISubprogram *, const Function *> FunctionMap;
 
   /// LexicalScopeMap - Tracks the scopes in the current function.
   // Use an unordered_map to ensure value pointer validity over insertion.

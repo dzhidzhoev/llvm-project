@@ -57,6 +57,11 @@ void LexicalScopes::resetFunction() {
 
 void LexicalScopes::initialize(const Module &M) {
   resetModule();
+  for (const Function &F : M) {
+    DISubprogram *SP = F.getSubprogram();
+    if (SP && (!SP->getUnit() || !skipUnit(SP->getUnit())))
+      FunctionMap[SP] = &F;
+  }
 }
 
 /// initialize - Scan machine function and constuct lexical scope nest.
