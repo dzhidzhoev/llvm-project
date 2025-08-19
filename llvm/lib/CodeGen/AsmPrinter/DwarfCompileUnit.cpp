@@ -795,7 +795,9 @@ DIE *DwarfCompileUnit::constructLexicalScopeDIE(LexicalScope *Scope) {
 
 DIE *DwarfCompileUnit::constructVariableDIE(DbgVariable &DV, bool Abstract) {
   auto *VariableDie = DIE::get(DIEValueAllocator, DV.getTag());
-  getDIEs(DV.getVariable()).getLVs().insertDIE(DV, VariableDie, Abstract);
+  getDIEs(DV.getVariable())
+      .getLVs()
+      .insertDIE(DV.getVariable(), &DV, VariableDie, Abstract);
   DV.setDIE(*VariableDie);
   // Abstract variables don't get common attributes later, so apply them now.
   if (Abstract) {
@@ -1010,7 +1012,9 @@ DIE *DwarfCompileUnit::constructVariableDIE(DbgVariable &DV,
 DIE *DwarfCompileUnit::constructLabelDIE(DbgLabel &DL,
                                          const LexicalScope &Scope) {
   auto LabelDie = DIE::get(DIEValueAllocator, DL.getTag());
-  getDIEs(DL.getLabel()).getLabels().insertDIE(DL, LabelDie, Scope.isAbstractScope());
+  getDIEs(DL.getLabel())
+      .getLabels()
+      .insertDIE(DL.getLabel(), &DL, LabelDie, Scope.isAbstractScope());
   DL.setDIE(*LabelDie);
 
   if (Scope.isAbstractScope())
