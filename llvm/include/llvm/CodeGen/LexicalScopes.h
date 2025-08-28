@@ -239,6 +239,7 @@ private:
 
   const MachineFunction *MF = nullptr;
 
+  // TODO write a comment.
   DenseMap<const DISubprogram *, const Function *> FunctionMap;
 
   /// LexicalScopeMap - Tracks the scopes in the current function.

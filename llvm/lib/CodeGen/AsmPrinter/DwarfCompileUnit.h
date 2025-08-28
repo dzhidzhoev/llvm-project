@@ -143,6 +143,8 @@ class DwarfCompileUnit final : public DwarfUnit {
   void addWasmRelocBaseGlobal(DIELoc *Loc, StringRef GlobalName,
                               uint64_t GlobalIndex);
 
+  std::pair<DIE *, DwarfCompileUnit *> getOrCreateAbstractSubprogramContextDIE(const DISubprogram *SP);
+
 public:
   DwarfCompileUnit(unsigned UID, const DICompileUnit *Node, AsmPrinter *A,
                    DwarfDebug *DW, DwarfFile *DWU,
@@ -265,6 +267,7 @@ public:
 
   DIE *createAndAddScopeChildren(LexicalScope *Scope, DIE &ScopeDIE);
 
+  DIE &getOrCreateAbstractSubprogramDIE(const DISubprogram *SP);
   void constructAbstractSubprogramScopeDIE(LexicalScope *Scope);
 
   /// Whether to use the GNU analog for a DWARF5 tag, attribute, or location

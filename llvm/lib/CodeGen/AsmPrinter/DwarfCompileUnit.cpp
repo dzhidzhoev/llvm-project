@@ -1198,12 +1198,30 @@ DIE *DwarfCompileUnit::createAndAddScopeChildren(LexicalScope *Scope,
   return ObjectPointer;
 }
 
-void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
-    LexicalScope *Scope) {
-  auto *SP = cast<DISubprogram>(Scope->getScopeNode());
-  if (getAbstractScopeDIEs().count(SP))
-    return;
+DIE &DwarfCompileUnit::getOrCreateAbstractSubprogramDIE(const DISubprogram *SP) {
+  if (auto *AbsDef = getAbstractScopeDIEs().lookup(SP))
+    return *AbsDef;
 
+  auto [ContextDIE, ContextCU] = getOrCreateAbstractSubprogramContextDIE(SP);
+
+  // Passing null as the associated node because the abstract definition
+  // shouldn't be found by lookup.
+  DIE &AbsDef = ContextCU->createAndAddDIE(dwarf::DW_TAG_subprogram,
+                                           *ContextDIE, nullptr);
+
+  // Store the DIE before creating children.
+  ContextCU->getAbstractScopeDIEs()[SP] = &AbsDef;
+
+  ContextCU->applySubprogramAttributesToDefinition(SP, AbsDef);
+  ContextCU->addSInt(AbsDef, dwarf::DW_AT_inline,
+                     DD->getDwarfVersion() <= 4 ? std::optional<dwarf::Form>()
+                                                : dwarf::DW_FORM_implicit_const,
+                     dwarf::DW_INL_inlined);
+
+  return AbsDef;
+}
+
+std::pair<DIE *, DwarfCompileUnit *> DwarfCompileUnit::getOrCreateAbstractSubprogramContextDIE(const DISubprogram *SP) {
   DIE *ContextDIE;
   DwarfCompileUnit *ContextCU = this;
 
@@ -1224,19 +1242,14 @@ void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
     ContextCU = DD->lookupCU(ContextDIE->getUnitDie());
   }
 
-  // Passing null as the associated node because the abstract definition
-  // shouldn't be found by lookup.
-  DIE &AbsDef = ContextCU->createAndAddDIE(dwarf::DW_TAG_subprogram,
-                                           *ContextDIE, nullptr);
+  return std::make_pair(ContextDIE, ContextCU);
+}
 
-  // Store the DIE before creating children.
-  ContextCU->getAbstractScopeDIEs()[SP] = &AbsDef;
+void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(LexicalScope *Scope) {
+  auto *SP = cast<DISubprogram>(Scope->getScopeNode());
+  DIE &AbsDef = getOrCreateAbstractSubprogramDIE(SP);
+  auto [ContextDIE, ContextCU] = getOrCreateAbstractSubprogramContextDIE(SP);
 
-  ContextCU->applySubprogramAttributesToDefinition(SP, AbsDef);
-  ContextCU->addSInt(AbsDef, dwarf::DW_AT_inline,
-                     DD->getDwarfVersion() <= 4 ? std::optional<dwarf::Form>()
-                                                : dwarf::DW_FORM_implicit_const,
-                     dwarf::DW_INL_inlined);
   if (DIE *ObjectPointer = ContextCU->createAndAddScopeChildren(Scope, AbsDef))
     ContextCU->addDIEEntry(AbsDef, dwarf::DW_AT_object_pointer, *ObjectPointer);
 }
