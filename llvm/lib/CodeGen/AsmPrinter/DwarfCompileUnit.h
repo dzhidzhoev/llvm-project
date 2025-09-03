@@ -218,7 +218,7 @@ public:
   /// DW_AT_low_pc, DW_AT_high_pc and DW_AT_LLVM_stmt_sequence attributes.
   /// If there are global variables in this scope then create and insert DIEs
   /// for these variables.
-  DIE &updateSubprogramScopeDIE(const DISubprogram *SP, MCSymbol *LineTableSym);
+  DIE &updateSubprogramScopeDIE(const DISubprogram *SP, const Function &F, MCSymbol *LineTableSym);
 
   void constructScopeDIE(LexicalScope *Scope, DIE &ParentScopeDIE);
 
@@ -262,8 +262,7 @@ public:
   DIE *getOrCreateContextDIE(const DIScope *Ty) override;
 
   /// Construct a DIE for this subprogram scope.
-  DIE &constructSubprogramScopeDIE(const DISubprogram *Sub, LexicalScope *Scope,
-                                   MCSymbol *LineTableSym);
+  DIE &constructSubprogramScopeDIE(const DISubprogram *Sub, const Function &F, LexicalScope *Scope, MCSymbol *LineTableSym);
 
   DIE *createAndAddScopeChildren(LexicalScope *Scope, DIE &ScopeDIE);
 
@@ -290,10 +289,7 @@ public:
   /// \p CallAddr points to the PC value at the call instruction (or is null).
   /// \p CallReg is a register location for an indirect call. For direct calls
   /// the \p CallReg is set to 0.
-  DIE &constructCallSiteEntryDIE(DIE &ScopeDIE, const DISubprogram *CalleeSP,
-                                 bool IsTail, const MCSymbol *PCAddr,
-                                 const MCSymbol *CallAddr, unsigned CallReg,
-                                 DIType *AllocSiteTy);
+  DIE &constructCallSiteEntryDIE(DIE &ScopeDIE, const DISubprogram *CalleeSP, const Function *CalleeF, bool IsTail, const MCSymbol *PCAddr, const MCSymbol *CallAddr, unsigned CallReg, DIType *AllocSiteTy);
   /// Construct call site parameter DIEs for the \p CallSiteDIE. The \p Params
   /// were collected by the \ref collectCallSiteParameters.
   /// Note: The order of parameters does not matter, since debuggers recognize
