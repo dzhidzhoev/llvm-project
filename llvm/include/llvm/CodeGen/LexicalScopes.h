@@ -239,7 +239,7 @@ private:
 
   const MachineFunction *MF = nullptr;
 
-  // TODO write a comment.
+  /// FunctionMap - Mapping between DISubprograms and IR functions.
   DenseMap<const DISubprogram *, const Function *> FunctionMap;
 
   /// LexicalScopeMap - Tracks the scopes in the current function.

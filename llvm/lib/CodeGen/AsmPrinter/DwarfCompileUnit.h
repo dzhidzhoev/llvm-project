@@ -143,6 +143,9 @@ class DwarfCompileUnit final : public DwarfUnit {
   void addWasmRelocBaseGlobal(DIELoc *Loc, StringRef GlobalName,
                               uint64_t GlobalIndex);
 
+  /// Create context DIE for abstract subprogram.
+  /// \returns The context DIE and the compile unit where abstract
+  ///          DIE should be constructed.
   std::pair<DIE *, DwarfCompileUnit *> getOrCreateAbstractSubprogramContextDIE(const DISubprogram *SP);
 
 public:
@@ -266,6 +269,8 @@ public:
 
   DIE *createAndAddScopeChildren(LexicalScope *Scope, DIE &ScopeDIE);
 
+  /// Create an abstract subprogram DIE, that should later be populated
+  /// by \ref constructAbstractSubprogramScopeDIE.
   DIE &getOrCreateAbstractSubprogramDIE(const DISubprogram *SP);
   void constructAbstractSubprogramScopeDIE(LexicalScope *Scope);
 
@@ -283,7 +288,7 @@ public:
   dwarf::LocationAtom getDwarf5OrGNULocationAtom(dwarf::LocationAtom Loc) const;
 
   /// Construct a call site entry DIE describing a call within \p Scope to a
-  /// callee described by \p CalleeSP.
+  /// callee described by \p CalleeSP and \p CalleeF.
   /// \p IsTail specifies whether the call is a tail call.
   /// \p PCAddr points to the PC value after the call instruction.
   /// \p CallAddr points to the PC value at the call instruction (or is null).
