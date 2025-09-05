@@ -1219,25 +1219,18 @@ DIE &DwarfCompileUnit::getOrCreateAbstractSubprogramDIE(const DISubprogram *SP) 
 }
 
 std::pair<DIE *, DwarfCompileUnit *> DwarfCompileUnit::getOrCreateAbstractSubprogramContextDIE(const DISubprogram *SP) {
-  DIE *ContextDIE;
-  DwarfCompileUnit *ContextCU = this;
+  bool Minimal = includeMinimalInlineScopes();
+  bool IgnoreScope = shouldPlaceInUnitDIE(SP, Minimal);
+  DIE *ContextDIE = getOrCreateSubprogramContextDIE(SP, IgnoreScope);
 
-  if (includeMinimalInlineScopes())
-    ContextDIE = &getUnitDie();
-  // Some of this is duplicated from DwarfUnit::getOrCreateSubprogramDIE, with
-  // the important distinction that the debug node is not associated with the
-  // DIE (since the debug node will be associated with the concrete DIE, if
-  // any). It could be refactored to some common utility function.
-  else if (auto *SPDecl = SP->getDeclaration()) {
-    ContextDIE = &getUnitDie();
-    getOrCreateSubprogramDIE(SPDecl, nullptr);
-  } else {
-    ContextDIE = getOrCreateContextDIE(SP->getScope());
-    // The scope may be shared with a subprogram that has already been
-    // constructed in another CU, in which case we need to construct this
-    // subprogram in the same CU.
-    ContextCU = DD->lookupCU(ContextDIE->getUnitDie());
-  }
+  if (auto *SPDecl = SP->getDeclaration())
+    if (!Minimal)
+      getOrCreateSubprogramDIE(SPDecl, nullptr);
+
+  // The scope may be shared with a subprogram that has already been
+  // constructed in another CU, in which case we need to construct this
+  // subprogram in the same CU.
+  auto *ContextCU = IgnoreScope ? this : DD->lookupCU(ContextDIE->getUnitDie());
 
   return std::make_pair(ContextDIE, ContextCU);
 }
@@ -1811,4 +1804,15 @@ DIE *DwarfCompileUnit::getOrCreateContextDIE(const DIScope *Context) {
       return It->second;
   }
   return DwarfUnit::getOrCreateContextDIE(Context);
+}
+
+DIE *DwarfCompileUnit::getOrCreateSubprogramDIE(const DISubprogram *SP, const Function *F, bool Minimal) {
+  if (!F && SP->isDefinition()) {
+    F = DD->getLexicalScopes().getFunction(SP);
+
+    if (!F)
+      return &getCU().getOrCreateAbstractSubprogramDIE(SP);
+  }
+
+  return DwarfUnit::getOrCreateSubprogramDIE(SP, F, Minimal);
 }

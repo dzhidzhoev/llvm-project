@@ -264,6 +264,8 @@ public:
   /// This instance of 'getOrCreateContextDIE()' can handle DILocalScope.
   DIE *getOrCreateContextDIE(const DIScope *Ty) override;
 
+  DIE *getOrCreateSubprogramDIE(const DISubprogram *SP, const Function *F, bool Minimal = false) override;
+
   /// Construct a DIE for this subprogram scope.
   DIE &constructSubprogramScopeDIE(const DISubprogram *Sub, const Function &F, LexicalScope *Scope, MCSymbol *LineTableSym);
 

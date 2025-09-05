@@ -1339,23 +1339,13 @@ DIE *DwarfUnit::getOrCreateSubprogramDIE(const DISubprogram *SP, const Function 
   // Construct the context before querying for the existence of the DIE in case
   // such construction creates the DIE (as is the case for member function
   // declarations).
-  DIE *ContextDIE =
-      Minimal ? &getUnitDie() : getOrCreateContextDIE(SP->getScope());
-
-  if (!F && SP->isDefinition()) {
-    F = DD->getLexicalScopes().getFunction(SP);
-
-    if (!F)
-      return &getCU().getOrCreateAbstractSubprogramDIE(SP);
-  }
+  DIE *ContextDIE = getOrCreateSubprogramContextDIE(SP, shouldPlaceInUnitDIE(SP, Minimal));
 
   if (DIE *SPDie = getDIE(SP))
     return SPDie;
 
   if (auto *SPDecl = SP->getDeclaration()) {
     if (!Minimal) {
-      // Add subprogram definitions to the CU die directly.
-      ContextDIE = &getUnitDie();
       // Build the decl now to ensure it precedes the definition.
       getOrCreateSubprogramDIE(SPDecl, nullptr);
       // Check whether the DIE for SP has already been created after the call
