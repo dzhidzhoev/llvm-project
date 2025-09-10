@@ -1237,8 +1237,15 @@ std::pair<DIE *, DwarfCompileUnit *> DwarfCompileUnit::getOrCreateAbstractSubpro
 
 void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(LexicalScope *Scope) {
   auto *SP = cast<DISubprogram>(Scope->getScopeNode());
+
+  if (getFinalizedAbstractSubprograms().contains(SP)) {
+    return;
+  }
+
   DIE &AbsDef = getOrCreateAbstractSubprogramDIE(SP);
   auto [ContextDIE, ContextCU] = getOrCreateAbstractSubprogramContextDIE(SP);
+
+  getFinalizedAbstractSubprograms().insert(SP);
 
   if (DIE *ObjectPointer = ContextCU->createAndAddScopeChildren(Scope, AbsDef))
     ContextCU->addDIEEntry(AbsDef, dwarf::DW_AT_object_pointer, *ObjectPointer);

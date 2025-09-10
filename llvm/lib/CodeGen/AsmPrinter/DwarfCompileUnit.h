@@ -81,6 +81,7 @@ class DwarfCompileUnit final : public DwarfUnit {
 
   // List of abstract local scopes (either DISubprogram or DILexicalBlock).
   DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
+  SmallPtrSet<const DISubprogram *, 8> FinalizedAbstractSubprograms;
 
   // List of inlined lexical block scopes that belong to subprograms within this
   // CU.
@@ -135,6 +136,12 @@ class DwarfCompileUnit final : public DwarfUnit {
     if (isDwoUnit() && !DD->shareAcrossDWOCUs())
       return AbstractEntities;
     return DU->getAbstractEntities();
+  }
+
+  auto &getFinalizedAbstractSubprograms() {
+    if (isDwoUnit() && !DD->shareAcrossDWOCUs())
+      return FinalizedAbstractSubprograms;
+    return DU->getFinalizedAbstractSubprograms();
   }
 
   void finishNonUnitTypeDIE(DIE& D, const DICompositeType *CTy) override;
