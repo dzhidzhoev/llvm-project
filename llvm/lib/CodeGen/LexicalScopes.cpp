@@ -42,7 +42,7 @@ static bool skipUnit(const DICompileUnit *CU) {
 }
 
 void LexicalScopes::resetModule() {
-  AbstractScopeMap.clear();
+  FunctionMap.clear();
   resetFunction();
 }
 
@@ -50,6 +50,7 @@ void LexicalScopes::resetFunction() {
   MF = nullptr;
   CurrentFnLexicalScope = nullptr;
   LexicalScopeMap.clear();
+  AbstractScopeMap.clear();
   InlinedLexicalScopeMap.clear();
   AbstractScopesList.clear();
   DominatedBlocks.clear();
@@ -228,13 +229,8 @@ LexicalScopes::getOrCreateAbstractScope(const DILocalScope *Scope) {
   assert(Scope && "Invalid Scope encoding!");
   Scope = Scope->getNonLexicalBlockFileScope();
   auto I = AbstractScopeMap.find(Scope);
-  if (I != AbstractScopeMap.end()) {
-    // Abstact scope might be created before the current function processing.
-    if (isa<DISubprogram>(Scope))
-      AbstractScopesList.insert(&I->second);
-
+  if (I != AbstractScopeMap.end())
     return &I->second;
-  }
 
   // FIXME: Should the following isa be DILexicalBlock?
   LexicalScope *Parent = nullptr;
@@ -246,7 +242,7 @@ LexicalScopes::getOrCreateAbstractScope(const DILocalScope *Scope) {
                                std::forward_as_tuple(Parent, Scope,
                                                      nullptr, true)).first;
   if (isa<DISubprogram>(Scope))
-    AbstractScopesList.insert(&I->second);
+    AbstractScopesList.push_back(&I->second);
   return &I->second;
 }
 

@@ -16,8 +16,8 @@
 #ifndef LLVM_CODEGEN_LEXICALSCOPES_H
 #define LLVM_CODEGEN_LEXICALSCOPES_H
 
+#include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
-#include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/DebugInfoMetadata.h"
@@ -180,7 +180,7 @@ public:
   LLVM_ABI LexicalScope *findLexicalScope(const DILocation *DL);
 
   /// getAbstractScopesList - Return a reference to list of abstract scopes.
-  const SetVector<LexicalScope *> &getAbstractScopesList() const {
+  ArrayRef<LexicalScope *> getAbstractScopesList() const {
     return AbstractScopesList;
   }
 
@@ -259,7 +259,7 @@ private:
 
   /// AbstractScopesList - Tracks abstract scopes constructed while processing
   /// a function.
-  SetVector<LexicalScope *> AbstractScopesList;
+  SmallVector<LexicalScope *, 4> AbstractScopesList;
 
   /// CurrentFnLexicalScope - Top level scope for the current function.
   ///
