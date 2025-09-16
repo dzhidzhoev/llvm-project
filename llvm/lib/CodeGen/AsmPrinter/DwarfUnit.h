@@ -256,7 +256,7 @@ public:
 
   DIE *getOrCreateNameSpace(const DINamespace *NS);
   DIE *getOrCreateModule(const DIModule *M);
-  virtual DIE *getOrCreateSubprogramDIE(const DISubprogram *SP, const Function *F, bool Minimal = false);
+  virtual DIE *getOrCreateSubprogramDIE(const DISubprogram *SP, const Function *FnHint, bool Minimal = false);
 
   void applySubprogramAttributes(const DISubprogram *SP, DIE &SPDie,
                                  bool SkipSPAttributes = false);
