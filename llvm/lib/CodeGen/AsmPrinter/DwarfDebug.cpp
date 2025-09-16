@@ -1001,8 +1001,9 @@ void DwarfDebug::constructCallSiteEntryDIEs(const DISubprogram &SP,
                                                        ->getName(CallReg)))
                         << (IsTail ? " [IsTail]" : "") << "\n");
 
-      DIE &CallSiteDIE = CU.constructCallSiteEntryDIE(
-          ScopeDIE, CalleeSP, CalleeDecl, IsTail, PCAddr, CallAddr, CallReg, AllocSiteTy);
+      DIE &CallSiteDIE =
+          CU.constructCallSiteEntryDIE(ScopeDIE, CalleeSP, CalleeDecl, IsTail,
+                                       PCAddr, CallAddr, CallReg, AllocSiteTy);
 
       // Optionally emit call-site-param debug info.
       if (emitDebugEntryValues()) {
@@ -2785,7 +2786,8 @@ void DwarfDebug::endFunctionImpl(const MachineFunction *MF) {
   if (auto *SkelCU = TheCU.getSkeleton())
     if (!LScopes.getAbstractScopesList().empty() &&
         TheCU.getCUNode()->getSplitDebugInlining())
-      SkelCU->constructSubprogramScopeDIE(SP, F, FnScope, FunctionLineTableLabel);
+      SkelCU->constructSubprogramScopeDIE(SP, F, FnScope,
+                                          FunctionLineTableLabel);
 
   FunctionLineTableLabel = nullptr;
 

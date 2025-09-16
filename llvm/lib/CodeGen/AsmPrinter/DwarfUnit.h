@@ -256,7 +256,9 @@ public:
 
   DIE *getOrCreateNameSpace(const DINamespace *NS);
   DIE *getOrCreateModule(const DIModule *M);
-  virtual DIE *getOrCreateSubprogramDIE(const DISubprogram *SP, const Function *FnHint, bool Minimal = false);
+  virtual DIE *getOrCreateSubprogramDIE(const DISubprogram *SP,
+                                        const Function *FnHint,
+                                        bool Minimal = false);
 
   void applySubprogramAttributes(const DISubprogram *SP, DIE &SPDie,
                                  bool SkipSPAttributes = false);
@@ -348,7 +350,8 @@ protected:
     return Minimal || SP->getDeclaration();
   }
 
-  DIE *getOrCreateSubprogramContextDIE(const DISubprogram *SP, bool IgnoreScope) {
+  DIE *getOrCreateSubprogramContextDIE(const DISubprogram *SP,
+                                       bool IgnoreScope) {
     if (IgnoreScope)
       return &getUnitDie();
     return getOrCreateContextDIE(SP->getScope());

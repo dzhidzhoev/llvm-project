@@ -146,14 +146,15 @@ public:
   /// initialize - Scan module to build subprogram-to-function map.
   LLVM_ABI void initialize(const Module &);
 
-  /// scanFunction - Scan machine function and constuct lexical scope nest, resets
-  /// the instance if necessary.
+  /// scanFunction - Scan machine function and constuct lexical scope nest,
+  /// resets the instance if necessary.
   LLVM_ABI void scanFunction(const MachineFunction &);
 
   /// resetModule - Reset the instance so that it's prepared for another module.
   LLVM_ABI void resetModule();
 
-  /// functionReset - Reset the instance so that it's prepared for another function.
+  /// functionReset - Reset the instance so that it's prepared for another
+  /// function.
   LLVM_ABI void resetFunction();
 
   /// empty - Return true if there is any lexical scope information available.
@@ -205,7 +206,8 @@ public:
   /// getOrCreateAbstractScope - Find or create an abstract lexical scope.
   LLVM_ABI LexicalScope *getOrCreateAbstractScope(const DILocalScope *Scope);
 
-  /// getFunction - Get function to which the given subprogram is attached, if exists.
+  /// getFunction - Get function to which the given subprogram is attached, if
+  /// exists.
   const Function *getFunction(const DISubprogram *SP) const {
     return FunctionMap.lookup(SP);
   }

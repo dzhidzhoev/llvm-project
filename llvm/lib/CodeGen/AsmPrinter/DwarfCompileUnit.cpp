@@ -536,7 +536,9 @@ void DwarfCompileUnit::addWasmRelocBaseGlobal(DIELoc *Loc, StringRef GlobalName,
 // Find DIE for the given subprogram and attach appropriate DW_AT_low_pc
 // and DW_AT_high_pc attributes. If there are global variables in this
 // scope then create and insert DIEs for these variables.
-DIE &DwarfCompileUnit::updateSubprogramScopeDIE(const DISubprogram *SP, const Function &F, MCSymbol *LineTableSym) {
+DIE &DwarfCompileUnit::updateSubprogramScopeDIE(const DISubprogram *SP,
+                                                const Function &F,
+                                                MCSymbol *LineTableSym) {
   DIE *SPDie = getOrCreateSubprogramDIE(SP, &F, includeMinimalInlineScopes());
   SmallVector<RangeSpan, 2> BB_List;
   // If basic block sections are on, ranges for each basic block section has
@@ -1120,7 +1122,10 @@ sortLocalVars(SmallVectorImpl<DbgVariable *> &Input) {
   return Result;
 }
 
-DIE &DwarfCompileUnit::constructSubprogramScopeDIE(const DISubprogram *Sub, const Function &F, LexicalScope *Scope, MCSymbol *LineTableSym) {
+DIE &DwarfCompileUnit::constructSubprogramScopeDIE(const DISubprogram *Sub,
+                                                   const Function &F,
+                                                   LexicalScope *Scope,
+                                                   MCSymbol *LineTableSym) {
   DIE &ScopeDIE = updateSubprogramScopeDIE(Sub, F, LineTableSym);
 
   if (Scope) {
@@ -1195,7 +1200,8 @@ DIE *DwarfCompileUnit::createAndAddScopeChildren(LexicalScope *Scope,
   return ObjectPointer;
 }
 
-DIE &DwarfCompileUnit::getOrCreateAbstractSubprogramDIE(const DISubprogram *SP) {
+DIE &DwarfCompileUnit::getOrCreateAbstractSubprogramDIE(
+    const DISubprogram *SP) {
   if (auto *AbsDef = getAbstractScopeDIEs().lookup(SP))
     return *AbsDef;
 
@@ -1218,7 +1224,9 @@ DIE &DwarfCompileUnit::getOrCreateAbstractSubprogramDIE(const DISubprogram *SP) 
   return AbsDef;
 }
 
-std::pair<DIE *, DwarfCompileUnit *> DwarfCompileUnit::getOrCreateAbstractSubprogramContextDIE(const DISubprogram *SP) {
+std::pair<DIE *, DwarfCompileUnit *>
+DwarfCompileUnit::getOrCreateAbstractSubprogramContextDIE(
+    const DISubprogram *SP) {
   bool Minimal = includeMinimalInlineScopes();
   bool IgnoreScope = shouldPlaceInUnitDIE(SP, Minimal);
   DIE *ContextDIE = getOrCreateSubprogramContextDIE(SP, IgnoreScope);
@@ -1235,7 +1243,8 @@ std::pair<DIE *, DwarfCompileUnit *> DwarfCompileUnit::getOrCreateAbstractSubpro
   return std::make_pair(ContextDIE, ContextCU);
 }
 
-void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(LexicalScope *Scope) {
+void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
+    LexicalScope *Scope) {
   auto *SP = cast<DISubprogram>(Scope->getScopeNode());
 
   if (getFinalizedAbstractSubprograms().contains(SP)) {
@@ -1302,7 +1311,10 @@ DwarfCompileUnit::getDwarf5OrGNULocationAtom(dwarf::LocationAtom Loc) const {
   }
 }
 
-DIE &DwarfCompileUnit::constructCallSiteEntryDIE(DIE &ScopeDIE, const DISubprogram *CalleeSP, const Function *CalleeF, bool IsTail, const MCSymbol *PCAddr, const MCSymbol *CallAddr, unsigned CallReg, DIType *AllocSiteTy) {
+DIE &DwarfCompileUnit::constructCallSiteEntryDIE(
+    DIE &ScopeDIE, const DISubprogram *CalleeSP, const Function *CalleeF,
+    bool IsTail, const MCSymbol *PCAddr, const MCSymbol *CallAddr,
+    unsigned CallReg, DIType *AllocSiteTy) {
   // Insert a call site entry DIE within ScopeDIE.
   DIE &CallSiteDIE = createAndAddDIE(getDwarf5OrGNUTag(dwarf::DW_TAG_call_site),
                                      ScopeDIE, nullptr);
@@ -1813,7 +1825,9 @@ DIE *DwarfCompileUnit::getOrCreateContextDIE(const DIScope *Context) {
   return DwarfUnit::getOrCreateContextDIE(Context);
 }
 
-DIE *DwarfCompileUnit::getOrCreateSubprogramDIE(const DISubprogram *SP, const Function *F, bool Minimal) {
+DIE *DwarfCompileUnit::getOrCreateSubprogramDIE(const DISubprogram *SP,
+                                                const Function *F,
+                                                bool Minimal) {
   if (!F && SP->isDefinition()) {
     F = DD->getLexicalScopes().getFunction(SP);
 

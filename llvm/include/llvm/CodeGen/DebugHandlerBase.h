@@ -145,9 +145,7 @@ public:
 
   const InstructionOrdering &getInstOrdering() const { return InstOrdering; }
 
-  const LexicalScopes &getLexicalScopes() const {
-    return LScopes;
-  }
+  const LexicalScopes &getLexicalScopes() const { return LScopes; }
 };
 
 } // namespace llvm
