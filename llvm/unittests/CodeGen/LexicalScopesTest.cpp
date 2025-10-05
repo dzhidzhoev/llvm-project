@@ -475,9 +475,58 @@ TEST_F(LexicalScopesTest, TestFunctionScan) {
 
   LexicalScopes LS;
   LS.initialize(Mod);
-  ASSERT_EQ(LS.getFunction(OurFunc), &MF->getFunction());
-  ASSERT_EQ(LS.getFunction(Func2), &MF2->getFunction());
-  ASSERT_EQ(LS.getFunction(UnattachedFunc), nullptr);
+  auto Fs = LS.getFunctions(OurFunc);
+  ASSERT_NE(Fs, nullptr);
+  ASSERT_EQ(Fs->size(), 1u);
+  ASSERT_EQ(*Fs->begin(), &MF->getFunction());
+
+  Fs = LS.getFunctions(Func2);
+  ASSERT_NE(Fs, nullptr);
+  ASSERT_EQ(Fs->size(), 1u);
+  ASSERT_EQ(*Fs->begin(), &MF2->getFunction());
+
+  Fs = LS.getFunctions(UnattachedFunc);
+  ASSERT_EQ(Fs, nullptr);
+}
+
+// Test function map creation for subprogram attached to multiple functions.
+TEST_F(LexicalScopesTest, TestRepeatingSubprogram) {
+  std::unique_ptr<MachineFunction> MF2 =
+      createMachineFunction(Ctx, Mod, "Test.1");
+  MF2->getFunction().setSubprogram(OurFunc);
+
+  std::unique_ptr<MachineFunction> FooMF =
+      createMachineFunction(Ctx, Mod, "Foo");
+  auto BB = BasicBlock::Create(Ctx, "a", &FooMF->getFunction());
+  IRBuilder<> IRB(BB);
+  IRB.CreateRetVoid();
+  auto FooMBB = FooMF->CreateMachineBasicBlock(BB);
+  FooMF->insert(FooMF->end(), FooMBB);
+
+  DIBuilder DIB(Mod, true, OurCU);
+  auto OurSubT = DIB.createSubroutineType(DIB.getOrCreateTypeArray({}));
+  DISubprogram *FooFunc =
+      DIB.createFunction(OurCU, "Foo", "", OurFile, 1, OurSubT, 1,
+                         DINode::FlagZero, DISubprogram::SPFlagDefinition);
+  FooMF->getFunction().setSubprogram(FooFunc);
+  DIB.finalize();
+
+  BuildMI(*FooMBB, FooMBB->end(), DILocation::get(Ctx, 10, 20, FooFunc),
+          BeanInst);
+
+  LexicalScopes LS;
+  LS.initialize(Mod);
+
+  auto Fs = LS.getFunctions(OurFunc);
+  ASSERT_NE(Fs, nullptr);
+  ASSERT_EQ(Fs->size(), 2u);
+  ASSERT_TRUE(Fs->contains(&MF->getFunction()));
+  ASSERT_TRUE(Fs->contains(&MF2->getFunction()));
+
+  Fs = LS.getFunctions(FooFunc);
+  ASSERT_NE(Fs, nullptr);
+  ASSERT_EQ(Fs->size(), 1u);
+  ASSERT_TRUE(Fs->contains(&FooMF->getFunction()));
 }
 
 } // anonymous namespace

@@ -61,7 +61,7 @@ void LexicalScopes::initialize(const Module &M) {
   for (const Function &F : M) {
     DISubprogram *SP = F.getSubprogram();
     if (SP && (!SP->getUnit() || !skipUnit(SP->getUnit())))
-      FunctionMap[SP] = &F;
+      FunctionMap[SP].insert(&F);
   }
 }
 
