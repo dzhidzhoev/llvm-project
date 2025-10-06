@@ -68,9 +68,14 @@ void LexicalScopes::initialize(const Module &M) {
 void LexicalScopes::scanFunction(const MachineFunction &Fn) {
   resetFunction();
   // Don't attempt any lexical scope creation for a NoDebug compile unit.
-  const DISubprogram *SP = Fn.getFunction().getSubprogram();
+  const Function &IRFunc = Fn.getFunction();
+  const DISubprogram *SP = IRFunc.getSubprogram();
   if (skipUnit(SP->getUnit()))
     return;
+
+  // A new subprogram may be created during Codegen after module scan.
+  FunctionMap[SP].insert(&IRFunc);
+
   MF = &Fn;
   SmallVector<InsnRange, 4> MIRanges;
   DenseMap<const MachineInstr *, LexicalScope *> MI2ScopeMap;
