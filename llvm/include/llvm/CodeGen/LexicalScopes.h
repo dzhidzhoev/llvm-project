@@ -199,6 +199,10 @@ public:
     return I != LexicalScopeMap.end() ? &I->second : nullptr;
   }
 
+  bool currentFunctionHasInlinedScopes() {
+    return !InlinedLexicalScopeMap.empty();
+  }
+
   /// Find or create an abstract lexical scope.
   LLVM_ABI LexicalScope *getOrCreateAbstractScope(const DILocalScope *Scope);
 

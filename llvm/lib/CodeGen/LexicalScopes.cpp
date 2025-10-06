@@ -167,6 +167,10 @@ LexicalScope *LexicalScopes::getOrCreateLexicalScope(const DILocalScope *Scope,
     return getOrCreateInlinedScope(Scope, IA);
   }
 
+  const DISubprogram *SP = Scope->getSubprogram();
+  const auto *Fns = getFunctions(SP);
+  if (!Fns || Fns->size() != 1)
+    getOrCreateAbstractScope(Scope);
   return getOrCreateRegularScope(Scope);
 }
 

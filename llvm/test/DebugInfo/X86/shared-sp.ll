@@ -4,32 +4,34 @@
 
 ; DWARF:      DW_TAG_compile_unit
 
-; Concrete subprogram.
-; DWARF:      DW_TAG_subprogram
-; DWARF:      DW_AT_name ("foo"
-; DWARF:        DW_TAG_variable
-; DWARF:        DW_AT_name ("a"
-; DWARF:        DW_AT_abstract_origin
-; DWARF:        DW_TAG_variable
-; DWARF:        DW_AT_name ("c"
-; DWARF:        DW_AT_abstract_origin
-
-; Concrete subprogram.
-; DWARF:      DW_TAG_subprogram
-; DWARF:      DW_AT_name ("foo"
-; DWARF:        DW_TAG_variable
-; DWARF:        DW_AT_name ("a"
-; DWARF:        DW_TAG_variable
-; DWARF:        DW_AT_name ("c"
-
-; DWARF:      DW_TAG_base_type
-
 ; Abstract subprogram.
-; DWARF:      DW_TAG_subprogram
-; DWARF:      DW_AT_name ("foo"
-; DWARF:      DW_AT_inline (DW_INL_inlined)
-; DWARF:        DW_TAG_structure_type
-; DWARF:          DW_TAG_member
+; DWARF: [[FOO:.*]]:   DW_TAG_subprogram
+; DWARF:               DW_AT_name ("foo"
+; DWARF:               DW_AT_inline (DW_INL_inlined)
+; DWARF: [[A:.*]]:       DW_TAG_variable
+; DWARF:                   DW_AT_name ("a"
+; DWARF:                 DW_TAG_structure_type
+; DWARF:                   DW_TAG_member
+; DWARF: [[C:.*]]:       DW_TAG_variable
+; DWARF:                   DW_AT_name ("c"
+
+; DWARF:               DW_TAG_base_type
+
+; Concrete subprogram.
+; DWARF:               DW_TAG_subprogram
+; DWARF:                 DW_AT_abstract_origin ([[FOO]]
+; DWARF:                 DW_TAG_variable
+; DWARF:                   DW_AT_abstract_origin ([[A]]
+; DWARF:                 DW_TAG_variable
+; DWARF:                   DW_AT_abstract_origin ([[C]]
+
+; Concrete subprogram.
+; DWARF:               DW_TAG_subprogram
+; DWARF:                 DW_AT_abstract_origin ([[FOO]]
+; DWARF:                 DW_TAG_variable
+; DWARF:                   DW_AT_abstract_origin ([[A]]
+; DWARF:                 DW_TAG_variable
+; DWARF:                   DW_AT_abstract_origin ([[C]]
 
 ; Check that when DISubprogram is attached to two functions, DWARF is produced
 ; correctly.
