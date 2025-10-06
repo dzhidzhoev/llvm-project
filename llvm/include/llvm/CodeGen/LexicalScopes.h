@@ -224,6 +224,15 @@ private:
               : nullptr;
   }
 
+  /// Create abstract lexical scope for local scopes used by multiple
+  /// functions, if needed.
+  void ensureAbstractLexicalScopeIsCreated(const DILocalScope *Scope) {
+    const DISubprogram *SP = Scope->getSubprogram();
+    const auto *Fns = getFunctions(SP);
+    if (!Fns || Fns->size() != 1)
+      getOrCreateAbstractScope(Scope);
+  }
+
   /// Find or create a regular lexical scope.
   LexicalScope *getOrCreateRegularScope(const DILocalScope *Scope);
 

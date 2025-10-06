@@ -68,12 +68,14 @@ void LexicalScopes::initialize(const Module &M) {
 void LexicalScopes::scanFunction(const MachineFunction &Fn) {
   resetFunction();
   // Don't attempt any lexical scope creation for a NoDebug compile unit.
-  if (skipUnit(Fn.getFunction().getSubprogram()->getUnit()))
+  const DISubprogram *SP = Fn.getFunction().getSubprogram();
+  if (skipUnit(SP->getUnit()))
     return;
   MF = &Fn;
   SmallVector<InsnRange, 4> MIRanges;
   DenseMap<const MachineInstr *, LexicalScope *> MI2ScopeMap;
   extractLexicalScopes(MIRanges, MI2ScopeMap);
+  ensureAbstractLexicalScopeIsCreated(SP);
   if (CurrentFnLexicalScope) {
     constructScopeNest(CurrentFnLexicalScope);
     assignInstructionRanges(MIRanges, MI2ScopeMap);
@@ -167,10 +169,7 @@ LexicalScope *LexicalScopes::getOrCreateLexicalScope(const DILocalScope *Scope,
     return getOrCreateInlinedScope(Scope, IA);
   }
 
-  const DISubprogram *SP = Scope->getSubprogram();
-  const auto *Fns = getFunctions(SP);
-  if (!Fns || Fns->size() != 1)
-    getOrCreateAbstractScope(Scope);
+  ensureAbstractLexicalScopeIsCreated(Scope);
   return getOrCreateRegularScope(Scope);
 }
 
