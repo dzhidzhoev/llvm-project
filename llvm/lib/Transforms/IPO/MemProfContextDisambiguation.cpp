@@ -4065,36 +4065,19 @@ void IndexCallsiteContextGraph::updateCall(CallInfo &CallerCall,
   CurCalleeCloneNo = NewCalleeCloneNo;
 }
 
-// Update the debug information attached to NewFunc to use the clone Name. Note
-// this needs to be done for both any existing DISubprogram for the definition,
-// as well as any separate declaration DISubprogram.
-static void updateSubprogramLinkageName(Function *NewFunc, StringRef Name) {
-  assert(Name == NewFunc->getName());
-  auto *SP = NewFunc->getSubprogram();
-  if (!SP)
-    return;
-  auto *MDName = MDString::get(NewFunc->getParent()->getContext(), Name);
-  SP->replaceLinkageName(MDName);
-  DISubprogram *Decl = SP->getDeclaration();
-  if (!Decl)
-    return;
-  TempDISubprogram NewDecl = Decl->clone();
-  NewDecl->replaceLinkageName(MDName);
-  SP->replaceDeclaration(MDNode::replaceWithUniqued(std::move(NewDecl)));
-}
-
 CallsiteContextGraph<ModuleCallsiteContextGraph, Function,
                      Instruction *>::FuncInfo
 ModuleCallsiteContextGraph::cloneFunctionForCallsite(
     FuncInfo &Func, CallInfo &Call, DenseMap<CallInfo, CallInfo> &CallMap,
     std::vector<CallInfo> &CallsWithMetadataInFunc, unsigned CloneNo) {
   // Use existing LLVM facilities for cloning and obtaining Call in clone
-  ValueToValueMapTy VMap;
-  auto *NewFunc = CloneFunction(Func.func(), VMap);
   std::string Name = getMemProfFuncName(Func.func()->getName(), CloneNo);
+  ValueToValueMapTy VMap;
+  if (DISubprogram *SP = Func.func()->getSubprogram())
+    updateSubprogramDefAndDeclLinkageName(VMap, *Func.func(), SP, SP->clone(), Name);
+  auto *NewFunc = CloneFunction(Func.func(), VMap);
   assert(!Func.func()->getParent()->getFunction(Name));
   NewFunc->setName(Name);
-  updateSubprogramLinkageName(NewFunc, Name);
   for (auto &Inst : CallsWithMetadataInFunc) {
     // This map always has the initial version in it.
     assert(Inst.cloneNo() == 0);
@@ -5197,7 +5180,11 @@ static SmallVector<std::unique_ptr<ValueToValueMapTy>, 4> createFunctionClones(
   VMaps.reserve(NumClones - 1);
   FunctionsClonedThinBackend++;
   for (unsigned I = 1; I < NumClones; I++) {
+    std::string Name = getMemProfFuncName(F.getName(), I);
+
     VMaps.emplace_back(std::make_unique<ValueToValueMapTy>());
+    if (DISubprogram *SP = F.getSubprogram())
+      updateSubprogramDefAndDeclLinkageName(*VMaps.back(), F, SP, SP->clone(), Name);
     auto *NewF = CloneFunction(&F, *VMaps.back());
     FunctionClonesThinBackend++;
     // Strip memprof and callsite metadata from clone as they are no longer
@@ -5208,7 +5195,6 @@ static SmallVector<std::unique_ptr<ValueToValueMapTy>, 4> createFunctionClones(
         Inst.setMetadata(LLVMContext::MD_callsite, nullptr);
       }
     }
-    std::string Name = getMemProfFuncName(F.getName(), I);
     auto *PrevF = M.getFunction(Name);
     if (PrevF) {
       // We might have created this when adjusting callsite in another
@@ -5219,7 +5205,6 @@ static SmallVector<std::unique_ptr<ValueToValueMapTy>, 4> createFunctionClones(
       PrevF->eraseFromParent();
     } else
       NewF->setName(Name);
-    updateSubprogramLinkageName(NewF, Name);
     ORE.emit(OptimizationRemark(DEBUG_TYPE, "MemprofClone", &F)
              << "created clone " << ore::NV("NewFunction", NewF));
 

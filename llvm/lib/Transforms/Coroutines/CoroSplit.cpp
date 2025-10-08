@@ -901,25 +901,19 @@ void coro::BaseCloner::create() {
   auto savedLinkage = NewF->getLinkage();
   NewF->setLinkage(llvm::GlobalValue::ExternalLinkage);
 
-  CloneFunctionInto(NewF, &OrigF, VMap,
-                    CloneFunctionChangeType::LocalChangesOnly, Returns);
-
   auto &Context = NewF->getContext();
 
-  if (DISubprogram *SP = NewF->getSubprogram()) {
-    assert(SP != OrigF.getSubprogram() && SP->isDistinct());
-    updateScopeLine(ActiveSuspend, *SP);
+  if (DISubprogram *SP = OrigF.getSubprogram()) {
+    auto NewSP = SP->clone();
+    updateScopeLine(ActiveSuspend, *NewSP);
 
     // Update the linkage name and the function name to reflect the modified
     // name.
-    MDString *NewLinkageName = MDString::get(Context, NewF->getName());
-    SP->replaceLinkageName(NewLinkageName);
-    if (DISubprogram *Decl = SP->getDeclaration()) {
-      TempDISubprogram NewDecl = Decl->clone();
-      NewDecl->replaceLinkageName(NewLinkageName);
-      SP->replaceDeclaration(MDNode::replaceWithUniqued(std::move(NewDecl)));
-    }
+    updateSubprogramDefAndDeclLinkageName(VMap, *NewF, SP, std::move(NewSP), NewF->getName());
   }
+
+  CloneFunctionInto(NewF, &OrigF, VMap,
+                    CloneFunctionChangeType::LocalChangesOnly, Returns);
 
   NewF->setLinkage(savedLinkage);
   NewF->setVisibility(savedVisibility);

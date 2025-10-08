@@ -2340,11 +2340,21 @@ public:
 
   TempDISubprogram clone() const { return cloneImpl(); }
 
+  TempDISubprogram cloneWith(unsigned I, Metadata *New) {
+    auto NewSP = clone();
+    NewSP->replaceOperandWith(I, New);
+    return NewSP;
+  }
+
   /// Returns a new temporary DISubprogram with updated Flags
   TempDISubprogram cloneWithFlags(DIFlags NewFlags) const {
     auto NewSP = clone();
     NewSP->Flags = NewFlags;
     return NewSP;
+  }
+
+  static DISubprogram *replace(TempDISubprogram SP) {
+    return SP->isDefinition() ? MDNode::replaceWithDistinct(std::move(SP)) : MDNode::replaceWithUniqued(std::move(SP));
   }
 
   bool getKeyInstructionsEnabled() const { return SubclassData1; }
@@ -2356,7 +2366,7 @@ public:
   int getThisAdjustment() const { return ThisAdjustment; }
   unsigned getScopeLine() const { return ScopeLine; }
   void setScopeLine(unsigned L) {
-    assert(isDistinct());
+    assert(isTemporary());
     ScopeLine = L;
   }
   DIFlags getFlags() const { return Flags; }
@@ -2419,7 +2429,12 @@ public:
   StringRef getName() const { return getStringOperand(2); }
   StringRef getLinkageName() const { return getStringOperand(3); }
   /// Only used by clients of CloneFunction, and only right after the cloning.
-  void replaceLinkageName(MDString *LN) { replaceOperandWith(3, LN); }
+  void replaceLinkageName(MDString *LN) { assert(isTemporary()); replaceOperandWith(3, LN); }
+  DISubprogram *cloneAndReplaceLinkageName(MDString *LN) {
+    TempDISubprogram NewSP = clone();
+    NewSP->replaceLinkageName(LN);
+    return replace(std::move(NewSP));
+  }
 
   DISubroutineType *getType() const {
     return cast_or_null<DISubroutineType>(getRawType());
@@ -2427,9 +2442,15 @@ public:
   DIType *getContainingType() const {
     return cast_or_null<DIType>(getRawContainingType());
   }
+  /// Only use from DIBuilder.
   void replaceType(DISubroutineType *Ty) {
-    assert(isDistinct() && "Only distinct nodes can mutate");
+    assert((isTemporary() || isDistinct()) && "Only distinct nodes can mutate");
     replaceOperandWith(4, Ty);
+  }
+  DISubprogram *cloneAndReplaceType(DISubroutineType *Ty) {
+    auto NewSP = clone();
+    NewSP->replaceType(Ty);
+    return replace(std::move(NewSP));
   }
 
   DICompileUnit *getUnit() const {
@@ -2442,7 +2463,10 @@ public:
   DISubprogram *getDeclaration() const {
     return cast_or_null<DISubprogram>(getRawDeclaration());
   }
-  void replaceDeclaration(DISubprogram *Decl) { replaceOperandWith(6, Decl); }
+  void replaceDeclaration(DISubprogram *Decl) {
+    assert(isTemporary());
+    replaceOperandWith(6, Decl);
+  }
   DINodeArray getRetainedNodes() const {
     return cast_or_null<MDTuple>(getRawRetainedNodes());
   }
@@ -2479,9 +2503,10 @@ public:
     return getNumOperands() > 12 ? getOperandAs<MDString>(12) : nullptr;
   }
 
-  void replaceRawLinkageName(MDString *LinkageName) {
-    replaceOperandWith(3, LinkageName);
+  DISubprogram *cloneAndReplaceRawLinkageName(MDString *LinkageName) {
+    return replace(cloneWith(3, LinkageName));
   }
+  /// Only use from DIBuilder.
   void replaceRetainedNodes(DINodeArray N) {
     replaceOperandWith(7, N.get());
   }

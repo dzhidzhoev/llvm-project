@@ -439,6 +439,8 @@ LLVM_ABI void cloneAndAdaptNoAliasScopes(ArrayRef<MDNode *> NoAliasDeclScopes,
 LLVM_ABI void cloneAndAdaptNoAliasScopes(ArrayRef<MDNode *> NoAliasDeclScopes,
                                          Instruction *IStart, Instruction *IEnd,
                                          LLVMContext &Context, StringRef Ext);
+
+void updateSubprogramDefAndDeclLinkageName(ValueToValueMapTy &VMap, Function &Func, DISubprogram *OldSP, TempDISubprogram TempNewSP, StringRef Name);
 } // end namespace llvm
 
 #endif // LLVM_TRANSFORMS_UTILS_CLONING_H

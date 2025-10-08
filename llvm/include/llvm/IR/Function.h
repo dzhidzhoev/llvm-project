@@ -1019,6 +1019,8 @@ public:
   /// to \a DISubprogram.
   DISubprogram *getSubprogram() const;
 
+  void updateSubprogram(DISubprogram *SP);
+
   /// Returns true if we should emit debug info for profiling.
   bool shouldEmitDebugInfoForProfiling() const;
 

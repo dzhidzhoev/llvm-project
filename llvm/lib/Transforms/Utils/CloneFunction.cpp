@@ -76,11 +76,12 @@ void collectDebugInfoFromInstructions(const Function &F,
 // Create a predicate that matches the metadata that should be identity mapped
 // during function cloning.
 MetadataPredicate createIdentityMDPredicate(const Function &F,
+                                            bool ShouldCloneSubprogram,
                                             CloneFunctionChangeType Changes) {
   if (Changes >= CloneFunctionChangeType::DifferentModule)
     return [](const Metadata *MD) { return false; };
 
-  DISubprogram *SPClonedWithinModule = F.getSubprogram();
+  DISubprogram *SPClonedWithinModule = ShouldCloneSubprogram ? F.getSubprogram() : nullptr;
 
   // Don't clone inlined subprograms.
   auto ShouldKeep = [SPClonedWithinModule](const DISubprogram *SP) -> bool {
@@ -317,7 +318,7 @@ void llvm::CloneFunctionInto(Function *NewFunc, const Function *OldFunc,
     }
   }
 
-  MetadataPredicate IdentityMD = createIdentityMDPredicate(*OldFunc, Changes);
+  MetadataPredicate IdentityMD = createIdentityMDPredicate(*OldFunc, !VMap.getMappedMD(OldFunc->getSubprogram()), Changes);
 
   // Cloning is always a Module level operation, since Metadata needs to be
   // cloned.
@@ -1256,4 +1257,21 @@ void llvm::identifyNoAliasScopesToClone(
   for (Instruction &I : make_range(Start, End))
     if (auto *Decl = dyn_cast<NoAliasScopeDeclInst>(&I))
       NoAliasDeclScopes.push_back(Decl->getScopeList());
+}
+
+// Update the debug information attached to NewFunc to use the clone Name. Note
+// this needs to be done for both any existing DISubprogram for the definition,
+// as well as any separate declaration DISubprogram.
+void llvm::updateSubprogramDefAndDeclLinkageName(ValueToValueMapTy &VMap, Function &Func, DISubprogram *OldSP, TempDISubprogram TempNewSP, StringRef Name) {
+  auto *MDName = MDString::get(Func.getParent()->getContext(), Name);
+  TempNewSP->replaceLinkageName(MDName);
+  auto *NewSP = DISubprogram::replace(std::move(TempNewSP));
+
+  if (DISubprogram *Decl = OldSP->getDeclaration()) {
+    TempDISubprogram NewDecl = Decl->clone();
+    NewDecl->replaceLinkageName(MDName);
+    NewSP->replaceDeclaration(DISubprogram::replace(std::move(NewDecl)));
+  }
+
+  VMap.MD()[OldSP].reset(NewSP);
 }

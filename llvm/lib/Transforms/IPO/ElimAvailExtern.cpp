@@ -86,7 +86,7 @@ static void convertToLocalCopy(Module &M, Function &F) {
   std::string NewName = getNewName(M, F);
   F.setName(NewName);
   if (auto *SP = F.getSubprogram())
-    SP->replaceLinkageName(MDString::get(F.getParent()->getContext(), NewName));
+    F.updateSubprogram(SP->cloneAndReplaceLinkageName(MDString::get(F.getParent()->getContext(), NewName)));
 
   F.setLinkage(GlobalValue::InternalLinkage);
   // Now make a declaration for the old name. We'll use it if there are non-call

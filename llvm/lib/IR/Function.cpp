@@ -49,6 +49,7 @@
 #include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/ModRef.h"
+#include "llvm/Transforms/Utils/ValueMapper.h"
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
@@ -1151,6 +1152,14 @@ DenseSet<GlobalValue::GUID> Function::getImportGUIDs() const {
                        ->getValue()
                        .getZExtValue());
   return R;
+}
+
+void Function::updateSubprogram(DISubprogram *NewSP) {
+  assert(getSubprogram() && "No subprogram attached");
+
+  ValueToValueMapTy VMap;
+  VMap.MD()[getSubprogram()].reset(NewSP);
+  RemapFunction(*this, VMap, RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
 }
 
 bool Function::nullPointerIsDefined() const {

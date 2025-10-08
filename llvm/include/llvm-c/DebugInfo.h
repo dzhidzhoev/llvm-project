@@ -1457,6 +1457,7 @@ LLVM_C_ABI unsigned LLVMDISubprogramGetLine(LLVMMetadataRef Subprogram);
  * \param SubroutineType    The new subroutine type.
  *
  * @see DISubprogram::replaceType()
+ * TODO: update comment
  */
 LLVM_C_ABI void LLVMDISubprogramReplaceType(LLVMMetadataRef Subprogram,
                                             LLVMMetadataRef SubroutineType);
