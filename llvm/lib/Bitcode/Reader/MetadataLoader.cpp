@@ -44,6 +44,7 @@
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
+#include "llvm/Support/Signals.h"
 #include "llvm/Support/TimeProfiler.h"
 
 #include <algorithm>
@@ -452,6 +453,8 @@ class MetadataLoader::MetadataLoaderImpl {
   /// metadata.
   SmallDenseMap<Function *, DISubprogram *, 16> FunctionsWithSPs;
 
+  std::vector<DISubprogram *> TemporarySPs;
+
   // Map the bitcode's custom MDKind ID to the Module's MDKind ID.
   DenseMap<unsigned, unsigned> MDKindMap;
 
@@ -727,9 +730,54 @@ class MetadataLoader::MetadataLoaderImpl {
     return Error::success();
   }
 
+  void canonizeLocalTypes() {
+    if (!Context.isODRUniquingDebugTypes())
+      return;
+
+    DenseMap<DIType *, SmallDenseMap<DISubprogram *, size_t, 2>> LocalTypes;
+
+    for (DISubprogram *SP : TemporarySPs) {
+      auto RetainedNodes = SP->getRetainedNodes();
+      SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+      for (size_t I = 0; I < MDs.size(); ++I) {
+        Metadata *N = MDs[I];
+
+        auto *T = dyn_cast<DIType>(N);
+        if (!T)
+          continue;
+
+        if (!isa_and_nonnull<DILocalScope>(T->getScope()))
+          continue;
+
+        LocalTypes[T][SP] = I;
+      }
+    }
+
+    for (auto &I : LocalTypes) {
+      DIType *T = I.first;
+      DISubprogram *TypeSP = cast<DILocalScope>(T->getScope())->getSubprogram();
+      if (I.second.empty() ||
+          (I.second.size() == 1 && I.second.begin()->first == TypeSP))
+        continue;
+
+      for (auto [SP, IdxInRetainedNodes] : I.second) {
+        if (SP == TypeSP)
+          continue;
+
+        auto RetainedNodes = SP->getRetainedNodes();
+        SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+        MDs.erase(MDs.begin() + IdxInRetainedNodes);
+        SP->replaceRetainedNodes(MDNode::get(Context, MDs));
+      }
+    }
+
+    TemporarySPs.clear();
+  }
+
   void upgradeDebugInfo(bool ModuleLevel) {
     upgradeCUSubprograms();
     upgradeCUVariables();
+    canonizeLocalTypes();
     if (ModuleLevel)
       upgradeCULocals();
   }
@@ -2047,6 +2095,9 @@ Error MetadataLoader::MetadataLoaderImpl::parseOneMetadata(
          UsesKeyInstructions));
     MetadataList.assignValue(SP, NextMetadataNo);
     NextMetadataNo++;
+
+    if (Context.isODRUniquingDebugTypes() && IsDistinct)
+      TemporarySPs.push_back(SP);
 
     // Upgrade sp->function mapping to function->sp mapping.
     if (HasFn) {
