@@ -1133,7 +1133,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadata(bool ModuleLevel) {
       // placeholders, that we flush here.
       resolveForwardRefsAndPlaceholders(Placeholders);
       upgradeDebugInfo(ModuleLevel);
-      cloneLocalTypes();
+      //cloneLocalTypes();
       // Return at the beginning of the block, since it is easy to skip it
       // entirely from there.
       Stream.ReadBlockEnd(); // Pop the abbrev block context.
@@ -1165,7 +1165,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadata(bool ModuleLevel) {
     case BitstreamEntry::EndBlock:
       resolveForwardRefsAndPlaceholders(Placeholders);
       upgradeDebugInfo(ModuleLevel);
-      cloneLocalTypes();
+      //cloneLocalTypes();
       return Error::success();
     case BitstreamEntry::Record:
       // The interesting case.
