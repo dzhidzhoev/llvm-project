@@ -734,7 +734,7 @@ class MetadataLoader::MetadataLoaderImpl {
     if (!Context.isODRUniquingDebugTypes())
       return;
 
-    DenseMap<DIType *, SmallDenseMap<DISubprogram *, size_t, 2>> LocalTypes;
+    DenseMap<DIType *, SmallPtrSet<DISubprogram *, 2>> LocalTypes;
 
     for (DISubprogram *SP : TemporarySPs) {
       auto RetainedNodes = SP->getRetainedNodes();
@@ -749,7 +749,7 @@ class MetadataLoader::MetadataLoaderImpl {
         if (!isa_and_nonnull<DILocalScope>(T->getScope()))
           continue;
 
-        LocalTypes[T][SP] = I;
+        LocalTypes[T].insert(SP);
       }
     }
 
@@ -757,17 +757,20 @@ class MetadataLoader::MetadataLoaderImpl {
       DIType *T = I.first;
       DISubprogram *TypeSP = cast<DILocalScope>(T->getScope())->getSubprogram();
       if (I.second.empty() ||
-          (I.second.size() == 1 && I.second.begin()->first == TypeSP))
+          (I.second.size() == 1 && *I.second.begin() == TypeSP))
         continue;
 
-      for (auto [SP, IdxInRetainedNodes] : I.second) {
+      for (DISubprogram *SP : I.second) {
         if (SP == TypeSP)
           continue;
 
         auto RetainedNodes = SP->getRetainedNodes();
         SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-        MDs.erase(MDs.begin() + IdxInRetainedNodes);
-        SP->replaceRetainedNodes(MDNode::get(Context, MDs));
+        auto I = std::find(MDs.begin(), MDs.end(), T);
+        if (I != MDs.end()) {
+          MDs.erase(I);
+          SP->replaceRetainedNodes(MDNode::get(Context, MDs));
+        }
       }
     }
 

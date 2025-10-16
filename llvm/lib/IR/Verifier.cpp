@@ -1569,7 +1569,7 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
               "DIImportedEntity or DIType",
               &N, Node, Op);
       if (auto *T = dyn_cast<DIType>(Op)) {
-        CheckDI(!T->getScope() || T->getScope() == &N, "invalid retained node, DIType should "
+        CheckDI(!isa_and_nonnull<DILocalScope>(T->getScope()) || cast<DILocalScope>(T->getScope())->getSubprogram() == &N, "invalid retained node, DIType should "
               "have the scope of DISubprogram",
               &N, Node, Op, T->getScope());
       }
