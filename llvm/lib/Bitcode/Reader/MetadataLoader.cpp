@@ -742,14 +742,17 @@ class MetadataLoader::MetadataLoaderImpl {
       for (size_t I = 0; I < MDs.size(); ++I) {
         Metadata *N = MDs[I];
 
-        auto *T = dyn_cast<DIType>(N);
+        auto *T = dyn_cast_or_null<DIType>(N);
         if (!T)
           continue;
 
-        if (!isa_and_nonnull<DILocalScope>(T->getScope()))
+        auto *LS = dyn_cast_or_null<DILocalScope>(T->getScope());
+        if (!LS)
           continue;
 
         LocalTypes[T].insert(SP);
+        if (DISubprogram *TypeSP = LS->getSubprogram())
+          LocalTypes[T].insert(SP);
       }
     }
 
@@ -773,16 +776,15 @@ class MetadataLoader::MetadataLoaderImpl {
         }
       }
     }
-
-    TemporarySPs.clear();
   }
 
   void upgradeDebugInfo(bool ModuleLevel) {
     upgradeCUSubprograms();
     upgradeCUVariables();
-    canonizeLocalTypes();
-    if (ModuleLevel)
+    if (ModuleLevel) {
       upgradeCULocals();
+    }
+    canonizeLocalTypes();
   }
 
   void cloneLocalTypes() {
