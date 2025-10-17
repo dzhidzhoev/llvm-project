@@ -1569,9 +1569,12 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
               "DIImportedEntity or DIType",
               &N, Node, Op);
       if (auto *T = dyn_cast<DIType>(Op)) {
-        CheckDI(!isa_and_nonnull<DILocalScope>(T->getScope()) || cast<DILocalScope>(T->getScope())->getSubprogram() == &N, "invalid retained node, DIType should "
-              "have the scope of DISubprogram",
-              &N, Node, Op, T->getScope());
+        DICompileUnit *NUnit = N.getUnit();
+        auto *TypeScope = dyn_cast_or_null<DILocalScope>(T->getScope());
+        DISubprogram *TypeSP = TypeScope ? TypeScope->getSubprogram() : nullptr;
+        DICompileUnit *TypeSPUnit = TypeSP ? TypeSP->getUnit() : nullptr;
+        if (isa_and_nonnull<DILocalScope>(T->getScope()))
+          CheckDI(!TypeScope || TypeSP == &N, "invalid retained node, DIType should have the scope of DISubprogram", &N, NUnit, (NUnit ? NUnit->getFile() : nullptr), Node, Op, TypeSP, TypeSPUnit, (TypeSPUnit ? TypeSPUnit->getFile() : nullptr));
       }
     }
   }
