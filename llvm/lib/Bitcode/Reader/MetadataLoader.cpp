@@ -752,13 +752,14 @@ class MetadataLoader::MetadataLoaderImpl {
 
         LocalTypes[T].insert(SP);
         if (DISubprogram *TypeSP = LS->getSubprogram())
-          LocalTypes[T].insert(SP);
+          LocalTypes[T].insert(TypeSP);
       }
     }
 
     for (auto &I : LocalTypes) {
       DIType *T = I.first;
       DISubprogram *TypeSP = cast<DILocalScope>(T->getScope())->getSubprogram();
+
       if (I.second.empty() ||
           (I.second.size() == 1 && *I.second.begin() == TypeSP))
         continue;
@@ -768,14 +769,16 @@ class MetadataLoader::MetadataLoaderImpl {
           continue;
 
         auto RetainedNodes = SP->getRetainedNodes();
-        SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+        SetVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
         auto I = std::find(MDs.begin(), MDs.end(), T);
         if (I != MDs.end()) {
           MDs.erase(I);
-          SP->replaceRetainedNodes(MDNode::get(Context, MDs));
+          SP->replaceRetainedNodes(MDNode::get(Context, MDs.getArrayRef()));
         }
       }
     }
+
+    TemporarySPs.clear();
   }
 
   void upgradeDebugInfo(bool ModuleLevel) {
