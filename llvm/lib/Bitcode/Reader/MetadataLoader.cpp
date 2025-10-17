@@ -731,51 +731,27 @@ class MetadataLoader::MetadataLoaderImpl {
   }
 
   void canonizeLocalTypes() {
-    if (!Context.isODRUniquingDebugTypes())
-      return;
-
-    DenseMap<DIType *, SmallPtrSet<DISubprogram *, 2>> LocalTypes;
-
     for (DISubprogram *SP : TemporarySPs) {
       auto RetainedNodes = SP->getRetainedNodes();
       SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-      for (size_t I = 0; I < MDs.size(); ++I) {
-        Metadata *N = MDs[I];
 
+      auto IsTypeAlien = [SP] (Metadata *N) {
         auto *T = dyn_cast_or_null<DIType>(N);
         if (!T)
-          continue;
+          return false;
 
-        auto *LS = dyn_cast_or_null<DILocalScope>(T->getScope());
-        if (!LS)
-          continue;
+        DISubprogram *TypeSP = nullptr;
+        // The type might have been global in the previously loaded IR modules.
+        if (auto *LS = dyn_cast_or_null<DILocalScope>(T->getScope()))
+          TypeSP = LS->getSubprogram();
 
-        LocalTypes[T].insert(SP);
-        if (DISubprogram *TypeSP = LS->getSubprogram())
-          LocalTypes[T].insert(TypeSP);
-      }
-    }
+        return SP != TypeSP;
+      };
 
-    for (auto &I : LocalTypes) {
-      DIType *T = I.first;
-      DISubprogram *TypeSP = cast<DILocalScope>(T->getScope())->getSubprogram();
+      MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsTypeAlien), MDs.end());
 
-      if (I.second.empty() ||
-          (I.second.size() == 1 && *I.second.begin() == TypeSP))
-        continue;
-
-      for (DISubprogram *SP : I.second) {
-        if (SP == TypeSP)
-          continue;
-
-        auto RetainedNodes = SP->getRetainedNodes();
-        SetVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-        auto I = std::find(MDs.begin(), MDs.end(), T);
-        if (I != MDs.end()) {
-          MDs.erase(I);
-          SP->replaceRetainedNodes(MDNode::get(Context, MDs.getArrayRef()));
-        }
-      }
+      if (MDs.size() != SP->getRetainedNodes().size())
+        SP->replaceRetainedNodes(MDNode::get(Context, MDs));
     }
 
     TemporarySPs.clear();
@@ -2104,7 +2080,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseOneMetadata(
     MetadataList.assignValue(SP, NextMetadataNo);
     NextMetadataNo++;
 
-    if (Context.isODRUniquingDebugTypes() && IsDistinct)
+    if (IsDistinct)
       TemporarySPs.push_back(SP);
 
     // Upgrade sp->function mapping to function->sp mapping.
