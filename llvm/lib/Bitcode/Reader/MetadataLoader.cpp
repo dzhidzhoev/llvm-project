@@ -44,7 +44,6 @@
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
-#include "llvm/Support/Signals.h"
 #include "llvm/Support/TimeProfiler.h"
 
 #include <algorithm>
@@ -453,7 +452,8 @@ class MetadataLoader::MetadataLoaderImpl {
   /// metadata.
   SmallDenseMap<Function *, DISubprogram *, 16> FunctionsWithSPs;
 
-  std::vector<DISubprogram *> TemporarySPs;
+  /// retainedNodes of these subprograms should be cleaned up from incorrectly scoped local types.
+  std::vector<DISubprogram *> NewDistinctSPs;
 
   // Map the bitcode's custom MDKind ID to the Module's MDKind ID.
   DenseMap<unsigned, unsigned> MDKindMap;
@@ -730,12 +730,16 @@ class MetadataLoader::MetadataLoaderImpl {
     return Error::success();
   }
 
-  void canonizeLocalTypes() {
-    for (DISubprogram *SP : TemporarySPs) {
-      auto RetainedNodes = SP->getRetainedNodes();
-      SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-
-      auto IsTypeAlien = [SP] (Metadata *N) {
+  /// When DebugTypeODRUniquing is enabled, after multiple modules are loaded,
+  /// some subprograms (that are from different compilation units, usually)
+  /// may have references to the same local type in their retainedNodes lists.
+  ///
+  /// Clean up such references.
+  void cleanupRetainedNodes() {
+    for (DISubprogram *SP : NewDistinctSPs) {
+      // Checks if a metadata node from retainedTypes is a type not belonging to
+      // the current subprogram.
+      auto IsAlienType = [SP] (Metadata *N) {
         auto *T = dyn_cast_or_null<DIType>(N);
         if (!T)
           return false;
@@ -748,45 +752,22 @@ class MetadataLoader::MetadataLoaderImpl {
         return SP != TypeSP;
       };
 
-      MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsTypeAlien), MDs.end());
-
+      auto RetainedNodes = SP->getRetainedNodes();
+      SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+      MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsAlienType), MDs.end());
       if (MDs.size() != SP->getRetainedNodes().size())
         SP->replaceRetainedNodes(MDNode::get(Context, MDs));
     }
 
-    TemporarySPs.clear();
+    NewDistinctSPs.clear();
   }
 
   void upgradeDebugInfo(bool ModuleLevel) {
     upgradeCUSubprograms();
     upgradeCUVariables();
-    if (ModuleLevel) {
+    if (ModuleLevel)
       upgradeCULocals();
-    }
-    canonizeLocalTypes();
-  }
-
-  void cloneLocalTypes() {
-    for (Metadata *M : MetadataList) {
-      if (auto *SP = dyn_cast_or_null<DISubprogram>(M)) {
-        auto RetainedNodes = SP->getRetainedNodes();
-        SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-        bool HasChanged = false;
-        for (auto &N : MDs)
-          if (auto *T = dyn_cast<DIType>(N))
-            if (auto *LS = dyn_cast_or_null<DILocalScope>(T->getScope()))
-              if (auto *Parent = findEnclosingSubprogram(LS))
-                if (Parent != SP) {
-                  HasChanged = true;
-                  auto NewT = T->clone();
-                  NewT->replaceOperandWith(1, SP);
-                  N = MDNode::replaceWithUniqued(std::move(NewT));
-                }
-
-        if (HasChanged)
-          SP->replaceRetainedNodes(MDNode::get(Context, MDs));
-      }
-    }
+    cleanupRetainedNodes();
   }
 
   void callMDTypeCallback(Metadata **Val, unsigned TypeID);
@@ -1165,7 +1146,6 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadata(bool ModuleLevel) {
       // placeholders, that we flush here.
       resolveForwardRefsAndPlaceholders(Placeholders);
       upgradeDebugInfo(ModuleLevel);
-      //cloneLocalTypes();
       // Return at the beginning of the block, since it is easy to skip it
       // entirely from there.
       Stream.ReadBlockEnd(); // Pop the abbrev block context.
@@ -1197,7 +1177,6 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadata(bool ModuleLevel) {
     case BitstreamEntry::EndBlock:
       resolveForwardRefsAndPlaceholders(Placeholders);
       upgradeDebugInfo(ModuleLevel);
-      //cloneLocalTypes();
       return Error::success();
     case BitstreamEntry::Record:
       // The interesting case.
@@ -2081,7 +2060,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseOneMetadata(
     NextMetadataNo++;
 
     if (IsDistinct)
-      TemporarySPs.push_back(SP);
+      NewDistinctSPs.push_back(SP);
 
     // Upgrade sp->function mapping to function->sp mapping.
     if (HasFn) {
