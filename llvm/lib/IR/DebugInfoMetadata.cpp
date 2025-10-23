@@ -1447,15 +1447,19 @@ void DISubprogram::cleanupRetainedNodes() {
   if (!isa_and_present<MDTuple>(getRawRetainedNodes()))
     return;
 
-  if (MDTuple *RetainedNodes = cast<MDTuple>(getRawRetainedNodes()))
-    for (const MDOperand &Node : RetainedNodes->operands())
-      if (Node && !isa<DINode>(Node))
-        return;
+  MDTuple *RetainedNodes = cast<MDTuple>(getRawRetainedNodes());
+  SmallVector<Metadata *> MDs;
+  MDs.reserve(RetainedNodes->getNumOperands());
+  for (const MDOperand &Node : RetainedNodes->operands()) {
+    // Ignore malformed retainedNodes.
+    if (Node && !isa<DINode>(Node))
+      return;
 
-  auto RetainedNodes = getRetainedNodes();
-  SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+    MDs.push_back(cast_or_null<DINode>(Node));
+  }
+
   MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsAlienType), MDs.end());
-  if (MDs.size() != RetainedNodes.size())
+  if (MDs.size() != RetainedNodes->getNumOperands())
     replaceRetainedNodes(MDNode::get(getContext(), MDs));
 }
 
