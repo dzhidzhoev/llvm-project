@@ -5991,7 +5991,7 @@ bool LLParser::parseDISubprogram(MDNode *&Result, bool IsDistinct) {
        declaration.Val, retainedNodes.Val, thrownTypes.Val, annotations.Val,
        targetFuncName.Val, keyInstructions.Val));
 
-  if (Result->isDistinct())
+  if (IsDistinct)
     NewDistinctSPs.push_back(cast<DISubprogram>(Result));
 
   return false;
