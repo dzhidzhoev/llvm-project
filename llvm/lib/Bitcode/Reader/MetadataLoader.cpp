@@ -730,44 +730,12 @@ class MetadataLoader::MetadataLoaderImpl {
     return Error::success();
   }
 
-  /// When DebugTypeODRUniquing is enabled, after multiple modules are loaded,
-  /// some subprograms (that are from different compilation units, usually)
-  /// may have references to the same local type in their retainedNodes lists.
-  ///
-  /// Clean up such references.
-  void cleanupRetainedNodes() {
-    for (DISubprogram *SP : NewDistinctSPs) {
-      // Checks if a metadata node from retainedTypes is a type not belonging to
-      // the current subprogram.
-      auto IsAlienType = [SP] (Metadata *N) {
-        auto *T = dyn_cast_or_null<DIType>(N);
-        if (!T)
-          return false;
-
-        DISubprogram *TypeSP = nullptr;
-        // The type might have been global in the previously loaded IR modules.
-        if (auto *LS = dyn_cast_or_null<DILocalScope>(T->getScope()))
-          TypeSP = LS->getSubprogram();
-
-        return SP != TypeSP;
-      };
-
-      auto RetainedNodes = SP->getRetainedNodes();
-      SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-      MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsAlienType), MDs.end());
-      if (MDs.size() != SP->getRetainedNodes().size())
-        SP->replaceRetainedNodes(MDNode::get(Context, MDs));
-    }
-
-    NewDistinctSPs.clear();
-  }
-
   void upgradeDebugInfo(bool ModuleLevel) {
     upgradeCUSubprograms();
     upgradeCUVariables();
     if (ModuleLevel)
       upgradeCULocals();
-    cleanupRetainedNodes();
+    DISubprogram::cleanupRetainedNodes(std::exchange(NewDistinctSPs, {}));
   }
 
   void callMDTypeCallback(Metadata **Val, unsigned TypeID);

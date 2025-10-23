@@ -1425,6 +1425,30 @@ bool DISubprogram::describes(const Function *F) const {
   assert(F && "Invalid function");
   return F->getSubprogram() == this;
 }
+
+void DISubprogram::cleanupRetainedNodes() {
+  // Checks if a metadata node from retainedTypes is a type not belonging to
+  // this subprogram.
+  auto IsAlienType = [this] (Metadata *N) {
+    auto *T = dyn_cast_or_null<DIType>(N);
+    if (!T)
+      return false;
+
+    DISubprogram *TypeSP = nullptr;
+    // The type might have been global in the previously loaded IR modules.
+    if (auto *LS = dyn_cast_or_null<DILocalScope>(T->getScope()))
+      TypeSP = LS->getSubprogram();
+
+    return this != TypeSP;
+  };
+
+  auto RetainedNodes = getRetainedNodes();
+  SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+  MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsAlienType), MDs.end());
+  if (MDs.size() != RetainedNodes.size())
+    replaceRetainedNodes(MDNode::get(getContext(), MDs));
+}
+
 DILexicalBlockBase::DILexicalBlockBase(LLVMContext &C, unsigned ID,
                                        StorageType Storage,
                                        ArrayRef<Metadata *> Ops)
