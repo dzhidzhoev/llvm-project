@@ -1442,6 +1442,16 @@ void DISubprogram::cleanupRetainedNodes() {
     return this != TypeSP;
   };
 
+  // As this is expected to be called during module loading, before
+  // stripping old or incorrect debug info, perform minimal sanity check.
+  if (!isa_and_present<MDTuple>(getRawRetainedNodes()))
+    return;
+
+  if (MDTuple *RetainedNodes = cast<MDTuple>(getRawRetainedNodes()))
+    for (const MDOperand &Node : RetainedNodes->operands())
+      if (Node && !isa<DINode>(Node))
+        return;
+
   auto RetainedNodes = getRetainedNodes();
   SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
   MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsAlienType), MDs.end());
