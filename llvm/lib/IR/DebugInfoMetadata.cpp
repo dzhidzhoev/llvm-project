@@ -1429,7 +1429,7 @@ bool DISubprogram::describes(const Function *F) const {
 void DISubprogram::cleanupRetainedNodes() {
   // Checks if a metadata node from retainedTypes is a type not belonging to
   // this subprogram.
-  auto IsAlienType = [this](Metadata *N) {
+  auto IsAlienType = [this](DINode *N) {
     auto *T = dyn_cast_or_null<DIType>(N);
     if (!T)
       return false;
@@ -1455,10 +1455,11 @@ void DISubprogram::cleanupRetainedNodes() {
     if (Node && !isa<DINode>(Node))
       return;
 
-    MDs.push_back(cast_or_null<DINode>(Node));
+    auto *N = cast_or_null<DINode>(Node);
+    if (!IsAlienType(N))
+      MDs.push_back(N);
   }
 
-  MDs.erase(std::remove_if(MDs.begin(), MDs.end(), IsAlienType), MDs.end());
   if (MDs.size() != RetainedNodes->getNumOperands())
     replaceRetainedNodes(MDNode::get(getContext(), MDs));
 }
