@@ -39,7 +39,7 @@ define internal void @bar(ptr %this) !dbg !10 {
 ; All repeating occurences of a uniqued type in retainedNodes must be checked.
 !6 = !{!12, !12, !12, !4, !3}
 !7 = !{}
-!8 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !9, producer: "clang version 14.0.0", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
+!8 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus_14, file: !9, producer: "clang", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, splitDebugInlining: false, nameTableKind: None)
 !9 = !DIFile(filename: "tmp.cpp", directory: "/tmp/")
 !10 = distinct !DISubprogram(name: "bar", scope: !9, file: !9, line: 68, type: !11, scopeLine: 68, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !8, retainedNodes: !6)
 !11 = !DISubroutineType(types: !7)
