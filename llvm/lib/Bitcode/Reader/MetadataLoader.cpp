@@ -452,7 +452,8 @@ class MetadataLoader::MetadataLoaderImpl {
   /// metadata.
   SmallDenseMap<Function *, DISubprogram *, 16> FunctionsWithSPs;
 
-  /// retainedNodes of these subprograms should be cleaned up from incorrectly scoped local types.
+  /// retainedNodes of these subprograms should be cleaned up from incorrectly
+  /// scoped local types.
   SmallVector<DISubprogram *> NewDistinctSPs;
 
   // Map the bitcode's custom MDKind ID to the Module's MDKind ID.

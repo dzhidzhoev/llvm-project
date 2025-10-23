@@ -2536,7 +2536,8 @@ public:
     replaceOperandWith(7, N.get());
   }
 
-  /// Remove types that do not belong to the subprogram's scope from retainedNodes list.
+  /// Remove types that do not belong to the subprogram's scope from
+  /// retainedNodes list.
   void cleanupRetainedNodes();
 
   /// When DebugTypeODRUniquing is enabled, after multiple modules are loaded,

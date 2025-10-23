@@ -1429,7 +1429,7 @@ bool DISubprogram::describes(const Function *F) const {
 void DISubprogram::cleanupRetainedNodes() {
   // Checks if a metadata node from retainedTypes is a type not belonging to
   // this subprogram.
-  auto IsAlienType = [this] (Metadata *N) {
+  auto IsAlienType = [this](Metadata *N) {
     auto *T = dyn_cast_or_null<DIType>(N);
     if (!T)
       return false;

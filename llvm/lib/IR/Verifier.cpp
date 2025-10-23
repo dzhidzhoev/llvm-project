@@ -1573,7 +1573,10 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
         DISubprogram *TypeSP = TypeScope ? TypeScope->getSubprogram() : nullptr;
         DICompileUnit *TypeSPUnit = TypeSP ? TypeSP->getUnit() : nullptr;
         if (isa_and_nonnull<DILocalScope>(T->getScope()))
-          CheckDI(!TypeScope || TypeSP == &N, "invalid retained node, DIType should have the scope of DISubprogram", &N, N.getUnit(), Node, Op, TypeScope, TypeSP, TypeSPUnit);
+          CheckDI(!TypeScope || TypeSP == &N,
+                  "invalid retained node, DIType should have the scope of "
+                  "DISubprogram",
+                  &N, N.getUnit(), Node, Op, TypeScope, TypeSP, TypeSPUnit);
       }
     }
   }

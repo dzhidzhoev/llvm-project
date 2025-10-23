@@ -181,7 +181,8 @@ namespace llvm {
     /// Keeps track of source locations for Values, BasicBlocks, and Functions.
     AsmParserContext *ParserContext;
 
-    /// retainedNodes of these subprograms should be cleaned up from incorrectly scoped local types.
+    /// retainedNodes of these subprograms should be cleaned up from incorrectly
+    /// scoped local types.
     SmallVector<DISubprogram *> NewDistinctSPs;
 
     /// Only the llvm-as tool may set this to false to bypass

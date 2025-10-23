@@ -377,10 +377,10 @@ DIDerivedType *DIBuilder::createTypedef(DIType *Ty, StringRef Name,
                                         DIScope *Context, uint32_t AlignInBits,
                                         DINode::DIFlags Flags,
                                         DINodeArray Annotations) {
-  auto *T = DIDerivedType::get(VMContext, dwarf::DW_TAG_typedef, Name, File,
-                            LineNo, getNonCompileUnitScope(Context), Ty,
-                            (uint64_t)0, AlignInBits, (uint64_t)0, std::nullopt,
-                            std::nullopt, Flags, nullptr, Annotations);
+  auto *T = DIDerivedType::get(
+      VMContext, dwarf::DW_TAG_typedef, Name, File, LineNo,
+      getNonCompileUnitScope(Context), Ty, (uint64_t)0, AlignInBits,
+      (uint64_t)0, std::nullopt, std::nullopt, Flags, nullptr, Annotations);
   if (isa_and_nonnull<DILocalScope>(Context))
     getSubprogramNodesTrackingVector(Context).emplace_back(T);
   return T;
@@ -886,9 +886,9 @@ DISubrangeType *DIBuilder::createSubrangeType(
     uint64_t SizeInBits, uint32_t AlignInBits, DINode::DIFlags Flags,
     DIType *Ty, Metadata *LowerBound, Metadata *UpperBound, Metadata *Stride,
     Metadata *Bias) {
-  auto *T = DISubrangeType::get(VMContext, Name, File, LineNo, Scope, SizeInBits,
-                             AlignInBits, Flags, Ty, LowerBound, UpperBound,
-                             Stride, Bias);
+  auto *T = DISubrangeType::get(VMContext, Name, File, LineNo, Scope,
+                                SizeInBits, AlignInBits, Flags, Ty, LowerBound,
+                                UpperBound, Stride, Bias);
   if (isa_and_nonnull<DILocalScope>(Scope))
     getSubprogramNodesTrackingVector(Scope).emplace_back(T);
   return T;
