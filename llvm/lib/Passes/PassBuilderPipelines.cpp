@@ -147,6 +147,7 @@
 #include "llvm/Transforms/Utils/NameAnonGlobals.h"
 #include "llvm/Transforms/Utils/RelLookupTableConverter.h"
 #include "llvm/Transforms/Utils/SimplifyCFGOptions.h"
+#include "llvm/Transforms/Utils/SubprogramMerge.h"
 #include "llvm/Transforms/Vectorize/LoopVectorize.h"
 #include "llvm/Transforms/Vectorize/SLPVectorizer.h"
 #include "llvm/Transforms/Vectorize/VectorCombine.h"
@@ -2311,6 +2312,8 @@ PassBuilder::buildLTODefaultPipeline(OptimizationLevel Level,
   // AllocToken transforms heap allocation calls; this needs to run late after
   // other allocation call transformations (such as those in InstCombine).
   MPM.addPass(AllocTokenPass());
+
+  MPM.addPass(SubprogramMergePass());
 
   invokeFullLinkTimeOptimizationLastEPCallbacks(MPM, Level);
 
