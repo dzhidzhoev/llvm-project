@@ -80,6 +80,7 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
     SetVector<Metadata *> RetainedNodes;
     MapVector<unsigned, Metadata*> Args;
     for (Metadata *N : SP->getRetainedNodes()) {
+      // TODO: remove "or_null"
       if (auto *DV = dyn_cast_or_null<DILocalVariable>(N)) {
         if (unsigned ArgNum = DV->getArg()) {
           Args.insert({ArgNum, DV});
