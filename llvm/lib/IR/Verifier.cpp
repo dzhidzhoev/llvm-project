@@ -1615,6 +1615,7 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
   if (auto *S = N.getRawDeclaration())
     CheckDI(isa<DISubprogram>(S) && !cast<DISubprogram>(S)->isDefinition(),
             "invalid subprogram declaration", &N, S);
+  MapVector<unsigned, DILocalVariable *> Args;
   if (auto *RawNode = N.getRawRetainedNodes()) {
     auto *Node = dyn_cast<MDTuple>(RawNode);
     CheckDI(Node, "invalid retained nodes list", &N, RawNode);
@@ -1645,6 +1646,14 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
           "invalid retained nodes, retained node does not belong to subprogram",
           &N, Node, RetainedNode, RetainedNodeScope, RetainedNodeSP,
           RetainedNodeUnit);
+
+      if (auto *DV = dyn_cast<DILocalVariable>(RetainedNode)) {
+        if (unsigned ArgNum = DV->getArg()) {
+          auto [_, Inserted] = Args.insert({ArgNum, DV});
+          CheckDI(Inserted, "invalid retained nodes, more than one local variable with the same argument index",
+              &N, Node, RetainedNode, Args[ArgNum]);
+        }
+      }
     }
   }
   CheckDI(!hasConflictingReferenceFlags(N.getFlags()),
