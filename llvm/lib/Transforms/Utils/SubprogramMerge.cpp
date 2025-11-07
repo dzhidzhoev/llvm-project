@@ -23,6 +23,12 @@
 
 using namespace llvm;
 
+static unsigned GetArg(const Metadata *N) {
+  if (auto *DV = dyn_cast_or_null<DILocalVariable>(N))
+    return DV->getArg();
+  return 0;
+}
+
 PreservedAnalyses SubprogramMergePass::run(Module &M,
                                                   ModuleAnalysisManager &AM) {
   LexicalScopes LScopes;
@@ -55,10 +61,23 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
       Target = *I;
     TargetSPs.push_back(Target);
 
+    MapVector<unsigned, Metadata *> Args;
+    for (auto *N : Target->getRetainedNodes())
+      if (unsigned ArgNum = GetArg(N))
+        Args.insert({ArgNum, N});
+
     SmallVector<Metadata *> MergedRetainedNodes(Target->getRetainedNodes().begin(), Target->getRetainedNodes().end());
     for (DISubprogram *Src : Fs) {
-      if (Src != Target)
+      if (Src != Target) {
         VM.MD()[Src].reset(Target);
+        for (auto *N : Src->getRetainedNodes()) {
+          if (unsigned ArgNum = GetArg(N)) {
+            auto [I, Inserted] = Args.insert({ArgNum, N});
+            if (!Inserted)
+              VM.MD()[N].reset(I->second);
+          }
+        }
+      }
       auto RetainedNodes = Src->getRetainedNodes();
       MergedRetainedNodes.insert(MergedRetainedNodes.end(), RetainedNodes.begin(), RetainedNodes.end());
     }
@@ -77,21 +96,7 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
   }
 
   for (DISubprogram *SP : TargetSPs) {
-    SetVector<Metadata *> RetainedNodes;
-    MapVector<unsigned, Metadata*> Args;
-    for (Metadata *N : SP->getRetainedNodes()) {
-      // TODO: remove "or_null"
-      if (auto *DV = dyn_cast_or_null<DILocalVariable>(N)) {
-        if (unsigned ArgNum = DV->getArg()) {
-          Args.insert({ArgNum, DV});
-          continue;
-        }
-      }
-      RetainedNodes.insert(N);
-    }
-    for (auto [_, N] : Args)
-      RetainedNodes.insert(N);
-
+    SetVector<Metadata *> RetainedNodes(SP->getRetainedNodes().begin(), SP->getRetainedNodes().end());
     SP->replaceRetainedNodes(MDNode::get(M.getContext(), RetainedNodes.getArrayRef()));
   }
 
