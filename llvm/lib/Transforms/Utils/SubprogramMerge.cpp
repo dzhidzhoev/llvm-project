@@ -55,7 +55,8 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
 
     SetVector<Metadata *> MergedRetainedNodes(Target->getRetainedNodes().begin(), Target->getRetainedNodes().end());
     for (DISubprogram *Src : Fs) {
-      VM.MD()[Src].reset(Target);
+      if (Src != Target)
+        VM.MD()[Src].reset(Target);
       for (auto *N : Src->getRetainedNodes())
         MergedRetainedNodes.insert(N);
     }
