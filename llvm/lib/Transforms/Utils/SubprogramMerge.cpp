@@ -44,6 +44,7 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
   }
 
   ValueToValueMapTy VM;
+  SmallVector<DISubprogram *> TargetSPs;
   for (auto &[_, Fs] : InlinedOutSPMap) {
     if (Fs.size() <= 1)
       continue;
@@ -52,15 +53,16 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
     auto I = std::find_if(Fs.begin(), Fs.end(), IsFunctionAttached);
     if (I != Fs.end())
       Target = *I;
+    TargetSPs.push_back(Target);
 
-    SetVector<Metadata *> MergedRetainedNodes(Target->getRetainedNodes().begin(), Target->getRetainedNodes().end());
+    SmallVector<Metadata *> MergedRetainedNodes(Target->getRetainedNodes().begin(), Target->getRetainedNodes().end());
     for (DISubprogram *Src : Fs) {
       if (Src != Target)
         VM.MD()[Src].reset(Target);
-      for (auto *N : Src->getRetainedNodes())
-        MergedRetainedNodes.insert(N);
+      auto RetainedNodes = Src->getRetainedNodes();
+      MergedRetainedNodes.insert(MergedRetainedNodes.end(), RetainedNodes.begin(), RetainedNodes.end());
     }
-    Target->replaceRetainedNodes(MDNode::get(M.getContext(), MergedRetainedNodes.getArrayRef()));
+    Target->replaceRetainedNodes(MDNode::get(M.getContext(), MergedRetainedNodes));
   }
   InlinedOutSPMap.clear();
 
@@ -72,6 +74,24 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
   }
   for (Function &F : M) {
     RemapFunction(F, VM, RF_IgnoreMissingLocals | RF_ReuseAndMutateDistinctMDs);
+  }
+
+  for (DISubprogram *SP : TargetSPs) {
+    SetVector<Metadata *> RetainedNodes;
+    MapVector<unsigned, Metadata*> Args;
+    for (Metadata *N : SP->getRetainedNodes()) {
+      if (auto *DV = dyn_cast_or_null<DILocalVariable>(N)) {
+        if (unsigned ArgNum = DV->getArg()) {
+          Args.insert({ArgNum, DV});
+          continue;
+        }
+      }
+      RetainedNodes.insert(N);
+    }
+    for (auto [_, N] : Args)
+      RetainedNodes.insert(N);
+
+    SP->replaceRetainedNodes(MDNode::get(M.getContext(), RetainedNodes.getArrayRef()));
   }
 
   PreservedAnalyses PA;
