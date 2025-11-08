@@ -1650,8 +1650,8 @@ void Verifier::visitDISubprogram(const DISubprogram &N) {
       if (auto *DV = dyn_cast<DILocalVariable>(RetainedNode)) {
         if (unsigned ArgNum = DV->getArg()) {
           auto [_, Inserted] = Args.insert({ArgNum, DV});
-          CheckDI(Inserted, "invalid retained nodes, more than one local variable with the same argument index",
-              &N, Node, RetainedNode, Args[ArgNum]);
+          CheckDI(Inserted || DV == Args[ArgNum], "invalid retained nodes, more than one local variable with the same argument index",
+              &N, N.getUnit(), Node, RetainedNode, Args[ArgNum]);
         }
       }
     }
