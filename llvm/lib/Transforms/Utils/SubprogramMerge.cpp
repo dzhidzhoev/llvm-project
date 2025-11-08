@@ -68,18 +68,20 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
 
     SmallVector<Metadata *> MergedRetainedNodes(Target->getRetainedNodes().begin(), Target->getRetainedNodes().end());
     for (DISubprogram *Src : Fs) {
-      if (Src != Target) {
-        VM.MD()[Src].reset(Target);
-        for (auto *N : Src->getRetainedNodes()) {
-          if (unsigned ArgNum = GetArg(N)) {
-            auto [I, Inserted] = Args.insert({ArgNum, N});
-            if (!Inserted)
-              VM.MD()[N].reset(I->second);
+      if (Src == Target)
+        continue;
+      VM.MD()[Src].reset(Target);
+
+      for (auto *N : Src->getRetainedNodes()) {
+        if (unsigned ArgNum = GetArg(N)) {
+          auto [I, Inserted] = Args.insert({ArgNum, N});
+          if (!Inserted) {
+            VM.MD()[N].reset(I->second);
+            continue;
           }
         }
+        MergedRetainedNodes.push_back(N);
       }
-      auto RetainedNodes = Src->getRetainedNodes();
-      MergedRetainedNodes.insert(MergedRetainedNodes.end(), RetainedNodes.begin(), RetainedNodes.end());
     }
     Target->replaceRetainedNodes(MDNode::get(M.getContext(), MergedRetainedNodes));
   }
