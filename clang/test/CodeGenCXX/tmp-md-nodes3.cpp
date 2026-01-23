@@ -1,4 +1,4 @@
-// REQUIRES: asserts
+// REQUIRES: asserts, riscv-registered-target
 // Should trigger GenerateVarArgsThunk.
 // RUN: %clang_cc1 -O0 -triple riscv64-linux-gnu -debug-info-kind=limited -emit-llvm %s -o - | \
 // RUN: FileCheck %s
