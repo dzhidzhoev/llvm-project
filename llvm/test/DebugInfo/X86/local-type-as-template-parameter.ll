@@ -4,7 +4,7 @@
 ; RUN:  | FileCheck --implicit-check-not "{{DW_TAG|NULL}}" %s
 
 ; The test ensures that AsmPrinter doesn't crashed compiling this.
-; It also demostrates misplacement for a local type (see PR55680 for details).
+; It also demostrates misplacement for a local type (see https://github.com/llvm/llvm-project/issues/55680 for details).
 
 ; The test compiled from:
 
