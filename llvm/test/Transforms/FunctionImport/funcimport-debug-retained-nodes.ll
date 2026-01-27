@@ -41,15 +41,25 @@
 ;  %p/funcimport-debug-retained-nodes.ll (the type that is uniqued
 ; due to DebugTypeODRUniquing on).
 
+; REQUIRES: asserts,x86-registered-target
 ; RUN: opt --bitcode-mdindex-threshold=0 -module-summary %s -o %t.bc
 ; RUN: opt --bitcode-mdindex-threshold=0 -module-summary %p/Inputs/funcimport-debug-retained-nodes.ll -o %t2.bc
-; RUN: llvm-lto -thinlto -o %t3 %t.bc %t2.bc
-; RUN: llvm-lto --thinlto-action=run %t.bc %t2.bc --thinlto-save-temps=%t3 2>&1 | FileCheck --allow-empty --check-prefix=LTO %s
-; RUN: llvm-dis %t30.3.imported.bc -o - | FileCheck %s \
-; RUN:  --implicit-check-not='DISubprogram(name: "inlined_out_clone"' \
+
+; RUN: llvm-lto2 run %t2.bc %t.bc --save-temps -o %t3                       \
+; RUN:  -r=%t.bc,main,px -r=%t.bc,func,px -r=%t2.bc,func,x -r=%t2.bc,foo,rx \
+; RUN:  --debug-only=bitcode-reader --thinlto-threads=1 2>&1                \
+; RUN: | FileCheck --allow-empty --check-prefix=LTO %s                      \
+; RUN:  --implicit-check-not='ignoring invalid debug info'                  \
+; RUN:  --implicit-check-not='warning'
+
+; RUN: llvm-dis %t3.2.3.import.bc -o - | FileCheck %s                       \
+; RUN:  --implicit-check-not='DISubprogram(name: "inlined_out_clone"'       \
 ; RUN:  --implicit-check-not='DICompositeType({{.*}}, identifier: "local_type"'
 
-; LTO-NOT: warning
+; Check that lazy loading codepath is triggered, the subprogram is cleaned up,
+; and MetadataLoaderImpl::resolveLoadedMetadata() is not called after that.
+; LTO:      Lazy metadata loading: Resolved loaded metadata. Cleaned up 1 subprogram(s).
+; LTO-NOT:  Resolved loaded metadata
 
 ; CHECK: ![[EMPTY:[0-9]+]] = !{}
 ; CHECK: !DISubprogram(name: "inlined_out_clone", {{.*}}, retainedNodes: ![[EMPTY]]

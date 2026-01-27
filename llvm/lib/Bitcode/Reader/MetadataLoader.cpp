@@ -758,6 +758,8 @@ class MetadataLoader::MetadataLoaderImpl {
     resolveForwardRefsAndPlaceholders(Placeholders);
     upgradeDebugInfo(DIUpgradeMode);
     DISubprogram::cleanupRetainedNodes(NewDistinctSPs);
+    LLVM_DEBUG(llvm::dbgs() << "Resolved loaded metadata. Cleaned up "
+                            << NewDistinctSPs.size() << " subprogram(s).\n");
     NewDistinctSPs.clear();
   }
 
@@ -786,6 +788,7 @@ public:
     if (ID < (MDStringRef.size() + GlobalMetadataBitPosIndex.size())) {
       PlaceholderQueue Placeholders;
       lazyLoadOneMetadata(ID, Placeholders);
+      LLVM_DEBUG(llvm::dbgs() << "\nLazy metadata loading: ");
       resolveLoadedMetadata(Placeholders, DebugInfoUpgradeMode::None);
       return MetadataList.lookup(ID);
     }
@@ -1137,6 +1140,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadata(bool ModuleLevel) {
 
       // Reading the named metadata created forward references and/or
       // placeholders, that we flush here.
+      LLVM_DEBUG(llvm::dbgs() << "\nNamed metadata loading: ");
       resolveLoadedMetadata(Placeholders, DIUpgradeMode);
       // Return at the beginning of the block, since it is easy to skip it
       // entirely from there.
@@ -1167,6 +1171,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadata(bool ModuleLevel) {
     case BitstreamEntry::Error:
       return error("Malformed block");
     case BitstreamEntry::EndBlock:
+      LLVM_DEBUG(llvm::dbgs() << "\nEager metadata loading: ");
       resolveLoadedMetadata(Placeholders, DIUpgradeMode);
       return Error::success();
     case BitstreamEntry::Record:
@@ -2536,6 +2541,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadataAttachment(
     case BitstreamEntry::Error:
       return error("Malformed block");
     case BitstreamEntry::EndBlock:
+      LLVM_DEBUG(llvm::dbgs() << "\nAttachment metadata loading: ");
       resolveLoadedMetadata(Placeholders, DebugInfoUpgradeMode::None);
       return Error::success();
     case BitstreamEntry::Record:
@@ -2579,6 +2585,7 @@ Error MetadataLoader::MetadataLoaderImpl::parseMetadataAttachment(
           // Load the attachment if it is in the lazy-loadable range and hasn't
           // been loaded yet.
           lazyLoadOneMetadata(Idx, Placeholders);
+          LLVM_DEBUG(llvm::dbgs() << "\nLazy attachment metadata loading: ");
           resolveLoadedMetadata(Placeholders, DebugInfoUpgradeMode::None);
         }
 
