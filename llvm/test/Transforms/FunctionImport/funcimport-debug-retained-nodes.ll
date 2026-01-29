@@ -61,9 +61,27 @@
 ; LTO:      Lazy metadata loading: Resolved loaded metadata. Cleaned up 1 subprogram(s).
 ; LTO-NOT:  Resolved loaded metadata
 
+; The module %p/funcimport-debug-retained-nodes.ll contains:
+; - DICompositeType "local_type", and
+; - DISubprogram "inlined_out_clone" with empty retainedNodes list.
+; The module %p/Inputs/funcimport-debug-retained-nodes.ll contains:
+; - DICompositeType "local_type", and
+; - DISubprogram "inlined_out_clone" with "local_type" in its retainedNodes.
+; After function import into module %p/funcimport-debug-retained-nodes.ll,
+; the output module contains:
+; - a single DICompositeType "local_type" that comes from %p/funcimport-debug-retained-nodes.ll
+;   (due to ODR-uniquing, "local_type" from %p/Inputs/funcimport-debug-retained-nodes.ll
+;   is not imported during function import),
+; - DISubprogram "inlined_out_clone" from %p/funcimport-debug-retained-nodes.ll
+;   with empty retainedNodes list, and
+; - DISubprogram "inlined_out_clone" from %p/Inputs/funcimport-debug-retained-nodes.ll.
+;   This test expects its retaiendNodes to be empty, cleaned up from reference
+;   to "local_type" from %p/funcimport-debug-retained-nodes.ll (that, without proper
+;   cleanup, would occur because of ODR-uniquing). The following check lines ensure that.
+
 ; CHECK: ![[EMPTY:[0-9]+]] = !{}
-; CHECK: !DISubprogram(name: "inlined_out_clone", {{.*}}, retainedNodes: ![[EMPTY]]
-; CHECK: !DICompositeType({{.*}}, identifier: "local_type"
+; CHECK: ![[ORIGINAL_SP:[0-9]+]] = distinct !DISubprogram(name: "inlined_out_clone", {{.*}}, retainedNodes: ![[EMPTY]]
+; CHECK: !DICompositeType(tag: DW_TAG_class_type, scope: ![[ORIGINAL_SP]], {{.*}}, identifier: "local_type"
 ; CHECK: !DISubprogram(name: "inlined_out_clone", {{.*}}, retainedNodes: ![[EMPTY]]
 
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
