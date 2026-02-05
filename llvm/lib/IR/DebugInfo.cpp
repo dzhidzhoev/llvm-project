@@ -174,6 +174,7 @@ void DebugInfoFinder::reset() {
   CUs.clear();
   SPs.clear();
   GVs.clear();
+  LVs.clear();
   TYs.clear();
   Scopes.clear();
   NodesSeen.clear();
@@ -182,15 +183,19 @@ void DebugInfoFinder::reset() {
 void DebugInfoFinder::processModule(const Module &M) {
   for (auto *CU : M.debug_compile_units())
     processCompileUnit(CU);
-  for (auto &F : M.functions()) {
-    if (auto *SP = cast_or_null<DISubprogram>(F.getSubprogram()))
-      processSubprogram(SP);
-    // There could be subprograms from inlined functions referenced from
-    // instructions only. Walk the function to find them.
-    for (const BasicBlock &BB : F)
-      for (const Instruction &I : BB)
-        processInstruction(M, I);
-  }
+  for (auto &F : M.functions())
+    processFunction(F);
+}
+
+void DebugInfoFinder::processFunction(const Function &F) {
+  auto *M = F.getParent();
+  if (auto *SP = cast_or_null<DISubprogram>(F.getSubprogram()))
+    processSubprogram(SP);
+  // There could be subprograms from inlined functions referenced from
+  // instructions only. Walk the function to find them.
+  for (const BasicBlock &BB : F)
+    for (const Instruction &I : BB)
+      processInstruction(*M, I);
 }
 
 void DebugInfoFinder::processCompileUnit(DICompileUnit *CU) {
@@ -329,8 +334,9 @@ void DebugInfoFinder::processSubprogram(DISubprogram *SP) {
       [this](DIType *T) { processType(T); });
 }
 
-void DebugInfoFinder::processVariable(const DILocalVariable *DV) {
-  if (!NodesSeen.insert(DV).second)
+void DebugInfoFinder::processVariable(DILocalVariable *DV) {
+
+  if (!addLocalVariable(DV))
     return;
   processScope(DV->getScope());
   processType(DV->getType());
@@ -388,6 +394,21 @@ bool DebugInfoFinder::addScope(DIScope *Scope) {
   Scopes.push_back(Scope);
   return true;
 }
+
+bool DebugInfoFinder::addLocalVariable(DILocalVariable *LV) {
+  if (!LV)
+    return false;
+
+  if (!NodesSeen.insert(LV).second)
+    return false;
+
+  if (CollectLVs)
+    if (DILocalScope *Scope = LV->getScope())
+      if (DISubprogram *SP = Scope->getSubprogram())
+        LVs[SP].push_back(LV);
+  return true;
+}
+
 
 /// Recursively handle DILocations in followup metadata etc.
 ///

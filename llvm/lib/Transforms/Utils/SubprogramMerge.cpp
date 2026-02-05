@@ -5,14 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
 //===----------------------------------------------------------------------===//
-//
-// This pass decodes the debug info metadata in a module and prints in a
-// (sufficiently-prepared-) human-readable form.
-//
-// For example, run this pass from opt along with the -analyze option, and
-// it'll print to standard output.
-//
-//===----------------------------------------------------------------------===//
 
 #include "llvm/Transforms/Utils/SubprogramMerge.h"
 #include "llvm/IR/DebugInfo.h"
@@ -61,29 +53,21 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
       Target = *I;
     TargetSPs.push_back(Target);
 
-    MapVector<unsigned, Metadata *> Args;
-    for (auto *N : Target->getRetainedNodes())
-      if (unsigned ArgNum = GetArg(N))
-        Args.insert({ArgNum, N});
-
-    SmallVector<Metadata *> MergedRetainedNodes(Target->getRetainedNodes().begin(), Target->getRetainedNodes().end());
     for (DISubprogram *Src : Fs) {
       if (Src == Target)
         continue;
       VM.MD()[Src].reset(Target);
 
-      for (auto *N : Src->getRetainedNodes()) {
-        if (unsigned ArgNum = GetArg(N)) {
-          auto [I, Inserted] = Args.insert({ArgNum, N});
-          if (!Inserted) {
-            VM.MD()[N].reset(I->second);
-            continue;
-          }
-        }
-        MergedRetainedNodes.push_back(N);
-      }
+      // for (auto *N : Src->getRetainedNodes()) {
+      //   if (unsigned ArgNum = GetArg(N)) {
+      //     auto [I, Inserted] = Args.insert({ArgNum, N});
+      //     if (!Inserted) {
+      //       VM.MD()[N].reset(I->second);
+      //       continue;
+      //     }
+      //   }
+      // }
     }
-    Target->replaceRetainedNodes(MDNode::get(M.getContext(), MergedRetainedNodes));
   }
   InlinedOutSPMap.clear();
 
@@ -93,13 +77,41 @@ PreservedAnalyses SubprogramMergePass::run(Module &M,
       CUNodes->setOperand(I, MapMetadata(CU, VM, RF_IgnoreMissingLocals | RF_ReuseAndMutateDistinctMDs));
     }
   }
-  for (Function &F : M) {
-    RemapFunction(F, VM, RF_IgnoreMissingLocals | RF_ReuseAndMutateDistinctMDs);
-  }
 
-  for (DISubprogram *SP : TargetSPs) {
-    SetVector<Metadata *> RetainedNodes(SP->getRetainedNodes().begin(), SP->getRetainedNodes().end());
-    SP->replaceRetainedNodes(MDNode::get(M.getContext(), RetainedNodes.getArrayRef()));
+  DebugInfoFinder Finder(true);
+  DenseMap<unsigned, DILocalVariable *> Args;
+
+  for (Function &F : M) {
+    Finder.processFunction(F);
+    // llvm::errs() << "\nRemapping " << F.getName() << "\n";
+
+    for (auto &[SP, LVs] : Finder.local_variables()) {
+      DISubprogram *TargetSP = cast_or_null<DISubprogram>(VM.MD().lookup(SP));
+      if (!TargetSP)
+        continue;
+      // llvm::errs() << "Remapping local vars ";
+      // SP->dump();
+
+      for (auto *N : TargetSP->getRetainedNodes())
+        if (auto *LV = dyn_cast<DILocalVariable>(N))
+          if (unsigned ArgNum = GetArg(LV))
+            Args[ArgNum] = LV;
+
+      for (DILocalVariable *LV : LVs)
+        if (unsigned ArgNum = GetArg(LV)) {
+          // llvm::errs() << "Checking " << LV << "\n";
+          auto Entry = Args.insert({ArgNum, LV});
+          if (!Entry.second && Entry.first->second != LV) {
+            // llvm::errs() << "Will remap " << LV << " to " << Entry.first->second << "\n";
+            VM.MD()[LV].reset(Entry.first->second);
+          }
+        }
+    }
+    Finder.reset();
+
+    RemapFunction(F, VM, RF_IgnoreMissingLocals | RF_ReuseAndMutateDistinctMDs);
+
+    Args.clear();
   }
 
   PreservedAnalyses PA;

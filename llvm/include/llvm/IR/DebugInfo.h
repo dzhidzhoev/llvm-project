@@ -104,13 +104,17 @@ LLVM_ABI unsigned getDebugMetadataVersionFromModule(const Module &M);
 /// used by the CUs.
 class DebugInfoFinder {
 public:
+  DebugInfoFinder(bool CollectLVs = false): CollectLVs(CollectLVs) {}
+
   /// Process entire module and collect debug info anchors.
   LLVM_ABI void processModule(const Module &M);
+  /// Process function and collect debug info anchors.
+  LLVM_ABI void processFunction(const Function &F);
   /// Process a single instruction and collect debug info anchors.
   LLVM_ABI void processInstruction(const Module &M, const Instruction &I);
 
   /// Process a DILocalVariable.
-  LLVM_ABI void processVariable(const DILocalVariable *DVI);
+  LLVM_ABI void processVariable(DILocalVariable *DVI);
   /// Process debug info location.
   LLVM_ABI void processLocation(const Module &M, const DILocation *Loc);
   /// Process a DbgRecord.
@@ -132,6 +136,7 @@ private:
   bool addScope(DIScope *Scope);
   bool addSubprogram(DISubprogram *SP);
   bool addType(DIType *DT);
+  bool addLocalVariable(DILocalVariable *LV);
 
 public:
   using compile_unit_iterator =
@@ -161,12 +166,21 @@ public:
   unsigned scope_count() const { return Scopes.size(); }
 
 private:
+  bool CollectLVs;
   SmallVector<DICompileUnit *, 8> CUs;
   SmallVector<DISubprogram *, 8> SPs;
   SmallVector<DIGlobalVariableExpression *, 8> GVs;
+  DenseMap<DISubprogram *, SmallVector<DILocalVariable *>> LVs;
   SmallVector<DIType *, 8> TYs;
   SmallVector<DIScope *, 8> Scopes;
   SmallPtrSet<const MDNode *, 32> NodesSeen;
+
+public:
+  using local_variable_iterator = decltype(LVs)::const_iterator;
+
+  iterator_range<local_variable_iterator> local_variables() const {
+    return LVs;
+  }
 };
 
 /// Assignment Tracking (at).

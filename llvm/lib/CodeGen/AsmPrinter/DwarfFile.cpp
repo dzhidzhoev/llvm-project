@@ -106,6 +106,15 @@ void DwarfFile::addScopeVariable(LexicalScope *LS, DbgVariable *Var) {
   auto &ScopeVars = ScopeVariables[LS];
   const DILocalVariable *DV = Var->getVariable();
   if (unsigned ArgNum = DV->getArg()) {
+    if (ScopeVars.Args.count(ArgNum)) {
+      auto *SP = DV->getScope()->getSubprogram();
+      SP->dump();
+      SP->getRetainedNodes()->dump();
+      for (auto *N : SP->getRetainedNodes()) {
+        N->dump();
+      }
+      DV->dump();
+    }
     auto Ret = ScopeVars.Args.insert({ArgNum, Var});
     assert(Ret.second);
     (void)Ret;
