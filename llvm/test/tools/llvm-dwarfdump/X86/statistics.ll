@@ -1,6 +1,6 @@
 ; RUN: llc -O0 %s -o - -filetype=obj \
 ; RUN:   | llvm-dwarfdump -statistics - | FileCheck %s
-; CHECK: "version": 9,
+; CHECK: "version": 10,
 
 ; namespace test {
 ;  extern int a;
@@ -41,6 +41,8 @@
 ;     - non-constant member S:fn,
 ;     - arguments of S:fn.
 
+; CHECK:      "#inlined functions with abstract origins":
+; CHECK:      "#subprogram declarations": 1,
 ; CHECK:      "#unique source variables": 10,
 ; +1 extra inline i.
 ; CHECK:      "#source variables": 11,

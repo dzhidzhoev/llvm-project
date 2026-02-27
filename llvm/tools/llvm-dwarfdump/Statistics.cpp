@@ -155,6 +155,9 @@ struct GlobalStats {
   /// for the top inline functions within concrete functions. This can help
   /// tune the inline settings when compiling to match user expectations.
   SaturatingUINT64 InlineFunctionSize = 0;
+  /// Total number of subprogram declarations (DW_TAG_subprogram with
+  /// DW_AT_declaration).
+  SaturatingUINT64 NumDeclSubprograms = 0;
 };
 
 /// Holds accumulated debug location statistics about local variables and
@@ -549,8 +552,11 @@ static void collectStatsRecursive(
       VarPrefix = "v";
 
     // Ignore forward declarations.
-    if (Die.find(dwarf::DW_AT_declaration))
+    if (Die.find(dwarf::DW_AT_declaration)) {
+      if (IsFunction)
+        GlobalStats.NumDeclSubprograms++;
       return;
+    }
 
     // Check for call sites.
     if (Die.find(dwarf::DW_AT_call_file) && Die.find(dwarf::DW_AT_call_line))
@@ -968,7 +974,7 @@ bool dwarfdump::collectStatsForObjectFile(ObjectFile &Obj, DWARFContext &DICtx,
   /// The version number should be increased every time the algorithm is changed
   /// (including bug fixes). New metrics may be added without increasing the
   /// version.
-  unsigned Version = 9;
+  unsigned Version = 10;
   SaturatingUINT64 VarParamTotal = 0;
   SaturatingUINT64 VarParamUnique = 0;
   SaturatingUINT64 VarParamWithLoc = 0;
@@ -1032,6 +1038,8 @@ bool dwarfdump::collectStatsForObjectFile(ObjectFile &Obj, DWARFContext &DICtx,
   printDatum(J, "#inlined functions", NumInlinedFunctions.Value);
   printDatum(J, "#inlined functions with abstract origins",
              NumAbstractOrigins.Value);
+  printDatum(J, "#subprogram declarations",
+             GlobalStats.NumDeclSubprograms.Value);
 
   // This includes local variables and formal parameters.
   printDatum(J, "#unique source variables", VarParamUnique.Value);

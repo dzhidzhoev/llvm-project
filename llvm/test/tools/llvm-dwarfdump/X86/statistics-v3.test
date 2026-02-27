@@ -64,7 +64,7 @@ RUN: llvm-dwarfdump --statistics %t-statistics-fib.o | FileCheck %s
 # }
 #
 
-CHECK:      "version": 9,
+CHECK:      "version": 10,
 CHECK:      "#functions": 3,
 CHECK:      "#functions with location": 3,
 CHECK:      "#out-of-line functions": 3,
