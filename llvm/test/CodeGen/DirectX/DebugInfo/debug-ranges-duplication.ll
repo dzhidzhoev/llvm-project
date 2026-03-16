@@ -7,8 +7,11 @@
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 3
 ; CHECK: DILocation: 6
-; CHECK: DISubprogram: 4
+; CHECK: DISubprogram: 3
 ; CHECK: DISubroutineType: 1
+
+; DXDI note: one DISubprogram is a declaration. Metadata on function
+; declarations is not supported by DXIL.
 
 ; AIX doesn't currently support DWARF 5 section .debug_rnglists
 ; XFAIL: target={{.*}}-zos{{.*}}, target={{.*}}-aix{{.*}}
