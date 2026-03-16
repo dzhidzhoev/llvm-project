@@ -3,16 +3,19 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIBasicType: 2
+; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
-; CHECK: DILocalVariable: 3
+; CHECK: DILocalVariable: 2
 ; CHECK: DILocation: 1
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubrange: 1
 ; CHECK: DISubroutineType: 1
+
+; DXIL note: DISubrange with a non-constant count is not supported, and count of -1 is used instead.
+; This transformation removes 1 DILocalVariable and 1 DIBasicType.
 
 
 ; This test runs llvm-dwarfdump twice:
