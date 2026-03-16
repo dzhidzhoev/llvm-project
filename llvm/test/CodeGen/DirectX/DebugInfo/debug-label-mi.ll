@@ -6,10 +6,11 @@
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIFile: 1
-; CHECK: DILabel: 2
-; CHECK: DILocation: 2
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
+
+; DXDI note: DILabel and llvm.dbg.label are not supported
+; DXDI note: llvm.dbg.label reference 2 DILocation.
 
 ; Test DBG_LABEL MachineInstr for label debugging.
 ; REQUIRES: asserts

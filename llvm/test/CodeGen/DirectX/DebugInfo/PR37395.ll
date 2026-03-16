@@ -9,11 +9,13 @@
 ; CHECK: DIFile: 1
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIGlobalVariableExpression: 1
-; CHECK: DILabel: 1
 ; CHECK: DILexicalBlock: 2
-; CHECK: DILocation: 6
+; CHECK: DILocation: 5
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
+
+; DXDI note: DILabel and llvm.dbg.label are not supported
+; DXDI note: llvm.dbg.label reference 1 DILocation.
 
 source_filename = "small.c"
 

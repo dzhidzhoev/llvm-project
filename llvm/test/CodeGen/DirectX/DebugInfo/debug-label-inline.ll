@@ -6,10 +6,12 @@
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIFile: 1
-; CHECK: DILabel: 1
-; CHECK: DILocation: 4
+; CHECK: DILocation: 3
 ; CHECK: DISubprogram: 2
 ; CHECK: DISubroutineType: 2
+
+; DXDI note: DILabel and llvm.dbg.label are not supported
+; DXDI note: llvm.dbg.label reference 1 DILocation.
 
 ;
 ; Bug 47129
