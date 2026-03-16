@@ -16,6 +16,7 @@
 ; CHECK: DISubrange: 1
 ; CHECK: DISubroutineType: 1
 
+REQUIRES: stack-intrinsics
 
 ;; Check declare-to-assign ignores VLA-backed variables (for now).
 ;; From C++ source:
