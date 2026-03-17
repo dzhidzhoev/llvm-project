@@ -29,7 +29,9 @@ public:
   DXILDebugInfoLegacy() : ModulePass(ID) {}
 
   static char ID; // Pass identification.
-  void getAnalysisUsage(llvm::AnalysisUsage &AU) const override {}
+  void getAnalysisUsage(llvm::AnalysisUsage &AU) const override {
+      AU.setPreservesAll();
+  }
 };
 char DXILDebugInfoLegacy::ID = 0;
 } // end anonymous namespace
