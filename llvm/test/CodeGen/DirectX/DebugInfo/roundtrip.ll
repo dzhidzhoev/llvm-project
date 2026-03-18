@@ -4,10 +4,9 @@
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIArgList: 1
-; CHECK: DIAssignID: 9
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 10
+; CHECK: DIExpression: 5
 ; CHECK: DIFile: 1
 ; CHECK: DILocalVariable: 4
 ; CHECK: DILocation: 5

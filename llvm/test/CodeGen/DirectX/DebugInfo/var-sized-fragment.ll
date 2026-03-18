@@ -3,21 +3,20 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 4
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 2
-; CHECK: DIExpression: 5
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 2
 ; CHECK: DIFlagAllCallsDescribed: 1
-; CHECK: DIFlagPrototyped: 2
+; CHECK: DIFlagPrototyped: 1
 ; CHECK: DIFlagPublic: 2
 ; CHECK: DIFlagTypePassByValue: 1
 ; CHECK: DILocalVariable: 3
 ; CHECK: DILocation: 2
-; CHECK: DISubprogram: 2
-; CHECK: DISubroutineType: 2
+; CHECK: DISubprogram: 1
+; CHECK: DISubroutineType: 1
 
 
 ;; SROA splits the alloca into two. Each slice already has a 32-bit variable

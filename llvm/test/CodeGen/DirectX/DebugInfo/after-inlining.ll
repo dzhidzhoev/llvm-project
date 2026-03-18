@@ -3,12 +3,11 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 2
 ; CHECK: DIBasicType: 2
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 2
 ; CHECK: DIDerivedType: 4
-; CHECK: DIExpression: 5
+; CHECK: DIExpression: 4
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 3
 ; CHECK: DIFlagPrototyped: 1

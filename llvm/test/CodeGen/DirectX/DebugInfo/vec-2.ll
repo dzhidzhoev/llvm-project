@@ -3,19 +3,18 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 24
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 3
 ; CHECK: DIDerivedType: 4
-; CHECK: DIExpression: 41
+; CHECK: DIExpression: 17
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 3
 ; CHECK: DIFlagArtificial: 3
 ; CHECK: DIFlagNonTrivial: 1
 ; CHECK: DIFlagObjectPointer: 3
 ; CHECK: DIFlagProtected: 1
-; CHECK: DIFlagPrototyped: 6
+; CHECK: DIFlagPrototyped: 5
 ; CHECK: DIFlagPublic: 2
 ; CHECK: DIFlagTypePassByValue: 2
 ; CHECK: DIGlobalVariable: 1
@@ -23,9 +22,9 @@
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 5
 ; CHECK: DILocation: 21
-; CHECK: DISubprogram: 6
+; CHECK: DISubprogram: 5
 ; CHECK: DISubrange: 1
-; CHECK: DISubroutineType: 3
+; CHECK: DISubroutineType: 2
 
 
 ;; $ cat test.cpp

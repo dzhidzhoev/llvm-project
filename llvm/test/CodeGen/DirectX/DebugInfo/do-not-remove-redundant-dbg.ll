@@ -8,10 +8,10 @@
 ; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 1
-; CHECK: DIFlagPrototyped: 2
+; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 3
-; CHECK: DISubprogram: 2
+; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
 
 

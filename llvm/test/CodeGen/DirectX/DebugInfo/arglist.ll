@@ -4,10 +4,9 @@
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIArgList: 1
-; CHECK: DIAssignID: 6
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 6
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIFlagPrototyped: 1

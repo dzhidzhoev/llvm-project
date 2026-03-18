@@ -3,22 +3,20 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 5
 ; CHECK: DIBasicType: 2
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 2
-; CHECK: DIExpression: 7
+; CHECK: DIExpression: 4
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 2
-; CHECK: DIFlagNoReturn: 1
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 15
-; CHECK: DISubprogram: 4
-; CHECK: DISubroutineType: 4
+; CHECK: DISubprogram: 2
+; CHECK: DISubroutineType: 2
 
 ; REQUIRES: bug-pointer-analysis-use-list
 

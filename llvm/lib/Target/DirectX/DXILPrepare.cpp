@@ -192,7 +192,7 @@ public:
             if (auto *DVR = dyn_cast<DbgVariableRecord>(&DR);
                 DVR && DVR->isDbgAssign()) {
               DbgVariableRecord::createDbgVariableRecord(
-                  DVR->getAddress(), DVR->getVariable(), DVR->getExpression(),
+                  DVR->getValue(), DVR->getVariable(), DVR->getExpression(),
                   DVR->getDebugLoc(), *DVR);
               DVR->eraseFromParent();
               continue;

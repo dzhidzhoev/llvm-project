@@ -3,7 +3,7 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 1
+
 
 
 ;; Check that badly formed assignment tracking metadata is caught either

@@ -3,20 +3,18 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 12
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
-; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 8
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 2
-; CHECK: DIFlagPrototyped: 3
+; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
 ; CHECK: DILocation: 11
-; CHECK: DISubprogram: 3
+; CHECK: DISubprogram: 2
 ; CHECK: DISubrange: 1
-; CHECK: DISubroutineType: 2
+; CHECK: DISubroutineType: 1
 
 ; REQUIRES: bug-mem-intrinsics
 

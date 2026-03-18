@@ -15,8 +15,8 @@
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 2
 ; CHECK: DILocation: 15
-; CHECK: DISubprogram: 3
-; CHECK: DISubroutineType: 3
+; CHECK: DISubprogram: 2
+; CHECK: DISubroutineType: 2
 
 ; REQUIRES: bug-pointer-analysis-use-list
 

@@ -3,20 +3,19 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 4
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 3
-; CHECK: DIExpression: 6
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 1
-; CHECK: DIFlagPrototyped: 2
+; CHECK: DIFlagPrototyped: 1
 ; CHECK: DIFlagTypePassByValue: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 5
-; CHECK: DISubprogram: 2
-; CHECK: DISubroutineType: 2
+; CHECK: DISubprogram: 1
+; CHECK: DISubroutineType: 1
 
 
 ;; NOTE: This is the same as split-pre-fragmented-store.ll except the base

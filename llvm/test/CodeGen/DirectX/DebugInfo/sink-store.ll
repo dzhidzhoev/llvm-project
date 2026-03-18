@@ -3,21 +3,19 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 4
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 5
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 1
-; CHECK: DIFlagPrototyped: 3
+; CHECK: DIFlagPrototyped: 1
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILexicalBlock: 3
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 9
-; CHECK: DISubprogram: 3
-; CHECK: DISubroutineType: 3
+; CHECK: DISubprogram: 1
+; CHECK: DISubroutineType: 1
 
 
 ;; Check that instcombine merges the DIAssignID metadata when merging two
