@@ -178,29 +178,33 @@ class DXILPrepareModule : public ModulePass {
 
 public:
   bool runOnModule(Module &M) override {
-    for (auto &F : M) {
-      for (auto &BB : F) {
-        for (auto &I : BB) {
-          I.eraseMetadataIf([](unsigned KindID, MDNode *) {
-            return KindID == LLVMContext::MD_DIAssignID;
-          });
-          for (DbgRecord &DR : make_early_inc_range(I.getDbgRecordRange())) {
-            if (auto *DLR = dyn_cast<DbgLabelRecord>(&DR)) {
-              DLR->eraseFromParent();
-              continue;
-            }
-            if (auto *DVR = dyn_cast<DbgVariableRecord>(&DR);
-                DVR && DVR->isDbgAssign()) {
-              DbgVariableRecord::createDbgVariableRecord(
-                  DVR->getValue(), DVR->getVariable(), DVR->getExpression(),
-                  DVR->getDebugLoc(), *DVR);
-              DVR->eraseFromParent();
-              continue;
+    {
+      DebugInfoFinder DIF;
+      DIF.processModule(M);
+      for (auto &F : M) {
+        for (auto &BB : F) {
+          for (auto &I : BB) {
+            I.eraseMetadataIf([](unsigned KindID, MDNode *) {
+              return KindID == LLVMContext::MD_DIAssignID;
+            });
+            for (DbgRecord &DR : make_early_inc_range(I.getDbgRecordRange())) {
+              if (auto *DLR = dyn_cast<DbgLabelRecord>(&DR)) {
+                DLR->eraseFromParent();
+                continue;
+              }
+              if (auto *DVR = dyn_cast<DbgVariableRecord>(&DR);
+                  DVR && DVR->isDbgAssign()) {
+                DbgVariableRecord::createDbgVariableRecord(
+                    DVR->getValue(), DVR->getVariable(), DVR->getExpression(),
+                    DVR->getDebugLoc(), *DVR);
+                DVR->eraseFromParent();
+                continue;
+              }
             }
           }
         }
       }
-      if (DISubprogram *SP = F.getSubprogram()) {
+      for (DISubprogram *SP : DIF.subprograms()) {
         if (MDTuple *RN = cast_or_null<MDTuple>(SP->getRawRetainedNodes())) {
           SmallVector<Metadata *> MDs(RN->operands());
           MDs.erase(std::remove_if(MDs.begin(), MDs.end(),
