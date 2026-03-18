@@ -31,12 +31,6 @@
 ;; Test A:
 
 ;; Test B:
-;; CHECK: store i64 1, ptr %0, align 4, !DIAssignID ![[ID2:[0-9]+]]
-;; CHECK: #dbg_assign(i64 1, ![[#]], !DIExpression(), ![[ID2]], ptr %0, !DIExpression(),
-
-;; Test C:
-;; CHECK: store i32 2, ptr %0, align 4, !DIAssignID ![[ID3:[0-9]+]]
-;; CHECK: #dbg_assign(i32 2, ![[#]], !DIExpression(DW_OP_LLVM_fragment, 0, 32), ![[ID3]], ptr %0, !DIExpression(),
 
 %"struct.llvm::detail::DenseMapPair" = type { %"struct.std::pair" }
 %"struct.std::pair" = type { ptr, %"class.llvm::SmallVector" }

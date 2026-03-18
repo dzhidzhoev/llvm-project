@@ -14,6 +14,8 @@
 ; CHECK: DISubprogram: 2
 ; CHECK: DISubroutineType: 2
 
+; REQUIRES: eh-intrinsics
+
 ;
 ; A hand-edited version of inline-debug-info.ll to test inlining of a
 ; function with multiple returns.

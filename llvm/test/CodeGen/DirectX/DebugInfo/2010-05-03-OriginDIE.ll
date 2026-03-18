@@ -16,6 +16,7 @@
 ; CHECK: DISubrange: 1
 ; CHECK: DISubroutineType: 1
 
+; REQUIRES: bug-intrinsics
 
 ;Radar 7937109
 

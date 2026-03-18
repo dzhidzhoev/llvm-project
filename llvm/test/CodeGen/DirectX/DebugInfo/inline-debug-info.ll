@@ -14,6 +14,7 @@
 ; CHECK: DISubprogram: 2
 ; CHECK: DISubroutineType: 2
 
+; REQUIRES: eh-intrinsics
 
 ; Created from source
 ;

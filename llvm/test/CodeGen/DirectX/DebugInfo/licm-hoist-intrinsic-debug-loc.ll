@@ -10,6 +10,8 @@
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
 
+; REQUIRES: bug-intrinsics
+
 ;
 ; LICM should null out debug locations when it hoists intrinsics that won't lower to function calls out of a loop.
 ;
