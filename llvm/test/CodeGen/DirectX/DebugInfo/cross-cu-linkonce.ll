@@ -40,7 +40,7 @@ source_filename = "test/DebugInfo/Generic/cross-cu-linkonce.ll"
 @y = global ptr @_Z4funci, align 8, !dbg !7
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr i32 @_Z4funci(i32 %i) #0 !dbg !19 {
+define i32 @_Z4funci(i32 %i) #0 !dbg !19 {
   %1 = alloca i32, align 4
   store i32 %i, ptr %1, align 4
   call void @llvm.dbg.declare(metadata ptr %1, metadata !20, metadata !21), !dbg !22

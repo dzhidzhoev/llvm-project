@@ -81,7 +81,7 @@ entry:
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN1vC2Ef(ptr %this, float %d) unnamed_addr #2 comdat align 2 !dbg !27 {
+define dso_local void @_ZN1vC2Ef(ptr %this, float %d) unnamed_addr #2 comdat align 2 !dbg !27 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !26, metadata !DIExpression(), metadata !56, metadata ptr undef, metadata !DIExpression()), !dbg !57
   call void @llvm.dbg.assign(metadata i1 undef, metadata !29, metadata !DIExpression(), metadata !58, metadata ptr undef, metadata !DIExpression()), !dbg !57
