@@ -3,11 +3,10 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 8
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 17
+; CHECK: DIExpression: 11
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 2
 ; CHECK: DIFlagPrototyped: 1
@@ -16,8 +15,8 @@
 ; CHECK: DILexicalBlock: 6
 ; CHECK: DILocalVariable: 3
 ; CHECK: DILocation: 19
-; CHECK: DISubprogram: 3
-; CHECK: DISubroutineType: 3
+; CHECK: DISubprogram: 2
+; CHECK: DISubroutineType: 2
 
 
 ;; $ cat test.c

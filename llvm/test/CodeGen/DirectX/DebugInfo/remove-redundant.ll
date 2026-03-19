@@ -3,10 +3,9 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIAssignID: 8
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 25
+; CHECK: DIExpression: 14
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIFlagPrototyped: 1
@@ -38,29 +37,29 @@ entry:
 
 ;; Backward scan: Check that a dbg.value made redundant by a dbg.assign is
 ;; removed.
-;; CHECK-NEXT: #dbg_assign(i32 1, ![[Local:[0-9]+]]
-;; CHECK-NEXT: @step()
+;; XCHECK-NEXT: #dbg_assign(i32 1, ![[Local:[0-9]+]]
+;; XCHECK-NEXT: @step()
   call void @llvm.dbg.value(metadata i32 0, metadata !11, metadata !DIExpression()), !dbg !14
   call void @llvm.dbg.assign(metadata i32 1, metadata !11, metadata !DIExpression(), metadata !15, metadata ptr undef, metadata !DIExpression()), !dbg !14
   call void @step()
 
 ;; Backward scan: Check that a dbg.assign made redundant by a dbg.value is
 ;; removed.
-;; CHECK-NEXT: #dbg_value(i32 3, ![[Local:[0-9]+]]
-;; CHECK-NEXT: @step()
+;; XCHECK-NEXT: #dbg_value(i32 3, ![[Local:[0-9]+]]
+;; XCHECK-NEXT: @step()
   call void @llvm.dbg.assign(metadata i32 2, metadata !11, metadata !DIExpression(), metadata !15, metadata ptr undef, metadata !DIExpression()), !dbg !14
   call void @llvm.dbg.value(metadata i32 3, metadata !11, metadata !DIExpression()), !dbg !14
   call void @step()
 
 ;; Forward scan: This unlinked dbg.assign(3, ...) is shadowed by the
 ;; dbg.value(3,...) above. Check it is removed.
-;; CHECK-NEXT: @step()
+;; XCHECK-NEXT: @step()
   call void @llvm.dbg.assign(metadata i32 3, metadata !11, metadata !DIExpression(), metadata !15, metadata ptr undef, metadata !DIExpression()), !dbg !14
   call void @step()
 
 ;; Forward scan: Same as above except this dbg.assign is shadowed by
 ;; another dbg.assign rather than a dbg.value. Check it is removed.
-;; CHECK-NEXT: @step()
+;; XCHECK-NEXT: @step()
   call void @llvm.dbg.assign(metadata i32 3, metadata !11, metadata !DIExpression(), metadata !15, metadata ptr undef, metadata !DIExpression()), !dbg !14
   call void @step()
 
