@@ -14,7 +14,7 @@
 ; CHECK: DIGlobalVariableExpression: 3
 ; CHECK: DILexicalBlock: 6
 ; CHECK: DILocalVariable: 3
-; CHECK: DILocation: 19
+; CHECK: DILocation: 18
 ; CHECK: DISubprogram: 2
 ; CHECK: DISubroutineType: 2
 

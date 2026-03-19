@@ -7,7 +7,7 @@
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILexicalBlockFile: 2
-; CHECK: DILocation: 9
+; CHECK: DILocation: 8
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
 

@@ -10,7 +10,7 @@
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILexicalBlock: 2
-; CHECK: DILocation: 5
+; CHECK: DILocation: 4
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
 

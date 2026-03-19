@@ -11,7 +11,7 @@
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 1
-; CHECK: DILocation: 6
+; CHECK: DILocation: 5
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
 
