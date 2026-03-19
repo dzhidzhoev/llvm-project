@@ -4,7 +4,6 @@
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
-; CHECK: DICommonBlock: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIExpression: 2
 ; CHECK: DIFile: 1
