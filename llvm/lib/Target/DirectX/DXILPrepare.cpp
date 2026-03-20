@@ -192,13 +192,26 @@ public:
                 DLR->eraseFromParent();
                 continue;
               }
-              if (auto *DVR = dyn_cast<DbgVariableRecord>(&DR);
-                  DVR && DVR->isDbgAssign()) {
-                DbgVariableRecord::createDbgVariableRecord(
-                    DVR->getValue(), DVR->getVariable(), DVR->getExpression(),
-                    DVR->getDebugLoc(), *DVR);
-                DVR->eraseFromParent();
-                continue;
+              if (auto *DVR = dyn_cast<DbgVariableRecord>(&DR)) {
+                if (DVR->isDbgAssign() || DVR->hasArgList()) {
+                  Value *V;
+                  DIExpression *E;
+                  if (!DVR->hasArgList()) {
+                    V = DVR->getValue();
+                    E = DVR->getExpression();
+                  } else {
+                    // DIArgList is not supported in LLVM 3.7, so we cannot
+                    // record the new value, but we still need to kill any old
+                    // value. Do this by poison. We do not know the correct type
+                    // to use here and arbitrarily use i1.
+                    V = PoisonValue::get(Type::getInt1Ty(M.getContext()));
+                    E = DIExpression::get(M.getContext(), {});
+                  }
+                  DbgVariableRecord::createDbgVariableRecord(
+                      V, DVR->getVariable(), E, DVR->getDebugLoc(), *DVR);
+                  DVR->eraseFromParent();
+                  continue;
+                }
               }
             }
           }
