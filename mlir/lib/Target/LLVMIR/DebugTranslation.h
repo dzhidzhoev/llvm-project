@@ -112,6 +112,7 @@ private:
   /// Constructs a tuple metadata node from the `elements`. Returns nullptr if
   /// `elements` is empty.
   llvm::MDTuple *getMDTupleOrNull(ArrayRef<DINodeAttr> elements);
+  llvm::MDTuple *getRetainedNodesOrNull(ArrayRef<Attribute> retainedNodes);
 
   /// Constructs a DIExpression metadata node from the DIExpressionAttr. Returns
   /// nullptr if `DIExpressionAttr` is null.
