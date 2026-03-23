@@ -12,7 +12,7 @@
 ; CHECK: DIFlagAllCallsDescribed: 8
 ; CHECK: DIFlagPrototyped: 8
 ; CHECK: DILocalVariable: 11
-; CHECK: DILocation: 41
+; CHECK: DILocation: 40
 ; CHECK: DISubprogram: 8
 ; CHECK: DISubrange: 1
 ; CHECK: DISubroutineType: 3
@@ -68,7 +68,7 @@
 ;; inline.
 
 source_filename = "test.cpp"
-define dso_local void @_Z1bPii(ptr %p1, i32 %v1) #0 !dbg !7 {
+define void @_Z1bPii(ptr %p1, i32 %v1) #0 !dbg !7 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !13, metadata !DIExpression(), metadata !15, metadata ptr undef, metadata !DIExpression()), !dbg !16
   call void @llvm.dbg.assign(metadata i1 undef, metadata !14, metadata !DIExpression(), metadata !17, metadata ptr undef, metadata !DIExpression()), !dbg !16
@@ -78,7 +78,7 @@ entry:
   ret void, !dbg !21
 }
 
-define internal void @_ZL1aPii(ptr %p2, i32 %v2) #2 !dbg !22 {
+define void @_ZL1aPii(ptr %p2, i32 %v2) #2 !dbg !22 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !24, metadata !DIExpression(), metadata !26, metadata ptr undef, metadata !DIExpression()), !dbg !27
   call void @llvm.dbg.assign(metadata i1 undef, metadata !25, metadata !DIExpression(), metadata !28, metadata ptr undef, metadata !DIExpression()), !dbg !27
@@ -97,7 +97,7 @@ entry:
 ;;   return f1_local;
 ;; }
 ;;
-define dso_local i32 @_Z2f1v() #3 !dbg !37 {
+define i32 @_Z2f1v() #3 !dbg !37 {
 entry:
   %f1_local = alloca i32, align 4, !DIAssignID !42
   call void @llvm.dbg.assign(metadata i1 undef, metadata !41, metadata !DIExpression(), metadata !42, metadata ptr %f1_local, metadata !DIExpression()), !dbg !43
@@ -117,7 +117,7 @@ entry:
 ;;   return f2_local[0];
 ;; }
 ;;
-define dso_local i32 @_Z2f2v() #3 !dbg !49 {
+define i32 @_Z2f2v() #3 !dbg !49 {
 entry:
   %f2_local = alloca [2 x i32], align 4, !DIAssignID !55
   call void @llvm.dbg.assign(metadata i1 undef, metadata !51, metadata !DIExpression(), metadata !55, metadata ptr %f2_local, metadata !DIExpression()), !dbg !56
@@ -138,7 +138,7 @@ entry:
 ;;   a(f3_local + 1, 3);
 ;;   return f3_local[1];
 ;; }
-define dso_local i32 @_Z2f3v() #3 !dbg !63 {
+define i32 @_Z2f3v() #3 !dbg !63 {
 entry:
   %f3_local = alloca [2 x i32], align 4, !DIAssignID !66
   call void @llvm.dbg.assign(metadata i1 undef, metadata !65, metadata !DIExpression(), metadata !66, metadata ptr %f3_local, metadata !DIExpression()), !dbg !67
@@ -159,7 +159,7 @@ entry:
 ;;   a(&f4_param, 4);
 ;;   return f4_param;
 ;; }
-define dso_local i32 @_Z2f4i(i32 %f4_param) #3 !dbg !75 {
+define i32 @_Z2f4i(i32 %f4_param) #3 !dbg !75 {
 entry:
   %f4_param.addr = alloca i32, align 4, !DIAssignID !80
   call void @llvm.dbg.assign(metadata i1 undef, metadata !79, metadata !DIExpression(), metadata !80, metadata ptr %f4_param.addr, metadata !DIExpression()), !dbg !81
@@ -176,7 +176,7 @@ entry:
 ;;   a(&f5_alias, 5);
 ;;   return f5_param;
 ;; }
-define dso_local i32 @_Z2f5i(i32 %f5_param) #3 !dbg !86 {
+define i32 @_Z2f5i(i32 %f5_param) #3 !dbg !86 {
 entry:
   %f5_param.addr = alloca i32, align 4, !DIAssignID !91
   call void @llvm.dbg.assign(metadata i1 undef, metadata !88, metadata !DIExpression(), metadata !91, metadata ptr %f5_param.addr, metadata !DIExpression()), !dbg !92
@@ -194,7 +194,7 @@ entry:
 ;;   b(&f6_local, 6);
 ;;   return f6_local;
 ;; }
-define dso_local i32 @_Z2f6v() #3 !dbg !99 {
+define i32 @_Z2f6v() #3 !dbg !99 {
 entry:
   %f6_local = alloca i32, align 4, !DIAssignID !102
   call void @llvm.dbg.assign(metadata i1 undef, metadata !101, metadata !DIExpression(), metadata !102, metadata ptr %f6_local, metadata !DIExpression()), !dbg !103
