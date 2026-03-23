@@ -7,7 +7,7 @@
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 3
 ; CHECK: DIDerivedType: 4
-; CHECK: DIExpression: 17
+; CHECK: DIExpression: 21
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagAllCallsDescribed: 3
 ; CHECK: DIFlagArtificial: 3
@@ -62,10 +62,10 @@ $_ZN1d1eEv = comdat any
 
 $_ZN1dC2Ev = comdat any
 
-@c = dso_local local_unnamed_addr global float 0.000000e+00, align 4, !dbg !0
+@c = local_unnamed_addr global float 0.000000e+00, align 4, !dbg !0
 
 ; Function Attrs: uwtable
-define dso_local void @_Z1gv() local_unnamed_addr #0 !dbg !11 {
+define void @_Z1gv() local_unnamed_addr #0 !dbg !11 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !15, metadata !DIExpression(DW_OP_LLVM_fragment, 0, 64), metadata !32, metadata ptr undef, metadata !DIExpression()), !dbg !33
   call void @llvm.dbg.assign(metadata i1 undef, metadata !15, metadata !DIExpression(DW_OP_LLVM_fragment, 64, 64), metadata !34, metadata ptr undef, metadata !DIExpression()), !dbg !33
@@ -102,13 +102,13 @@ entry:
   ret void, !dbg !74
 }
 
-declare !dbg !75 dso_local { <2 x float>, <2 x float> } @_Z1fv() local_unnamed_addr #2
+declare !dbg !75 { <2 x float>, <2 x float> } @_Z1fv() local_unnamed_addr #2
 
 ; Function Attrs: argmemonly nofree nosync nounwind willreturn
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN1d1eEv(ptr %this) local_unnamed_addr #3 comdat align 2 !dbg !48 {
+define void @_ZN1d1eEv(ptr %this) local_unnamed_addr #3 comdat align 2 !dbg !48 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !47, metadata !DIExpression(), metadata !78, metadata ptr undef, metadata !DIExpression()), !dbg !79
   call void @llvm.dbg.assign(metadata ptr %this, metadata !47, metadata !DIExpression(), metadata !80, metadata ptr undef, metadata !DIExpression()), !dbg !79
@@ -116,7 +116,7 @@ entry:
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN1dC2Ev(ptr %this) unnamed_addr #3 comdat align 2 !dbg !57 {
+define void @_ZN1dC2Ev(ptr %this) unnamed_addr #3 comdat align 2 !dbg !57 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !56, metadata !DIExpression(), metadata !82, metadata ptr undef, metadata !DIExpression()), !dbg !83
   call void @llvm.dbg.assign(metadata ptr %this, metadata !56, metadata !DIExpression(), metadata !84, metadata ptr undef, metadata !DIExpression()), !dbg !83
