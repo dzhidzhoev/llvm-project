@@ -8,7 +8,7 @@
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 2
 ; CHECK: DIExpression: 2
-; CHECK: DIFile: 4
+; CHECK: DIFile: 3
 ; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIFlagFwdDecl: 1
 ; CHECK: DIFlagPrototyped: 1
@@ -19,6 +19,8 @@
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
 
+; DXDI note: file operand of DIImportedEntity is not supported by DXIL,
+; therefore 1 DIFile is dropped.
 
 ;; $ cat test.cpp
 ;; #include <cstddef>
