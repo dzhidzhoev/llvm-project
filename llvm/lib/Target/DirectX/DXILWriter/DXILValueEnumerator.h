@@ -31,7 +31,6 @@ class Comdat;
 class ConstantAsMetadata;
 class DIArgList;
 class DICompileUnit;
-class DIExpression;
 class DIGlobalVariable;
 class DISubprogram;
 class Function;
@@ -45,6 +44,7 @@ class NamedMDNode;
 class raw_ostream;
 class Type;
 class Value;
+class ValueAsMetadata;
 class ValueSymbolTable;
 
 namespace dxil {
@@ -127,8 +127,8 @@ private:
   DenseMap<const DICompileUnit *, const MDTuple *> DICompileUnitSubprograms;
   DenseMap<const DISubprogram *, const ConstantAsMetadata *>
       DISubprogramFunction;
-  DenseMap<const DIGlobalVariable *, const DIExpression *>
-      DIGlobalVariableExpression;
+  DenseMap<const DIGlobalVariable *, const ValueAsMetadata *>
+      DIGlobalVariableValue;
 
   using InstructionMapType = DenseMap<const Instruction *, unsigned>;
   InstructionMapType InstructionMap;
@@ -259,10 +259,10 @@ public:
     return nullptr;
   }
 
-  const DIExpression *
-  getDIGlobalVariableExpression(const DIGlobalVariable *GV) const {
-    if (auto It = DIGlobalVariableExpression.find(GV);
-        It != DIGlobalVariableExpression.end()) {
+  const ValueAsMetadata *
+  getDIGlobalVariableValue(const DIGlobalVariable *GV) const {
+    if (auto It = DIGlobalVariableValue.find(GV);
+        It != DIGlobalVariableValue.end()) {
       return It->second;
     }
     return nullptr;

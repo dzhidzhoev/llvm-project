@@ -393,11 +393,17 @@ ValueEnumerator::ValueEnumerator(const Module &M, Type *PrefixType) {
       DICompileUnitSubprograms.insert({CU, SubprogramMD});
     }
 
-    for (const llvm::DIGlobalVariableExpression *GVE : DIF.global_variables()) {
-      auto [It, Inserted] = DIGlobalVariableExpression.insert(
-          {GVE->getVariable(), GVE->getExpression()});
-      if (!Inserted)
-        It->second = nullptr;
+    for (const GlobalVariable &GV : M.globals()) {
+      SmallVector<DIGlobalVariableExpression *, 4> GVEs;
+      for (auto *GVE : GVEs) {
+        if (GVE->getExpression()->getNumElements())
+          continue;
+        auto [It, Inserted] = DIGlobalVariableValue.insert(
+            {GVE->getVariable(),
+             ValueAsMetadata::get(const_cast<GlobalVariable *>(&GV))});
+        if (!Inserted)
+          It->second = nullptr;
+      }
     }
   }
 
@@ -741,11 +747,8 @@ void ValueEnumerator::EnumerateMetadata(unsigned F, const Metadata *MD) {
 
     // DIGlobalVariable gets an expression added.
     if (auto *GV = dyn_cast<DIGlobalVariable>(N)) {
-      if (auto *E = getDIGlobalVariableExpression(GV)) {
-        if (enumerateMetadataImpl(F, E)) {
-          Worklist.push_back(std::make_pair(E, E->op_begin()));
-          continue;
-        }
+      if (auto *VM = getDIGlobalVariableValue(GV)) {
+        enumerateMetadataImpl(F, VM);
       }
     }
 
