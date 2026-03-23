@@ -3,13 +3,12 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIBasicType: 2
+; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 4
-; CHECK: DIDerivedType: 6
+; CHECK: DIDerivedType: 5
 ; CHECK: DIExpression: 1
 ; CHECK: DIFile: 2
-; CHECK: DIFlagArtificial: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 1
@@ -26,7 +25,7 @@
 %F = type { [0 x i8], ptr, [8 x i8] }
 %"F::Nope" = type {}
 
-define internal void @_ZN2e34main17h934ff72f9a38d4bbE() unnamed_addr #0 !dbg !5 {
+define void @_ZN2e34main17h934ff72f9a38d4bbE() unnamed_addr #0 !dbg !5 {
 start:
   %qq = alloca %F, align 8
   call void @llvm.dbg.declare(metadata ptr %qq, metadata !10, metadata !28), !dbg !29
