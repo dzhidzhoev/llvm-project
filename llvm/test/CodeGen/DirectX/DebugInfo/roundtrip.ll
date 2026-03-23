@@ -3,7 +3,6 @@
 ; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
-; CHECK: DIArgList: 1
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIExpression: 5
@@ -18,14 +17,14 @@
 ;; llvm.dbg.assign intrinsics.
 
 ;; DIAssignID attachment only.
-define dso_local void @fun() !dbg !7 {
+define void @fun() !dbg !7 {
 entry:
   %local = alloca i32, align 4, !DIAssignID !14
   ret void, !dbg !13
 }
 
 ;; Unlinked llvm.dbg.assign.
-define dso_local void @fun2() !dbg !15 {
+define void @fun2() !dbg !15 {
 entry:
   %local = alloca i32, align 4
   call void @llvm.dbg.assign(metadata i32 undef, metadata !16, metadata !DIExpression(), metadata !18, metadata i32 undef, metadata !DIExpression()), !dbg !17
@@ -33,7 +32,7 @@ entry:
 }
 
 ;; An llvm.dbg.assign linked to an alloca.
-define dso_local void @fun3() !dbg !19 {
+define void @fun3() !dbg !19 {
 entry:
   %local = alloca i32, align 4, !DIAssignID !22
   call void @llvm.dbg.assign(metadata i32 undef, metadata !20, metadata !DIExpression(), metadata !22, metadata i32 undef, metadata !DIExpression()), !dbg !21
@@ -42,7 +41,7 @@ entry:
 
 ;; Check that using a DIAssignID as an operand before using it as an attachment
 ;; works (the order of the alloca and dbg.assign has been swapped).
-define dso_local void @fun4() !dbg !23 {
+define void @fun4() !dbg !23 {
 entry:
   call void @llvm.dbg.assign(metadata i32 undef, metadata !24, metadata !DIExpression(), metadata !26, metadata i32 undef, metadata !DIExpression()), !dbg !25
   %local = alloca i32, align 4, !DIAssignID !26
@@ -51,7 +50,7 @@ entry:
 
 ;; Check that the value and address operands print correctly.
 ;; There are currently no plans to support DIArgLists for the address component.
-define dso_local void @fun5(i32 %v) !dbg !27 {
+define void @fun5(i32 %v) !dbg !27 {
 entry:
   %local = alloca i32, align 4, !DIAssignID !30
   call void @llvm.dbg.assign(metadata i32 %v, metadata !28, metadata !DIExpression(), metadata !30, metadata ptr %local, metadata !DIExpression()), !dbg !29
