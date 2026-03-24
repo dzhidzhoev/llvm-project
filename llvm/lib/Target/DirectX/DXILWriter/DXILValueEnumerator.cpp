@@ -395,6 +395,7 @@ ValueEnumerator::ValueEnumerator(const Module &M, Type *PrefixType) {
 
     for (const GlobalVariable &GV : M.globals()) {
       SmallVector<DIGlobalVariableExpression *, 4> GVEs;
+      GV.getDebugInfo(GVEs);
       for (auto *GVE : GVEs) {
         if (GVE->getExpression()->getNumElements())
           continue;
