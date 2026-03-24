@@ -869,8 +869,7 @@ static unsigned getMetadataTypeOrder(const Metadata *MD) {
 
   // The reader is fast forward references for distinct node operands, but slow
   // when uniqued operands are unresolved.
-  // TODO: Shuffling distinct and non-distinct nodes breaks debug info upgrades.
-  return 2; // N->isDistinct() ? 2 : 3;
+  return N->isDistinct() ? 2 : 3;
 }
 
 void ValueEnumerator::organizeMetadata() {
