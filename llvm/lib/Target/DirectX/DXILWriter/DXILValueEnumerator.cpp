@@ -14,7 +14,6 @@
 #include "DXILValueEnumerator.h"
 #include "DirectXIRPasses/DebugInfo.h"
 #include "llvm/ADT/SmallVector.h"
-#include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/Config/llvm-config.h"
 #include "llvm/IR/Argument.h"
 #include "llvm/IR/BasicBlock.h"
@@ -957,18 +956,6 @@ void ValueEnumerator::organizeMetadata() {
 const Metadata *ValueEnumerator::getDXILMetadata(const Metadata *M) const {
   if (const Metadata *Replace = DebugInfo.VEReplace.lookup(M))
     return Replace;
-  if (auto *GVE = dyn_cast_or_null<llvm::DIGlobalVariableExpression>(M))
-    return GVE->getVariable();
-  if (auto *CB = dyn_cast_or_null<DICommonBlock>(M))
-    return CB->getScope();
-  if (auto *SR = dyn_cast_or_null<DISubrangeType>(M)) {
-    if (auto *BT = SR->getBaseType())
-      return BT;
-    return DIBasicType::get(
-        SR->getContext(), dwarf::DW_TAG_base_type, SR->getName(),
-        SR->getSizeInBits(), SR->getAlignInBits(), dwarf::DW_ATE_unsigned,
-        SR->getNumExtraInhabitants(), /*DataSizeInBits=*/0, SR->getFlags());
-  }
   return M;
 }
 
