@@ -135,7 +135,6 @@ public:
     addPass(createDXILPostOptimizationValidationLegacyPass());
     addPass(createDXILOpLoweringLegacyPass());
     addPass(createDXILPrepareModulePass());
-    addPass(createDXILDebugInfoLegacyPass());
   }
 };
 
