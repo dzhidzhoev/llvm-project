@@ -46,6 +46,7 @@ class Type;
 class Value;
 class ValueAsMetadata;
 class ValueSymbolTable;
+class DebugInfoMap;
 
 namespace dxil {
 
@@ -150,8 +151,11 @@ private:
   unsigned FirstFuncConstantID;
   unsigned FirstInstID;
 
+  const DebugInfoMap &DebugInfo;
+
 public:
-  ValueEnumerator(const Module &M, Type *PrefixType);
+  ValueEnumerator(const Module &M, Type *PrefixType,
+                  const DebugInfoMap &DebugInfo);
   ValueEnumerator(const ValueEnumerator &) = delete;
   ValueEnumerator &operator=(const ValueEnumerator &) = delete;
 

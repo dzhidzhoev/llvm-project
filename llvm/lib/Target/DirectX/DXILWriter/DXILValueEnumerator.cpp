@@ -12,6 +12,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "DXILValueEnumerator.h"
+#include "DirectXIRPasses/DebugInfo.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/Config/llvm-config.h"
@@ -363,7 +364,9 @@ static UseListOrderStack predictUseListOrder(const Module &M) {
   return Stack;
 }
 
-ValueEnumerator::ValueEnumerator(const Module &M, Type *PrefixType) {
+ValueEnumerator::ValueEnumerator(const Module &M, Type *PrefixType,
+                                 const DebugInfoMap &DebugInfo)
+    : DebugInfo(DebugInfo) {
   {
     DebugInfoFinder DIF;
     DIF.processModule(M);
@@ -729,6 +732,15 @@ void ValueEnumerator::EnumerateMetadata(unsigned F, const Metadata *MD) {
       continue;
     }
 
+    if (const Metadata *ExtraMD = DebugInfo.VEExtra.lookup(N)) {
+      if (enumerateMetadataImpl(F, ExtraMD)) {
+        if (const auto *ExtraN = dyn_cast<MDNode>(ExtraMD)) {
+          Worklist.push_back(std::make_pair(ExtraN, ExtraN->op_begin()));
+          continue;
+        }
+      }
+    }
+
     // DICompileUnit and DISubprogram get emitted with their links reversed.
     if (auto *CU = dyn_cast<DICompileUnit>(N)) {
       if (auto *SPs = getDICompileUnitSubprograms(CU)) {
@@ -943,6 +955,8 @@ void ValueEnumerator::organizeMetadata() {
 }
 
 const Metadata *ValueEnumerator::getDXILMetadata(const Metadata *M) const {
+  if (const Metadata *Replace = DebugInfo.VEReplace.lookup(M))
+    return Replace;
   if (auto *GVE = dyn_cast_or_null<llvm::DIGlobalVariableExpression>(M))
     return GVE->getVariable();
   if (auto *CB = dyn_cast_or_null<DICommonBlock>(M))
