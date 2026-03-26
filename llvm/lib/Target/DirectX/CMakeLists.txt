@@ -64,6 +64,8 @@ add_llvm_target(DirectXCodeGen
   DirectX
   )
 
+find_program(DXC_EXECUTABLE dxc)
+
 add_subdirectory(MCTargetDesc)
 add_subdirectory(TargetInfo)
 add_subdirectory(DirectXIRPasses)
