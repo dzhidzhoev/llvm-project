@@ -629,13 +629,8 @@ class MetadataLoader::MetadataLoaderImpl {
       }
 
       // Update DISubprograms' retainedNodes.
-      for (auto I = SPToEntities.begin(); I != SPToEntities.end(); ++I) {
-        auto *SP = I->first;
-        auto RetainedNodes = SP->getRetainedNodes();
-        SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
-        MDs.append(I->second);
-        SP->replaceRetainedNodes(MDNode::get(Context, MDs));
-      }
+      for (auto &[SP, Nodes] : SPToEntities)
+        SP->retainNodes(Nodes.begin(), Nodes.end());
     }
 
     ParentSubprogram.clear();

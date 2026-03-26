@@ -2502,6 +2502,14 @@ public:
   }
   void replaceRetainedNodes(MDNodeArray N) { replaceOperandWith(7, N.get()); }
 
+  template <typename IterT>
+  void retainNodes(IterT NodesBegin, IterT NodesEnd) {
+    auto RetainedNodes = getRetainedNodes();
+    SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
+    MDs.append(NodesBegin, NodesEnd);
+    replaceRetainedNodes(MDNode::get(getContext(), MDs));
+  }
+
   /// For the given retained node of DISubprogram, applies one of the
   /// given functions depending on the type of the node.
   template <typename T, typename MetadataT, typename FuncLVT,
