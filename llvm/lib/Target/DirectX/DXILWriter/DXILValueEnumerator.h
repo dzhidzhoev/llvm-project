@@ -125,12 +125,6 @@ private:
   /// the "getGlobalBasicBlockID" method.
   mutable DenseMap<const BasicBlock *, unsigned> GlobalBasicBlockIDs;
 
-  DenseMap<const DICompileUnit *, const MDTuple *> DICompileUnitSubprograms;
-  DenseMap<const DISubprogram *, const ConstantAsMetadata *>
-      DISubprogramFunction;
-  DenseMap<const DIGlobalVariable *, const ValueAsMetadata *>
-      DIGlobalVariableValue;
-
   using InstructionMapType = DenseMap<const Instruction *, unsigned>;
   InstructionMapType InstructionMap;
   unsigned InstructionCount;
@@ -246,31 +240,6 @@ public:
   /// specified basic block.  This is relatively expensive information, so it
   /// should only be used by rare constructs such as address-of-label.
   unsigned getGlobalBasicBlockID(const BasicBlock *BB) const;
-
-  const MDTuple *getDICompileUnitSubprograms(const DICompileUnit *CU) const {
-    if (auto It = DICompileUnitSubprograms.find(CU);
-        It != DICompileUnitSubprograms.end()) {
-      return It->second;
-    }
-    return nullptr;
-  }
-
-  const ConstantAsMetadata *getDISubprogramFunction(const DISubprogram *SP) const {
-    if (auto It = DISubprogramFunction.find(SP);
-        It != DISubprogramFunction.end()) {
-      return It->second;
-    }
-    return nullptr;
-  }
-
-  const ValueAsMetadata *
-  getDIGlobalVariableValue(const DIGlobalVariable *GV) const {
-    if (auto It = DIGlobalVariableValue.find(GV);
-        It != DIGlobalVariableValue.end()) {
-      return It->second;
-    }
-    return nullptr;
-  }
 
   const Metadata *getDXILMetadata(const Metadata *M) const;
 

@@ -18,7 +18,6 @@
 #include "llvm/IR/Argument.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Constant.h"
-#include "llvm/IR/DebugInfo.h"
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Function.h"
@@ -366,50 +365,6 @@ static UseListOrderStack predictUseListOrder(const Module &M) {
 ValueEnumerator::ValueEnumerator(const Module &M, Type *PrefixType,
                                  const DebugInfoMap &DebugInfo)
     : DebugInfo(DebugInfo) {
-  {
-    DebugInfoFinder DIF;
-    DIF.processModule(M);
-
-    std::multimap<const DICompileUnit *, const Metadata *> CUSubprograms;
-
-    for (const Function &F : M) {
-      if (const DISubprogram *SP = F.getSubprogram()) {
-        auto *FunctionMD = ConstantAsMetadata::get(const_cast<Function *>(&F));
-        DISubprogramFunction.insert({SP, FunctionMD});
-      }
-    }
-
-    for (const DISubprogram *SP : DIF.subprograms())
-      if (SP->getUnit())
-        CUSubprograms.insert({SP->getUnit(), SP});
-
-    for (auto It = CUSubprograms.begin(), End = CUSubprograms.end();
-         It != End;) {
-      auto *CU = It->first;
-      auto CUEnd = CUSubprograms.upper_bound(CU);
-      SmallVector<Metadata *, 16> Subprograms;
-      do
-        Subprograms.push_back(const_cast<Metadata *>(It->second));
-      while (++It != CUEnd);
-      auto *SubprogramMD = MDTuple::get(M.getContext(), Subprograms);
-      DICompileUnitSubprograms.insert({CU, SubprogramMD});
-    }
-
-    for (const GlobalVariable &GV : M.globals()) {
-      SmallVector<DIGlobalVariableExpression *, 4> GVEs;
-      GV.getDebugInfo(GVEs);
-      for (auto *GVE : GVEs) {
-        if (GVE->getExpression()->getNumElements())
-          continue;
-        auto [It, Inserted] = DIGlobalVariableValue.insert(
-            {GVE->getVariable(),
-             ValueAsMetadata::get(const_cast<GlobalVariable *>(&GV))});
-        if (!Inserted)
-          It->second = nullptr;
-      }
-    }
-  }
-
   EnumerateType(PrefixType);
 
   UseListOrders = predictUseListOrder(M);
@@ -737,30 +692,6 @@ void ValueEnumerator::EnumerateMetadata(unsigned F, const Metadata *MD) {
           Worklist.push_back(std::make_pair(ExtraN, ExtraN->op_begin()));
           continue;
         }
-      }
-    }
-
-    // DICompileUnit and DISubprogram get emitted with their links reversed.
-    if (auto *CU = dyn_cast<DICompileUnit>(N)) {
-      if (auto *SPs = getDICompileUnitSubprograms(CU)) {
-        if (enumerateMetadataImpl(F, SPs)) {
-          Worklist.push_back(std::make_pair(SPs, SPs->op_begin()));
-          continue;
-	}
-      }
-    }
-
-    // DISubprogram gets its function changed.
-    if (auto *SP = dyn_cast<DISubprogram>(N)) {
-      if (auto *FM = getDISubprogramFunction(SP)) {
-        enumerateMetadataImpl(F, FM);
-      }
-    }
-
-    // DIGlobalVariable gets an expression added.
-    if (auto *GV = dyn_cast<DIGlobalVariable>(N)) {
-      if (auto *VM = getDIGlobalVariableValue(GV)) {
-        enumerateMetadataImpl(F, VM);
       }
     }
 

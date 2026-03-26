@@ -1532,7 +1532,7 @@ void DXILBitcodeWriter::writeDICompileUnit(const DICompileUnit *N,
   Record.push_back(N->getEmissionKind());
   Record.push_back(VE.getMetadataOrNullID(N->getEnumTypes().get()));
   Record.push_back(VE.getMetadataOrNullID(N->getRetainedTypes().get()));
-  Record.push_back(VE.getMetadataOrNullID(VE.getDICompileUnitSubprograms(N)));
+  Record.push_back(VE.getMetadataOrNullID(DebugInfo.VEExtra.lookup(N)));
   Record.push_back(VE.getMetadataOrNullID(N->getGlobalVariables().get()));
   Record.push_back(VE.getMetadataOrNullID(N->getImportedEntities().get()));
   Record.push_back(N->getDWOId());
@@ -1559,7 +1559,7 @@ void DXILBitcodeWriter::writeDISubprogram(const DISubprogram *N,
   Record.push_back(N->getVirtualIndex());
   Record.push_back(N->getFlags());
   Record.push_back(N->isOptimized());
-  Record.push_back(VE.getMetadataOrNullID(VE.getDISubprogramFunction(N)));
+  Record.push_back(VE.getMetadataOrNullID(DebugInfo.VEExtra.lookup(N)));
   Record.push_back(VE.getMetadataOrNullID(N->getTemplateParams().get()));
   Record.push_back(VE.getMetadataOrNullID(N->getDeclaration()));
   Record.push_back(VE.getMetadataOrNullID(N->getRetainedNodes().get()));
@@ -1653,7 +1653,7 @@ void DXILBitcodeWriter::writeDIGlobalVariable(const DIGlobalVariable *N,
   Record.push_back(VE.getMetadataOrNullID(N->getType()));
   Record.push_back(N->isLocalToUnit());
   Record.push_back(N->isDefinition());
-  Record.push_back(VE.getMetadataOrNullID(VE.getDIGlobalVariableValue(N)));
+  Record.push_back(VE.getMetadataOrNullID(DebugInfo.VEExtra.lookup(N)));
   Record.push_back(VE.getMetadataOrNullID(N->getStaticDataMemberDeclaration()));
 
   Stream.EmitRecord(bitc::METADATA_GLOBAL_VAR, Record, Abbrev);
