@@ -9,7 +9,10 @@
 #include "DebugInfo.h"
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/IR/DebugInfo.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/IR/IntrinsicsDirectX.h"
 #include "llvm/IR/Module.h"
+#include "llvm/Transforms/Utils/BasicBlockUtils.h"
 
 #include <map>
 
@@ -17,10 +20,56 @@
 
 using namespace llvm;
 
+// llvm.dbg.value has an additional "offset" operand in DXIL. Transform
+// llvm.dbg.value it to llvm.dx.dbg.value and add zero offset.
+static void replaceDbgVariableIntr(DbgVariableIntrinsic *DVI, Function *NewF) {
+  if (DVI->getIntrinsicID() != Intrinsic::dbg_value) {
+    return;
+  }
+
+  Type *Int64Ty = Type::getInt64Ty(DVI->getContext());
+  Constant *ZeroOffset = ConstantInt::get(Int64Ty, 0);
+
+  Value *NewOps[] = {
+      DVI->getOperand(0),
+      ZeroOffset,
+      DVI->getOperand(1),
+      DVI->getOperand(2),
+  };
+
+  CallInst *NewI = CallInst::Create(NewF->getFunctionType(), NewF, NewOps);
+  ReplaceInstWithInst(DVI, NewI);
+}
+
+static void replaceDbgValue(Module &M) {
+  Function *F = getDeclarationIfExists(&M, Intrinsic::dbg_value);
+  if (!F)
+    return;
+
+  if (F->getNumUses() == 0) {
+    F->eraseFromParent();
+    return;
+  }
+
+  Function *NewF = getOrInsertDeclaration(&M, Intrinsic::dx_dbg_value);
+
+  for (User *U : make_early_inc_range(F->users())) {
+    auto *DVI = cast<DbgVariableIntrinsic>(U);
+    replaceDbgVariableIntr(DVI, NewF);
+  }
+
+  // Remove conflicting declarations.
+  F->eraseFromParent();
+  NewF->setName("llvm.dbg.value");
+}
+
 DebugInfoMap DebugInfoPass::run(Module &M) {
   DebugInfoMap Res;
   DebugInfoFinder DIF;
   DIF.processModule(M);
+
+  // Replace llvm.dbg.value with equivalent DXIL intrinsics.
+  replaceDbgValue(M);
 
   std::multimap<const DICompileUnit *, const Metadata *> CUSubprograms;
 
