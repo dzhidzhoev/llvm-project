@@ -7,7 +7,6 @@
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
-; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILexicalBlock: 1

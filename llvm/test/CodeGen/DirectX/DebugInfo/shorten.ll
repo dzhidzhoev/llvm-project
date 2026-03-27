@@ -8,7 +8,6 @@
 ; CHECK: DICompositeType: 2
 ; CHECK: DIExpression: 6
 ; CHECK: DIFile: 1
-; CHECK: DIFlagAllCallsDescribed: 2
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
 ; CHECK: DILocation: 13

@@ -1557,7 +1557,7 @@ void DXILBitcodeWriter::writeDISubprogram(const DISubprogram *N,
   Record.push_back(VE.getMetadataOrNullID(N->getContainingType()));
   Record.push_back(N->getVirtuality());
   Record.push_back(N->getVirtualIndex());
-  Record.push_back(N->getFlags());
+  Record.push_back(N->getFlags() & 0x7fff);
   Record.push_back(N->isOptimized());
   Record.push_back(VE.getMetadataOrNullID(DebugInfo.VEExtra.lookup(N)));
   Record.push_back(VE.getMetadataOrNullID(N->getTemplateParams().get()));

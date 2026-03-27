@@ -9,7 +9,6 @@
 ; CHECK: DIDerivedType: 2
 ; CHECK: DIExpression: 18
 ; CHECK: DIFile: 1
-; CHECK: DIFlagAllCallsDescribed: 8
 ; CHECK: DIFlagPrototyped: 8
 ; CHECK: DILocalVariable: 11
 ; CHECK: DILocation: 40

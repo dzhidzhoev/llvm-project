@@ -8,7 +8,6 @@
 ; CHECK: DIDerivedType: 1
 ; CHECK: DIExpression: 2
 ; CHECK: DIFile: 1
-; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 2

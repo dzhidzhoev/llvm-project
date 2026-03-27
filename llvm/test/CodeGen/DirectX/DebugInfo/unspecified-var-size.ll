@@ -9,7 +9,6 @@
 ; CHECK: DIDerivedType: 2
 ; CHECK: DIExpression: 2
 ; CHECK: DIFile: 3
-; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIFlagFwdDecl: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DIImportedEntity: 1

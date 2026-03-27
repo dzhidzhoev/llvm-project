@@ -9,7 +9,6 @@
 ; CHECK: DIDerivedType: 1
 ; CHECK: DIExpression: 2
 ; CHECK: DIFile: 1
-; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILocalVariable: 1

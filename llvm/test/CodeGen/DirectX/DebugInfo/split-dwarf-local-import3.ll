@@ -6,7 +6,6 @@
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 2
 ; CHECK: DIFile: 2
-; CHECK: DIFlagAllCallsDescribed: 2
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DIGlobalVariable: 1
 ; CHECK: DIImportedEntity: 1

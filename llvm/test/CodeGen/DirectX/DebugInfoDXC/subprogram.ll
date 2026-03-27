@@ -14,7 +14,7 @@ define i32 @foo(i32 %a) !dbg !3 {
 ; CHECK-DAG: [[CU]] = distinct !DICompileUnit(language: DW_LANG_C11, file: [[F:![0-9]+]], producer: "clang", isOptimized: true, runtimeVersion: 0, emissionKind: 1, subprograms: [[SPS:![0-9]+]])
 ; CHECK-DAG: [[F]] = !DIFile(filename: "subprogram.c", directory: "")
 ; CHECK-DAG: [[SPS]] = !{[[SP:![0-9]+]]}
-; CHECK-DAG: [[SP]] = !DISubprogram(name: "foo", scope: [[F]], file: [[F]], line: 1, type: [[ST:![0-9]+]], isLocal: false, isDefinition: true, scopeLine: 1, flags: {{.*}}, isOptimized: true, function: i32 (i32)* @foo)
+; CHECK-DAG: [[SP]] = !DISubprogram(name: "foo", scope: [[F]], file: [[F]], line: 1, type: [[ST:![0-9]+]], isLocal: false, isDefinition: true, scopeLine: 1, flags: DIFlagPrototyped, isOptimized: true, function: i32 (i32)* @foo)
 ; CHECK-DAG: [[ST]] = !DISubroutineType(types: [[TS:![0-9]+]])
 ; CHECK-DAG: [[TS]] = !{[[BT:![0-9]+]], [[BT]]}
 ; CHECK-DAG: [[BT]] = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)

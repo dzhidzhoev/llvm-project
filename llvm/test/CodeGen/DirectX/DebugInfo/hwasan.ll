@@ -7,7 +7,6 @@
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIExpression: 1
 ; CHECK: DIFile: 1
-; CHECK: DIFlagAllCallsDescribed: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 2
 ; CHECK: DISubprogram: 1
