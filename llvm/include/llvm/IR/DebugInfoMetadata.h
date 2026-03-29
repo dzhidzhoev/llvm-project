@@ -2583,7 +2583,7 @@ public:
   /// of a current scope for expression evaluation.
   void cleanupRetainedNodes();
 
-  template <typename T> void cleanupRetainedNodes(T &&RemovePred) {
+  template <typename T> void cleanupRetainedNodesIf(T &&RemovePred) {
     // As this is expected to be called during module loading, before
     // stripping old or incorrect debug info, perform minimal sanity check.
     if (!isa_and_present<MDTuple>(getRawRetainedNodes()))

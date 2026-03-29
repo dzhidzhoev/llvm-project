@@ -1487,7 +1487,7 @@ void DISubprogram::cleanupRetainedNodes() {
     return this != TypeSP;
   };
 
-  cleanupRetainedNodes(IsAlienType);
+  cleanupRetainedNodesIf(IsAlienType);
 }
 
 DILexicalBlockBase::DILexicalBlockBase(LLVMContext &C, unsigned ID,
