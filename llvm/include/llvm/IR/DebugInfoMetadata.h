@@ -2589,21 +2589,25 @@ public:
     if (!isa_and_present<MDTuple>(getRawRetainedNodes()))
       return;
 
+    // Find first retained node to be removed from retainedNodes.
     MDTuple *RetainedNodes = cast<MDTuple>(getRawRetainedNodes());
-    SmallVector<Metadata *> MDs;
+    auto FirstToRemove = find_if(RetainedNodes->operands(), RemovePred);
+
+    // Exit if no nodes should be removed.
+    if (FirstToRemove == RetainedNodes->operands().end())
+      return;
+
+    // Copy all nodes before the first removed.
+    SmallVector<Metadata *> MDs(RetainedNodes->operands().begin(),
+                                FirstToRemove);
     MDs.reserve(RetainedNodes->getNumOperands());
-    for (const MDOperand &Node : RetainedNodes->operands()) {
-      // Ignore malformed retainedNodes.
-      if (Node && !isa<MDNode>(Node))
-        return;
 
-      auto *N = cast_or_null<MDNode>(Node);
-      if (!RemovePred(N))
-        MDs.push_back(N);
-    }
+    // Filter the rest of the nodes
+    std::copy_if(FirstToRemove + 1, RetainedNodes->operands().end(),
+                 std::back_inserter(MDs),
+                 [&](Metadata *N) { return !RemovePred(N); });
 
-    if (MDs.size() != RetainedNodes->getNumOperands())
-      replaceRetainedNodes(MDNode::get(getContext(), MDs));
+    replaceRetainedNodes(MDNode::get(getContext(), MDs));
   }
 
   /// Calls SP->cleanupRetainedNodes() for a range of DISubprograms.

@@ -359,7 +359,7 @@ void llvm::CloneFunctionInto(Function *NewFunc, const Function *OldFunc,
   // DIGlobalVariableExpressions representing static locals stay in the scope of
   // OldSP after function cloning. Remove them from retainedNodes of NewSP.
   if (DISubprogram *NewSP = NewFunc->getSubprogram())
-    NewSP->cleanupRetainedNodesIf([NewSP](MDNode *N) {
+    NewSP->cleanupRetainedNodesIf([NewSP](Metadata *N) {
       auto *GVE = dyn_cast_or_null<DIGlobalVariableExpression>(N);
       return GVE &&
              DISubprogram::getRetainedNodeScope(GVE)->getSubprogram() != NewSP;
