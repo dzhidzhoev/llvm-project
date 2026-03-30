@@ -1265,8 +1265,6 @@ LogicalResult ModuleTranslation::convertGlobalsAndAliases() {
           if (auto *sp =
                   dyn_cast_if_present<llvm::DISubprogram>(cb->getScope()))
             scope = sp->getUnit();
-          // TODO: add a test for static local inside
-          // DILexicalBlock/LexicalBlockFile
         } else if (auto *lbb =
                        dyn_cast_if_present<llvm::DILexicalBlockBase>(scope))
           scope = lbb->getSubprogram();

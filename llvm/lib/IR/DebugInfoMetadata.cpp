@@ -1447,11 +1447,9 @@ bool DISubprogram::describes(const Function *F) const {
 
 template <typename ScopeT, typename NodeT>
 static ScopeT getRawRetainedNodeScopeInternal(NodeT *N) {
-  auto getScope = [](auto *N) { return N->getScope(); };
-
+  auto getScopeLambda = [](auto *N) { return getScope(N); };
   return DISubprogram::visitRetainedNode<ScopeT>(
-      N, getScope, getScope, getScope, getScope,
-      [](auto *GVE) { return GVE->getVariable()->getScope(); },
+      N, getScopeLambda, getScopeLambda, getScopeLambda, getScopeLambda, getScopeLambda,
       [](auto *N) { return nullptr; });
 }
 
