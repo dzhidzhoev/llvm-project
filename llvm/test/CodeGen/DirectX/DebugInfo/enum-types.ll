@@ -1,12 +1,12 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 2
 ; CHECK: DICompositeType: 2
 ; CHECK: DIEnumerator: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 2
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
@@ -22,7 +22,7 @@
 
 
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define void @_Z4topA2EA(i32 %sa) #0 !dbg !7 {
 entry:
   %sa.addr = alloca i32, align 4
@@ -34,7 +34,7 @@ entry:
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define void @_Z4topB2EA(i32 %sa) #0 !dbg !17 {
 entry:
   %sa.addr = alloca i32, align 4
@@ -43,7 +43,7 @@ entry:
   ret void, !dbg !27
 }
 
-attributes #0 = { nounwind ssp uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind ssp "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0, !12}

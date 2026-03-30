@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
@@ -51,7 +51,7 @@ done:                                             ; preds = %top
 ; Function Attrs: nounwind readnone speculatable
 declare void @llvm.dbg.label(metadata)
 
-attributes #0 = { noinline nounwind optnone uwtable }
+attributes #0 = { noinline nounwind optnone }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!3}

@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 4
+; CHECK: DIExpression: 5
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
@@ -26,7 +26,7 @@
 ; }
 
 
-; Function Attrs: uwtable
+; Function Attrs:
 define void @_Z2f2v() #0 !dbg !4 {
   tail call void @llvm.dbg.value(metadata i32 undef, metadata !16, metadata !DIExpression()), !dbg !18
   tail call void @llvm.dbg.value(metadata i32 2, metadata !20, metadata !DIExpression()), !dbg !18
@@ -34,7 +34,7 @@ define void @_Z2f2v() #0 !dbg !4 {
   ret void, !dbg !22
 }
 
-; Function Attrs: uwtable
+; Function Attrs:
 define void @_Z2f1ii(i32 %x, i32 %y) #0 !dbg !8 {
   tail call void @llvm.dbg.value(metadata i32 %x, metadata !13, metadata !DIExpression()), !dbg !23
   tail call void @llvm.dbg.value(metadata i32 %y, metadata !14, metadata !DIExpression()), !dbg !23
@@ -47,7 +47,7 @@ declare void @_Z2f3i(i32) #1
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 
-attributes #0 = { uwtable "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "use-soft-float"="false" }
+attributes #0 = { "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "use-soft-float"="false" }
 attributes #2 = { nounwind readnone }
 

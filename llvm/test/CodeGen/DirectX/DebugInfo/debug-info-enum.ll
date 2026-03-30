@@ -1,17 +1,14 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 8
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 10
 ; CHECK: DIEnumerator: 16
-; CHECK: DIExpression: 10
 ; CHECK: DIFile: 1
-; CHECK: DIFlagEnumClass: 9
 ; CHECK: DIGlobalVariable: 10
-; CHECK: DIGlobalVariableExpression: 10
 
 ; Test enumeration representation in DWARF debug info:
 ; * test value representation for each possible underlying integer type

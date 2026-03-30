@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 6
+; CHECK: DIExpression: 7
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 3
 ; CHECK: DILocalVariable: 6
@@ -59,7 +59,7 @@
 ; NOTE: Instructions below changed from `add` to `mul` to make them more expensive
 ; and unlikely to be sunk to replace COPYs into a return value register.
 
-; Function Attrs: norecurse nounwind readnone uwtable willreturn
+; Function Attrs: norecurse nounwind readnone willreturn
 define dso_local i32 @foo(i32 %bar) local_unnamed_addr !dbg !7 {
 entry:
   call void @llvm.dbg.value(metadata i32 %bar, metadata !12, metadata !DIExpression()), !dbg !14
@@ -68,14 +68,14 @@ entry:
   ret i32 %add, !dbg !16
 }
 
-; Function Attrs: norecurse nounwind readnone uwtable willreturn
+; Function Attrs: norecurse nounwind readnone willreturn
 define dso_local i32 @qux(i32 %quux) local_unnamed_addr !dbg !17 {
 entry:
   %add.i = mul nsw i32 %quux, 12, !dbg !24
   ret i32 %add.i, !dbg !25
 }
 
-; Function Attrs: norecurse nounwind readnone uwtable willreturn
+; Function Attrs: norecurse nounwind readnone willreturn
 define dso_local i32 @croix(i32 %quux) local_unnamed_addr !dbg !26 {
 entry:
   call void @llvm.dbg.value(metadata i32 undef, metadata !28, metadata !DIExpression()), !dbg !30

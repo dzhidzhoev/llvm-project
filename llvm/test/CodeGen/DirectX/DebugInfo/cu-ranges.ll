@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
@@ -19,7 +19,7 @@
 
 ; FIXME: When we get better dumping facilities we'll want to elaborate here.
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define i32 @foo(i32 %a) #0 section "__TEXT,__foo" !dbg !4 {
 entry:
   %a.addr = alloca i32, align 4
@@ -33,7 +33,7 @@ entry:
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define i32 @bar(i32 %a) #0 !dbg !9 {
 entry:
   %a.addr = alloca i32, align 4
@@ -44,7 +44,7 @@ entry:
   ret i32 %add, !dbg !18
 }
 
-attributes #0 = { nounwind uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0}

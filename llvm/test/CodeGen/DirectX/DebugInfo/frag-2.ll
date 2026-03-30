@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 2
@@ -68,7 +68,7 @@ $_ZN1BC2E1a = comdat any
 
 $_ZN1B1fEv = comdat any
 
-; Function Attrs: nofree norecurse nounwind uwtable
+; Function Attrs: nofree norecurse nounwind
 define dso_local void @_ZNK1BmlERKS_(ptr noalias nocapture sret(%class.B) align 4 %agg.result, ptr nocapture readonly %this, ptr nocapture nonnull readnone align 4 dereferenceable(20) %0) local_unnamed_addr #0 align 2 !dbg !7 {
 entry:
   %agg.tmp.sroa.0.0..sroa_idx = getelementptr inbounds %class.B, ptr %this, i64 0, i32 1, !dbg !42
@@ -89,7 +89,7 @@ entry:
 ; Function Attrs: argmemonly nofree nosync nounwind willreturn
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define linkonce_odr dso_local void @_ZN1BC2E1a(ptr %this, <2 x float> %d.coerce0, <2 x float> %d.coerce1) unnamed_addr #2 comdat align 2 !dbg !48 {
 entry:
   %d.sroa.0.0..sroa_idx = getelementptr inbounds %class.B, ptr %this, i64 0, i32 1, !dbg !55
@@ -104,7 +104,7 @@ entry:
 ; Function Attrs: nofree nosync nounwind readnone speculatable willreturn
 declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, metadata) #3
 
-; Function Attrs: uwtable
+; Function Attrs:
 define dso_local void @_Z1jv() local_unnamed_addr #4 !dbg !57 {
 entry:
   %convexbody = alloca %class.h, align 1, !DIAssignID !73
@@ -149,7 +149,7 @@ entry:
 
 declare dso_local void @_ZN1h1iEv(ptr sret(%class.B) align 4, ptr) local_unnamed_addr #5
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define linkonce_odr dso_local nonnull align 4 dereferenceable(16) ptr @_ZN1B1fEv(ptr %this) local_unnamed_addr #6 comdat align 2 !dbg !93 {
 entry:
   %e = getelementptr inbounds %class.B, ptr %this, i64 0, i32 1, !dbg !101

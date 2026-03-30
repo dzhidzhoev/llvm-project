@@ -1,16 +1,15 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 3
 ; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 4
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
-; CHECK: DIFlagTypePassByValue: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 6
 ; CHECK: DISubprogram: 1
@@ -39,7 +38,7 @@
 
 %class.c = type { [4 x float] }
 
-; Function Attrs: uwtable
+; Function Attrs:
 define dso_local void @_Z1dv() #0 !dbg !7 {
 entry:
   %a = alloca [3 x %class.c], align 16, !DIAssignID !22

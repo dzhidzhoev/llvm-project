@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
@@ -69,7 +69,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @Cond = dso_local global i32 0, align 4
 @C = dso_local global ptr null, align 8
 
-; Function Attrs: mustprogress uwtable
+; Function Attrs: mustprogress
 define dso_local void @_Z1fv() #0 !dbg !9 {
 entry:
   %A = alloca [16 x i32], align 16, !DIAssignID !18

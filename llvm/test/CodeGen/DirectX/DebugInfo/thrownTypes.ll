@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
@@ -11,13 +11,13 @@
 
 ; DXDI note: DICompositeType here is only used for thrownTypes metadata, which is not supported.
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @f() #0 !dbg !5 {
 entry:
   ret void, !dbg !11
 }
 
-attributes #0 = { nounwind uwtable }
+attributes #0 = { nounwind }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!8, !9}

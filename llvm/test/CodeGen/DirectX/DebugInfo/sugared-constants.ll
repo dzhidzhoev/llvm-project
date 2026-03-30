@@ -1,12 +1,12 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 3
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIDerivedType: 2
-; CHECK: DIExpression: 3
+; CHECK: DIExpression: 4
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILocalVariable: 3
@@ -17,8 +17,8 @@
 ; Use correct signedness when emitting constants of derived (sugared) types.
 
 
-; Function Attrs: uwtable
-define void @main() #0 !dbg !4 {
+; Function Attrs:
+define void @main() !dbg !4 {
 entry:
   tail call void @llvm.dbg.value(metadata i32 42, metadata !10, metadata !DIExpression()), !dbg !21
   tail call void @llvm.dbg.value(metadata i32 117, metadata !12, metadata !DIExpression()), !dbg !24
@@ -29,7 +29,6 @@ entry:
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.value(metadata, metadata, metadata) #2
 
-attributes #0 = { uwtable }
 attributes #2 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0}

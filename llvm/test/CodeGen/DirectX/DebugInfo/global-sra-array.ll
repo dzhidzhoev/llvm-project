@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 2
@@ -45,21 +45,21 @@ target triple = "x86_64-apple-macosx10.12.0"
 
 
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define void @foo(i32 %in) #0 {
 entry:
   store i32 %in, ptr @array, align 16, !tbaa !20
   ret void
 }
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define void @bar(i32 %in) #0 {
 entry:
   store i32 %in, ptr getelementptr inbounds ([2 x %struct.anon], ptr @array, i64 0, i64 1, i32 0), align 8, !tbaa !20
   ret void
 }
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define i32 @main(i32 %argc, ptr %argv) #0 !dbg !25 {
 entry:
   call void @llvm.dbg.value(metadata i32 %argc, metadata !31, metadata !33), !dbg !34
@@ -86,7 +86,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 ; Function Attrs: nounwind readnone speculatable
 declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 
-attributes #0 = { nounwind optsize ssp uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "use-soft-float"="false" }
+attributes #0 = { nounwind optsize ssp "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone speculatable }
 attributes #2 = { optsize }
 

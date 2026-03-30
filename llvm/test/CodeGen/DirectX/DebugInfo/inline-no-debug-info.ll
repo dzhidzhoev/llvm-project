@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
@@ -37,7 +37,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @a = common global i32 0, align 4
 @b = common global i32 0, align 4
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @callee() #0 {
 entry:
   store i32 1, ptr @a, align 4
@@ -45,14 +45,14 @@ entry:
   ret void
 }
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @caller() #0 !dbg !4 {
 entry:
   tail call void @callee(), !dbg !12
   ret void, !dbg !12
 }
 
-attributes #0 = { nounwind uwtable "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!8, !9}

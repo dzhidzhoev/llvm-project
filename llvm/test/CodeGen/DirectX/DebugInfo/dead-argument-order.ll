@@ -1,13 +1,13 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILocalVariable: 2
@@ -34,7 +34,7 @@
 
 %struct.S = type { i32 }
 
-; Function Attrs: nounwind readnone uwtable
+; Function Attrs: nounwind readnone
 define i32 @_Z8function1Si(i32 %s.coerce, i32 %i) #0 !dbg !9 {
 entry:
   tail call void @llvm.dbg.declare(metadata ptr undef, metadata !14, metadata !DIExpression()), !dbg !20
@@ -49,7 +49,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 
-attributes #0 = { nounwind readnone uwtable "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind readnone "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0}

@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
@@ -75,7 +75,7 @@
 ; REF:      DW_AT_abstract_origin ([[F5_ABS]]
 
 
-; Function Attrs: alwaysinline uwtable
+; Function Attrs: alwaysinline
 define void @_Z2f2v() #0 !dbg !6 {
 entry:
   call void @_Z2f1v(), !dbg !9
@@ -84,21 +84,21 @@ entry:
 
 declare void @_Z2f1v()
 
-; Function Attrs: uwtable
+; Function Attrs:
 define void @_Z2f3v() !dbg !11 {
 entry:
   call void @_Z2f1v(), !dbg !12
   ret void, !dbg !14
 }
 
-; Function Attrs: alwaysinline uwtable
+; Function Attrs: alwaysinline
 define void @_ZN2F42f5Ev() #0 align 2 !dbg !15 {
 entry:
   call void @_Z2f1v(), !dbg !19
   ret void, !dbg !20
 }
 
-; Function Attrs: uwtable
+; Function Attrs:
 define void @_Z2f6v() !dbg !21 {
 entry:
   call void @_Z2f1v(), !dbg !22

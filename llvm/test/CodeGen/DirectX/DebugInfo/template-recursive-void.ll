@@ -1,19 +1,17 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 3
 ; CHECK: DIDerivedType: 6
-; CHECK: DIExpression: 1
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagArtificial: 6
 ; CHECK: DIFlagObjectPointer: 3
 ; CHECK: DIFlagPrivate: 1
 ; CHECK: DIFlagPrototyped: 4
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DISubprogram: 4
 ; CHECK: DISubroutineType: 4
 ; CHECK: DITemplateTypeParameter: 1

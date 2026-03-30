@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIDerivedType: 2
-; CHECK: DIExpression: 1
+; CHECK: DIExpression: 2
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILocalVariable: 1
@@ -24,7 +24,7 @@
 ; }
 
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @_Z3fooPv(ptr noalias %dst) #0 !dbg !4 {
 entry:
   %dst.addr = alloca ptr, align 8
@@ -36,7 +36,7 @@ entry:
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
-attributes #0 = { nounwind uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0}

@@ -1,16 +1,14 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 1
 ; CHECK: DIFile: 1
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILocation: 2
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
@@ -41,7 +39,7 @@ entry:
   ret i32 0, !dbg !19
 }
 
-attributes #0 = { noinline nounwind optnone ssp uwtable }
+attributes #0 = { noinline nounwind optnone ssp }
 
 !llvm.dbg.cu = !{!2}
 !llvm.module.flags = !{!10, !11, !12, !13}

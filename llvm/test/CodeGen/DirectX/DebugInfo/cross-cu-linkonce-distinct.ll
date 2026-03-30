@@ -1,16 +1,15 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 2
 ; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 3
+; CHECK: DIExpression: 2
 ; CHECK: DIFile: 2
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DIGlobalVariable: 2
-; CHECK: DIGlobalVariableExpression: 2
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 2
 ; CHECK: DISubprogram: 1
@@ -49,7 +48,7 @@ source_filename = "test/DebugInfo/Generic/cross-cu-linkonce-distinct.ll"
 @x = global ptr @_Z4funci, align 8, !dbg !0
 @y = global ptr @_Z4funci, align 8, !dbg !7
 
-; Function Attrs: inlinehint nounwind uwtable
+; Function Attrs: inlinehint nounwind
 define i32 @_Z4funci(i32 %i) #0 !dbg !18 {
   %1 = alloca i32, align 4
   store i32 %i, ptr %1, align 4
@@ -62,7 +61,7 @@ define i32 @_Z4funci(i32 %i) #0 !dbg !18 {
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
-attributes #0 = { inlinehint nounwind uwtable }
+attributes #0 = { inlinehint nounwind }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!10, !13}

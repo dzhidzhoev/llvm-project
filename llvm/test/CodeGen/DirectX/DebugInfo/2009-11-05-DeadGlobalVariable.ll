@@ -1,14 +1,12 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 1
 ; CHECK: DIFile: 1
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocation: 1
 ; CHECK: DISubprogram: 1
@@ -18,13 +16,13 @@
 
 source_filename = "test/DebugInfo/Generic/2009-11-05-DeadGlobalVariable.ll"
 
-; Function Attrs: nounwind readnone ssp uwtable
+; Function Attrs: nounwind readnone ssp
 define i32 @foo() #0 !dbg !6 {
 entry:
   ret i32 42, !dbg !11
 }
 
-attributes #0 = { nounwind readnone ssp uwtable }
+attributes #0 = { nounwind readnone ssp }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!10}

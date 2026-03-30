@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 4
@@ -63,7 +63,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 @__const._Z3funv.other = private unnamed_addr constant %struct.V3i { i64 10, i64 9, i64 8 }, align 8
 
-; Function Attrs: nounwind uwtable mustprogress
+; Function Attrs: nounwind mustprogress
 define dso_local void @_Z3funv() !dbg !100 {
 entry:
   %point = alloca %struct.V3i, align 8, !DIAssignID !112

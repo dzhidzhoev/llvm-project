@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
@@ -21,7 +21,7 @@
 ; there's a function in the middle. If they were together then it would have
 ; a single range and no DW_AT_ranges.
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define i32 @b(i32 %c) #0 !dbg !5 {
 entry:
   %c.addr = alloca i32, align 4
@@ -32,7 +32,7 @@ entry:
   ret i32 %add, !dbg !14
 }
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define i32 @a(i32 %b) #0 {
 entry:
   %b.addr = alloca i32, align 4
@@ -45,7 +45,7 @@ entry:
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define i32 @d(i32 %e) #0 !dbg !10 {
 entry:
   %e.addr = alloca i32, align 4
@@ -56,7 +56,7 @@ entry:
   ret i32 %add, !dbg !16
 }
 
-attributes #0 = { nounwind uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }
 
 !llvm.ident = !{!0, !0}

@@ -1,13 +1,13 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 3
 ; CHECK: DIFile: 3
 ; CHECK: DILexicalBlockFile: 1
 ; CHECK: DILocation: 4
-; CHECK: DISubprogram: 4
+; CHECK: DISubprogram: 3
 ; CHECK: DISubroutineType: 1
 
 ; REQUIRES: x86-registered-target

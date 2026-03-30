@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
@@ -10,7 +10,6 @@
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 3
 ; CHECK: DIFlagStaticMember: 1
-; CHECK: DIFlagTypePassByValue: 1
 ; CHECK: DIImportedEntity: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DINamespace: 1
@@ -23,7 +22,7 @@
 
 %struct.T = type { i32 }
 
-; Function Attrs: mustprogress noinline nounwind optnone ssp uwtable(sync)
+; Function Attrs: mustprogress noinline nounwind optnone ssp(sync)
 define noundef i32 @_Z3foov() !dbg !7 {
 entry:
   ret i32 0

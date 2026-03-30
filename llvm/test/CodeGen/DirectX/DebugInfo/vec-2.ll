@@ -1,23 +1,20 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -O0 -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 3
 ; CHECK: DIDerivedType: 4
-; CHECK: DIExpression: 21
+; CHECK: DIExpression: 23
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagArtificial: 3
-; CHECK: DIFlagNonTrivial: 1
 ; CHECK: DIFlagObjectPointer: 3
 ; CHECK: DIFlagProtected: 1
 ; CHECK: DIFlagPrototyped: 5
 ; CHECK: DIFlagPublic: 2
-; CHECK: DIFlagTypePassByValue: 2
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILexicalBlock: 1
 ; CHECK: DILocalVariable: 5
 ; CHECK: DILocation: 21
@@ -63,7 +60,7 @@ $_ZN1dC2Ev = comdat any
 
 @c = local_unnamed_addr global float 0.000000e+00, align 4, !dbg !0
 
-; Function Attrs: uwtable
+; Function Attrs:
 define void @_Z1gv() local_unnamed_addr #0 !dbg !11 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !15, metadata !DIExpression(DW_OP_LLVM_fragment, 0, 64), metadata !32, metadata ptr undef, metadata !DIExpression()), !dbg !33
@@ -106,7 +103,7 @@ declare !dbg !75 { <2 x float>, <2 x float> } @_Z1fv() local_unnamed_addr #2
 ; Function Attrs: argmemonly nofree nosync nounwind willreturn
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @_ZN1d1eEv(ptr %this) local_unnamed_addr #3 comdat align 2 !dbg !48 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !47, metadata !DIExpression(), metadata !78, metadata ptr undef, metadata !DIExpression()), !dbg !79
@@ -114,7 +111,7 @@ entry:
   ret void, !dbg !81
 }
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @_ZN1dC2Ev(ptr %this) unnamed_addr #3 comdat align 2 !dbg !57 {
 entry:
   call void @llvm.dbg.assign(metadata i1 undef, metadata !56, metadata !DIExpression(), metadata !82, metadata ptr undef, metadata !DIExpression()), !dbg !83

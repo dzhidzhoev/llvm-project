@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 2
@@ -15,7 +15,7 @@
 
 ; PR 13202
 
-define i32 @main() uwtable !dbg !5 {
+define i32 @main() !dbg !5 {
 entry:
   tail call void @llvm.dbg.value(metadata i32 0, metadata !18, metadata !DIExpression()), !dbg !21
   tail call void @llvm.dbg.value(metadata i32 0, metadata !22, metadata !DIExpression()), !dbg !23

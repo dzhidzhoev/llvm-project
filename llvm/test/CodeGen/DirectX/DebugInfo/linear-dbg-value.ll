@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILexicalBlock: 3
@@ -18,7 +18,7 @@
 ; FIXME: Fix machine verifier issues and remove -verify-machineinstrs=0. PR39452.
 source_filename = "linear-dbg-value.ll"
 
-; Function Attrs: nounwind readonly uwtable
+; Function Attrs: nounwind readonly
 define i32 @foo(ptr nocapture readonly %a, i32 %N) local_unnamed_addr #0 !dbg !6 {
 entry:
   %cmp6 = icmp sgt i32 %N, 0, !dbg !11
@@ -51,7 +51,7 @@ for.body:                                         ; preds = %for.body, %for.body
 ; Function Attrs: nounwind readnone speculatable
 declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 
-attributes #0 = { nounwind readonly uwtable }
+attributes #0 = { nounwind readonly }
 attributes #1 = { nounwind readnone speculatable }
 
 !llvm.dbg.cu = !{!0}

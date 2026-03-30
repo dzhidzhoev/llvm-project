@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 2
@@ -10,7 +10,6 @@
 ; CHECK: DIExpression: 2
 ; CHECK: DIFile: 1
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 1
 ; CHECK: DISubprogram: 1
@@ -45,7 +44,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 @d = internal global %struct.anon zeroinitializer, align 8, !dbg !0
 
-; Function Attrs: noinline nounwind uwtable
+; Function Attrs: noinline nounwind
 define dso_local i32 @e() #0 !dbg !18 {
 entry:
   %0 = load i64, ptr @d, align 8

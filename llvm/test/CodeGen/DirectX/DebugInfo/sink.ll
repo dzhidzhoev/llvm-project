@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 2
@@ -51,7 +51,7 @@
 
 @d = dso_local local_unnamed_addr global i32 0, align 4, !dbg !0
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define dso_local i32 @f() local_unnamed_addr #0 !dbg !11 {
 entry:
   %call = tail call i32 (...) @e() #5, !dbg !14
@@ -72,7 +72,7 @@ declare !dbg !24 dso_local i32 @e(...) local_unnamed_addr #1
 ; Function Attrs: noreturn
 declare !dbg !27 dso_local ptr @c(...) local_unnamed_addr #2
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define dso_local void @h() local_unnamed_addr #0 !dbg !35 {
 entry:
   %i = alloca %struct.a, align 8, !DIAssignID !40

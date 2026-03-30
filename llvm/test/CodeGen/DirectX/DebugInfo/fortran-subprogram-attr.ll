@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
@@ -19,25 +19,25 @@
 
 
 
-; Function Attrs: noinline nounwind optnone uwtable
+; Function Attrs: noinline nounwind optnone
 define dso_local void @subroutine1() !dbg !7 {
 entry:
   ret void, !dbg !10
 }
 
-; Function Attrs: noinline nounwind optnone uwtable
+; Function Attrs: noinline nounwind optnone
 define dso_local void @subroutine2() !dbg !11 {
 entry:
   ret void, !dbg !12
 }
 
-; Function Attrs: noinline nounwind optnone uwtable
+; Function Attrs: noinline nounwind optnone
 define dso_local void @subroutine3() !dbg !13 {
 entry:
   ret void, !dbg !14
 }
 
-; Function Attrs: noinline nounwind optnone uwtable
+; Function Attrs: noinline nounwind optnone
 define dso_local void @subroutine4() !dbg !15 {
 entry:
   ret void, !dbg !16

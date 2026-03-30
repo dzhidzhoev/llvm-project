@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 2
@@ -85,13 +85,13 @@
 @_ZN1A1B7var_fwdE = global i32 0, align 4, !dbg !132
 @llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 65535, ptr @_GLOBAL__sub_I_debug_info_namespace.cpp, ptr null }]
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define i32 @_ZN1A1B2f1Ev() #0 !dbg !10 {
 entry:
   ret i32 0, !dbg !60
 }
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define void @_ZN1A1B2f1Ei(i32) #0 !dbg !14 {
 entry:
   %.addr = alloca i32, align 4
@@ -110,7 +110,7 @@ entry:
   ret void, !dbg !65
 }
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define i32 @_Z4funcb(i1 zeroext %b) #0 !dbg !21 {
 entry:
   %retval = alloca i32, align 4
@@ -148,7 +148,7 @@ entry:
   ret void, !dbg !72
 }
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define void @_ZN1A1B8func_fwdEv() #0 !dbg !26 {
 entry:
   ret void, !dbg !73
@@ -161,7 +161,7 @@ entry:
   ret void, !dbg !74
 }
 
-attributes #0 = { nounwind ssp uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { nounwind ssp "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0}

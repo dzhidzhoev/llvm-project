@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 4
+; CHECK: DIExpression: 5
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DILocalVariable: 2
@@ -29,7 +29,7 @@
 ;;    to check that a dbg.value is generated for the variable to represent the
 ;;    store despite the store not having a dbg.assign linked for it.
 
-; Function Attrs: mustprogress nounwind uwtable
+; Function Attrs: mustprogress nounwind
 define dso_local noundef i32 @_Z1fi(i32 noundef %a) #0 !dbg !7 {
 entry:
   %a.addr = alloca i32, align 4, !DIAssignID !13

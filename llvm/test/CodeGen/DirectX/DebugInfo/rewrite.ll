@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 2
@@ -58,7 +58,7 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 @Glob = dso_local global i32 0, align 4, !dbg !0
 @Cond = dso_local global i8 0, align 1, !dbg !6
 
-; Function Attrs: nounwind uwtable mustprogress
+; Function Attrs: nounwind mustprogress
 define dso_local i32 @_Z7examplev() #0 !dbg !14 {
 entry:
   %S = alloca %struct.LargeStruct, align 4, !DIAssignID !28

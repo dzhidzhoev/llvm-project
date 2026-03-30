@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
@@ -33,27 +33,27 @@
 
 
 
-; Function Attrs: uwtable
+; Function Attrs:
 define void @_ZN3foo2f2Ev() #0 align 2 !dbg !12 {
 entry:
   call void @_ZN3foo2f1Ev(), !dbg !19
   ret void, !dbg !20
 }
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define linkonce_odr void @_ZN3foo2f1Ev() #1 align 2 !dbg !15 {
 entry:
   ret void, !dbg !21
 }
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define void @_ZN3foo2f3Ev() #1 align 2 !dbg !13 {
 entry:
   ret void, !dbg !22
 }
 
-attributes #0 = { uwtable "disable-tail-calls"="false" "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
-attributes #1 = { nounwind uwtable "disable-tail-calls"="false" "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { "disable-tail-calls"="false" "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #1 = { nounwind "disable-tail-calls"="false" "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!16, !17}

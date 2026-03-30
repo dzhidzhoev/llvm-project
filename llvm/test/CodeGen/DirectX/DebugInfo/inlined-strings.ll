@@ -1,15 +1,13 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
-; CHECK: DIExpression: 1
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagPrototyped: 1
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 ; CHECK: DILocation: 1
 ; CHECK: DISubprogram: 1
 ; CHECK: DISubroutineType: 1
@@ -27,13 +25,13 @@
 
 source_filename = "test/DebugInfo/Generic/global.ll"
 
-; Function Attrs: nounwind readnone uwtable
+; Function Attrs: nounwind readnone
 define i32 @main() #0 !dbg !9 {
 entry:
   ret i32 0, !dbg !12
 }
 
-attributes #0 = { nounwind readnone uwtable "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "use-soft-float"="false" }
+attributes #0 = { nounwind readnone "less-precise-fpmad"="false" "frame-pointer"="none" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "use-soft-float"="false" }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!7, !8}

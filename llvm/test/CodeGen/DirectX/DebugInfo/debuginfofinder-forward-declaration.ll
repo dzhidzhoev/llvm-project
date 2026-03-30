@@ -1,16 +1,14 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 2
 ; CHECK: DIDerivedType: 2
-; CHECK: DIExpression: 1
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagFwdDecl: 1
 ; CHECK: DIGlobalVariable: 1
-; CHECK: DIGlobalVariableExpression: 1
 
 
 ; This module is generated from the following c-code:

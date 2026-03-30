@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 3
@@ -43,14 +43,14 @@ target triple = "x86_64-apple-macosx10.12.0"
 
 @static_struct = internal global %struct.mystruct zeroinitializer, align 8, !dbg !0
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define void @foo(i32 %in) #0 {
 entry:
   store i32 %in, ptr @static_struct, align 8, !tbaa !17
   ret void
 }
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define void @bar(i32 %in) #0 {
 entry:
   %conv = sext i32 %in to i64
@@ -58,7 +58,7 @@ entry:
   ret void
 }
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define i32 @main(i32 %argc, ptr %argv) #0 !dbg !24 {
 entry:
   call void @llvm.dbg.value(metadata i32 %argc, metadata !31, metadata !33), !dbg !34
@@ -87,7 +87,7 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 ; Function Attrs: nounwind readnone speculatable
 declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 
-attributes #0 = { nounwind optsize ssp uwtable }
+attributes #0 = { nounwind optsize ssp }
 attributes #1 = { nounwind readnone speculatable }
 attributes #2 = { optsize }
 

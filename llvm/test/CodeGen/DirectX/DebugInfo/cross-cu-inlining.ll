@@ -1,11 +1,11 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 2
-; CHECK: DIExpression: 2
+; CHECK: DIExpression: 3
 ; CHECK: DIFile: 2
 ; CHECK: DIFlagPrototyped: 2
 ; CHECK: DILocalVariable: 1
@@ -48,7 +48,7 @@
 
 @i = external global i32
 
-; Function Attrs: uwtable
+; Function Attrs:
 define i32 @main() #0 !dbg !4 {
 entry:
   %x.addr.i = alloca i32, align 4
@@ -64,7 +64,7 @@ entry:
   ret i32 %mul.i, !dbg !19
 }
 
-; Function Attrs: alwaysinline nounwind uwtable
+; Function Attrs: alwaysinline nounwind
 define i32 @_Z4funci(i32 %x) #1 !dbg !12 {
 entry:
   %x.addr = alloca i32, align 4
@@ -84,8 +84,8 @@ declare void @llvm.lifetime.start(i64, ptr nocapture) #3
 ; Function Attrs: nounwind
 declare void @llvm.lifetime.end(i64, ptr nocapture) #3
 
-attributes #0 = { uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
-attributes #1 = { alwaysinline nounwind uwtable "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #0 = { "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
+attributes #1 = { alwaysinline nounwind "less-precise-fpmad"="false" "frame-pointer"="all" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "use-soft-float"="false" }
 attributes #2 = { nounwind readnone }
 attributes #3 = { nounwind }
 

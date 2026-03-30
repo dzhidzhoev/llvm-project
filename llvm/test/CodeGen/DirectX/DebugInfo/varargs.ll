@@ -1,13 +1,13 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DICompositeType: 1
 ; CHECK: DIDerivedType: 2
-; CHECK: DIExpression: 3
+; CHECK: DIExpression: 5
 ; CHECK: DIFile: 1
 ; CHECK: DIFlagArtificial: 1
 ; CHECK: DIFlagObjectPointer: 1
@@ -40,7 +40,7 @@
 
 %struct.A = type { i8 }
 
-; Function Attrs: nounwind ssp uwtable
+; Function Attrs: nounwind ssp
 define void @_Z1biz(i32 %c, ...) #0 !dbg !14 {
   %1 = alloca i32, align 4
   %a = alloca %struct.A, align 1
@@ -56,7 +56,7 @@ define void @_Z1biz(i32 %c, ...) #0 !dbg !14 {
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
-attributes #0 = { nounwind ssp uwtable }
+attributes #0 = { nounwind ssp }
 attributes #1 = { nounwind readnone }
 
 !llvm.dbg.cu = !{!0}

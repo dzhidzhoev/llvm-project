@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
@@ -14,7 +14,7 @@
 ; CHECK: DISubroutineType: 1
 
 
-define void @bar(i32 %i) nounwind uwtable ssp !dbg !5 {
+define void @bar(i32 %i) nounwind ssp !dbg !5 {
 entry:
   tail call void (...) @foo() nounwind, !dbg !14
   ret void, !dbg !16

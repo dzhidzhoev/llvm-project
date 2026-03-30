@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 3
@@ -83,7 +83,7 @@
 %class.a = type { float }
 %class.c = type { i8 }
 
-; Function Attrs: uwtable
+; Function Attrs:
 define dso_local void @_ZN1j1oEv(ptr %this) local_unnamed_addr #0 align 2 !dbg !7 {
 entry:
   %p = alloca %class.a, align 4, !DIAssignID !49

@@ -1,6 +1,6 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DICompileUnit: 1
@@ -42,7 +42,7 @@
 ; .debug_ranges rather than emitting duplicate entries.
 
 
-; Function Attrs: nounwind uwtable
+; Function Attrs: nounwind
 define dso_local void @f4() local_unnamed_addr !dbg !9 {
 entry:
   tail call void (...) @f1(), !dbg !12

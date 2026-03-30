@@ -1,12 +1,12 @@
 ; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ; RUN: llvm-objcopy  --dump-section=DXIL=%t.bc %t.dxbc
-; RUN: llvm-dis %t.bc -o - | %python %S/di_stat.py > %t.stat
+; RUN: dxc /dumpbin %t.bc | %python %S/di_stat.py > %t.stat
 ; RUN: FileCheck %s --input-file %t.stat
 
 ; CHECK: DIBasicType: 1
 ; CHECK: DICompileUnit: 1
 ; CHECK: DIDerivedType: 1
-; CHECK: DIExpression: 1
+; CHECK: DIExpression: 2
 ; CHECK: DIFile: 1
 ; CHECK: DILocalVariable: 1
 ; CHECK: DILocation: 1
@@ -32,7 +32,7 @@
 
 source_filename = "volatile.c"
 
-; Function Attrs: nounwind optsize ssp uwtable
+; Function Attrs: nounwind optsize ssp
 define void @f() local_unnamed_addr #0 !dbg !8 {
   %1 = alloca i64, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr %1), !dbg !15
@@ -69,7 +69,7 @@ declare void @h(i64) local_unnamed_addr #3
 ; Function Attrs: argmemonly nounwind
 declare void @llvm.lifetime.end.p0(i64, ptr nocapture) #1
 
-attributes #0 = { nounwind optsize ssp uwtable }
+attributes #0 = { nounwind optsize ssp }
 attributes #1 = { argmemonly nounwind }
 attributes #2 = { nounwind readnone speculatable }
 attributes #3 = { optsize }
