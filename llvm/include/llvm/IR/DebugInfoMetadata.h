@@ -2169,7 +2169,9 @@ public:
   Metadata *getRawEnumTypes() const { return getOperand(ENUMS_IDX); }
   Metadata *getRawRetainedTypes() const { return getOperand(5); }
   Metadata *getRawGlobalVariables() const { return getOperand(GLOBALS_IDX); }
-  Metadata *getRawImportedEntities() const { return getOperand(IMPORTED_ENTITIES_IDX); }
+  Metadata *getRawImportedEntities() const {
+    return getOperand(IMPORTED_ENTITIES_IDX);
+  }
   Metadata *getRawMacros() const { return getOperand(8); }
   MDString *getRawSysRoot() const { return getOperandAs<MDString>(9); }
   MDString *getRawSDK() const { return getOperandAs<MDString>(10); }
@@ -2506,8 +2508,7 @@ public:
   }
   void replaceRetainedNodes(MDNodeArray N) { replaceOperandWith(7, N.get()); }
 
-  template <typename IterT>
-  void retainNodes(IterT NodesBegin, IterT NodesEnd) {
+  template <typename IterT> void retainNodes(IterT NodesBegin, IterT NodesEnd) {
     auto RetainedNodes = getRetainedNodes();
     SmallVector<Metadata *> MDs(RetainedNodes.begin(), RetainedNodes.end());
     MDs.append(NodesBegin, NodesEnd);
@@ -2593,7 +2594,8 @@ public:
     // stripping old or incorrect debug info, perform minimal sanity check.
     if (!RetainedNodes)
       return;
-    // replaceRetainedNodes() should not re-unique DISubprogram if new list is the same pointer.
+    // replaceRetainedNodes() should not re-unique DISubprogram if new list is
+    // the same pointer.
     replaceRetainedNodes(RetainedNodes->filter(RemovePred));
   }
 
@@ -4803,13 +4805,11 @@ template <>
 struct DenseMapInfo<DebugVariableAggregate>
     : public DenseMapInfo<DebugVariable> {};
 
-template <typename NodeT>
-static const DIScope *getScope(const NodeT *N) {
+template <typename NodeT> static const DIScope *getScope(const NodeT *N) {
   return N->getScope();
 }
 
-template <typename NodeT>
-static DIScope *getScope(NodeT *N) {
+template <typename NodeT> static DIScope *getScope(NodeT *N) {
   return N->getScope();
 }
 

@@ -1580,8 +1580,7 @@ public:
     MDs.reserve(Ops.size());
 
     // Filter the rest of the nodes
-    std::copy_if(FirstToRemove + 1, Ops.end(),
-                 std::back_inserter(MDs),
+    std::copy_if(FirstToRemove + 1, Ops.end(), std::back_inserter(MDs),
                  [&](Metadata *N) { return !RemovePred(N); });
 
     return get(getContext(), MDs);

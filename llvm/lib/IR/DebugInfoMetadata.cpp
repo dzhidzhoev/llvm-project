@@ -1449,8 +1449,8 @@ template <typename ScopeT, typename NodeT>
 static ScopeT getRawRetainedNodeScopeInternal(NodeT *N) {
   auto getScopeLambda = [](auto *N) { return getScope(N); };
   return DISubprogram::visitRetainedNode<ScopeT>(
-      N, getScopeLambda, getScopeLambda, getScopeLambda, getScopeLambda, getScopeLambda,
-      [](auto *N) { return nullptr; });
+      N, getScopeLambda, getScopeLambda, getScopeLambda, getScopeLambda,
+      getScopeLambda, [](auto *N) { return nullptr; });
 }
 
 const DIScope *DISubprogram::getRawRetainedNodeScope(const MDNode *N) {

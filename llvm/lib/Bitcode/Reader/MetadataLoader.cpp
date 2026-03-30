@@ -545,25 +545,31 @@ class MetadataLoader::MetadataLoaderImpl {
                llvm::dyn_cast_or_null<DISubprogram>(S);
   }
 
-  /// Map SP -> {Metadata} to store CU locals that should be attached to subprogram retainedNodes list during CU upgrade.
-  using SPToEntitiesMap = SmallDenseMap<DISubprogram *, SmallVector<Metadata *>>;
+  /// Map SP -> {Metadata} to store CU locals that should be attached to
+  /// subprogram retainedNodes list during CU upgrade.
+  using SPToEntitiesMap =
+      SmallDenseMap<DISubprogram *, SmallVector<Metadata *>>;
 
-  /// Retrieve the CU operand at position ListIndex, treat it as an MDTuple, and remove all local debug info nodes from it.
-  /// Fill SPToEntities map with removed local nodes.
+  /// Retrieve the CU operand at position ListIndex, treat it as an MDTuple, and
+  /// remove all local debug info nodes from it. Fill SPToEntities map with
+  /// removed local nodes.
   template <typename NodeT>
-  void upgradeOneCULocalsList(SPToEntitiesMap &SPToEntities, DICompileUnit *CU, unsigned ListIndex) {
+  void upgradeOneCULocalsList(SPToEntitiesMap &SPToEntities, DICompileUnit *CU,
+                              unsigned ListIndex) {
     MDTuple *List = cast_if_present<MDTuple>(CU->getOperand(ListIndex));
     if (!List)
       return;
 
     CU->replaceOperandWith(ListIndex, List->filter([&](Metadata *N) {
-        DILocalScope *LS = dyn_cast_or_null<DILocalScope>(getScope(cast<NodeT>(N)));
-        if (!LS) return false;
+      DILocalScope *LS =
+          dyn_cast_or_null<DILocalScope>(getScope(cast<NodeT>(N)));
+      if (!LS)
+        return false;
 
-        if (auto *SP = findEnclosingSubprogram(LS))
-          SPToEntities[SP].push_back(N);
+      if (auto *SP = findEnclosingSubprogram(LS))
+        SPToEntities[SP].push_back(N);
 
-        return true;
+      return true;
     }));
   }
 
@@ -581,13 +587,17 @@ class MetadataLoader::MetadataLoaderImpl {
         continue;
 
       // Remove all static local variables from CU's globals list.
-      upgradeOneCULocalsList<DIGlobalVariableExpression>(SPToEntities, CU, DICompileUnit::GLOBALS_IDX);
+      upgradeOneCULocalsList<DIGlobalVariableExpression>(
+          SPToEntities, CU, DICompileUnit::GLOBALS_IDX);
       // Remove all local imports from CU's imports list.
-      upgradeOneCULocalsList<DIImportedEntity>(SPToEntities, CU, DICompileUnit::IMPORTED_ENTITIES_IDX);
+      upgradeOneCULocalsList<DIImportedEntity>(
+          SPToEntities, CU, DICompileUnit::IMPORTED_ENTITIES_IDX);
       // Remove all local types from CU's enums list.
-      upgradeOneCULocalsList<DICompositeType>(SPToEntities, CU, DICompileUnit::ENUMS_IDX);
+      upgradeOneCULocalsList<DICompositeType>(SPToEntities, CU,
+                                              DICompileUnit::ENUMS_IDX);
 
-      // Retain local entities removed from the CU in their corresponding subprograms.
+      // Retain local entities removed from the CU in their corresponding
+      // subprograms.
       for (auto &[SP, Nodes] : SPToEntities)
         SP->retainNodes(Nodes.begin(), Nodes.end());
     }
