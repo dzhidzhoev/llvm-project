@@ -531,7 +531,8 @@ void MappingTraits<llvm::DXContainerYAML::StaticSamplerYamlDesc>::mapping(
 #include "llvm/BinaryFormat/DXContainerConstants.def"
 }
 
-void MappingTraits<DXContainerYAML::DebugName>::mapping(IO &IO, DXContainerYAML::DebugName &DebugName) {
+void MappingTraits<DXContainerYAML::DebugName>::mapping(
+    IO &IO, DXContainerYAML::DebugName &DebugName) {
   IO.mapRequired("Flags", DebugName.Flags);
   IO.mapRequired("NameLength", DebugName.NameLength);
   IO.mapRequired("DebugName", DebugName.DebugName);
