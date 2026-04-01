@@ -20,10 +20,14 @@ static Error parseFailed(const Twine &Msg) {
   return make_error<GenericBinaryError>(Msg.str(), object_error::parse_failed);
 }
 
+static bool readOutOfBounds(StringRef Buffer, const char *Src, size_t Size) {
+  return Src < Buffer.begin() || Src + Size > Buffer.end();
+}
+
 template <typename T>
 static Error readStruct(StringRef Buffer, const char *Src, T &Struct) {
   // Don't read before the beginning or past the end of the file
-  if (Src < Buffer.begin() || Src + sizeof(T) > Buffer.end())
+  if (readOutOfBounds(Buffer, Src, sizeof(T)))
     return parseFailed("Reading structure out of file bounds");
 
   memcpy(&Struct, Src, sizeof(T));
@@ -39,7 +43,7 @@ static Error readInteger(StringRef Buffer, const char *Src, T &Val,
   static_assert(std::is_integral_v<T>,
                 "Cannot call readInteger on non-integral type.");
   // Don't read before the beginning or past the end of the file
-  if (Src < Buffer.begin() || Src + sizeof(T) > Buffer.end())
+  if (readOutOfBounds(Buffer, Src, sizeof(T)))
     return parseFailed(Twine("Reading ") + Str + " out of file bounds");
 
   // The DXContainer offset table is comprised of uint32_t values but not padded
@@ -52,6 +56,21 @@ static Error readInteger(StringRef Buffer, const char *Src, T &Val,
   // DXContainer is always little endian
   if (sys::IsBigEndianHost)
     sys::swapByteOrder(Val);
+  return Error::success();
+}
+
+static Error readString(StringRef Buffer, const char *Src, size_t Length, StringRef &Val, Twine Desc) {
+  if (readOutOfBounds(Buffer, Src, Length + 1))
+    return parseFailed(Desc + " is out of file bounds");
+
+  const char *End = Src + Length;
+  if (*End)
+    return parseFailed(Desc + " does not end with null-terminator");
+
+  Val = StringRef(Src);
+  if (Val.size() != Length)
+    return parseFailed(Desc + " length mismatch");
+
   return Error::success();
 }
 
@@ -74,6 +93,23 @@ Error DXContainer::parseDXILHeader(dxbc::PartType PT, StringRef Part) {
     return Err;
   Current += offsetof(dxbc::ProgramHeader, Bitcode) + Header.Bitcode.Offset;
   DXIL.emplace(std::make_pair(Header, Current));
+  return Error::success();
+}
+
+Error DXContainer::parseDebugName(StringRef Part) {
+  if (DebugName)
+    return parseFailed("More than one ILDN part is present in the file");
+  const char *Current = Part.begin();
+  dxbc::DebugNameHeader Header;
+  if (Error Err = readStruct(Part, Current, Header))
+    return Err;
+  Current += sizeof(Header);
+
+  StringRef Str;
+  if (Error Err = readString(Part, Current, Header.NameLength, Str, "Debug file name"))
+    return Err;
+  DebugName.emplace(Header, Str.data());
+
   return Error::success();
 }
 
@@ -181,6 +217,10 @@ Error DXContainer::parsePartOffsets() {
       [[fallthrough]];
     case dxbc::PartType::DXIL:
       if (Error Err = parseDXILHeader(PT, PartData))
+        return Err;
+      break;
+    case dxbc::PartType::ILDN:
+      if (Error Err = parseDebugName(PartData))
         return Err;
       break;
     case dxbc::PartType::SFI0:

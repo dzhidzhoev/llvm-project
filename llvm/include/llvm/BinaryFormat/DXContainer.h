@@ -807,6 +807,18 @@ enum class RootSignatureVersion {
   V1_2 = 0x3,
 };
 
+struct DebugNameHeader {
+  uint16_t Flags;
+  uint16_t NameLength; // Debug file name length, without null terminator.
+
+  void swapBytes() {
+    sys::swapByteOrder(Flags);
+    sys::swapByteOrder(NameLength);
+  }
+};
+
+static_assert(sizeof(DebugNameHeader) == 4, "DebugNameHeader size incorrect.");
+
 } // namespace dxbc
 } // namespace llvm
 
