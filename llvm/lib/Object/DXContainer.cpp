@@ -116,13 +116,13 @@ Error DXContainer::parseDebugName(StringRef Part) {
     return Err;
   Current += sizeof(Header);
 
-  StringRef Str;
-  if (Error Err = readString(Part, Current, Header.NameLength + 1, Str,
+  StringRef Name;
+  if (Error Err = readString(Part, Current, Header.NameLength + 1, Name,
                              "Debug file name"))
     return Err;
-  if (Str.size() != Header.NameLength)
+  if (Name.size() != Header.NameLength)
     return parseFailed("Debug file name length mismatch");
-  DebugName.emplace(Header, Str.data());
+  DebugName.emplace(Header, Name.data());
 
   return Error::success();
 }

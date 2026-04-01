@@ -811,7 +811,8 @@ enum class RootSignatureVersion {
 
 struct DebugNameHeader {
   uint16_t Flags;
-  uint16_t NameLength; // Debug file name length, without null terminator.
+  /// Debug file name length, without null terminator.
+  uint16_t NameLength;
 
   void swapBytes() {
     sys::swapByteOrder(Flags);
