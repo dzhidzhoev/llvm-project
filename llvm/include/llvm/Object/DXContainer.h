@@ -455,6 +455,12 @@ public:
   LLVM_ABI Error initialize(StringRef Part);
 };
 
+struct CompilerVersion {
+  dxbc::CompilerVersionHeader Parameters;
+  StringRef CommitSha;
+  StringRef CustomVersionString;
+};
+
 } // namespace DirectX
 
 class DXContainer {
@@ -478,6 +484,7 @@ private:
   DirectX::Signature OutputSignature;
   DirectX::Signature PatchConstantSignature;
   std::optional<ILDNData> DebugName;
+  std::optional<DirectX::CompilerVersion> VersionInfo;
 
   Error parseHeader();
   Error parsePartOffsets();
@@ -488,6 +495,7 @@ private:
   Error parseRootSignature(StringRef Part);
   Error parsePSVInfo(StringRef Part);
   Error parseSignature(StringRef Part, DirectX::Signature &Array);
+  Error parseCompilerVersionInfo(StringRef Part);
   friend class PartIterator;
 
 public:
@@ -591,6 +599,11 @@ public:
   }
   const DirectX::Signature &getPatchConstantSignature() const {
     return PatchConstantSignature;
+  }
+
+  const std::optional<DirectX::CompilerVersion> &
+  getCompilerVersionInfo() const {
+    return VersionInfo;
   }
 };
 

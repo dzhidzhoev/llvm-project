@@ -277,6 +277,38 @@ Error DXContainerWriter::writeParts(raw_ostream &OS) {
       Sig.write(OS);
       break;
     }
+    case dxbc::PartType::VERS: {
+      if (!P.CompilerVersion)
+        continue;
+
+      dxbc::CompilerVersionHeader Header;
+      Header.Major = P.CompilerVersion->Major;
+      Header.Minor = P.CompilerVersion->Minor;
+
+      Header.Flags = dxbc::CompilerVersionFlags::Default;
+      if (P.CompilerVersion->IsDebugBuild)
+        Header.Flags |= dxbc::CompilerVersionFlags::Debug;
+      if (P.CompilerVersion->IsValidated)
+        Header.Flags |= dxbc::CompilerVersionFlags::Internal;
+
+      Header.CommitCount = P.CompilerVersion->CommitCount;
+      Header.ContentSizeInBytes = P.CompilerVersion->ContentSizeInBytes;
+
+      if (sys::IsBigEndianHost)
+        Header.swapBytes();
+      OS.write(reinterpret_cast<const char *>(&Header), sizeof(Header));
+
+      size_t CommitShaSize =
+          std::min(P.CompilerVersion->CommitSha.size() + 1,
+                   static_cast<size_t>(Header.ContentSizeInBytes));
+      size_t CustomVersionStringSize = std::min(
+          P.CompilerVersion->CustomVersionString.size() + 1,
+          static_cast<size_t>(Header.ContentSizeInBytes - CommitShaSize));
+      OS.write(P.CompilerVersion->CommitSha.c_str(), CommitShaSize);
+      OS.write(P.CompilerVersion->CustomVersionString.c_str(),
+               CustomVersionStringSize);
+      break;
+    }
     case dxbc::PartType::Unknown:
       break; // Skip any handling for unrecognized parts.
     case dxbc::PartType::RTS0:

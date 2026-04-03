@@ -293,6 +293,17 @@ struct DebugName {
   std::string DebugName;
 };
 
+struct CompilerVersion {
+  uint16_t Major;
+  uint16_t Minor;
+  bool IsDebugBuild;
+  bool IsValidated;
+  uint32_t CommitCount;
+  uint32_t ContentSizeInBytes;
+  std::string CommitSha;
+  std::string CustomVersionString;
+};
+
 struct Part {
   Part() = default;
   Part(std::string N, uint32_t S) : Name(N), Size(S) {}
@@ -305,6 +316,7 @@ struct Part {
   std::optional<DXContainerYAML::Signature> Signature;
   std::optional<DXContainerYAML::RootSignatureYamlDesc> RootSignature;
   std::optional<DebugName> DebugName;
+  std::optional<CompilerVersion> CompilerVersion;
 };
 
 struct Object {
@@ -372,6 +384,11 @@ template <> struct MappingTraits<DXContainerYAML::PSVInfo> {
 
 template <> struct MappingTraits<DXContainerYAML::DebugName> {
   LLVM_ABI static void mapping(IO &IO, DXContainerYAML::DebugName &DebugName);
+};
+
+template <> struct MappingTraits<DXContainerYAML::CompilerVersion> {
+  LLVM_ABI static void
+  mapping(IO &IO, DXContainerYAML::CompilerVersion &CompilerVersion);
 };
 
 template <> struct MappingTraits<DXContainerYAML::Part> {
