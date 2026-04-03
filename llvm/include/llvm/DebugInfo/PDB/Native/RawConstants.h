@@ -86,6 +86,9 @@ enum SpecialStream : uint32_t {
   StreamDXContainer = 5
 };
 
+// Index of DXContainer stream, but it's optional and is produced only by DXC.
+#define DXCONTAINER_IDX 5
+
 enum class DbgHeaderType : uint16_t {
   FPO,
   Exception,
