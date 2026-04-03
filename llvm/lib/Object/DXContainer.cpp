@@ -59,18 +59,22 @@ static Error readInteger(StringRef Buffer, const char *Src, T &Val,
   return Error::success();
 }
 
-static Error readString(StringRef Buffer, const char *Src, size_t Length, StringRef &Val, Twine Desc) {
-  if (readOutOfBounds(Buffer, Src, Length + 1))
+/// Read a null-terminated string at the position Src from Buffer, with maximum
+/// byte size of MaxSize (including the null-terminator). Advance Src by the number
+/// of bytes read.
+static Error readString(StringRef Buffer, const char *&Src, size_t MaxSize,
+                        StringRef &Val, Twine Desc) {
+  if (readOutOfBounds(Buffer, Src, MaxSize))
     return parseFailed(Desc + " is out of file bounds");
 
-  const char *End = Src + Length;
-  if (*End)
+  // Ensure that the null-terminator is somewhere within MaxSize bytes.
+  Buffer = Buffer.substr(Src - Buffer.data(), MaxSize);
+  size_t Length = Buffer.find('\0');
+  if (Length == Buffer.npos)
     return parseFailed(Desc + " does not end with null-terminator");
 
-  Val = StringRef(Src);
-  if (Val.size() != Length)
-    return parseFailed(Desc + " length mismatch");
-
+  Val = StringRef(Buffer.data(), Length);
+  Src += Length + 1;
   return Error::success();
 }
 
@@ -106,8 +110,11 @@ Error DXContainer::parseDebugName(StringRef Part) {
   Current += sizeof(Header);
 
   StringRef Str;
-  if (Error Err = readString(Part, Current, Header.NameLength, Str, "Debug file name"))
+  if (Error Err = readString(Part, Current, Header.NameLength + 1, Str,
+                             "Debug file name"))
     return Err;
+  if (Str.size() != Header.NameLength)
+    return parseFailed("Debug file name length mismatch");
   DebugName.emplace(Header, Str.data());
 
   return Error::success();
@@ -173,6 +180,31 @@ Error DirectX::Signature::initialize(StringRef Part) {
       return parseFailed("Invalid parameter name offset: name starts after the "
                          "end of the part data");
   }
+  return Error::success();
+}
+
+Error DXContainer::parseCompilerVersionInfo(StringRef Part) {
+  if (VersionInfo)
+    return parseFailed("More than one VERS part is present in the file");
+  const char *Current = Part.begin();
+  dxbc::CompilerVersionHeader Header;
+  if (Error Err = readStruct(Part, Current, Header))
+    return Err;
+  Current += sizeof(Header);
+
+  StringRef CommitSha;
+  const char *Prev = Current;
+  if (Error Err = readString(Part, Current, Header.ContentSizeInBytes,
+                             CommitSha, "CommitSha"))
+    return Err;
+  StringRef CustomVersionString;
+  if (Error Err = readString(Part, Current,
+                             Header.ContentSizeInBytes - (Current - Prev),
+                             CustomVersionString, "CustomVersionString"))
+    return Err;
+
+  VersionInfo.emplace(
+      DirectX::CompilerVersion{Header, CommitSha, CustomVersionString});
   return Error::success();
 }
 
@@ -251,6 +283,10 @@ Error DXContainer::parsePartOffsets() {
       break;
     case dxbc::PartType::RTS0:
       if (Error Err = parseRootSignature(PartData))
+        return Err;
+      break;
+    case dxbc::PartType::VERS:
+      if (Error Err = parseCompilerVersionInfo(PartData))
         return Err;
       break;
     }

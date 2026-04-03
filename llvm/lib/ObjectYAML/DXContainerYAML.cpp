@@ -537,6 +537,18 @@ void MappingTraits<DXContainerYAML::DebugName>::mapping(IO &IO, DXContainerYAML:
   IO.mapRequired("DebugName", DebugName.DebugName);
 }
 
+void MappingTraits<DXContainerYAML::CompilerVersion>::mapping(
+    IO &IO, DXContainerYAML::CompilerVersion &CompilerVersion) {
+  IO.mapRequired("Major", CompilerVersion.Major);
+  IO.mapRequired("Minor", CompilerVersion.Minor);
+  IO.mapRequired("IsDebugBuild", CompilerVersion.IsDebugBuild);
+  IO.mapRequired("IsValidated", CompilerVersion.IsValidated);
+  IO.mapRequired("CommitCount", CompilerVersion.CommitCount);
+  IO.mapRequired("ContentSizeInBytes", CompilerVersion.ContentSizeInBytes);
+  IO.mapRequired("CommitSha", CompilerVersion.CommitSha);
+  IO.mapRequired("CustomVersionString", CompilerVersion.CustomVersionString);
+}
+
 void MappingTraits<DXContainerYAML::Part>::mapping(IO &IO,
                                                    DXContainerYAML::Part &P) {
   IO.mapRequired("Name", P.Name);
@@ -548,6 +560,7 @@ void MappingTraits<DXContainerYAML::Part>::mapping(IO &IO,
   IO.mapOptional("Signature", P.Signature);
   IO.mapOptional("RootSignature", P.RootSignature);
   IO.mapOptional("DebugName", P.DebugName);
+  IO.mapOptional("CompilerVersion", P.CompilerVersion);
 }
 
 void MappingTraits<DXContainerYAML::Object>::mapping(

@@ -163,6 +163,20 @@ dumpDXContainer(MemoryBufferRef Source) {
       break;
     case dxbc::PartType::Unknown:
       break;
+    case dxbc::PartType::VERS: {
+      std::optional<DirectX::CompilerVersion> Version =
+          Container.getCompilerVersionInfo();
+      assert(Version && "Since we are iterating and found a VERS part, this "
+                        "should never not have a value");
+      NewPart.CompilerVersion.emplace(DXContainerYAML::CompilerVersion{
+          Version->Parameters.Major, Version->Parameters.Minor,
+          !!(Version->Parameters.Flags & dxbc::CompilerVersionFlags::Debug),
+          !!(Version->Parameters.Flags & dxbc::CompilerVersionFlags::Internal),
+          Version->Parameters.CommitCount,
+          Version->Parameters.ContentSizeInBytes, Version->CommitSha.str(),
+          Version->CustomVersionString.str()});
+      break;
+    }
     case dxbc::PartType::RTS0:
       std::optional<DirectX::RootSignature> RS = Container.getRootSignature();
       if (RS.has_value()) {
