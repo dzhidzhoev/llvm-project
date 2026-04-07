@@ -897,6 +897,35 @@ define void @test() !dbg !3 {
 
 ; // -----
 
+@data = external global i64, !dbg !0, !dbg !1
+
+define void @test() !dbg !4 {
+  ret void
+}
+
+!llvm.module.flags = !{!8}
+!llvm.dbg.cu = !{!7}
+
+!0 = !DIGlobalVariableExpression(var: !2, expr: !DIExpression())
+!1 = !DIGlobalVariableExpression(var: !3, expr: !DIExpression())
+!2 = distinct !DIGlobalVariable(name: "a", scope: !4, file: !5, line: 2, type: !6)
+!3 = distinct !DIGlobalVariable(name: "b", scope: !4, file: !5, line: 3, type: !6)
+!4 = distinct !DISubprogram(name: "test", scope: !5, file: !5, spFlags: DISPFlagDefinition, unit: !7, retainedNodes: !9)
+!5 = !DIFile(filename: "test.f90", directory: "")
+!6 = !DIBasicType(name: "integer", size: 32, encoding: DW_ATE_signed)
+!7 = distinct !DICompileUnit(language: DW_LANG_Fortran95, file: !5)
+!8 = !{i32 2, !"Debug Info Version", i32 3}
+!9 = !{!0, !1}
+
+; TODO add check lines
+; CHECK: #[[A:.+]] = #llvm.di_global_variable<scope = #[[SP:.+]], name = "a", {{.*}}>
+; CHECK: #[[B:.+]] = #llvm.di_global_variable<scope = #[[SP]], name = "b", {{.*}}>
+; CHECK: #[[A_GVE:.+]] = #llvm.di_global_variable_expression<var = #[[A]], {{.*}}>
+; CHECK: #[[B_GVE:.+]] = #llvm.di_global_variable_expression<var = #[[B]], {{.*}}>
+; CHECK: #[[SP]] = #llvm.di_subprogram<{{.*}}name = "test"{{.*}}, {{.*}}, retainedNodes = [#[[A_GVE]], #[[B_GVE]]]>
+
+; // -----
+
 @data = external global i64, !dbg !0, !dbg !5
 
 !llvm.module.flags = !{!8}

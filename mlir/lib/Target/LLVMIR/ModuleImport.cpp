@@ -1522,7 +1522,7 @@ LogicalResult ModuleImport::convertGlobal(llvm::GlobalVariable *globalVar) {
 
   for (llvm::DIGlobalVariableExpression *expr : globalExpressions) {
     DIGlobalVariableExpressionAttr globalExpressionAttr =
-        debugImporter->translateGlobalVariableExpression(expr);
+        debugImporter->translate(expr);
     globalExpressionAttrs.push_back(globalExpressionAttr);
   }
 
