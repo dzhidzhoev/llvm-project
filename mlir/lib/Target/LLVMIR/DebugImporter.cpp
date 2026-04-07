@@ -24,7 +24,7 @@ using namespace mlir::LLVM::detail;
 
 DebugImporter::DebugImporter(ModuleOp mlirModule,
                              bool dropDICompositeTypeElements)
-    : cache([&](llvm::DINode *node) { return createRecSelf(node); }),
+    : cache([&](llvm::MDNode *node) { return createRecSelf(node); }),
       context(mlirModule.getContext()), mlirModule(mlirModule),
       dropDICompositeTypeElements(dropDICompositeTypeElements) {}
 
@@ -251,7 +251,7 @@ DISubprogramAttr DebugImporter::translateImpl(llvm::DISubprogram *node) {
     retainedNodes.push_back(translate(retainedNode));
   };
   auto addGVE = [this, &retainedNodes](llvm::DIGlobalVariableExpression *GVE) {
-    retainedNodes.push_back(translateGlobalVariableExpression(GVE));
+    retainedNodes.push_back(translateImpl(GVE));
   };
   node->forEachRetainedNode(add, add, add, add, addGVE);
   if (llvm::is_contained(retainedNodes, nullptr))
@@ -374,17 +374,21 @@ DITypeAttr DebugImporter::translateImpl(llvm::DIType *node) {
   return cast<DITypeAttr>(translate(static_cast<llvm::DINode *>(node)));
 }
 
-DINodeAttr DebugImporter::translate(llvm::DINode *node) {
+Attribute DebugImporter::translate(llvm::MDNode *node) {
   if (!node)
     return nullptr;
 
+  llvm::errs() << "Request ";
+  node->dump();
   // Check for a cached instance.
   auto cacheEntry = cache.lookupOrInit(node);
-  if (std::optional<DINodeAttr> result = cacheEntry.get())
+  if (std::optional<Attribute> result = cacheEntry.get())
     return *result;
 
+  llvm::errs() << "Not in cache!\n";
+
   // Convert the debug metadata if possible.
-  auto translateNode = [this](llvm::DINode *node) -> DINodeAttr {
+  auto translateNode = [this](llvm::MDNode *node) -> Attribute {
     if (auto *casted = dyn_cast<llvm::DIBasicType>(node))
       return translateImpl(casted);
     if (auto *casted = dyn_cast<llvm::DICommonBlock>(node))
@@ -423,15 +427,17 @@ DINodeAttr DebugImporter::translate(llvm::DINode *node) {
       return translateImpl(casted);
     if (auto *casted = dyn_cast<llvm::DISubroutineType>(node))
       return translateImpl(casted);
+    if (auto *casted = dyn_cast<llvm::DIGlobalVariableExpression>(node))
+      return translateImpl(casted);
     return nullptr;
   };
-  if (DINodeAttr attr = translateNode(node)) {
+  if (Attribute attr = translateNode(node)) {
     // If this node was repeated, lookup its recursive ID and assign it to the
     // base result.
     if (cacheEntry.wasRepeated()) {
       DistinctAttr recId = nodeToRecId.lookup(node);
       auto recType = cast<DIRecursiveTypeAttrInterface>(attr);
-      attr = cast<DINodeAttr>(recType.withRecId(recId));
+      attr = cast<Attribute>(recType.withRecId(recId));
     }
     cacheEntry.resolve(attr);
     return attr;
@@ -440,13 +446,17 @@ DINodeAttr DebugImporter::translate(llvm::DINode *node) {
   return nullptr;
 }
 
+DINodeAttr DebugImporter::translate(llvm::DINode *node) {
+  return cast_or_null<DINodeAttr>(translate(static_cast<llvm::MDNode *>(node)));
+}
+
 /// Get the `getRecSelf` constructor for the translated node if it participates
 /// in CyclicReplacerCache cycle breaking (recursive composite types,
 /// subprograms, or compile units).
 static function_ref<DIRecursiveTypeAttrInterface(DistinctAttr)>
-getRecSelfConstructor(llvm::DINode *node) {
+getRecSelfConstructor(llvm::MDNode *node) {
   using CtorType = function_ref<DIRecursiveTypeAttrInterface(DistinctAttr)>;
-  return TypeSwitch<llvm::DINode *, CtorType>(node)
+  return TypeSwitch<llvm::MDNode *, CtorType>(node)
       .Case([&](llvm::DICompositeType *) {
         return CtorType(DICompositeTypeAttr::getRecSelf);
       })
@@ -459,7 +469,7 @@ getRecSelfConstructor(llvm::DINode *node) {
       .Default(CtorType());
 }
 
-std::optional<DINodeAttr> DebugImporter::createRecSelf(llvm::DINode *node) {
+std::optional<Attribute> DebugImporter::createRecSelf(llvm::MDNode *node) {
   auto recSelfCtor = getRecSelfConstructor(node);
   if (!recSelfCtor)
     return std::nullopt;
@@ -472,7 +482,7 @@ std::optional<DINodeAttr> DebugImporter::createRecSelf(llvm::DINode *node) {
     nodeToRecId[node] = recId;
   }
   DIRecursiveTypeAttrInterface recSelf = recSelfCtor(recId);
-  return cast<DINodeAttr>(recSelf);
+  return cast<Attribute>(recSelf);
 }
 
 //===----------------------------------------------------------------------===//
@@ -517,7 +527,7 @@ DIExpressionAttr DebugImporter::translateExpression(llvm::DIExpression *node) {
   return DIExpressionAttr::get(context, ops);
 }
 
-DIGlobalVariableExpressionAttr DebugImporter::translateGlobalVariableExpression(
+DIGlobalVariableExpressionAttr DebugImporter::translateImpl(
     llvm::DIGlobalVariableExpression *node) {
   return DIGlobalVariableExpressionAttr::get(
       context, translate(node->getVariable()),

@@ -39,14 +39,12 @@ public:
   /// Translates the LLVM DWARF expression metadata to MLIR.
   DIExpressionAttr translateExpression(llvm::DIExpression *node);
 
-  /// Translates the LLVM DWARF global variable expression metadata to MLIR.
-  DIGlobalVariableExpressionAttr
-  translateGlobalVariableExpression(llvm::DIGlobalVariableExpression *node);
-
   /// Translates the debug information for the given function into a Location.
   /// Returns UnknownLoc if `func` has no debug information attached to it.
   Location translateFuncLocation(llvm::Function *func);
 
+  /// Translates the given LLVM debug metadata (DINode or DIGlobalVariableExpression) to MLIR.
+  Attribute translate(llvm::MDNode *node);
   /// Translates the given LLVM debug metadata to MLIR.
   DINodeAttr translate(llvm::DINode *node);
 
@@ -56,7 +54,7 @@ public:
     // Infer the MLIR type from the LLVM metadata type.
     using MLIRTypeT = decltype(translateImpl(node));
     return cast_or_null<MLIRTypeT>(
-        translate(static_cast<llvm::DINode *>(node)));
+        translate(static_cast<llvm::MDNode *>(node)));
   }
 
 private:
@@ -83,6 +81,8 @@ private:
   DICommonBlockAttr translateImpl(llvm::DICommonBlock *node);
   DISubroutineTypeAttr translateImpl(llvm::DISubroutineType *node);
   DITypeAttr translateImpl(llvm::DIType *node);
+  DIGlobalVariableExpressionAttr translateImpl(llvm::DIGlobalVariableExpression *node);
+
 
   /// Constructs a StringAttr from the MDString if it is non-null. Returns a
   /// null attribute otherwise.
@@ -92,7 +92,7 @@ private:
   /// for it, or create a new one if not.
   DistinctAttr getOrCreateDistinctID(llvm::DINode *node);
 
-  std::optional<DINodeAttr> createRecSelf(llvm::DINode *node);
+  std::optional<Attribute> createRecSelf(llvm::MDNode *node);
 
   /// A mapping between distinct LLVM debug metadata nodes and the corresponding
   /// distinct id attribute.
@@ -101,9 +101,9 @@ private:
   /// A mapping between DINodes that are recursive, and their assigned recId.
   /// This is kept so that repeated occurrences of the same node can reuse the
   /// same ID and be deduplicated.
-  DenseMap<llvm::DINode *, DistinctAttr> nodeToRecId;
+  DenseMap<llvm::MDNode *, DistinctAttr> nodeToRecId;
 
-  CyclicReplacerCache<llvm::DINode *, DINodeAttr> cache;
+  CyclicReplacerCache<llvm::MDNode *, Attribute> cache;
 
   MLIRContext *context;
   ModuleOp mlirModule;
