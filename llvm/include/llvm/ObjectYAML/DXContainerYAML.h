@@ -315,8 +315,8 @@ struct Part {
   std::optional<PSVInfo> Info;
   std::optional<DXContainerYAML::Signature> Signature;
   std::optional<DXContainerYAML::RootSignatureYamlDesc> RootSignature;
-  std::optional<DebugName> DebugName;
-  std::optional<CompilerVersion> CompilerVersion;
+  std::optional<DXContainerYAML::DebugName> DebugName;
+  std::optional<DXContainerYAML::CompilerVersion> CompilerVersion;
   std::optional<object::DirectX::SourceInfo> SourceInfo;
 };
 
