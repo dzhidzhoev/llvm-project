@@ -1,0 +1,38 @@
+//===----------------- DXSATypes.td - DXSA dialect types ---*- tablegen -*-===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+
+#ifndef MLIR_DIALECT_DXSA_IR_DXSATYPES
+#define MLIR_DIALECT_DXSA_IR_DXSATYPES
+
+include "mlir/IR/AttrTypeBase.td"
+include "mlir/Dialect/DXSA/IR/DXSADialect.td"
+
+//===----------------------------------------------------------------------===//
+// DXSA Types
+//===----------------------------------------------------------------------===//
+
+class DXSA_Type<string name, string typeMnemonic> : TypeDef<DXSADialect,
+                                                            name> {
+  let mnemonic = typeMnemonic;
+}
+
+def DXSA_IndexType : DXSA_Type<"Index", "index"> {
+  let summary = "dxsa index type";
+  let description = [{
+    TODO
+  }];
+}
+
+def DXSA_OperandType : DXSA_Type<"Operand", "operand"> {
+  let summary = "dxsa operand type";
+  let description = [{
+    TODO
+  }];
+}
+
+#endif // MLIR_DIALECT_DXSA_IR_DXSATYPES

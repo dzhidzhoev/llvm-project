@@ -34,6 +34,7 @@
 #include "mlir/Dialect/ControlFlow/Transforms/BufferDeallocationOpInterfaceImpl.h"
 #include "mlir/Dialect/ControlFlow/Transforms/BufferizableOpInterfaceImpl.h"
 #include "mlir/Dialect/DLTI/DLTI.h"
+#include "mlir/Dialect/DXSA/IR/DXSA.h"
 #include "mlir/Dialect/EmitC/IR/EmitC.h"
 #include "mlir/Dialect/Func/IR/FuncOps.h"
 #include "mlir/Dialect/GPU/IR/GPUDialect.h"
@@ -121,6 +122,7 @@ void mlir::registerAllDialects(DialectRegistry &registry) {
                   cf::ControlFlowDialect,
                   complex::ComplexDialect,
                   DLTIDialect,
+		  dxsa::DXSADialect,
                   emitc::EmitCDialect,
                   func::FuncDialect,
                   gpu::GPUDialect,
