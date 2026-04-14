@@ -20,7 +20,7 @@
 # CHECK:   Stream 2 (  0 bytes): [TPI Stream]
 # CHECK:   Stream 3 (  0 bytes): [DBI Stream]
 # CHECK:   Stream 4 (  0 bytes): [IPI Stream]
-# CHECK:   Stream 5 (440 bytes): [DXContainer Stream]
+# CHECK:   Stream 5 (140 bytes): [DXContainer Stream]
 
 # CHECK:                      DirectX Container
 # CHECK: ============================================================
@@ -28,13 +28,12 @@
 # CHECK:   Version:
 # CHECK:     Major: 1
 # CHECK:     Minor: 0
-# CHECK:   FileSize: 1768
-# CHECK:   PartCount: 4
+# CHECK:   FileSize: 140
+# CHECK:   PartCount: 3
 # CHECK:   Parts:
 # CHECK:     ILDN | offset = 52, size = 16
 # CHECK:     HASH | offset = 76, size = 20
-# CHECK:     SRCI | offset = 104, size = 292
-# CHECK:     ILDB | offset = 404, size = 28
+# CHECK:     ILDB | offset = 104, size = 28
 
 # YAML: ---
 # YAML: MSF:
