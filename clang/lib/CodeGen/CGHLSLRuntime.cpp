@@ -27,8 +27,11 @@
 #include "clang/AST/RecursiveASTVisitor.h"
 #include "clang/AST/Type.h"
 #include "clang/Basic/DiagnosticFrontend.h"
+#include "clang/Basic/SourceManager.h"
 #include "clang/Basic/TargetOptions.h"
+#include "clang/Driver/CommonArgs.h"
 #include "llvm/ADT/DenseMap.h"
+#include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/ScopeExit.h"
 #include "llvm/ADT/SmallString.h"
 #include "llvm/ADT/SmallVector.h"
@@ -44,6 +47,7 @@
 #include "llvm/Support/Alignment.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/FormatVariadic.h"
+#include "llvm/Support/Path.h"
 #include <cstdint>
 #include <optional>
 
@@ -93,6 +97,100 @@ void addRootSignatureMD(llvm::dxbc::RootSignatureVersion RootSigVer,
   StringRef RootSignatureValKey = "dx.rootsignatures";
   auto *RootSignatureValMD = M.getOrInsertNamedMetadata(RootSignatureValKey);
   RootSignatureValMD->addOperand(MDVals);
+}
+
+void addSourceInfo(CodeGenModule &CGM, llvm::Module &M) {
+  auto &SM = CGM.getContext().getSourceManager();
+  auto &Macros = CGM.getPreprocessorOpts().Macros;
+  auto &Ctx = M.getContext();
+
+  llvm::NamedMDNode *DXContents =
+      M.getOrInsertNamedMetadata("dx.source.contents");
+  auto addFile = [&](const std::pair<StringRef, StringRef> &NameContent) {
+    llvm::MDTuple *FileInfo =
+        llvm::MDNode::get(Ctx, {llvm::MDString::get(Ctx, NameContent.first),
+                                llvm::MDString::get(Ctx, NameContent.second)});
+    DXContents->addOperand(FileInfo);
+  };
+
+  bool Invalid = false;
+  const SrcMgr::SLocEntry *MainLocEntry =
+      &SM.getSLocEntry(SM.getMainFileID(), &Invalid);
+  assert(!Invalid && "Main file SLocEntry must not be invalid!");
+  const SrcMgr::ContentCache &MainCCEntry =
+      MainLocEntry->getFile().getContentCache();
+
+  SmallVector<std::pair<std::string, StringRef>> Files;
+  std::optional<SmallString<256>> MainFileName;
+  Files.reserve(SM.local_sloc_entry_size());
+  for (unsigned I = 0, N = SM.local_sloc_entry_size(); I != N; ++I) {
+    const SrcMgr::SLocEntry &LocEntry = SM.getLocalSLocEntry(I);
+    if (!LocEntry.isFile())
+      continue;
+
+    const SrcMgr::FileInfo &FInfo = LocEntry.getFile();
+    if (isSystem(FInfo.getFileCharacteristic()))
+      continue;
+
+    const SrcMgr::ContentCache &CCEntry = FInfo.getContentCache();
+    OptionalFileEntryRef FEntry = CCEntry.OrigEntry;
+    if (!FEntry)
+      continue;
+
+    llvm::SmallString<256> Path = FEntry->getName();
+    llvm::sys::path::native(Path);
+    std::optional<llvm::MemoryBufferRef> Buffer = CCEntry.getBufferOrNone(
+        SM.getDiagnostics(), SM.getFileManager(), SourceLocation());
+    if (!Buffer) {
+      unsigned ID = SM.getDiagnostics().getCustomDiagID(
+          clang::DiagnosticsEngine::Warning,
+          "failed to embed source for \"%0\" into dx.source.contents");
+      SM.getDiagnostics().Report(ID) << Path;
+      continue;
+    }
+
+    if (&MainCCEntry != &CCEntry) {
+      Files.emplace_back(Path, Buffer->getBuffer());
+    } else {
+      addFile(std::make_pair(Path, Buffer->getBuffer()));
+      MainFileName.emplace(Path);
+    }
+  }
+  assert(MainFileName && "Main file not found.");
+
+  llvm::sort(Files);
+#ifndef NDEBUG
+  for (unsigned I = 1; I < Files.size(); ++I)
+    assert((Files[I - 1].first != Files[I].first) &&
+           "Duplicate files in dx.source.contents.");
+#endif
+  llvm::for_each(Files, addFile);
+
+  SmallVector<llvm::Metadata *> Defines;
+  Defines.reserve(Macros.size());
+  for (const auto &Macro : Macros) {
+    // Ignore undefs.
+    if (!Macro.second)
+      Defines.emplace_back(llvm::MDString::get(Ctx, Macro.first));
+  }
+  M.getOrInsertNamedMetadata("dx.source.defines")
+      ->addOperand(llvm::MDNode::get(Ctx, Defines));
+
+  if (!CGM.getCodeGenOpts().MainFileName.empty())
+    llvm::sys::path::native(CGM.getCodeGenOpts().MainFileName, *MainFileName);
+  M.getOrInsertNamedMetadata("dx.source.mainFileName")
+      ->addOperand(
+          llvm::MDNode::get(Ctx, llvm::MDString::get(Ctx, *MainFileName)));
+
+  SmallVector<SmallString<8>> ParsedArgs =
+      clang::driver::tools::parseEscapedCommandLine(
+          CGM.getCodeGenOpts().HLSLRecordCommandLine.c_str());
+  SmallVector<llvm::Metadata *> Args;
+  Args.reserve(ParsedArgs.size());
+  for (const auto &Arg : ParsedArgs)
+    Args.push_back(llvm::MDString::get(Ctx, Arg));
+  M.getOrInsertNamedMetadata("dx.source.args")
+      ->addOperand(llvm::MDNode::get(Ctx, Args));
 }
 
 // Find array variable declaration from DeclRef expression
@@ -481,6 +579,9 @@ void CGHLSLRuntime::finishCodeGen() {
   Triple T(M.getTargetTriple());
   if (T.getArch() == Triple::ArchType::dxil)
     addDxilValVersion(TargetOpts.DxilValidatorVersion, M);
+  if (CodeGenOpts.getDebugInfo() >=
+      llvm::codegenoptions::DebugInfoKind::DebugInfoConstructor)
+    addSourceInfo(CGM, M);
   if (CodeGenOpts.ResMayAlias)
     M.setModuleFlag(llvm::Module::ModFlagBehavior::Error, "dx.resmayalias", 1);
   if (CodeGenOpts.AllResourcesBound)

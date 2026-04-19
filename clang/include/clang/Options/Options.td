@@ -9713,6 +9713,13 @@ def dxc_rootsig_define :
   Alias<fdx_rootsignature_define>,
   Group<dxc_Group>,
   Visibility<[DXCOption]>;
+def dxc_record_command_line
+    : Separate<["-"], "fdx-record-command-line">,
+      Group<dxc_Group>,
+      Visibility<[CC1Option]>,
+      MarshallingInfoString<CodeGenOpts<"HLSLRecordCommandLine">>,
+      HelpText<
+          "Command line arguments to embed in the dx.source.args metadata.">;
 def hlsl_entrypoint : Option<["-"], "hlsl-entry", KIND_SEPARATE>,
                       Group<dxc_Group>,
                       Visibility<[ClangOption, CC1Option]>,

@@ -3256,6 +3256,23 @@ void tools::escapeSpacesAndBackslashes(const char *Arg,
   }
 }
 
+static bool isSpaceOrNull(char c) { return !c || c == ' '; }
+
+static const char *unescapeUntilSpace(const char *Arg,
+                                      llvm::SmallVectorImpl<char> &Res) {
+  for (; !isSpaceOrNull(*Arg); ++Arg) {
+    if (*Arg == '\\') {
+      ++Arg;
+      assert((*Arg == '\\' || *Arg == ' ') &&
+             "Only escaped backslashes and spaces are supported.");
+      if (!*Arg)
+        --Arg;
+    }
+    Res.push_back(*Arg);
+  }
+  return Arg;
+}
+
 const char *tools::renderEscapedCommandLine(const ToolChain &TC,
                                             const llvm::opt::ArgList &Args) {
   const Driver &D = TC.getDriver();
@@ -3277,10 +3294,22 @@ const char *tools::renderEscapedCommandLine(const ToolChain &TC,
   return Args.MakeArgString(Flags);
 }
 
+SmallVector<SmallString<8>>
+tools::parseEscapedCommandLine(const char *CommandLine) {
+  SmallVector<SmallString<8>> Res;
+  while (*CommandLine) {
+    CommandLine = unescapeUntilSpace(CommandLine, Res.emplace_back());
+    if (*CommandLine == ' ')
+      ++CommandLine;
+  }
+  return Res;
+}
+
 bool tools::shouldRecordCommandLine(const ToolChain &TC,
                                     const llvm::opt::ArgList &Args,
                                     bool &FRecordCommandLine,
-                                    bool &GRecordCommandLine) {
+                                    bool &GRecordCommandLine,
+                                    bool &DXRecordCommandLine) {
   const Driver &D = TC.getDriver();
   const llvm::Triple &Triple = TC.getEffectiveTriple();
   const std::string &TripleStr = Triple.getTriple();
@@ -3291,13 +3320,15 @@ bool tools::shouldRecordCommandLine(const ToolChain &TC,
   GRecordCommandLine =
       Args.hasFlag(options::OPT_grecord_command_line,
                    options::OPT_gno_record_command_line, false);
+  DXRecordCommandLine = Triple.isDXIL() && Args.hasArg(options::OPT_g_Flag);
   if (FRecordCommandLine && !Triple.isOSBinFormatELF() &&
       !Triple.isOSBinFormatXCOFF() && !Triple.isOSBinFormatMachO())
     D.Diag(diag::err_drv_unsupported_opt_for_target)
         << Args.getLastArg(options::OPT_frecord_command_line)->getAsString(Args)
         << TripleStr;
 
-  return FRecordCommandLine || TC.UseDwarfDebugFlags() || GRecordCommandLine;
+  return FRecordCommandLine || TC.UseDwarfDebugFlags() || GRecordCommandLine ||
+         DXRecordCommandLine;
 }
 
 void tools::renderCommonIntegerOverflowOptions(const ArgList &Args,
