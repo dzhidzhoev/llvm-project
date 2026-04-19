@@ -267,6 +267,8 @@ void escapeSpacesAndBackslashes(const char *Arg,
 const char *renderEscapedCommandLine(const ToolChain &TC,
                                      const llvm::opt::ArgList &Args);
 
+SmallVector<SmallString<8>> parseEscapedCommandLine(const char *CommandLine);
+
 /// Check if the command line should be recorded in the object file. This is
 /// done if either -frecord-command-line or -grecord-command-line options have
 /// been passed. This also does some error checking since -frecord-command-line
@@ -275,8 +277,8 @@ const char *renderEscapedCommandLine(const ToolChain &TC,
 /// line options that were passed.
 bool shouldRecordCommandLine(const ToolChain &TC,
                              const llvm::opt::ArgList &Args,
-                             bool &FRecordCommandLine,
-                             bool &GRecordCommandLine);
+                             bool &FRecordCommandLine, bool &GRecordCommandLine,
+                             bool &DXRecordCommandLine);
 
 void renderGlobalISelOptions(const Driver &D, const llvm::opt::ArgList &Args,
                              llvm::opt::ArgStringList &CmdArgs,
