@@ -270,8 +270,8 @@ const char *renderEscapedCommandLine(const ToolChain &TC,
 /// line options that were passed.
 bool shouldRecordCommandLine(const ToolChain &TC,
                              const llvm::opt::ArgList &Args,
-                             bool &FRecordCommandLine,
-                             bool &GRecordCommandLine);
+                             bool &FRecordCommandLine, bool &GRecordCommandLine,
+                             bool &DXRecordCommandLine);
 
 void renderCommonIntegerOverflowOptions(const llvm::opt::ArgList &Args,
                                         llvm::opt::ArgStringList &CmdArgs);

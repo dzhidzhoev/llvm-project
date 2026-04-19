@@ -7729,16 +7729,17 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
   // By default, -gno-record-gcc-switches is set on and no recording.
   auto GRecordSwitches = false;
   auto FRecordSwitches = false;
-  if (shouldRecordCommandLine(TC, Args, FRecordSwitches, GRecordSwitches)) {
+  bool DXRecordSwitches = false;
+  if (shouldRecordCommandLine(TC, Args, FRecordSwitches, GRecordSwitches,
+                              DXRecordSwitches)) {
     auto FlagsArgString = renderEscapedCommandLine(TC, Args);
-    if (TC.UseDwarfDebugFlags() || GRecordSwitches) {
+    if (TC.UseDwarfDebugFlags() || GRecordSwitches)
       CmdArgs.push_back("-dwarf-debug-flags");
-      CmdArgs.push_back(FlagsArgString);
-    }
-    if (FRecordSwitches) {
+    if (FRecordSwitches)
       CmdArgs.push_back("-record-command-line");
-      CmdArgs.push_back(FlagsArgString);
-    }
+    if (DXRecordSwitches)
+      CmdArgs.push_back("-fdx-record-command-line");
+    CmdArgs.push_back(FlagsArgString);
   }
 
   // Host-side offloading compilation receives all device-side outputs. Include
