@@ -6,14 +6,26 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// Unit tests for escapeSpacesAndBackslashes and parseEscapedCommandLine.
+// Unit tests for escapeSpacesAndBackslashes, parseEscapedCommandLine and
+// renderEscapedCommandLine.
 //
 //===----------------------------------------------------------------------===//
 
+#include "clang/Basic/DiagnosticIDs.h"
+#include "clang/Basic/DiagnosticOptions.h"
+#include "clang/Driver/Compilation.h"
 #include "clang/Driver/CommonArgs.h"
+#include "clang/Driver/Driver.h"
 #include "llvm/ADT/SmallString.h"
+#include "llvm/Support/MemoryBuffer.h"
+#include "llvm/Support/VirtualFileSystem.h"
 #include "gtest/gtest.h"
+#include <memory>
 
+#include "SimpleDiagnosticConsumer.h"
+
+using namespace clang;
+using namespace clang::driver;
 using namespace clang::driver::tools;
 using namespace llvm;
 
@@ -91,43 +103,75 @@ TEST(EscapedCommandLineTest, ParseEscapedBackslash) {
 }
 
 // ---------------------------------------------------------------------------
-// Round-trip: escape then parse
+// Round-trip: renderEscapedCommandLine then parseEscapedCommandLine
 // ---------------------------------------------------------------------------
 
-static std::string roundTrip(std::initializer_list<const char *> Args) {
-  SmallString<256> Joined;
-  bool First = true;
-  for (const char *Arg : Args) {
-    if (!First)
-      Joined += ' ';
-    escapeSpacesAndBackslashes(Arg, Joined);
-    First = false;
-  }
-  auto Parsed = parse(Joined);
-  SmallString<256> Result;
-  for (size_t I = 0; I < Parsed.size(); ++I) {
-    if (I)
-      Result += ' ';
-    Result += Parsed[I];
-  }
-  return std::string(Result);
+// Build a minimal driver with exec path "/bin/clang" and an in-memory file
+// system containing "foo.cpp", then render ArgStrings through
+// renderEscapedCommandLine and parse the result back.
+static SmallVector<std::string>
+renderAndParse(ArrayRef<const char *> ArgStrings) {
+  auto FS = llvm::makeIntrusiveRefCnt<llvm::vfs::InMemoryFileSystem>();
+  FS->addFile("foo.cpp", 0, llvm::MemoryBuffer::getMemBuffer(""));
+  DiagnosticOptions DiagOpts;
+  DiagnosticsEngine Diags(DiagnosticIDs::create(), DiagOpts,
+                          new SimpleDiagnosticConsumer);
+  Driver TheDriver("/bin/clang", "x86_64-unknown-linux-gnu", Diags, "clang",
+                   FS);
+  std::unique_ptr<Compilation> C(
+      TheDriver.BuildCompilation({"clang", "foo.cpp"}));
+  if (!C)
+    return {};
+
+  bool ContainsError = false;
+  auto Args = TheDriver.ParseArgStrings(ArgStrings, false, ContainsError);
+  if (ContainsError)
+    return {};
+
+  const char *Rendered =
+      renderEscapedCommandLine(C->getDefaultToolChain(), Args);
+  SmallVector<std::string> Result;
+  for (const auto &S : parseEscapedCommandLine(Rendered))
+    Result.emplace_back(S.begin(), S.end());
+  return Result;
 }
 
 TEST(EscapedCommandLineTest, RoundTripSimple) {
-  EXPECT_EQ(roundTrip({"clang", "-O2", "foo.cpp"}), "clang -O2 foo.cpp");
+  auto Args = renderAndParse({"-O2"});
+  ASSERT_EQ(Args.size(), 2u);
+  EXPECT_EQ(Args[0], "/bin/clang");
+  EXPECT_EQ(Args[1], "-O2");
+}
+
+TEST(EscapedCommandLineTest, RoundTripMultipleArgs) {
+  auto Args = renderAndParse({"-O2", "-DFOO"});
+  ASSERT_EQ(Args.size(), 3u);
+  EXPECT_EQ(Args[0], "/bin/clang");
+  EXPECT_EQ(Args[1], "-O2");
+  EXPECT_EQ(Args[2], "-DFOO");
 }
 
 TEST(EscapedCommandLineTest, RoundTripArgWithSpace) {
-  EXPECT_EQ(roundTrip({"clang", "path with spaces/file.cpp"}),
-            "clang path with spaces/file.cpp");
+  // -isystem is a separate arg; its value "/path with spaces" contains spaces.
+  auto Args = renderAndParse({"-isystem", "/path with spaces"});
+  ASSERT_EQ(Args.size(), 3u);
+  EXPECT_EQ(Args[0], "/bin/clang");
+  EXPECT_EQ(Args[1], "-isystem");
+  EXPECT_EQ(Args[2], "/path with spaces");
 }
 
 TEST(EscapedCommandLineTest, RoundTripArgWithBackslash) {
-  EXPECT_EQ(roundTrip({"clang", "C:\\path\\file.cpp"}),
-            "clang C:\\path\\file.cpp");
+  auto Args = renderAndParse({"-isystem", "C:\\include"});
+  ASSERT_EQ(Args.size(), 3u);
+  EXPECT_EQ(Args[0], "/bin/clang");
+  EXPECT_EQ(Args[1], "-isystem");
+  EXPECT_EQ(Args[2], "C:\\include");
 }
 
 TEST(EscapedCommandLineTest, RoundTripArgWithSpaceAndBackslash) {
-  EXPECT_EQ(roundTrip({"clang", "C:\\path with space\\file.cpp"}),
-            "clang C:\\path with space\\file.cpp");
+  auto Args = renderAndParse({"-isystem", "C:\\path with space\\include"});
+  ASSERT_EQ(Args.size(), 3u);
+  EXPECT_EQ(Args[0], "/bin/clang");
+  EXPECT_EQ(Args[1], "-isystem");
+  EXPECT_EQ(Args[2], "C:\\path with space\\include");
 }
