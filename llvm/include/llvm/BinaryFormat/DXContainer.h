@@ -44,6 +44,8 @@ namespace dxbc {
 
 LLVM_ENABLE_BITMASK_ENUMS_IN_NAMESPACE();
 
+constexpr static uint64_t DXCONTAINER_STRUCT_ALIGNMENT = 4;
+
 inline Triple::EnvironmentType getShaderStage(uint32_t Kind) {
   assert(Kind <= Triple::RootSignature - Triple::Pixel &&
          "Shader kind out of expected range.");
@@ -860,6 +862,11 @@ struct SectionHeader {
     sys::swapByteOrder(AlignedSizeInBytes);
     sys::swapByteOrder(Flags);
     sys::swapByteOrder(Type);
+  }
+
+  void updateSize(uint32_t ContentSize) {
+    AlignedSizeInBytes =
+        alignTo(sizeof(*this) + ContentSize, DXCONTAINER_STRUCT_ALIGNMENT);
   }
 };
 
