@@ -21,9 +21,9 @@
 # CHECK-YAML:   Version:
 # CHECK-YAML:     Major:           1
 # CHECK-YAML:     Minor:           0
-# CHECK-YAML:   FileSize:        1768
-# CHECK-YAML:   PartCount:       4
-# CHECK-YAML:   PartOffsets:     [ 52, 76, 104, 404 ]
+# CHECK-YAML:   FileSize:        136
+# CHECK-YAML:   PartCount:       3
+# CHECK-YAML:   PartOffsets:     [ 48, 72, 100 ]
 # CHECK-YAML: Parts:
 # CHECK-YAML:   - Name:            ILDN
 # CHECK-YAML:     Size:            16
@@ -37,8 +37,6 @@
 # CHECK-YAML:       IncludesSource:  false
 # CHECK-YAML:       Digest:          [ 0xAB, 0x20, 0xC9, 0x15, 0x53, 0xF9, 0x22, 0x7F,
 # CHECK-YAML:                          0x40, 0x45, 0x45, 0x4D, 0x27, 0x5D, 0x98, 0xD6 ]
-# CHECK-YAML:   - Name:            SRCI
-# CHECK-YAML:     Size:            292
 # CHECK-YAML:   - Name:            ILDB
 # CHECK-YAML:     Size:            28
 # CHECK-YAML:     Program:
@@ -65,7 +63,7 @@ MSF:
   DirectoryBlocks: [ 6 ]
   NumStreams:      6
   FileSize:        3584
-StreamSizes:     [ 0, 52, 0, 0, 0, 440 ]
+StreamSizes:     [ 0, 52, 0, 0, 0, 136 ]
 StreamMap:
   - Stream:          [  ]
   - Stream:          [ 5 ]
@@ -88,9 +86,9 @@ DXContainerStream:
       Version:
         Major:           1
         Minor:           0
-      FileSize:        1768
-      PartCount:       4
-      PartOffsets:     [ 52, 76, 104, 404 ]
+      FileSize:        136
+      PartCount:       3
+      PartOffsets:     [ 48, 72, 100 ]
     Parts:
       - Name:            ILDN
         Size:            16
@@ -105,8 +103,6 @@ DXContainerStream:
           Digest:          [ 0xAB, 0x20, 0xC9, 0x15, 0x53, 0xF9, 0x22,
                              0x7F, 0x40, 0x45, 0x45, 0x4D, 0x27, 0x5D,
                              0x98, 0xD6 ]
-      - Name:            SRCI
-        Size:            292
       - Name:            ILDB
         Size:            28
         Program:
