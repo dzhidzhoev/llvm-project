@@ -306,6 +306,10 @@ static Error parseContents(StringRef Section,
       return parseFailed(formatv(
           "SRCI Contents is compressed with Zlib, but {0}",
           compression::getReasonIfUnsupported(compression::Format::Zlib)));
+    llvm::errs() << Contents.Parameters.EntriesSizeInBytes << " " << (Current - Section.begin()) << "\n";
+    llvm::errs() << Current[0] << Current[1] << Current[2] << Current[3] << "\n";
+    llvm::errs() << (unsigned)Current[Contents.Parameters.EntriesSizeInBytes - 1] << "\n";
+    llvm::errs() << Contents.Parameters.UncompressedEntriesSizeInBytes << "\n";
     if (Error Err = compression::zlib::decompress(
             ArrayRef(reinterpret_cast<const uint8_t *>(Current),
                      Contents.Parameters.EntriesSizeInBytes),

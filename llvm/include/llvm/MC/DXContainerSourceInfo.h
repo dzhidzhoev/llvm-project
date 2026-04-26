@@ -10,6 +10,7 @@
 #define LLVM_MC_DXCONTAINERSOURCEINFO_H
 
 #include "llvm/ADT/SmallString.h"
+#include "llvm/BinaryFormat/DXContainer.h"
 #include "llvm/Object/DXContainer.h"
 
 namespace llvm {
@@ -18,19 +19,37 @@ class raw_ostream;
 
 namespace mcdxbc {
 
-/// This data structure is a helper for reading and writing SourceInfo data.
-/// It is implemented in the BinaryFormat library so that it can be used by both
+/// This data structure is a helper for writing SourceInfo data.
+/// It is implemented in the MC library so that it can be used by both
 /// the MC layer and Object tools.
-/// This structure is used to represent the extracted data in an inspectable and
-/// modifiable format, and can be used to serialize the data back into valid
-/// SourceInfo.
 struct SourceInfo {
   bool IsFinalized = false;
   object::DirectX::SourceInfo BaseData;
   SmallString<128> CompressedContents;
 
+  void setCompressionType(dxbc::SourceInfo::Contents::CompressionType Type) {
+    CompressionType = Type;
+  }
+
+  void addFile(StringRef Name, StringRef Content) {
+    Override = true;
+    FileNamesAndContents.emplace_back(Name, Content);
+  }
+  void addArg(StringRef Arg) {
+    Override = true;
+    Args.push_back(Arg);
+  }
+
   void write(raw_ostream &OS) const;
   void finalize();
+
+private:
+  bool Override = false;
+  std::optional<dxbc::SourceInfo::Contents::CompressionType> CompressionType;
+  SmallVector<std::pair<StringRef, StringRef>> FileNamesAndContents;
+  SmallVector<StringRef> Args;
+
+  void compute();
 };
 
 } // namespace mcdxbc
