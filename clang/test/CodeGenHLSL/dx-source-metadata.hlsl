@@ -16,7 +16,7 @@
 // CHECK: ![[CONTENTS]] = !{!"{{.*[\\/]dx-source-metadata.hlsl}}", !"{{.*}}"}
 // CHECK: ![[DEFINES]] = !{!"USER_DEF0=42", !"USER_DEF1=43"}
 // CHECK: ![[MAIN]] = !{!"{{.*[\\/]dx-source-metadata.hlsl}}"}
-// CHECK: ![[ARGS]] = !{!"clang_dxc", !"-g", !"-Tlib_6_3", !"-DUSER_DEF0=42", !"-DUSER_DEF1=43", !"C:\\dx-source-metadata.hlsl"}
+// CHECK: ![[ARGS]] = !{!"-g", !"-Tlib_6_3", !"-DUSER_DEF0=42", !"-DUSER_DEF1=43", !"C:\\dx-source-metadata.hlsl"}
 
 // CHECK-FROM-PIPE: !dx.source.contents = !{![[CONTENTS:[0-9]+]]}
 // CHECK-FROM-PIPE: !dx.source.mainFileName = !{![[MAIN:[0-9]+]]}

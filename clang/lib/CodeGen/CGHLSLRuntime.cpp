@@ -188,8 +188,9 @@ void addSourceInfo(CodeGenModule &CGM, llvm::Module &M) {
           CGM.getCodeGenOpts().HLSLRecordCommandLine.c_str());
   SmallVector<llvm::Metadata *> Args;
   Args.reserve(ParsedArgs.size());
-  for (const auto &Arg : ParsedArgs)
-    Args.push_back(llvm::MDString::get(Ctx, Arg));
+  if (!ParsedArgs.empty())
+    for (const auto &Arg : llvm::drop_begin(ParsedArgs))
+      Args.push_back(llvm::MDString::get(Ctx, Arg));
   M.getOrInsertNamedMetadata("dx.source.args")
       ->addOperand(llvm::MDNode::get(Ctx, Args));
 }
