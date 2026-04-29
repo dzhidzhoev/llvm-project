@@ -133,9 +133,22 @@ void DXContainerGlobals::computeShaderHashAndDebugName(
   auto *DXILConstant =
       cast<ConstantDataArray>(M.getNamedGlobal("dx.dxil")->getInitializer());
   MD5 Digest;
+  dxbc::ShaderHash HashData = {0, {0}};
+
+  if (auto *ILDB = M.getNamedGlobal("dx.ildb")) {
+    // The Hash's IncludesSource flag gets set whenever the hashed shader
+    // includes debug information.
+    // TODO: Add -Zss flag to manually enable/disable including sources when
+    // calculating hash.
+    DXILConstant = cast<ConstantDataArray>(ILDB->getInitializer());
+    HashData.Flags = static_cast<uint32_t>(dxbc::HashFlags::IncludesSource);
+  } else {
+    DXILConstant =
+        cast<ConstantDataArray>(M.getNamedGlobal("dx.dxil")->getInitializer());
+  }
+
   Digest.update(DXILConstant->getRawDataValues());
   MD5::MD5Result Result = Digest.final();
-  dxbc::ShaderHash HashData = {0, {0}};
 
   memcpy(reinterpret_cast<void *>(&HashData.Digest), Result.data(), 16);
   if (sys::IsBigEndianHost)

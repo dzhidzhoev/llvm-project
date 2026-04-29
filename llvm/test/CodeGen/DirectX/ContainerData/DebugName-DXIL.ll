@@ -2,7 +2,7 @@
 
 ; RUN: llc %s --filetype=obj -o %t.dxbc
 ; RUN: obj2yaml %t.dxbc >%t.yaml
-; RUN: llvm-objcopy --dump-section=DXIL=%t0.bc %t.dxbc
+; RUN: llvm-objcopy --dump-section=ILDB=%t0.bc %t.dxbc
 ; RUN: %md5sum %t0.bc >%t0.bc.md5
 ; RUN: cat %t.yaml %t0.bc.md5 | FileCheck %s
 
