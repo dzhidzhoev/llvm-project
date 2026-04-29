@@ -18,6 +18,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Analysis/ModuleSummaryAnalysis.h"
 #include "llvm/IR/Constants.h"
+#include "llvm/IR/DebugInfo.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/GlobalVariable.h"
 #include "llvm/IR/IntrinsicInst.h"
@@ -28,6 +29,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 
 using namespace llvm;
@@ -148,13 +150,28 @@ public:
   StringRef getPassName() const override { return "DXIL Embedder"; }
 
   bool runOnModule(Module &M) override {
-    std::string Data;
-    llvm::raw_string_ostream OS(Data);
-
     // Perform late legalization of lifetime intrinsics that would otherwise
     // fail the Module Verifier if performed in an earlier pass
     legalizeLifetimeIntrinsics(M);
 
+    std::string ILDBData;
+    bool HasDebugInfo = !M.debug_compile_units().empty();
+    if (HasDebugInfo) {
+      // Write DXIL with debug info to ILDB part.
+      // Clone the module to avoid alternating it with DebugInfoPass
+      // before stripping the debug info later.
+      std::unique_ptr<Module> MClone = llvm::CloneModule(M);
+      llvm::raw_string_ostream OS(ILDBData);
+      const auto DIMap = DebugInfoPass::run(*MClone);
+      WriteDXILToFile(*MClone, OS, DIMap);
+    }
+
+    std::string DXILData;
+    llvm::raw_string_ostream OS(DXILData);
+    if (HasDebugInfo) {
+      // If we have an ILDB part, strip DXIL from all debug info.
+      StripDebugInfo(M);
+    }
     const auto DIMap = DebugInfoPass::run(M);
     WriteDXILToFile(M, OS, DIMap);
 
@@ -163,8 +180,21 @@ public:
     // not-so-legal legalizations
     removeLifetimeIntrinsics(M);
 
+    if (HasDebugInfo) {
+      // Create a GV after both parts are written, otherwise it gets
+      // added to DXIL when `WriteDXILToFile` is called the second time.
+      Constant *ModuleConstant = ConstantDataArray::get(
+          M.getContext(), arrayRefFromStringRef(ILDBData));
+      auto *GV = new llvm::GlobalVariable(M, ModuleConstant->getType(), true,
+                                          GlobalValue::PrivateLinkage,
+                                          ModuleConstant, "dx.ildb");
+      GV->setSection("ILDB");
+      GV->setAlignment(Align(4));
+      appendToCompilerUsed(M, {GV});
+    }
+
     Constant *ModuleConstant =
-        ConstantDataArray::get(M.getContext(), arrayRefFromStringRef(Data));
+        ConstantDataArray::get(M.getContext(), arrayRefFromStringRef(DXILData));
     auto *GV = new llvm::GlobalVariable(M, ModuleConstant->getType(), true,
                                         GlobalValue::PrivateLinkage,
                                         ModuleConstant, "dx.dxil");
