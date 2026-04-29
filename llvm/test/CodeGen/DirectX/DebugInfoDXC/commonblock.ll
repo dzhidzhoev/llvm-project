@@ -1,6 +1,6 @@
 ;; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
-;; RUN: llvm-objcopy --dump-section=DXIL=%t.bc %t.dxbc
-;; RUN: dxc /dumpbin %t.dxbc | FileCheck %s
+;; RUN: llvm-objcopy --dump-section=ILDB=%t.bc %t.dxbc
+;; RUN: dxc /dumpbin %t.bc | FileCheck %s
 
 @common_a = common global [32 x i8] zeroinitializer, align 8, !dbg !13, !dbg !15
 
