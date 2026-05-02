@@ -52,6 +52,15 @@ private:
   void compute();
 };
 
+struct DebugName {
+  object::DXContainer::ILDNData BaseData;
+
+  DebugName() { BaseData.first.Flags = 0; }
+
+  void setFileName(StringRef FileName);
+  void write(raw_ostream &OS) const;
+};
+
 } // namespace mcdxbc
 } // namespace llvm
 

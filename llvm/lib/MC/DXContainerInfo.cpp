@@ -236,3 +236,13 @@ void SourceInfo::write(raw_ostream &OS) const {
     writePadding(OS, ArgsOffset);
   }
 }
+
+void DebugName::setFileName(StringRef DebugFileName) {
+  BaseData.first.NameLength = DebugFileName.size();
+  BaseData.second = DebugFileName;
+}
+
+void DebugName::write(raw_ostream &OS) const {
+  writeStruct(OS, BaseData.first);
+  writeString(OS, BaseData.second.substr(0, BaseData.first.NameLength));
+}
