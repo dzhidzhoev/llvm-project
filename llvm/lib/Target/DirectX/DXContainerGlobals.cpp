@@ -26,6 +26,7 @@
 #include "llvm/MC/DXContainerInfo.h"
 #include "llvm/MC/DXContainerPSVInfo.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compression.h"
 #include "llvm/Support/MD5.h"
 #include "llvm/TargetParser/Triple.h"
@@ -36,13 +37,21 @@ using namespace llvm;
 using namespace llvm::dxil;
 using namespace llvm::mcdxbc;
 
+// TODO Emit PDB file at this path.
+static cl::opt<std::string> PDBFileName("dx-pdb-file",
+                                        cl::desc("DirectX PDB output filename"),
+                                        cl::value_desc("filename"));
+
 namespace {
 class DXContainerGlobals : public llvm::ModulePass {
 
   GlobalVariable *buildContainerGlobal(Module &M, Constant *Content,
                                        StringRef Name, StringRef SectionName);
+  void addSection(Module &M, SmallVector<GlobalValue *> &Globals,
+                  StringRef SectionData, StringRef MetadataName,
+                  StringRef SectionName);
   GlobalVariable *getFeatureFlags(Module &M);
-  GlobalVariable *computeShaderHash(Module &M);
+  void computeShaderHash(Module &M, SmallVector<GlobalValue *> &Globals);
   GlobalVariable *buildSignature(Module &M, Signature &Sig, StringRef Name,
                                  StringRef SectionName);
   void addSignature(Module &M, SmallVector<GlobalValue *> &Globals);
@@ -77,7 +86,7 @@ public:
 bool DXContainerGlobals::runOnModule(Module &M) {
   llvm::SmallVector<GlobalValue *> Globals;
   Globals.push_back(getFeatureFlags(M));
-  Globals.push_back(computeShaderHash(M));
+  computeShaderHash(M, Globals);
   addSignature(M, Globals);
   addRootSignature(M, Globals);
   addPipelineStateValidationInfo(M, Globals);
@@ -97,7 +106,19 @@ GlobalVariable *DXContainerGlobals::getFeatureFlags(Module &M) {
   return buildContainerGlobal(M, FeatureFlagsConstant, "dx.sfi0", "SFI0");
 }
 
-GlobalVariable *DXContainerGlobals::computeShaderHash(Module &M) {
+void DXContainerGlobals::addSection(Module &M,
+                                    SmallVector<GlobalValue *> &Globals,
+                                    StringRef SectionData,
+                                    StringRef MetadataName,
+                                    StringRef SectionName) {
+  Constant *SectionConstant = ConstantDataArray::getString(
+      M.getContext(), SectionData, /*AddNull*/ false);
+  Globals.emplace_back(
+      buildContainerGlobal(M, SectionConstant, MetadataName, SectionName));
+}
+
+void DXContainerGlobals::computeShaderHash(
+    Module &M, SmallVector<GlobalValue *> &Globals) {
   auto *DXILConstant =
       cast<ConstantDataArray>(M.getNamedGlobal("dx.dxil")->getInitializer());
   MD5 Digest;
@@ -117,7 +138,31 @@ GlobalVariable *DXContainerGlobals::computeShaderHash(Module &M) {
 
   Constant *ModuleConstant =
       ConstantDataArray::get(M.getContext(), arrayRefFromStringRef(Data));
-  return buildContainerGlobal(M, ModuleConstant, "dx.hash", "HASH");
+  Globals.emplace_back(
+      buildContainerGlobal(M, ModuleConstant, "dx.hash", "HASH"));
+
+  // Emit ILDN part in debug info mode.
+  // TODO should we check for compile units or for module metadata here?
+  dxil::ModuleMetadataInfo &MMI =
+      getAnalysis<DXILMetadataAnalysisWrapperPass>().getModuleMetadata();
+  if (!MMI.SourceInfo)
+    return;
+
+  SmallString<40> DebugNameStr;
+  mcdxbc::DebugName DebugName;
+  if (PDBFileName.empty()) {
+    // TODO Add an option to compute hash based on ILDB.
+    Digest.stringifyResult(Result, DebugNameStr);
+    DebugNameStr += ".pdb";
+    DebugName.setFileName(DebugNameStr);
+  } else {
+    // Use user-provided PDB file name.
+    DebugName.setFileName(PDBFileName);
+  }
+  SmallString<64> ILDNData;
+  raw_svector_ostream OS(ILDNData);
+  DebugName.write(OS);
+  addSection(M, Globals, ILDNData, "dx.ildn", "ILDN");
 }
 
 GlobalVariable *DXContainerGlobals::buildContainerGlobal(
@@ -179,9 +224,7 @@ void DXContainerGlobals::addRootSignature(Module &M,
 
   RS->write(OS);
 
-  Constant *Constant =
-      ConstantDataArray::getString(M.getContext(), Data, /*AddNull*/ false);
-  Globals.emplace_back(buildContainerGlobal(M, Constant, "dx.rts0", "RTS0"));
+  addSection(M, Globals, Data, "dx.rts0", "RTS0");
 }
 
 void DXContainerGlobals::addResourcesForPSV(Module &M, PSVRuntimeInfo &PSV) {
@@ -306,9 +349,7 @@ void DXContainerGlobals::addPipelineStateValidationInfo(
 
   PSV.finalize(MMI.ShaderProfile);
   PSV.write(OS);
-  Constant *Constant =
-      ConstantDataArray::getString(M.getContext(), Data, /*AddNull*/ false);
-  Globals.emplace_back(buildContainerGlobal(M, Constant, "dx.psv0", "PSV0"));
+  addSection(M, Globals, Data, "dx.psv0", "PSV0");
 }
 
 void DXContainerGlobals::addSourceInfo(Module &M,
@@ -324,9 +365,7 @@ void DXContainerGlobals::addSourceInfo(Module &M,
   SmallString<256> Data;
   raw_svector_ostream OS(Data);
   MMI.SourceInfo->write(OS);
-  Constant *Constant =
-      ConstantDataArray::getString(M.getContext(), Data, /*AddNull*/ false);
-  Globals.emplace_back(buildContainerGlobal(M, Constant, "dx.srci", "SRCI"));
+  addSection(M, Globals, Data, "dx.srci", "SRCI");
 }
 
 char DXContainerGlobals::ID = 0;
