@@ -540,14 +540,14 @@ void MappingTraits<DXContainerYAML::DebugName>::mapping(
 
 void MappingTraits<DXContainerYAML::CompilerVersion>::mapping(
     IO &IO, DXContainerYAML::CompilerVersion &CompilerVersion) {
-  IO.mapRequired("Major", CompilerVersion.Major);
-  IO.mapRequired("Minor", CompilerVersion.Minor);
-  IO.mapRequired("IsDebugBuild", CompilerVersion.IsDebugBuild);
-  IO.mapRequired("IsValidated", CompilerVersion.IsValidated);
-  IO.mapRequired("CommitCount", CompilerVersion.CommitCount);
-  IO.mapRequired("ContentSizeInBytes", CompilerVersion.ContentSizeInBytes);
-  IO.mapRequired("CommitSha", CompilerVersion.CommitSha);
-  IO.mapRequired("CustomVersionString", CompilerVersion.CustomVersionString);
+  IO.mapOptional("Major", CompilerVersion.Major);
+  IO.mapOptional("Minor", CompilerVersion.Minor);
+  IO.mapOptional("IsDebugBuild", CompilerVersion.IsDebugBuild);
+  IO.mapOptional("IsValidated", CompilerVersion.IsValidated);
+  IO.mapOptional("CommitCount", CompilerVersion.CommitCount);
+  IO.mapOptional("ContentSizeInBytes", CompilerVersion.ContentSizeInBytes);
+  IO.mapOptional("CommitSha", CompilerVersion.CommitSha);
+  IO.mapOptional("CustomVersionString", CompilerVersion.CustomVersionString);
 }
 
 void MappingTraits<DXContainerYAML::Part>::mapping(IO &IO,

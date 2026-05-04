@@ -294,14 +294,14 @@ struct DebugName {
 };
 
 struct CompilerVersion {
-  uint16_t Major;
-  uint16_t Minor;
-  bool IsDebugBuild;
-  bool IsValidated;
-  uint32_t CommitCount;
-  uint32_t ContentSizeInBytes;
-  std::string CommitSha;
-  std::string CustomVersionString;
+  std::optional<uint16_t> Major;
+  std::optional<uint16_t> Minor;
+  std::optional<bool> IsDebugBuild;
+  std::optional<bool> IsValidated;
+  std::optional<uint32_t> CommitCount;
+  std::optional<uint32_t> ContentSizeInBytes;
+  std::optional<std::string> CommitSha;
+  std::optional<std::string> CustomVersionString;
 };
 
 struct Part {

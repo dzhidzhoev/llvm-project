@@ -61,6 +61,19 @@ struct DebugName {
   void write(raw_ostream &OS) const;
 };
 
+struct CompilerVersion {
+  object::DirectX::CompilerVersion BaseData;
+
+  CompilerVersion();
+
+  void setCommitSha(StringRef CommitSha);
+  void setVersionString(StringRef VersionString);
+  void write(raw_ostream &OS) const;
+
+private:
+  void updateContentSize();
+};
+
 } // namespace mcdxbc
 } // namespace llvm
 

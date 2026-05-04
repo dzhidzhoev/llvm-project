@@ -282,32 +282,38 @@ Error DXContainerWriter::writeParts(raw_ostream &OS) {
       if (!P.CompilerVersion)
         continue;
 
-      dxbc::CompilerVersionHeader Header;
-      Header.Major = P.CompilerVersion->Major;
-      Header.Minor = P.CompilerVersion->Minor;
+      mcdxbc::CompilerVersion CompilerVersion;
+      CompilerVersion.BaseData.Parameters.Major =
+          P.CompilerVersion->Major.value_or(
+              CompilerVersion.BaseData.Parameters.Major);
+      CompilerVersion.BaseData.Parameters.Minor =
+          P.CompilerVersion->Minor.value_or(
+              CompilerVersion.BaseData.Parameters.Minor);
 
-      Header.Flags = dxbc::CompilerVersionFlags::Default;
-      if (P.CompilerVersion->IsDebugBuild)
-        Header.Flags |= dxbc::CompilerVersionFlags::Debug;
-      if (P.CompilerVersion->IsValidated)
-        Header.Flags |= dxbc::CompilerVersionFlags::Internal;
+      if (P.CompilerVersion->IsDebugBuild || P.CompilerVersion->IsValidated)
+        CompilerVersion.BaseData.Parameters.Flags =
+            dxbc::CompilerVersionFlags::Default;
+      if (P.CompilerVersion->IsDebugBuild.value_or(false))
+        CompilerVersion.BaseData.Parameters.Flags |=
+            dxbc::CompilerVersionFlags::Debug;
+      if (P.CompilerVersion->IsValidated.value_or(false))
+        CompilerVersion.BaseData.Parameters.Flags |=
+            dxbc::CompilerVersionFlags::Internal;
 
-      Header.CommitCount = P.CompilerVersion->CommitCount;
-      Header.ContentSizeInBytes = P.CompilerVersion->ContentSizeInBytes;
+      CompilerVersion.BaseData.Parameters.CommitCount =
+          P.CompilerVersion->CommitCount.value_or(
+              CompilerVersion.BaseData.Parameters.CommitCount);
 
-      if (sys::IsBigEndianHost)
-        Header.swapBytes();
-      OS.write(reinterpret_cast<const char *>(&Header), sizeof(Header));
+      if (P.CompilerVersion->CommitSha)
+        CompilerVersion.setCommitSha(*P.CompilerVersion->CommitSha);
+      if (P.CompilerVersion->CustomVersionString)
+        CompilerVersion.setVersionString(
+            *P.CompilerVersion->CustomVersionString);
+      CompilerVersion.BaseData.Parameters.ContentSizeInBytes =
+          P.CompilerVersion->ContentSizeInBytes.value_or(
+              CompilerVersion.BaseData.Parameters.ContentSizeInBytes);
 
-      size_t CommitShaSize =
-          std::min(P.CompilerVersion->CommitSha.size() + 1,
-                   static_cast<size_t>(Header.ContentSizeInBytes));
-      size_t CustomVersionStringSize = std::min(
-          P.CompilerVersion->CustomVersionString.size() + 1,
-          static_cast<size_t>(Header.ContentSizeInBytes - CommitShaSize));
-      OS.write(P.CompilerVersion->CommitSha.c_str(), CommitShaSize);
-      OS.write(P.CompilerVersion->CustomVersionString.c_str(),
-               CustomVersionStringSize);
+      CompilerVersion.write(OS);
       break;
     }
     case dxbc::PartType::Unknown:

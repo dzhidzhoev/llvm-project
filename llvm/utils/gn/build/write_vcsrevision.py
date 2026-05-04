@@ -67,13 +67,22 @@ def main():
             .decode()
             .strip()
         )
+        commit_count = (
+            subprocess.check_output(
+                [git, "rev-list", "--count", "HEAD"], cwd=git_dir, shell=use_shell
+            )
+            .decode()
+            .strip()
+        )
         for name in args.name:
             vcsrevision_contents += '#define %s_REVISION "%s"\n' % (name, rev)
             vcsrevision_contents += '#define %s_REPOSITORY "%s"\n' % (name, url)
+            vcsrevision_contents += '#define %s_COMMIT_COUNT %s\n' % (name, commit_count)
     else:
         for name in args.name:
             vcsrevision_contents += "#undef %s_REVISION\n" % name
             vcsrevision_contents += "#undef %s_REPOSITORY\n" % name
+            vcsrevision_contents += "#undef %s_COMMIT_COUNT\n" % name
 
     # If the output already exists and is identical to what we'd write,
     # return to not perturb the existing file's timestamp.

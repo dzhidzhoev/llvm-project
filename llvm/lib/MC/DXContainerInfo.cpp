@@ -8,6 +8,7 @@
 
 #include "llvm/ADT/SmallString.h"
 #include "llvm/BinaryFormat/DXContainer.h"
+#include "llvm/Config/config.h"
 #include "llvm/MC/DXContainerSourceInfo.h"
 #include "llvm/Object/DXContainer.h"
 #include "llvm/Support/Compression.h"
@@ -15,6 +16,7 @@
 #include "llvm/Support/FormatVariadic.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Support/SwapByteOrder.h"
+#include "llvm/Support/VCSRevision.h"
 #include <type_traits>
 
 using namespace llvm;
@@ -245,4 +247,51 @@ void DebugName::setFileName(StringRef DebugFileName) {
 void DebugName::write(raw_ostream &OS) const {
   writeStruct(OS, BaseData.first);
   writeString(OS, BaseData.second.substr(0, BaseData.first.NameLength));
+}
+
+CompilerVersion::CompilerVersion() {
+  BaseData.Parameters.Major = LLVM_VERSION_MAJOR;
+  BaseData.Parameters.Minor = LLVM_VERSION_MINOR;
+  BaseData.Parameters.Flags = dxbc::CompilerVersionFlags::Default;
+#ifndef NDEBUG
+  BaseData.Parameters.Flags |= dxbc::CompilerVersionFlags::Debug;
+#endif
+#ifdef LLVM_COMMIT_COUNT
+  BaseData.Parameters.CommitCount = LLVM_COMMIT_COUNT;
+#else
+  BaseData.Parameters.CommitCount = 0;
+#endif
+  BaseData.Parameters.ContentSizeInBytes = 0;
+#ifdef LLVM_REVISION
+  BaseData.CommitSha = LLVM_REVISION;
+#else
+  BaseData.CommitSha = "";
+#endif
+  BaseData.CustomVersionString = PACKAGE_VERSION;
+  updateContentSize();
+}
+
+void CompilerVersion::setCommitSha(StringRef CommitSha) {
+  BaseData.CommitSha = CommitSha;
+  updateContentSize();
+}
+
+void CompilerVersion::setVersionString(StringRef VersionString) {
+  BaseData.CustomVersionString = VersionString;
+  updateContentSize();
+}
+
+void CompilerVersion::updateContentSize() {
+  BaseData.Parameters.ContentSizeInBytes =
+      BaseData.CommitSha.size() + 1 + BaseData.CustomVersionString.size() + 1;
+}
+
+void CompilerVersion::write(raw_ostream &OS) const {
+  writeStruct(OS, BaseData.Parameters);
+  SmallString<64> Content;
+  raw_svector_ostream ContentStream(Content);
+  writeString(ContentStream, BaseData.CommitSha);
+  writeString(ContentStream, BaseData.CustomVersionString);
+  Content.resize(BaseData.Parameters.ContentSizeInBytes);
+  OS.write(Content.data(), BaseData.Parameters.ContentSizeInBytes);
 }
