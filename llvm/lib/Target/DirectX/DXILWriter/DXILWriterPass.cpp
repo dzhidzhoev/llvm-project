@@ -170,6 +170,8 @@ public:
     llvm::raw_string_ostream OS(DXILData);
     if (HasDebugInfo) {
       // If we have an ILDB part, strip DXIL from all debug info.
+      // TODO Strip dx.XXX metadata which DirectXShaderCompiler strips from DXIL module.
+      // TODO Reimplement logic of DXC's DxilModule::StripDebugRelatedCode.
       StripDebugInfo(M);
     }
     const auto DIMap = DebugInfoPass::run(M);
