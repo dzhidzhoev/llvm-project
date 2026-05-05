@@ -60,6 +60,7 @@ class DXContainerGlobals : public llvm::ModulePass {
   void addPipelineStateValidationInfo(Module &M,
                                       SmallVector<GlobalValue *> &Globals);
   void addSourceInfo(Module &M, SmallVector<GlobalValue *> &Globals);
+  void addCompilerVersion(Module &M, SmallVector<GlobalValue *> &Globals);
 
 public:
   static char ID; // Pass identification, replacement for typeid
@@ -91,6 +92,7 @@ bool DXContainerGlobals::runOnModule(Module &M) {
   addRootSignature(M, Globals);
   addPipelineStateValidationInfo(M, Globals);
   addSourceInfo(M, Globals);
+  addCompilerVersion(M, Globals);
   appendToCompilerUsed(M, Globals);
   return true;
 }
@@ -373,6 +375,22 @@ void DXContainerGlobals::addSourceInfo(Module &M,
   raw_svector_ostream OS(Data);
   MMI.SourceInfo->write(OS);
   addSection(M, Globals, Data, "dx.srci", "SRCI");
+}
+
+void DXContainerGlobals::addCompilerVersion(
+    Module &M, SmallVector<GlobalValue *> &Globals) {
+  dxil::ModuleMetadataInfo &MMI =
+      getAnalysis<DXILMetadataAnalysisWrapperPass>().getModuleMetadata();
+
+  // TODO Emit VERS only to PDB file.
+  if (!MMI.SourceInfo)
+    return;
+
+  SmallString<256> Data;
+  raw_svector_ostream OS(Data);
+  mcdxbc::CompilerVersion CompilerVersion;
+  CompilerVersion.write(OS);
+  addSection(M, Globals, Data, "dx.vers", "VERS");
 }
 
 char DXContainerGlobals::ID = 0;
