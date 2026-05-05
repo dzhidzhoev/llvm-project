@@ -7,17 +7,18 @@ Header:
   Version:
     Major:           1
     Minor:           0
-  FileSize:        144
+  FileSize:        244
   PartCount:       1
   PartOffsets:     [36]
 Parts:
   - Name:            VERS
-    Size:            100
+# Give some legroom for CommitSha and CustomVersionString.
+    Size:            200
     CompilerVersion:
 ...
 
 #CHECK:        - Name:            VERS
-#CHECK-NEXT:     Size:            100
+#CHECK-NEXT:     Size:            200
 #CHECK-NEXT:     CompilerVersion:
 #CHECK-NEXT:       Major:           {{[0-9][0-9]+}}
 #CHECK-NEXT:       Minor:           {{[0-9]+}}
