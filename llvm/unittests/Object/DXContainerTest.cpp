@@ -348,8 +348,8 @@ TEST(DXCFile, ParseVERSPart) {
   EXPECT_EQ(Header.Major, 1u);
   EXPECT_EQ(Header.Minor, 10u);
   EXPECT_EQ(Header.Flags, dxbc::CompilerVersionFlags::Debug);
-  EXPECT_EQ(Header.CommitCount, 5267);
-  EXPECT_EQ(Header.ContentSizeInBytes, 21);
+  EXPECT_EQ(Header.CommitCount, 5267u);
+  EXPECT_EQ(Header.ContentSizeInBytes, 21u);
   EXPECT_EQ(VERS->CommitSha, "21f060b7");
   EXPECT_EQ(VERS->CustomVersionString, "1.9.0.15267");
 }
@@ -574,76 +574,76 @@ TEST(DXCFile, ParseSRCIPart) {
   const std::optional<object::DirectX::SourceInfo> &SRCI = C.getSourceInfo();
   EXPECT_TRUE(SRCI.has_value());
   dxbc::SourceInfo::Header Header = SRCI->Parameters;
-  EXPECT_EQ(Header.AlignedSizeInBytes, 832);
-  EXPECT_EQ(Header.Flags, 0);
-  EXPECT_EQ(Header.SectionCount, 3);
+  EXPECT_EQ(Header.AlignedSizeInBytes, 832u);
+  EXPECT_EQ(Header.Flags, 0u);
+  EXPECT_EQ(Header.SectionCount, 3u);
 
-  EXPECT_EQ(SRCI->Names.GenericHeader.AlignedSizeInBytes, 292);
-  EXPECT_EQ(SRCI->Names.GenericHeader.Flags, 0);
+  EXPECT_EQ(SRCI->Names.GenericHeader.AlignedSizeInBytes, 292u);
+  EXPECT_EQ(SRCI->Names.GenericHeader.Flags, 0u);
   EXPECT_EQ(SRCI->Names.GenericHeader.Type,
             dxbc::SourceInfo::SectionType::SourceNames);
 
-  EXPECT_EQ(SRCI->Names.Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Names.Parameters.Count, 3);
-  EXPECT_EQ(SRCI->Names.Parameters.EntriesSizeInBytes, 272);
+  EXPECT_EQ(SRCI->Names.Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Names.Parameters.Count, 3u);
+  EXPECT_EQ(SRCI->Names.Parameters.EntriesSizeInBytes, 272u);
 
-  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.AlignedSizeInBytes, 88);
-  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.NameSizeInBytes, 69);
-  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.ContentSizeInBytes, 347);
+  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.AlignedSizeInBytes, 88u);
+  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.NameSizeInBytes, 69u);
+  EXPECT_EQ(SRCI->Names.Entries[0].Parameters.ContentSizeInBytes, 347u);
   EXPECT_TRUE(SRCI->Names.Entries[0].FileName.ends_with("smoke.hlsl"));
 
-  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.AlignedSizeInBytes, 88);
-  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.NameSizeInBytes, 69);
-  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.ContentSizeInBytes, 38);
+  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.AlignedSizeInBytes, 88u);
+  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.NameSizeInBytes, 69u);
+  EXPECT_EQ(SRCI->Names.Entries[1].Parameters.ContentSizeInBytes, 38u);
   EXPECT_TRUE(SRCI->Names.Entries[1].FileName.ends_with("inc2.hlsli"));
 
-  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.AlignedSizeInBytes, 96);
-  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.NameSizeInBytes, 77);
-  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.ContentSizeInBytes, 136);
+  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.AlignedSizeInBytes, 96u);
+  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.NameSizeInBytes, 77u);
+  EXPECT_EQ(SRCI->Names.Entries[2].Parameters.ContentSizeInBytes, 136u);
   EXPECT_TRUE(
       SRCI->Names.Entries[2].FileName.ends_with_insensitive("inc1.hlsli"));
 
-  EXPECT_EQ(SRCI->Contents.GenericHeader.AlignedSizeInBytes, 352);
-  EXPECT_EQ(SRCI->Contents.GenericHeader.Flags, 0);
+  EXPECT_EQ(SRCI->Contents.GenericHeader.AlignedSizeInBytes, 352u);
+  EXPECT_EQ(SRCI->Contents.GenericHeader.Flags, 0u);
   EXPECT_EQ(SRCI->Contents.GenericHeader.Type,
             dxbc::SourceInfo::SectionType::SourceContents);
 
-  EXPECT_EQ(SRCI->Contents.Parameters.AlignedSizeInBytes, 0);
-  EXPECT_EQ(SRCI->Contents.Parameters.Flags, 0);
+  EXPECT_EQ(SRCI->Contents.Parameters.AlignedSizeInBytes, 0u);
+  EXPECT_EQ(SRCI->Contents.Parameters.Flags, 0u);
   EXPECT_EQ(SRCI->Contents.Parameters.Type,
             dxbc::SourceInfo::Contents::CompressionType::Zlib);
-  EXPECT_EQ(SRCI->Contents.Parameters.EntriesSizeInBytes, 323);
-  EXPECT_EQ(SRCI->Contents.Parameters.UncompressedEntriesSizeInBytes, 560);
-  EXPECT_EQ(SRCI->Contents.Parameters.Count, 3);
+  EXPECT_EQ(SRCI->Contents.Parameters.EntriesSizeInBytes, 323u);
+  EXPECT_EQ(SRCI->Contents.Parameters.UncompressedEntriesSizeInBytes, 560u);
+  EXPECT_EQ(SRCI->Contents.Parameters.Count, 3u);
 
-  EXPECT_EQ(SRCI->Contents.Entries[0].Parameters.AlignedSizeInBytes, 360);
-  EXPECT_EQ(SRCI->Contents.Entries[0].Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Contents.Entries[0].Parameters.ContentSizeInBytes, 347);
+  EXPECT_EQ(SRCI->Contents.Entries[0].Parameters.AlignedSizeInBytes, 360u);
+  EXPECT_EQ(SRCI->Contents.Entries[0].Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Contents.Entries[0].Parameters.ContentSizeInBytes, 347u);
   EXPECT_EQ(SRCI->Contents.Entries[0].FileContent.find('\0'),
             SRCI->Contents.Entries[0].FileContent.npos);
 
-  EXPECT_EQ(SRCI->Contents.Entries[1].Parameters.AlignedSizeInBytes, 52);
-  EXPECT_EQ(SRCI->Contents.Entries[1].Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Contents.Entries[1].Parameters.ContentSizeInBytes, 38);
+  EXPECT_EQ(SRCI->Contents.Entries[1].Parameters.AlignedSizeInBytes, 52u);
+  EXPECT_EQ(SRCI->Contents.Entries[1].Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Contents.Entries[1].Parameters.ContentSizeInBytes, 38u);
   EXPECT_EQ(SRCI->Contents.Entries[1].FileContent.find('\0'),
             SRCI->Contents.Entries[1].FileContent.npos);
 
-  EXPECT_EQ(SRCI->Contents.Entries[2].Parameters.AlignedSizeInBytes, 148);
-  EXPECT_EQ(SRCI->Contents.Entries[2].Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Contents.Entries[2].Parameters.ContentSizeInBytes, 136);
+  EXPECT_EQ(SRCI->Contents.Entries[2].Parameters.AlignedSizeInBytes, 148u);
+  EXPECT_EQ(SRCI->Contents.Entries[2].Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Contents.Entries[2].Parameters.ContentSizeInBytes, 136u);
   EXPECT_EQ(SRCI->Contents.Entries[2].FileContent.find('\0'),
             SRCI->Contents.Entries[2].FileContent.npos);
 
-  EXPECT_EQ(SRCI->Args.GenericHeader.AlignedSizeInBytes, 180);
-  EXPECT_EQ(SRCI->Args.GenericHeader.Flags, 0);
+  EXPECT_EQ(SRCI->Args.GenericHeader.AlignedSizeInBytes, 180u);
+  EXPECT_EQ(SRCI->Args.GenericHeader.Flags, 0u);
   EXPECT_EQ(SRCI->Args.GenericHeader.Type, dxbc::SourceInfo::SectionType::Args);
 
-  EXPECT_EQ(SRCI->Args.Parameters.Flags, 0);
-  EXPECT_EQ(SRCI->Args.Parameters.SizeInBytes, 159);
-  EXPECT_EQ(SRCI->Args.Parameters.Count, 5);
+  EXPECT_EQ(SRCI->Args.Parameters.Flags, 0u);
+  EXPECT_EQ(SRCI->Args.Parameters.SizeInBytes, 159u);
+  EXPECT_EQ(SRCI->Args.Parameters.Count, 5u);
 
   EXPECT_EQ(SRCI->Args.Args[0].first, "E");
   EXPECT_EQ(SRCI->Args.Args[0].second, "main");
