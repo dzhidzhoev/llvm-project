@@ -77,8 +77,12 @@ define i32 @add(i32 %a, i32 %b) {
 ; ILDB-DIS: !llvm.dbg.cu
 ; ILDB-DIS: !DICompileUnit
 ; ILDB-DIS: !DIFile
+; ILDB-DIS: !"Dwarf Version"
+; ILDB-DIS: !"Debug Info Version"
 
 ; DXIL-DIS: define i32 @add(i32 %a, i32 %b)
 ; DXIL-DIS-NOT: !llvm.dbg.cu
 ; DXIL-DIS-NOT: !DICompileUnit
 ; DXIL-DIS-NOT: !DIFile
+; ILDB-DIS-NOT: !"Dwarf Version"
+; ILDB-DIS-NOT: !"Debug Info Version"
