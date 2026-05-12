@@ -8,6 +8,7 @@
 
 #include "llvm/MC/MCDXContainerWriter.h"
 #include "llvm/ADT/bit.h"
+#include "llvm/ADT/StringSet.h"
 #include "llvm/BinaryFormat/DXContainer.h"
 #include "llvm/DebugInfo/CodeView/GUID.h"
 #include "llvm/DebugInfo/MSF/MSFBuilder.h"
@@ -27,13 +28,29 @@ using namespace llvm;
 
 MCDXContainerTargetWriter::~MCDXContainerTargetWriter() = default;
 
-static bool skipSection(const MCAssembler &Asm, const MCSection &Sec) {
-  // Skip empty and auxiliary sections.
-  return Asm.getSectionAddressSize(Sec) == 0 || Sec.getName() == PdbFileNameSectionName || Sec.getName() == ModuleHashSectionName;
-}
-
-void DXContainerObjectWriter::writeObject(support::endian::Writer &W, bool IsDebugContainer) {
+void DXContainerObjectWriter::writeObject(support::endian::Writer &W, const MCSection *ModuleSection, bool IsDebugContainer) {
+  static const StringSet<> DebugSections{"DXIL", "ILDB", "ILDN", "HASH", "PDBI", "SRCI", "STAT", "RDAT", "VERS"};
   auto &Asm = *this->Asm;
+
+  auto skipSection = [&](const MCSection &Sec) {
+    // Skip empty sections.
+    if (Asm.getSectionAddressSize(Sec) == 0)
+      return true;
+
+    if (IsDebugContainer) {
+      // Skip sections that are empty or irrelevant for debug info.
+      if (Asm.getSectionAddressSize(Sec) == 0 || !DebugSections.contains(Sec.getName()))
+        return true;
+
+      // Emit either DXIL or ILDB, but not both of them.
+      // TODO make function to check if section name is bitcode module section.
+      return (Sec.getName() == "ILDB" || Sec.getName() == "DXIL") && &Sec != ModuleSection;
+    }
+
+    // Skip empty and auxiliary sections.
+    return Asm.getSectionAddressSize(Sec) == 0 || Sec.getName() == PdbFileNameSectionName || Sec.getName() == ModuleHashSectionName;
+  };
+
   // Start the file size as the header plus the size of the part offsets.
   // Presently DXContainer files usually contain 7-10 parts. Reserving space for
   // 16 part offsets gives us a little room for growth.
@@ -41,7 +58,7 @@ void DXContainerObjectWriter::writeObject(support::endian::Writer &W, bool IsDeb
   uint64_t PartOffset = 0;
   for (const MCSection &Sec : Asm) {
     uint64_t SectionSize = Asm.getSectionAddressSize(Sec);
-    if (skipSection(Asm, Sec))
+    if (skipSection(Sec))
       continue;
 
     assert(SectionSize < std::numeric_limits<uint32_t>::max() &&
@@ -81,7 +98,7 @@ void DXContainerObjectWriter::writeObject(support::endian::Writer &W, bool IsDeb
 
   for (const MCSection &Sec : Asm) {
     uint64_t SectionSize = Asm.getSectionAddressSize(Sec);
-    if (skipSection(Asm, Sec))
+    if (skipSection(Sec))
       continue;
 
     unsigned Start = W.OS.tell();
@@ -130,8 +147,8 @@ void DXContainerObjectWriter::writeObject(support::endian::Writer &W, bool IsDeb
 }
 
 uint64_t DXContainerObjectWriter::writeObject() {
-  writeObject(W, false);
-
+  const MCSection *ModuleSection = nullptr;
+  const MCSection *DebugModuleSection = nullptr;
   StringRef DebugFileName;
   ArrayRef<char> ModuleHash;
   for (const MCSection &Sec : *Asm) {
@@ -141,10 +158,17 @@ uint64_t DXContainerObjectWriter::writeObject() {
     } else if (Sec.getName() == ModuleHashSectionName) {
       assert(ModuleHash.empty() && "Duplicate PBDHASH section");
       ModuleHash = Sec.begin().F->getContents();
+    } else if (Sec.getName() == "ILDB") {
+      DebugModuleSection = &Sec;
+    } else if (Sec.getName() == "DXIL") {
+      ModuleSection = &Sec;
     }
   }
 
-  // PDB file was not requested.
+  // TODO write only necessary sections
+  writeObject(W, ModuleSection, false);
+
+  // If name is empty, PDB file is not requested.
   if (DebugFileName.empty())
     return 0;
 
@@ -179,8 +203,10 @@ uint64_t DXContainerObjectWriter::writeObject() {
   // Write DXContainer.
   raw_svector_ostream DebugContainerStream(*Builder.getDXContainerData());
   support::endian::Writer DebugW(DebugContainerStream, llvm::endianness::little);
-  // TODO write only necessary sections
-  writeObject(DebugW, true);
+  if (!ModuleSection && !DebugModuleSection)
+    reportFatalInternalError("Neither DXIL nor ILDB part was found for emitting PDB file");
+  // Prioritize ILDB part over DXIL part.
+  writeObject(DebugW, (DebugModuleSection ? DebugModuleSection : ModuleSection), true);
 
   // Write PDB file.
   codeview::GUID IgnoredOutGuid;

@@ -37,7 +37,7 @@ class DXContainerObjectWriter final : public MCObjectWriter {
   support::endian::Writer W;
   std::unique_ptr<MCDXContainerTargetWriter> TargetObjectWriter;
 
-  void writeObject(support::endian::Writer &MemberW, bool IsDebugContainer);
+  void writeObject(support::endian::Writer &MemberW, const MCSection *ModuleSection, bool IsDebugContainer);
 public:
   DXContainerObjectWriter(std::unique_ptr<MCDXContainerTargetWriter> MOTW,
                           raw_pwrite_stream &OS)
