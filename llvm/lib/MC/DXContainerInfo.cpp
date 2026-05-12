@@ -239,6 +239,10 @@ void SourceInfo::write(raw_ostream &OS) const {
   }
 }
 
+StringRef DebugName::getFileName() const {
+  return BaseData.second;
+}
+
 void DebugName::setFileName(StringRef DebugFileName) {
   BaseData.first.NameLength = DebugFileName.size();
   BaseData.second = DebugFileName;

@@ -11,15 +11,24 @@
 #include "llvm/MC/MCAssembler.h"
 #include "llvm/MC/MCContext.h"
 #include "llvm/MC/MCSection.h"
+#include "llvm/MC/MCTargetOptions.h"
 #include "llvm/MC/MCValue.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/ToolOutputFile.h"
 
 using namespace llvm;
 
 MCDXContainerTargetWriter::~MCDXContainerTargetWriter() = default;
 
-uint64_t DXContainerObjectWriter::writeObject() {
-  auto &Asm = *this->Asm;
+static bool skipSection(const MCAssembler &Asm, const MCSection &Sec) {
+  // Skip empty sections.
+  // Skip PDBN section, since it's sole purpose is to pass PDB file name to DXContainerObjectWriter.
+  return Asm.getSectionAddressSize(Sec) == 0 || Sec.getName() == "PDBN";
+}
+
+// TODO just make a static funciton which accepts everything needed.
+void DXContainerObjectWriter::StreamWriter::writeObject() {
+  auto &Asm = *Ctx->Asm;
   // Start the file size as the header plus the size of the part offsets.
   // Presently DXContainer files usually contain 7-10 parts. Reserving space for
   // 16 part offsets gives us a little room for growth.
@@ -27,8 +36,7 @@ uint64_t DXContainerObjectWriter::writeObject() {
   uint64_t PartOffset = 0;
   for (const MCSection &Sec : Asm) {
     uint64_t SectionSize = Asm.getSectionAddressSize(Sec);
-    // Skip empty sections.
-    if (SectionSize == 0)
+    if (skipSection(Asm, Sec))
       continue;
 
     assert(SectionSize < std::numeric_limits<uint32_t>::max() &&
@@ -68,8 +76,7 @@ uint64_t DXContainerObjectWriter::writeObject() {
 
   for (const MCSection &Sec : Asm) {
     uint64_t SectionSize = Asm.getSectionAddressSize(Sec);
-    // Skip empty sections.
-    if (SectionSize == 0)
+    if (skipSection(Asm, Sec))
       continue;
 
     unsigned Start = W.OS.tell();
@@ -87,7 +94,7 @@ uint64_t DXContainerObjectWriter::writeObject() {
       dxbc::ProgramHeader Header;
       memset(reinterpret_cast<void *>(&Header), 0, sizeof(dxbc::ProgramHeader));
 
-      const Triple &TT = getContext().getTargetTriple();
+      const Triple &TT = Ctx->getContext().getTargetTriple();
       VersionTuple Version = TT.getOSVersion();
       uint8_t MajorVersion = static_cast<uint8_t>(Version.getMajor());
       uint8_t MinorVersion =
@@ -115,5 +122,28 @@ uint64_t DXContainerObjectWriter::writeObject() {
     unsigned Size = W.OS.tell() - Start;
     W.OS.write_zeros(offsetToAlignment(Size, Align(4)));
   }
+}
+
+uint64_t DXContainerObjectWriter::writeObject() {
+  for (const MCSection &Sec : *Asm) {
+    if (Sec.getName() != "PDBN")
+      continue;
+
+    Sec.begin().F->getContents().data();
+
+
+    // std::unique_ptr<ToolOutputFile> DebugOut;
+    // if (!SplitDwarfOutputFile.empty()) {
+    //   std::error_code EC;
+    //   DwoOut = std::make_unique<ToolOutputFile>(SplitDwarfOutputFile, EC,
+    //                                             sys::fs::OF_None);
+    //   if (EC)
+    //     reportError(EC.message(), SplitDwarfOutputFile);
+    // }
+    // Out->keep();
+    break;
+  }
+
+  Writer.writeObject();
   return 0;
 }

@@ -37,7 +37,6 @@ using namespace llvm;
 using namespace llvm::dxil;
 using namespace llvm::mcdxbc;
 
-// TODO Emit PDB file at this path.
 static cl::opt<std::string> PDBFileName("dx-pdb-file",
                                         cl::desc("DirectX PDB output filename"),
                                         cl::value_desc("filename"));
@@ -171,6 +170,10 @@ void DXContainerGlobals::computeShaderHash(
   raw_svector_ostream OS(ILDNData);
   DebugName.write(OS);
   addSection(M, Globals, ILDNData, "dx.ildn", "ILDN");
+
+  // TODO Do not create PDB in embedded mode.
+  // Pass PDB name to DXContainerObjectWriter via PDBN section.
+  addSection(M, Globals, DebugName.getFileName(), "dx.pdbn", "PDBN");
 }
 
 GlobalVariable *DXContainerGlobals::buildContainerGlobal(

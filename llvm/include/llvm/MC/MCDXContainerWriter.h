@@ -34,13 +34,25 @@ public:
 };
 
 class DXContainerObjectWriter final : public MCObjectWriter {
-  support::endian::Writer W;
+  class StreamWriter {
+    DXContainerObjectWriter  *Ctx;
+    support::endian::Writer W;
+    bool IsDebugContainer;
+
+  public:
+    StreamWriter(DXContainerObjectWriter *Context, raw_pwrite_stream &OS, bool IsDebugContainer)
+        : Ctx(Context), W(OS, llvm::endianness::little), IsDebugContainer(IsDebugContainer) {}
+
+    void writeObject();
+  };
+
+  StreamWriter Writer;
   std::unique_ptr<MCDXContainerTargetWriter> TargetObjectWriter;
 
 public:
   DXContainerObjectWriter(std::unique_ptr<MCDXContainerTargetWriter> MOTW,
                           raw_pwrite_stream &OS)
-      : W(OS, llvm::endianness::little), TargetObjectWriter(std::move(MOTW)) {}
+      : Writer(this, OS, false), TargetObjectWriter(std::move(MOTW)) {}
 
   uint64_t writeObject() override;
 };

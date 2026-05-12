@@ -57,7 +57,9 @@ struct DebugName {
 
   DebugName() { BaseData.first.Flags = 0; }
 
+  StringRef getFileName() const;
   void setFileName(StringRef FileName);
+
   void write(raw_ostream &OS) const;
 };
 
