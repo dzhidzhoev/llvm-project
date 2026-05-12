@@ -170,9 +170,23 @@ public:
     llvm::raw_string_ostream OS(DXILData);
     if (HasDebugInfo) {
       // If we have an ILDB part, strip DXIL from all debug info.
-      // TODO Strip dx.XXX metadata which DirectXShaderCompiler strips from DXIL module.
-      // TODO Reimplement logic of DXC's DxilModule::StripDebugRelatedCode.
       StripDebugInfo(M);
+
+      // Also, manually remove Dwarf and Debug Info version flags.
+      if (NamedMDNode *flags = M.getModuleFlagsMetadata()) {
+        SmallVector<llvm::Module::ModuleFlagEntry, 4> flagEntries;
+        M.getModuleFlagsMetadata(flagEntries);
+        flags->eraseFromParent();
+        for (unsigned i = 0; i < flagEntries.size(); i++) {
+          llvm::Module::ModuleFlagEntry &entry = flagEntries[i];
+          if (entry.Key->getString() == "Dwarf Version" ||
+              entry.Key->getString() == "Debug Info Version") {
+            continue;
+          }
+          M.addModuleFlag(entry.Behavior, entry.Key->getString(),
+                          cast<ConstantAsMetadata>(entry.Val)->getValue());
+        }
+      }
     }
     const auto DIMap = DebugInfoPass::run(M);
     WriteDXILToFile(M, OS, DIMap);
