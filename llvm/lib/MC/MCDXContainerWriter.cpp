@@ -7,28 +7,33 @@
 //===----------------------------------------------------------------------===//
 
 #include "llvm/MC/MCDXContainerWriter.h"
+#include "llvm/ADT/bit.h"
 #include "llvm/BinaryFormat/DXContainer.h"
+#include "llvm/DebugInfo/CodeView/GUID.h"
+#include "llvm/DebugInfo/MSF/MSFBuilder.h"
+#include "llvm/DebugInfo/PDB/Native/InfoStreamBuilder.h"
+#include "llvm/DebugInfo/PDB/Native/PDBFileBuilder.h"
+#include "llvm/DebugInfo/PDB/Native/RawConstants.h"
 #include "llvm/MC/MCAssembler.h"
 #include "llvm/MC/MCContext.h"
 #include "llvm/MC/MCSection.h"
 #include "llvm/MC/MCTargetOptions.h"
 #include "llvm/MC/MCValue.h"
 #include "llvm/Support/Alignment.h"
-#include "llvm/Support/ToolOutputFile.h"
+#include "llvm/Support/EndianStream.h"
+#include <algorithm>
 
 using namespace llvm;
 
 MCDXContainerTargetWriter::~MCDXContainerTargetWriter() = default;
 
 static bool skipSection(const MCAssembler &Asm, const MCSection &Sec) {
-  // Skip empty sections.
-  // Skip PDBN section, since it's sole purpose is to pass PDB file name to DXContainerObjectWriter.
-  return Asm.getSectionAddressSize(Sec) == 0 || Sec.getName() == "PDBN";
+  // Skip empty and auxiliary sections.
+  return Asm.getSectionAddressSize(Sec) == 0 || Sec.getName() == PdbFileNameSectionName || Sec.getName() == ModuleHashSectionName;
 }
 
-// TODO just make a static funciton which accepts everything needed.
-void DXContainerObjectWriter::StreamWriter::writeObject() {
-  auto &Asm = *Ctx->Asm;
+void DXContainerObjectWriter::writeObject(support::endian::Writer &W, bool IsDebugContainer) {
+  auto &Asm = *this->Asm;
   // Start the file size as the header plus the size of the part offsets.
   // Presently DXContainer files usually contain 7-10 parts. Reserving space for
   // 16 part offsets gives us a little room for growth.
@@ -94,7 +99,7 @@ void DXContainerObjectWriter::StreamWriter::writeObject() {
       dxbc::ProgramHeader Header;
       memset(reinterpret_cast<void *>(&Header), 0, sizeof(dxbc::ProgramHeader));
 
-      const Triple &TT = Ctx->getContext().getTargetTriple();
+      const Triple &TT = getContext().getTargetTriple();
       VersionTuple Version = TT.getOSVersion();
       uint8_t MajorVersion = static_cast<uint8_t>(Version.getMajor());
       uint8_t MinorVersion =
@@ -125,25 +130,62 @@ void DXContainerObjectWriter::StreamWriter::writeObject() {
 }
 
 uint64_t DXContainerObjectWriter::writeObject() {
+  writeObject(W, false);
+
+  StringRef DebugFileName;
+  ArrayRef<char> ModuleHash;
   for (const MCSection &Sec : *Asm) {
-    if (Sec.getName() != "PDBN")
-      continue;
-
-    Sec.begin().F->getContents().data();
-
-
-    // std::unique_ptr<ToolOutputFile> DebugOut;
-    // if (!SplitDwarfOutputFile.empty()) {
-    //   std::error_code EC;
-    //   DwoOut = std::make_unique<ToolOutputFile>(SplitDwarfOutputFile, EC,
-    //                                             sys::fs::OF_None);
-    //   if (EC)
-    //     reportError(EC.message(), SplitDwarfOutputFile);
-    // }
-    // Out->keep();
-    break;
+    if (Sec.getName() == PdbFileNameSectionName) {
+      assert(DebugFileName.empty() && "Duplicate PDBNAME section");
+      DebugFileName = Sec.begin().F->getContents().data();
+    } else if (Sec.getName() == ModuleHashSectionName) {
+      assert(ModuleHash.empty() && "Duplicate PBDHASH section");
+      ModuleHash = Sec.begin().F->getContents();
+    }
   }
 
-  Writer.writeObject();
+  // PDB file was not requested.
+  if (DebugFileName.empty())
+    return 0;
+
+  BumpPtrAllocator Allocator;
+  pdb::PDBFileBuilder Builder(Allocator);
+
+  // DirectXShaderCompiler uses block size 512.
+  if (Error Err = Builder.initialize(512))
+    reportFatalInternalError(std::move(Err));
+
+  // Reserved streams that should be empty.
+  static_assert(pdb::kSpecialStreamCount == 5 && "First 5 streams should be empty in DirectX PDB file");
+  for (uint32_t I = 0; I < pdb::kSpecialStreamCount; ++I)
+    if (auto Err = Builder.getMsfBuilder().addStream(0).takeError())
+      reportFatalInternalError(std::move(Err));
+
+  // Add DXContainer stream.
+  if (auto Err = Builder.getMsfBuilder().addStream(0).takeError())
+    reportFatalInternalError(std::move(Err));
+
+  // InfoStream must be filled. Bitcode hash from HASH part is used for PDB GUID.
+  codeview::GUID PdbGuid;
+  assert(ModuleHash.size() == std::size(PdbGuid.Guid) && "Module hash size must be match GUID size");
+  std::copy_n(ModuleHash.begin(), std::size(PdbGuid.Guid), PdbGuid.Guid);
+
+  auto &InfoBuilder = Builder.getInfoBuilder();
+  InfoBuilder.setAge(1);
+  InfoBuilder.setGuid(PdbGuid);
+  InfoBuilder.setSignature(0);
+  InfoBuilder.setVersion(pdb::PdbRaw_ImplVer::PdbImplVC70);
+
+  // Write DXContainer.
+  raw_svector_ostream DebugContainerStream(*Builder.getDXContainerData());
+  support::endian::Writer DebugW(DebugContainerStream, llvm::endianness::little);
+  // TODO write only necessary sections
+  writeObject(DebugW, true);
+
+  // Write PDB file.
+  codeview::GUID IgnoredOutGuid;
+  if (Error Err = Builder.commit(DebugFileName, &IgnoredOutGuid))
+    getContext().reportError(SMLoc(), toString(std::move(Err)));
+
   return 0;
 }

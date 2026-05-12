@@ -34,28 +34,23 @@ public:
 };
 
 class DXContainerObjectWriter final : public MCObjectWriter {
-  class StreamWriter {
-    DXContainerObjectWriter  *Ctx;
-    support::endian::Writer W;
-    bool IsDebugContainer;
-
-  public:
-    StreamWriter(DXContainerObjectWriter *Context, raw_pwrite_stream &OS, bool IsDebugContainer)
-        : Ctx(Context), W(OS, llvm::endianness::little), IsDebugContainer(IsDebugContainer) {}
-
-    void writeObject();
-  };
-
-  StreamWriter Writer;
+  support::endian::Writer W;
   std::unique_ptr<MCDXContainerTargetWriter> TargetObjectWriter;
 
+  void writeObject(support::endian::Writer &MemberW, bool IsDebugContainer);
 public:
   DXContainerObjectWriter(std::unique_ptr<MCDXContainerTargetWriter> MOTW,
                           raw_pwrite_stream &OS)
-      : Writer(this, OS, false), TargetObjectWriter(std::move(MOTW)) {}
+      : W(OS, llvm::endianness::little), TargetObjectWriter(std::move(MOTW)) {}
 
   uint64_t writeObject() override;
 };
+
+/// Contains PDB output file name.
+static constexpr StringLiteral PdbFileNameSectionName = "PDBNAME";
+/// Contains module hash.
+static constexpr StringLiteral ModuleHashSectionName = "PDBHASH";
+
 } // end namespace llvm
 
 #endif // LLVM_MC_MCDXCONTAINERWRITER_H

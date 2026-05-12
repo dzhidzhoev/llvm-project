@@ -25,6 +25,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/MC/DXContainerPSVInfo.h"
 #include "llvm/MC/DXContainerSourceInfo.h"
+#include "llvm/MC/MCDXContainerWriter.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compression.h"
@@ -50,7 +51,7 @@ class DXContainerGlobals : public llvm::ModulePass {
                   StringRef SectionData, StringRef MetadataName,
                   StringRef SectionName);
   GlobalVariable *getFeatureFlags(Module &M);
-  void computeShaderHash(Module &M, SmallVector<GlobalValue *> &Globals);
+  void computeShaderHashAndDebugName(Module &M, SmallVector<GlobalValue *> &Globals);
   GlobalVariable *buildSignature(Module &M, Signature &Sig, StringRef Name,
                                  StringRef SectionName);
   void addSignature(Module &M, SmallVector<GlobalValue *> &Globals);
@@ -86,7 +87,7 @@ public:
 bool DXContainerGlobals::runOnModule(Module &M) {
   llvm::SmallVector<GlobalValue *> Globals;
   Globals.push_back(getFeatureFlags(M));
-  computeShaderHash(M, Globals);
+  computeShaderHashAndDebugName(M, Globals);
   addSignature(M, Globals);
   addRootSignature(M, Globals);
   addPipelineStateValidationInfo(M, Globals);
@@ -118,7 +119,7 @@ void DXContainerGlobals::addSection(Module &M,
       buildContainerGlobal(M, SectionConstant, MetadataName, SectionName));
 }
 
-void DXContainerGlobals::computeShaderHash(
+void DXContainerGlobals::computeShaderHashAndDebugName(
     Module &M, SmallVector<GlobalValue *> &Globals) {
   ConstantDataArray *DXILConstant;
   MD5 Digest;
@@ -173,7 +174,10 @@ void DXContainerGlobals::computeShaderHash(
 
   // TODO Do not create PDB in embedded mode.
   // Pass PDB name to DXContainerObjectWriter via PDBN section.
-  addSection(M, Globals, DebugName.getFileName(), "dx.pdbn", "PDBN");
+  addSection(M, Globals, DebugName.getFileName(), "dx.pdb.name", PdbFileNameSectionName);
+  // Pass module hash to DXContainerObjectWriter.
+  Globals.emplace_back(
+      buildContainerGlobal(M, ConstantDataArray::get(M.getContext(), ArrayRef(HashData.Digest)), "dx.pdb.hash", ModuleHashSectionName));
 }
 
 GlobalVariable *DXContainerGlobals::buildContainerGlobal(

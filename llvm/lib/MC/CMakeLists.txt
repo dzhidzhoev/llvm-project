@@ -77,6 +77,7 @@ add_llvm_component_library(LLVMMC
   LINK_COMPONENTS
   BinaryFormat
   DebugInfoDWARFLowLevel
+  DebugInfoPDB
   Support
   TargetParser
 
