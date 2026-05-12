@@ -1,8 +1,8 @@
-; RUN: llc %S/Inputs/SourceInfo.ll --filetype=obj -o - --dx-pdb-file=ofile.pdb | obj2yaml | FileCheck %s
+; RUN: rm -rf %t && mkdir %t
+; RUN: llc %S/Inputs/SourceInfo.ll --filetype=obj -o - --dx-pdb-file=%t/ofile.pdb | obj2yaml | FileCheck %s
 
 ; CHECK:       - Name:            ILDN
-; CHECK-NEXT:    Size:            16
-; CHECK-NEXT:    DebugName:
+; CHECK:         DebugName:
 ; CHECK-NEXT:      Flags:           0
-; CHECK-NEXT:      NameLength:      9
-; CHECK-NEXT:      DebugName:       ofile.pdb
+; CHECK-NEXT:      NameLength:      {{.*}}
+; CHECK-NEXT:      DebugName:       {{.*[/\]+}}ofile.pdb

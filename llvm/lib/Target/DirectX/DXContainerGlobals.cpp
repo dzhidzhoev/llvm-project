@@ -30,6 +30,7 @@
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compression.h"
 #include "llvm/Support/MD5.h"
+#include "llvm/Support/Path.h"
 #include "llvm/TargetParser/Triple.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 #include <cstdint>
@@ -38,9 +39,10 @@ using namespace llvm;
 using namespace llvm::dxil;
 using namespace llvm::mcdxbc;
 
-static cl::opt<std::string> PDBFileName("dx-pdb-file",
-                                        cl::desc("DirectX PDB output filename"),
+static cl::opt<std::string> PdbFileName("dx-pdb-file",
+                                        cl::desc("Specify the name of the PDB output file for DirectX target, or directory for automatically named file when ending in path delimiter"),
                                         cl::value_desc("filename"));
+
 
 namespace {
 class DXContainerGlobals : public llvm::ModulePass {
@@ -156,16 +158,20 @@ void DXContainerGlobals::computeShaderHashAndDebugName(
   if (!MMI.SourceInfo)
     return;
 
+  SmallString<256> AbsoluteDebugName;
   SmallString<40> DebugNameStr;
   mcdxbc::DebugName DebugName;
-  if (PDBFileName.empty()) {
+  if (PdbFileName.empty() || sys::path::is_separator(PdbFileName.back())) {
     // TODO Add an option to compute hash based on ILDB.
     Digest.stringifyResult(Result, DebugNameStr);
     DebugNameStr += ".pdb";
     DebugName.setFileName(DebugNameStr);
+    AbsoluteDebugName = PdbFileName;
+    sys::path::append(AbsoluteDebugName, DebugNameStr);
   } else {
     // Use user-provided PDB file name.
-    DebugName.setFileName(PDBFileName);
+    DebugName.setFileName(PdbFileName);
+    AbsoluteDebugName = PdbFileName;
   }
   SmallString<64> ILDNData;
   raw_svector_ostream OS(ILDNData);
@@ -174,7 +180,7 @@ void DXContainerGlobals::computeShaderHashAndDebugName(
 
   // TODO Do not create PDB in embedded mode.
   // Pass PDB name to DXContainerObjectWriter via PDBN section.
-  addSection(M, Globals, DebugName.getFileName(), "dx.pdb.name", PdbFileNameSectionName);
+  addSection(M, Globals, AbsoluteDebugName, "dx.pdb.name", PdbFileNameSectionName);
   // Pass module hash to DXContainerObjectWriter.
   Globals.emplace_back(
       buildContainerGlobal(M, ConstantDataArray::get(M.getContext(), ArrayRef(HashData.Digest)), "dx.pdb.hash", ModuleHashSectionName));
