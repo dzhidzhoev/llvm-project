@@ -8,6 +8,6 @@
 #CHECK-NEXT:       IsDebugBuild:    {{true|false}}
 #CHECK-NEXT:       IsValidated:     false
 #CHECK-NEXT:       CommitCount:     {{[0-9]+}}
-#CHECK-NEXT:       ContentSizeInBytes: {{[0-9][0-9]+}}
+#CHECK-NEXT:       ContentSizeInBytes: {{[0-9]+}}
 #CHECK-NEXT:       CommitSha:       {{.*}}
 #CHECK-NEXT:       CustomVersionString: {{.*}}

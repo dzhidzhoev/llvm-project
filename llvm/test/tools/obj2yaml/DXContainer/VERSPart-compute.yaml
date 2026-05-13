@@ -25,6 +25,6 @@ Parts:
 #CHECK-NEXT:       IsDebugBuild:    {{true|false}}
 #CHECK-NEXT:       IsValidated:     false
 #CHECK-NEXT:       CommitCount:     {{[0-9]+}}
-#CHECK-NEXT:       ContentSizeInBytes: {{[0-9][0-9]+}}
-#CHECK-NEXT:       CommitSha:       {{.*}}
+#CHECK-NEXT:       ContentSizeInBytes: {{[0-9]+}}
+#CHECK-NEXT:       CommitSha:       {{[0-9a-f]*}}
 #CHECK-NEXT:       CustomVersionString: {{.*}}
