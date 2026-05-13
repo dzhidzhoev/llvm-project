@@ -172,7 +172,7 @@ public:
       // If we have an ILDB part, strip DXIL from all debug info.
       StripDebugInfo(M);
 
-      // Also, manually remove Dwarf and Debug Info version flags.
+      // Also, manually remove debug version flags and dx.source nodes.
       if (NamedMDNode *flags = M.getModuleFlagsMetadata()) {
         SmallVector<llvm::Module::ModuleFlagEntry, 4> flagEntries;
         M.getModuleFlagsMetadata(flagEntries);
@@ -187,6 +187,9 @@ public:
                           cast<ConstantAsMetadata>(entry.Val)->getValue());
         }
       }
+      for (NamedMDNode &NMD : llvm::make_early_inc_range(M.named_metadata()))
+        if (NMD.getName().starts_with("dx.source"))
+          NMD.eraseFromParent();
     }
     const auto DIMap = DebugInfoPass::run(M);
     WriteDXILToFile(M, OS, DIMap);
