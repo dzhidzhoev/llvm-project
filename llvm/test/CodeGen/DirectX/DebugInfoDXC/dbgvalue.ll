@@ -1,6 +1,6 @@
 ;; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ;; RUN: llvm-objcopy --dump-section=ILDB=%t.bc %t.dxbc
-;; RUN: dxc /dumpbin %t.bc | FileCheck %s
+;; RUN: %dxc /dumpbin %t.bc | FileCheck %s
 
 ; CHECK: define i32 @main(i32 %argc, i8* %argv) {
 ; CHECK-NEXT: entry:

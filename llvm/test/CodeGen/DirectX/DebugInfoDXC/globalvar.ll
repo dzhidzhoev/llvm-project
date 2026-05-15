@@ -1,10 +1,10 @@
 ;; RUN: llc -O0 -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.O0.dxbc %s
 ;; RUN: llvm-objcopy --dump-section=ILDB=%t.O0.bc %t.O0.dxbc
-;; RUN: dxc /dumpbin %t.O0.bc | FileCheck %s --check-prefixes=CHECK,CHECK-O0
+;; RUN: %dxc /dumpbin %t.O0.bc | FileCheck %s --check-prefixes=CHECK,CHECK-O0
 
 ;; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.default.dxbc %s
 ;; RUN: llvm-objcopy --dump-section=ILDB=%t.default.bc %t.default.dxbc
-;; RUN: dxc /dumpbin %t.default.bc | FileCheck %s --check-prefixes=CHECK,CHECK-DEFAULT
+;; RUN: %dxc /dumpbin %t.default.bc | FileCheck %s --check-prefixes=CHECK,CHECK-DEFAULT
 
 ;; Without -O0 @x is optimized away. DIGLobalVariable stays, but its
 ;; variable operand is null (not printed).
