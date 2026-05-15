@@ -62,7 +62,7 @@ public:
   void write(raw_ostream &OS, const Triple &TT);
 };
 
-class DXContainerObjectWriter final : MCDXContainerBaseWriter,
+class DXContainerObjectWriter final : public MCDXContainerBaseWriter,
                                       public MCObjectWriter {
   support::endian::Writer W;
   std::unique_ptr<MCDXContainerTargetWriter> TargetObjectWriter;
