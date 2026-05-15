@@ -25,10 +25,12 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/MC/DXContainerPSVInfo.h"
 #include "llvm/MC/DXContainerSourceInfo.h"
+#include "llvm/MC/MCDXContainerWriter.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Compression.h"
 #include "llvm/Support/MD5.h"
+#include "llvm/Support/Path.h"
 #include "llvm/TargetParser/Triple.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 #include <cstdint>
@@ -37,10 +39,15 @@ using namespace llvm;
 using namespace llvm::dxil;
 using namespace llvm::mcdxbc;
 
-// TODO Emit PDB file at this path.
-static cl::opt<std::string> PDBFileName("dx-pdb-file",
-                                        cl::desc("DirectX PDB output filename"),
-                                        cl::value_desc("filename"));
+static cl::opt<std::string>
+    PdbFileName("dx-pdb-file",
+                cl::desc("Specify the PDB output file path for DirectX target"),
+                cl::value_desc("filename"));
+static cl::opt<std::string> PdbOutputDir(
+    "dx-pdb-dir",
+    cl::desc("Specify the PDB output directory for DirectX target. The file "
+             "name is derived from the shader hash"),
+    cl::value_desc("directory"));
 
 namespace {
 class DXContainerGlobals : public llvm::ModulePass {
@@ -51,7 +58,8 @@ class DXContainerGlobals : public llvm::ModulePass {
                   StringRef SectionData, StringRef MetadataName,
                   StringRef SectionName);
   GlobalVariable *getFeatureFlags(Module &M);
-  void computeShaderHash(Module &M, SmallVector<GlobalValue *> &Globals);
+  void computeShaderHashAndDebugName(Module &M,
+                                     SmallVector<GlobalValue *> &Globals);
   GlobalVariable *buildSignature(Module &M, Signature &Sig, StringRef Name,
                                  StringRef SectionName);
   void addSignature(Module &M, SmallVector<GlobalValue *> &Globals);
@@ -87,7 +95,7 @@ public:
 bool DXContainerGlobals::runOnModule(Module &M) {
   llvm::SmallVector<GlobalValue *> Globals;
   Globals.push_back(getFeatureFlags(M));
-  computeShaderHash(M, Globals);
+  computeShaderHashAndDebugName(M, Globals);
   addSignature(M, Globals);
   addRootSignature(M, Globals);
   addPipelineStateValidationInfo(M, Globals);
@@ -119,7 +127,7 @@ void DXContainerGlobals::addSection(Module &M,
       buildContainerGlobal(M, SectionConstant, MetadataName, SectionName));
 }
 
-void DXContainerGlobals::computeShaderHash(
+void DXContainerGlobals::computeShaderHashAndDebugName(
     Module &M, SmallVector<GlobalValue *> &Globals) {
   ConstantDataArray *DXILConstant;
   MD5 Digest;
@@ -157,21 +165,39 @@ void DXContainerGlobals::computeShaderHash(
   if (!MMI.SourceInfo)
     return;
 
+  // TODO add check for custom directory, not just test directory.
+  if (!PdbFileName.empty() && !PdbOutputDir.empty())
+    report_fatal_error(
+        "--dx-pdb-file and --dx-pdb-dir are mutually exclusive options");
+
   SmallString<40> DebugNameStr;
   mcdxbc::DebugName DebugName;
-  if (PDBFileName.empty()) {
+  if (PdbFileName.empty()) {
     // TODO Add an option to compute hash based on ILDB.
     Digest.stringifyResult(Result, DebugNameStr);
     DebugNameStr += ".pdb";
-    DebugName.setFileName(DebugNameStr);
   } else {
     // Use user-provided PDB file name.
-    DebugName.setFileName(PDBFileName);
+    DebugNameStr = PdbFileName;
   }
+  DebugName.setFileName(DebugNameStr);
+
+  SmallString<256> AbsoluteDebugName(PdbOutputDir);
+  sys::path::append(AbsoluteDebugName, DebugNameStr);
+
   SmallString<64> ILDNData;
   raw_svector_ostream OS(ILDNData);
   DebugName.write(OS);
   addSection(M, Globals, ILDNData, "dx.ildn", "ILDN");
+
+  // TODO Do not create PDB in embedded mode.
+  // Pass PDB name to DXContainerPDBPass via PDBNAME section.
+  addSection(M, Globals, AbsoluteDebugName, "dx.pdb.name",
+             PdbFileNameSectionName);
+  // Pass module hash to DXContainerPDBPass.
+  Globals.emplace_back(buildContainerGlobal(
+      M, ConstantDataArray::get(M.getContext(), ArrayRef(HashData.Digest)),
+      "dx.pdb.hash", ModuleHashSectionName));
 }
 
 GlobalVariable *DXContainerGlobals::buildContainerGlobal(

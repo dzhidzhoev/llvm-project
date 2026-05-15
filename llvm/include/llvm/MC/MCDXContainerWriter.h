@@ -44,6 +44,12 @@ public:
 
   uint64_t writeObject() override;
 };
+
+/// Contains PDB output file name.
+static constexpr StringLiteral PdbFileNameSectionName = "PDBNAME";
+/// Contains module hash.
+static constexpr StringLiteral ModuleHashSectionName = "PDBHASH";
+
 } // end namespace llvm
 
 #endif // LLVM_MC_MCDXCONTAINERWRITER_H

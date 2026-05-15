@@ -20,6 +20,17 @@ MCDXContainerTargetWriter::~MCDXContainerTargetWriter() = default;
 
 uint64_t DXContainerObjectWriter::writeObject() {
   auto &Asm = *this->Asm;
+
+  auto skipSection = [&](const MCSection &Sec) {
+    // Skip empty sections.
+    if (Asm.getSectionAddressSize(Sec) == 0)
+      return true;
+
+    // Skip auxiliary sections.
+    return Sec.getName() == PdbFileNameSectionName ||
+           Sec.getName() == ModuleHashSectionName;
+  };
+
   // Start the file size as the header plus the size of the part offsets.
   // Presently DXContainer files usually contain 7-10 parts. Reserving space for
   // 16 part offsets gives us a little room for growth.
@@ -27,8 +38,7 @@ uint64_t DXContainerObjectWriter::writeObject() {
   uint64_t PartOffset = 0;
   for (const MCSection &Sec : Asm) {
     uint64_t SectionSize = Asm.getSectionAddressSize(Sec);
-    // Skip empty sections.
-    if (SectionSize == 0)
+    if (skipSection(Sec))
       continue;
 
     assert(SectionSize < std::numeric_limits<uint32_t>::max() &&
@@ -68,8 +78,7 @@ uint64_t DXContainerObjectWriter::writeObject() {
 
   for (const MCSection &Sec : Asm) {
     uint64_t SectionSize = Asm.getSectionAddressSize(Sec);
-    // Skip empty sections.
-    if (SectionSize == 0)
+    if (skipSection(Sec))
       continue;
 
     unsigned Start = W.OS.tell();
