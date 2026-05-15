@@ -1,6 +1,6 @@
 ;; RUN: llc -mtriple=dxil-pc-shadermodel6.3-library --filetype=obj -o %t.dxbc %s
 ;; RUN: llvm-objcopy --dump-section=ILDB=%t.bc %t.dxbc
-;; RUN: dxc /dumpbin %t.bc | FileCheck %s
+;; RUN: %dxc /dumpbin %t.bc | FileCheck %s
 
 define i32 @foo(i32 %a) !dbg !3 {
   %call = tail call i32 @bar(i32 %a)
