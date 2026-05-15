@@ -1,8 +1,13 @@
 ; RUN: llc %S/Inputs/SourceInfo.ll --filetype=obj -o %t.dxbc
-; RUN: llvm-objcopy --dump-section=DXIL=%t0.bc %t.dxbc
+; RUN: llvm-objcopy --dump-section=ILDB=%t0.bc %t.dxbc
 ; RUN: %md5sum %t0.bc >%t0.bc.md5
 ; RUN: obj2yaml %t.dxbc >%t.yaml
 ; RUN: cat %t.yaml %t0.bc.md5 | FileCheck %s
+
+; TODO Currently, ILDN debug name is determined by presence of dx.ildb.
+; TODO It should be determined by the value of Zss flag.
+; TODO Without the flag, debug name must be based on either ILDB or DXIL hash,
+; TODO depending on what is default behavior of DirectXShaderCompiler.
 
 ; CHECK:       - Name:            ILDN
 ; CHECK-NEXT:    Size:            44
