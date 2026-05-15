@@ -44,7 +44,7 @@ void DXContainerObjectWriter::writeObject(support::endian::Writer &W, const MCSe
 
       // Emit either DXIL or ILDB, but not both of them.
       // TODO make function to check if section name is bitcode module section.
-      return (Sec.getName() == "ILDB" || Sec.getName() == "DXIL") && &Sec != ModuleSection;
+      return dxbc::isProgramPart(Sec.getName()) && &Sec != ModuleSection;
     }
 
     // Skip empty and auxiliary sections.
@@ -69,7 +69,7 @@ void DXContainerObjectWriter::writeObject(support::endian::Writer &W, const MCSe
     PartOffset = alignTo(PartOffset, Align(4ul));
     // The DXIL part also writes a program header, so we need to include its
     // size when computing the offset for a part after the DXIL part.
-    if (Sec.getName() == "DXIL" || Sec.getName() == "ILDB")
+    if (dxbc::isProgramPart(Sec.getName()))
       PartOffset += sizeof(dxbc::ProgramHeader);
   }
   assert(PartOffset < std::numeric_limits<uint32_t>::max() &&
@@ -107,12 +107,12 @@ void DXContainerObjectWriter::writeObject(support::endian::Writer &W, const MCSe
 
     uint64_t PartSize = SectionSize;
 
-    if (Sec.getName() == "DXIL" || Sec.getName() == "ILDB")
+    if (dxbc::isProgramPart(Sec.getName()))
       PartSize += sizeof(dxbc::ProgramHeader);
     // DXContainer parts should be 4-byte aligned.
     PartSize = alignTo(PartSize, Align(4));
     W.write<uint32_t>(static_cast<uint32_t>(PartSize));
-    if (Sec.getName() == "DXIL" || Sec.getName() == "ILDB") {
+    if (dxbc::isProgramPart(Sec.getName())) {
       dxbc::ProgramHeader Header;
       memset(reinterpret_cast<void *>(&Header), 0, sizeof(dxbc::ProgramHeader));
 
