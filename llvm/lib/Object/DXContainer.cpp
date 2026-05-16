@@ -287,7 +287,7 @@ static Error parseContents(StringRef Section,
     return parseFailed("SRCI Contents header flags must be zero");
   if (Current + Contents.Parameters.EntriesSizeInBytes > Section.end())
     return parseFailed(formatv(
-        "SRCI Contents entries end beyond the section boundary", Section));
+        "SRCI Contents entries end beyond the section boundary"));
   if (!dxbc::SourceInfo::Contents::isValidCompressionType(
           to_underlying(Contents.Parameters.Type)))
     return parseFailed("SRCI Contents section uses unknown compression type");
