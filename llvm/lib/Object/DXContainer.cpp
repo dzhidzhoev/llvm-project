@@ -453,8 +453,10 @@ Error DXContainer::parseSourceInfo(StringRef Part) {
   Current += sizeof(SourceInfo->Parameters);
 
   if (SourceInfo->Parameters.AlignedSizeInBytes != Part.size())
-    return parseFailed(
-        "Size field in SRCI header does not match SRCI part size");
+    return parseFailed(formatv("Size field in SRCI header ({0} bytes) does not "
+                               "match SRCI part size ({1} bytes)",
+                               SourceInfo->Parameters.AlignedSizeInBytes,
+                               Part.size()));
   if (SourceInfo->Parameters.Flags)
     return parseFailed("SRCI header flags must be zero");
   if (SourceInfo->Parameters.SectionCount != 3)
