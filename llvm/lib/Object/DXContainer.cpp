@@ -503,13 +503,11 @@ Error DXContainer::parseSourceInfo(StringRef Part) {
                         .moveInto(SectionBytesRead))
       return Err;
     BytesRead += SectionBytesRead;
+    BytesRead = alignTo<4>(BytesRead);
 
-    const char *Next = Current + SectionHeader.AlignedSizeInBytes;
-    if (Current + BytesRead > Next)
-      return parseFailed(formatv("Size of SRCI section {0} (#{1}) is bigger "
-                                 "than specified in generic header",
-                                 SectionName, Section));
-    Current = Next;
+    if (BytesRead != SectionHeader.AlignedSizeInBytes)
+      return parseFailed(formatv("Size of SRCI section {0} (#{1} - {2} bytes) does not match size specified in generic header ({3} bytes)", SectionName, Section, BytesRead, SectionHeader.AlignedSizeInBytes));
+    Current += SectionHeader.AlignedSizeInBytes;
   }
 
   if (SourceInfo->Contents.Parameters.Count !=
