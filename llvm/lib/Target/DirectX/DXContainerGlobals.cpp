@@ -48,6 +48,8 @@ static cl::opt<std::string> PdbOutputDir(
     cl::desc("Specify the PDB output directory for DirectX target. The file "
              "name is derived from the shader hash"),
     cl::value_desc("directory"));
+static cl::opt<bool> ShaderHashDependsOnSource(
+    "dx-Zss", cl::desc("Compute Shader Hash considering source information"));
 
 namespace {
 class DXContainerGlobals : public llvm::ModulePass {
@@ -135,13 +137,13 @@ void DXContainerGlobals::computeShaderHashAndDebugName(
   MD5 Digest;
   dxbc::ShaderHash HashData = {0, {0}};
 
-  if (auto *ILDB = M.getNamedGlobal("dx.ildb")) {
-    // The Hash's IncludesSource flag gets set whenever the hashed shader
-    // includes debug information.
-    // TODO: Add -Zss flag to manually enable/disable including sources when
-    // calculating hash.
-    DXILConstant = cast<ConstantDataArray>(ILDB->getInitializer());
-    HashData.Flags = static_cast<uint32_t>(dxbc::HashFlags::IncludesSource);
+  if (ShaderHashDependsOnSource) {
+    if (auto *ILDB = M.getNamedGlobal("dx.ildb")) {
+      DXILConstant = cast<ConstantDataArray>(ILDB->getInitializer());
+      HashData.Flags = static_cast<uint32_t>(dxbc::HashFlags::IncludesSource);
+    } else {
+      reportFatalUsageError("/Zss requires debug info (/Zi or /Zs)");
+    }
   } else {
     DXILConstant =
         cast<ConstantDataArray>(M.getNamedGlobal("dx.dxil")->getInitializer());
