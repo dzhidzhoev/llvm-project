@@ -141,6 +141,52 @@ static void removeLifetimeIntrinsics(Module &M) {
 }
 
 class EmbedDXILPass : public llvm::ModulePass {
+  std::string writeModule(Module &M, bool HasDebugInfo, bool IsDebug) {
+    std::string Data;
+    llvm::raw_string_ostream OS(Data);
+
+    if (HasDebugInfo && !IsDebug) {
+      // If we have an ILDB part, strip DXIL from all debug info.
+      StripDebugInfo(M);
+
+      // Also, manually remove debug version flags and dx.source nodes.
+      if (NamedMDNode *Flags = M.getModuleFlagsMetadata()) {
+        SmallVector<llvm::Module::ModuleFlagEntry, 4> FlagEntries;
+        M.getModuleFlagsMetadata(FlagEntries);
+        Flags->eraseFromParent();
+        for (unsigned I : seq(FlagEntries.size())) {
+          llvm::Module::ModuleFlagEntry &Entry = FlagEntries[I];
+          if (Entry.Key->getString() == "Dwarf Version" ||
+              Entry.Key->getString() == "Debug Info Version") {
+            continue;
+          }
+          M.addModuleFlag(Entry.Behavior, Entry.Key->getString(),
+                          cast<ConstantAsMetadata>(Entry.Val)->getValue());
+        }
+      }
+      for (NamedMDNode &NMD : llvm::make_early_inc_range(M.named_metadata()))
+        if (NMD.getName().starts_with("dx.source"))
+          NMD.eraseFromParent();
+    }
+
+    const auto DIMap = DebugInfoPass::run(M);
+    WriteDXILToFile(M, OS, DIMap);
+    return Data;
+  }
+
+  GlobalVariable *createSectionGlobal(Module &M, StringRef Data,
+                                      StringRef GlobalName,
+                                      StringRef SectionName) {
+    Constant *ModuleConstant =
+        ConstantDataArray::get(M.getContext(), arrayRefFromStringRef(Data));
+    auto *GV = new llvm::GlobalVariable(M, ModuleConstant->getType(), true,
+                                        GlobalValue::PrivateLinkage,
+                                        ModuleConstant, GlobalName);
+    GV->setSection(SectionName);
+    GV->setAlignment(Align(4));
+    return GV;
+  }
+
 public:
   static char ID; // Pass identification, replacement for typeid
   EmbedDXILPass() : ModulePass(ID) {
@@ -154,72 +200,37 @@ public:
     // fail the Module Verifier if performed in an earlier pass
     legalizeLifetimeIntrinsics(M);
 
-    std::string ILDBData;
     bool HasDebugInfo = !M.debug_compile_units().empty();
+    std::string ILDBData;
     if (HasDebugInfo) {
       // Write DXIL with debug info to ILDB part.
       // Clone the module to avoid alternating it with DebugInfoPass
       // before stripping the debug info later.
-      std::unique_ptr<Module> MClone = llvm::CloneModule(M);
-      llvm::raw_string_ostream OS(ILDBData);
-      const auto DIMap = DebugInfoPass::run(*MClone);
-      WriteDXILToFile(*MClone, OS, DIMap);
+      ILDBData =
+          writeModule(*llvm::CloneModule(M), HasDebugInfo, /*IsDebug=*/true);
     }
 
-    std::string DXILData;
-    llvm::raw_string_ostream OS(DXILData);
-    if (HasDebugInfo) {
-      // If we have an ILDB part, strip DXIL from all debug info.
-      StripDebugInfo(M);
+    // Clone the module to save dx.source metadata nodes from stripping, as they
+    // are needed for DXILMetadataAnalysisWrapperPass.
+    std::string DXILData =
+        writeModule(*llvm::CloneModule(M), HasDebugInfo, /*IsDebug=*/false);
 
-      // Also, manually remove debug version flags and dx.source nodes.
-      if (NamedMDNode *flags = M.getModuleFlagsMetadata()) {
-        SmallVector<llvm::Module::ModuleFlagEntry, 4> flagEntries;
-        M.getModuleFlagsMetadata(flagEntries);
-        flags->eraseFromParent();
-        for (unsigned i = 0; i < flagEntries.size(); i++) {
-          llvm::Module::ModuleFlagEntry &entry = flagEntries[i];
-          if (entry.Key->getString() == "Dwarf Version" ||
-              entry.Key->getString() == "Debug Info Version") {
-            continue;
-          }
-          M.addModuleFlag(entry.Behavior, entry.Key->getString(),
-                          cast<ConstantAsMetadata>(entry.Val)->getValue());
-        }
-      }
-      for (NamedMDNode &NMD : llvm::make_early_inc_range(M.named_metadata()))
-        if (NMD.getName().starts_with("dx.source"))
-          NMD.eraseFromParent();
-    }
+    // TODO Do we need to run this pass on module itself?
     const auto DIMap = DebugInfoPass::run(M);
-    WriteDXILToFile(M, OS, DIMap);
 
     // We no longer need lifetime intrinsics after bitcode serialization, so we
     // simply remove them to keep the Module Verifier happy after our
     // not-so-legal legalizations
     removeLifetimeIntrinsics(M);
 
+    SmallVector<GlobalValue *, 2> Globals;
     if (HasDebugInfo) {
       // Create a GV after both parts are written, otherwise it gets
-      // added to DXIL when `WriteDXILToFile` is called the second time.
-      Constant *ModuleConstant = ConstantDataArray::get(
-          M.getContext(), arrayRefFromStringRef(ILDBData));
-      auto *GV = new llvm::GlobalVariable(M, ModuleConstant->getType(), true,
-                                          GlobalValue::PrivateLinkage,
-                                          ModuleConstant, "dx.ildb");
-      GV->setSection("ILDB");
-      GV->setAlignment(Align(4));
-      appendToCompilerUsed(M, {GV});
+      // added to DXIL when `writeModule` is called the second time.
+      Globals.emplace_back(createSectionGlobal(M, ILDBData, "dx.ildb", "ILDB"));
     }
-
-    Constant *ModuleConstant =
-        ConstantDataArray::get(M.getContext(), arrayRefFromStringRef(DXILData));
-    auto *GV = new llvm::GlobalVariable(M, ModuleConstant->getType(), true,
-                                        GlobalValue::PrivateLinkage,
-                                        ModuleConstant, "dx.dxil");
-    GV->setSection("DXIL");
-    GV->setAlignment(Align(4));
-    appendToCompilerUsed(M, {GV});
+    Globals.emplace_back(createSectionGlobal(M, DXILData, "dx.dxil", "DXIL"));
+    appendToCompilerUsed(M, Globals);
     return true;
   }
 
