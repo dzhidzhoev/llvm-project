@@ -28,10 +28,16 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/CommandLine.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 
 using namespace llvm;
 using namespace llvm::dxil;
+
+static cl::opt<bool> SourceInDebugModule(
+    "dx-source-in-debug-module",
+    cl::desc("Embed source code into debug module on DirectX target"),
+    cl::init(false));
 
 namespace {
 class WriteDXILPass : public llvm::ModulePass {
@@ -138,6 +144,16 @@ static void removeLifetimeIntrinsics(Module &M) {
   }
 }
 
+static void replaceNamedMetadataArray(Module &M, StringRef Name,
+                                      ArrayRef<Metadata *> NewOps) {
+  NamedMDNode *NMD = M.getNamedMetadata(Name);
+  if (!NMD)
+    return;
+  NMD->eraseFromParent();
+  M.getOrInsertNamedMetadata(Name)->addOperand(
+      MDTuple::get(M.getContext(), NewOps));
+}
+
 class EmbedDXILPass : public llvm::ModulePass {
 public:
   static char ID; // Pass identification, replacement for typeid
@@ -155,6 +171,16 @@ public:
     // fail the Module Verifier if performed in an earlier pass
     legalizeLifetimeIntrinsics(M);
 
+    // Replace dx.source metadata nodes with stubs.
+    if (!SourceInDebugModule) {
+      LLVMContext &Ctx = M.getContext();
+      MDString *EmptyString = MDString::get(Ctx, "");
+      replaceNamedMetadataArray(M, "dx.source.contents",
+                                {EmptyString, EmptyString});
+      replaceNamedMetadataArray(M, "dx.source.defines", {});
+      replaceNamedMetadataArray(M, "dx.source.mainFileName", {EmptyString});
+      replaceNamedMetadataArray(M, "dx.source.args", {});
+    }
     const auto DIMap = DXILDebugInfoPass::run(M);
     WriteDXILToFile(M, OS, DIMap);
 

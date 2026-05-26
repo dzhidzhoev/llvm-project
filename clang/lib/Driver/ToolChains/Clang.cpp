@@ -3832,6 +3832,11 @@ static void RenderHLSLOptions(const ArgList &Args, ArgStringList &CmdArgs,
   if (!Args.hasArg(options::OPT_dxc_no_stdinc) &&
       !Args.hasArg(options::OPT_nostdinc))
     CmdArgs.push_back("-finclude-default-header");
+
+  if (Args.hasArg(options::OPT_dxc_source_in_debug_module)) {
+    CmdArgs.push_back("-mllvm");
+    CmdArgs.push_back("--dx-source-in-debug-module");
+  }
 }
 
 static void RenderOpenACCOptions(const Driver &D, const ArgList &Args,

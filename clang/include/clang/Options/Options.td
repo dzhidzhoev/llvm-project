@@ -9624,6 +9624,11 @@ def dxc_Fc : DXCJoinedOrSeparate<"Fc">,
   HelpText<"Output assembly listing file">;
 def dxc_Frs : DXCJoinedOrSeparate<"Frs">,
   HelpText<"Output additional root signature object file">;
+def dxc_source_in_debug_module
+    : Option<["/", "-"], "Qsource_in_debug_module", KIND_FLAG>,
+      Group<dxc_Group>,
+      Visibility<[DXCOption]>,
+      HelpText<"Embed source code into debug module on DirectX target">;
 def dxil_validator_version : Option<["/", "-"], "validator-version", KIND_SEPARATE>,
   Group<dxc_Group>, Flags<[HelpHidden]>,
   Visibility<[DXCOption, ClangOption, CC1Option]>,
