@@ -22,6 +22,9 @@
 // RUN: %clang_dxc -Tlib_6_7 /Fo %t.zs.dxbc /Zs %s 2>&1
 // RUN: obj2yaml %t.zs.dxbc | FileCheck %s --implicit-check-not=ILDB
 
-// CHECK: - Name: ILDN
+// CHECK:       - Name: HASH
+// CHECK-NEXT:    Size:
+// CHECK:       - Name: ILDN
+// CHECK-NEXT:    Size:
 
 [numthreads(1, 1, 1)] void main() {}
