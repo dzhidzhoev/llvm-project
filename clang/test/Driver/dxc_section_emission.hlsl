@@ -20,6 +20,9 @@
 // RUN: %clang_dxc -Tlib_6_7 /Fo %t.dxbc -gdwarf -Zi %s 2>&1
 // RUN: obj2yaml %t.dxbc | FileCheck %s
 
-// CHECK: - Name: ILDN
+// CHECK:       - Name: HASH
+// CHECK-NEXT:    Size:
+// CHECK:       - Name: ILDN
+// CHECK-NEXT:    Size:
 
 [numthreads(1, 1, 1)] void main() {}
