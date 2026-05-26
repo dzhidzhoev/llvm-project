@@ -50,6 +50,7 @@ static cl::opt<std::string> PdbOutputDir(
     cl::value_desc("directory"));
 static cl::opt<bool> ShaderHashDependsOnSource(
     "dx-Zss", cl::desc("Compute Shader Hash considering source information"));
+extern cl::opt<bool> SourceInDebugModule;
 
 namespace {
 class DXContainerGlobals : public llvm::ModulePass {
@@ -409,7 +410,7 @@ void DXContainerGlobals::addSourceInfo(Module &M,
   dxil::ModuleMetadataInfo &MMI =
       getAnalysis<DXILMetadataAnalysisWrapperPass>().getModuleMetadata();
 
-  if (!MMI.SourceInfo)
+  if (!MMI.SourceInfo || SourceInDebugModule)
     return;
 
   MMI.SourceInfo->computeEntries();
