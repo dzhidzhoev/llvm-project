@@ -29,11 +29,18 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/CommandLine.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 
 using namespace llvm;
 using namespace llvm::dxil;
+
+// NOLINTNEXTLINE(misc-use-internal-linkage)
+cl::opt<bool> SourceInDebugModule(
+    "dx-source-in-debug-module",
+    cl::desc("Embed source code into debug module on DirectX target"),
+    cl::init(false));
 
 namespace {
 class WriteDXILPass : public llvm::ModulePass {
@@ -145,28 +152,59 @@ class EmbedDXILPass : public llvm::ModulePass {
     std::string Data;
     llvm::raw_string_ostream OS(Data);
 
-    if (HasDebugInfo && !IsDebug) {
-      // If we have an ILDB part, strip DXIL from all debug info.
-      StripDebugInfo(M);
-
-      // Also, manually remove debug version flags and dx.source nodes.
-      if (NamedMDNode *Flags = M.getModuleFlagsMetadata()) {
-        SmallVector<llvm::Module::ModuleFlagEntry, 4> FlagEntries;
-        M.getModuleFlagsMetadata(FlagEntries);
-        Flags->eraseFromParent();
-        for (unsigned I : seq(FlagEntries.size())) {
-          llvm::Module::ModuleFlagEntry &Entry = FlagEntries[I];
-          if (Entry.Key->getString() == "Dwarf Version" ||
-              Entry.Key->getString() == "Debug Info Version") {
-            continue;
+    if (HasDebugInfo) {
+      if (IsDebug) {
+        if (!SourceInDebugModule) {
+          LLVMContext &Ctx = M.getContext();
+          MDString *EmptyString = MDString::get(Ctx, "");
+          if (NamedMDNode *Contents =
+                  M.getNamedMetadata("dx.source.contents")) {
+            Contents->eraseFromParent();
+            Metadata *Ops[2] = {EmptyString, EmptyString};
+            M.getOrInsertNamedMetadata("dx.source.contents")
+                ->addOperand(MDTuple::get(Ctx, Ops));
           }
-          M.addModuleFlag(Entry.Behavior, Entry.Key->getString(),
-                          cast<ConstantAsMetadata>(Entry.Val)->getValue());
+          if (NamedMDNode *Defines = M.getNamedMetadata("dx.source.defines")) {
+            Defines->eraseFromParent();
+            M.getOrInsertNamedMetadata("dx.source.defines")
+                ->addOperand(MDTuple::get(Ctx, {}));
+          }
+          if (NamedMDNode *MainFileName =
+                  M.getNamedMetadata("dx.source.mainFileName")) {
+            MainFileName->eraseFromParent();
+            Metadata *Ops[1] = {EmptyString};
+            M.getOrInsertNamedMetadata("dx.source.mainFileName")
+                ->addOperand(MDTuple::get(Ctx, {Ops}));
+          }
+          if (NamedMDNode *Args = M.getNamedMetadata("dx.source.args")) {
+            Args->eraseFromParent();
+            M.getOrInsertNamedMetadata("dx.source.args")
+                ->addOperand(MDTuple::get(Ctx, {}));
+          }
         }
+      } else {
+        // If we have an ILDB part, strip DXIL from all debug info.
+        StripDebugInfo(M);
+
+        // Also, manually remove debug version flags and dx.source nodes.
+        if (NamedMDNode *Flags = M.getModuleFlagsMetadata()) {
+          SmallVector<llvm::Module::ModuleFlagEntry, 4> FlagEntries;
+          M.getModuleFlagsMetadata(FlagEntries);
+          Flags->eraseFromParent();
+          for (unsigned I : seq(FlagEntries.size())) {
+            llvm::Module::ModuleFlagEntry &Entry = FlagEntries[I];
+            if (Entry.Key->getString() == "Dwarf Version" ||
+                Entry.Key->getString() == "Debug Info Version") {
+              continue;
+            }
+            M.addModuleFlag(Entry.Behavior, Entry.Key->getString(),
+                            cast<ConstantAsMetadata>(Entry.Val)->getValue());
+          }
+        }
+        for (NamedMDNode &NMD : llvm::make_early_inc_range(M.named_metadata()))
+          if (NMD.getName().starts_with("dx.source"))
+            NMD.eraseFromParent();
       }
-      for (NamedMDNode &NMD : llvm::make_early_inc_range(M.named_metadata()))
-        if (NMD.getName().starts_with("dx.source"))
-          NMD.eraseFromParent();
     }
 
     const auto DIMap = DebugInfoPass::run(M);

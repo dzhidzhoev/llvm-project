@@ -9656,6 +9656,11 @@ def dxc_Zss : DXCFlag<"Zss">,
               HelpText<"Compute Shader Hash considering source information">;
 def dxc_Zsb : DXCFlag<"Zsb">,
               HelpText<"Compute Shader Hash considering only output binary">;
+def dxc_source_in_debug_module
+    : Option<["/", "-"], "Qsource_in_debug_module", KIND_FLAG>,
+      Group<dxc_Group>,
+      Visibility<[DXCOption]>,
+      HelpText<"Embed source code into debug module on DirectX target">;
 def dxil_validator_version : Option<["/", "-"], "validator-version", KIND_SEPARATE>,
   Group<dxc_Group>, Flags<[HelpHidden]>,
   Visibility<[DXCOption, ClangOption, CC1Option]>,
