@@ -1,9 +1,12 @@
 // RUN: %clang_dxc -Tlib_6_7 -### -g %s 2>&1 | FileCheck %s --check-prefix=CHECK,CHECK-CMD
 // RUN: %clang_dxc -Tlib_6_7 -### /Zi %s 2>&1 | FileCheck %s
+// RUN: %clang_dxc -Tlib_6_7 -### /Zs %s 2>&1 | FileCheck %s --check-prefix=CHECK-ZS
 // RUN: %clang_dxc -Tlib_6_7 -### /Zi /Qembed_debug %s 2>&1 | FileCheck %s -check-prefixes=CHECK,CHECK-EMBED
 // RUN: %clang_dxc -Tlib_6_7 -### -Zi %s 2>&1 | FileCheck %s
+// RUN: %clang_dxc -Tlib_6_7 -### -Zs %s 2>&1 | FileCheck %s --check-prefix=CHECK-ZS
 // RUN: %clang_dxc -Tlib_6_7 -### -Zi -Qembed_debug %s 2>&1 | FileCheck %s -check-prefixes=CHECK,CHECK-EMBED
 // RUN: %clang_dxc -Tlib_6_7 -### -Zi /Fd %t.pdb %s 2>&1 | FileCheck %s -check-prefixes=CHECK,CHECK-FD
+// RUN: %clang_dxc -Tlib_6_7 -### -Zs /Fd %t.pdb %s 2>&1 | FileCheck %s -check-prefixes=CHECK-ZS,CHECK-ZS-FD
 // RUN: %clang_dxc -Tlib_6_7 -### -Zi -Fd=%t.pdb %s 2>&1 | FileCheck %s -check-prefixes=CHECK,CHECK-FD
 // RUN: %clang_dxc -Tlib_6_7 -### -Zi -gcodeview %s 2>&1 | FileCheck %s -check-prefixes=CHECK,CHECK-CV
 // RUN: %clang_dxc -Tlib_6_7 -### -Zi -gdwarf %s 2>&1 | FileCheck %s -check-prefixes=CHECK,CHECK-DWARF
@@ -22,10 +25,21 @@
 // CHECK-SAME: -fdx-record-command-line
 // CHECK-CMD-SAME: --driver-mode=dxc -T lib_6_7 -### -g {{.*}}dxc_debug.hlsl
 
+// CHECK-ZS: "-debug-info-kind=constructor"
+// CHECK-ZS-SAME: "-mllvm" "-dx-Zs"
+// CHECK-ZS-FD: --dx-Fd=
+// CHECK-ZS-SAME: -fdx-record-command-line
+
 // Check errors and warnings
 // RUN: %clang_dxc -Tlib_6_7 -### /Zi %s 2>&1 | FileCheck %s --check-prefix=WARN-EMBED
 // WARN-EMBED: warning: no output provided for debug - embedding PDB in shader container
+// RUN: %clang_dxc -Tlib_6_7 -### /Zs %s 2>&1 | FileCheck %s --check-prefix=NO-WARN-EMBED
+// NO-WARN-EMBED-NOT: warning: no output provided for debug
 // RUN: not %clang_dxc -Tlib_6_7 -### /Qembed_debug %s 2>&1 | FileCheck %s --check-prefix=ERROR-NODBG0
 // ERROR-NODBG0: error: must enable debug info with /Zi for /Qembed_debug
 // RUN: not %clang_dxc -Tlib_6_7 -### /Fd %t.pdb %s 2>&1 | FileCheck %s --check-prefix=ERROR-NODBG1
 // ERROR-NODBG1: error: /Fd specified, but no Debug Info was found in the shader
+// RUN: not %clang_dxc -Tlib_6_7 -### /Zi /Zs %s 2>&1 | FileCheck %s --check-prefix=ERROR-ZI-ZS
+// ERROR-ZI-ZS: error: cannot specify both /Zi and /Zs
+// RUN: not %clang_dxc -Tlib_6_7 -### /Zs /Qembed_debug %s 2>&1 | FileCheck %s --check-prefix=ERROR-ZS-EMBED
+// ERROR-ZS-EMBED: error: /Qembed_debug is not compatible with /Zs

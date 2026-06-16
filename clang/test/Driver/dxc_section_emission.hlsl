@@ -19,6 +19,8 @@
 // RUN: obj2yaml %t.dxbc | FileCheck %s
 // RUN: %clang_dxc -Tlib_6_7 /Fo %t.dxbc -gdwarf -Zi %s 2>&1
 // RUN: obj2yaml %t.dxbc | FileCheck %s
+// RUN: %clang_dxc -Tlib_6_7 /Fo %t.zs.dxbc /Zs %s 2>&1
+// RUN: obj2yaml %t.zs.dxbc | FileCheck %s --implicit-check-not=ILDB
 
 // CHECK:       - Name: HASH
 // CHECK-NEXT:    Size:

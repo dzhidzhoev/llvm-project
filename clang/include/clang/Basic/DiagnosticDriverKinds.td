@@ -883,8 +883,12 @@ def err_drv_dxc_Fre_requires_Fo_metal
     : Error<"-Fre option requires -Fo option when targeting Metal">;
 def err_drv_dxc_invalid_shader_hash
     : Error<"cannot specify both /Zss and /Zsb">;
+def err_drv_dxc_Zi_Zs_mutually_exclusive
+    : Error<"cannot specify both /Zi and /Zs">;
 def err_drv_no_debug_info_for_embed_debug
     : Error<"must enable debug info with /Zi for /Qembed_debug">;
+def err_drv_dxc_Zs_embed_debug_incompatible
+    : Error<"/Qembed_debug is not compatible with /Zs">;
 def err_drv_no_debug_info_for_Fd
     : Error<"/Fd specified, but no Debug Info was found in the shader; "
             "please use the /Zi or /Zs switch to generate debug information "
