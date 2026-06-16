@@ -3362,7 +3362,9 @@ bool tools::shouldRecordCommandLine(const ToolChain &TC,
   GRecordCommandLine =
       Args.hasFlag(options::OPT_grecord_command_line,
                    options::OPT_gno_record_command_line, false);
-  DXRecordCommandLine = Triple.isDXIL() && Args.hasArg(options::OPT_g_Flag);
+  DXRecordCommandLine =
+      Triple.isDXIL() &&
+      (Args.hasArg(options::OPT_g_Flag) || Args.hasArg(options::OPT__SLASH_Zs));
   if (FRecordCommandLine && !Triple.isOSBinFormatELF() &&
       !Triple.isOSBinFormatXCOFF() && !Triple.isOSBinFormatMachO())
     D.Diag(diag::err_drv_unsupported_opt_for_target)
