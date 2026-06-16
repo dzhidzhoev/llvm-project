@@ -330,6 +330,11 @@ InputArgList Driver::ParseArgStrings(ArrayRef<const char *> ArgStrings,
   return Args;
 }
 
+static bool isSyntaxOnly(const Driver &D, const llvm::opt::ArgList &Args) {
+  return Args.hasArg(options::OPT_fsyntax_only) ||
+         (D.IsCLMode() && Args.hasArg(options::OPT__SLASH_Zs));
+}
+
 // Determine which compilation mode we are in. We look for options which
 // affect the phase, starting with the earliest phases, and record which
 // option we used to determine the final phase.
@@ -358,6 +363,8 @@ phases::ID Driver::getFinalPhase(const DerivedArgList &DAL,
     FinalPhase = phases::Precompile;
     // -{fsyntax-only,-analyze,emit-ast} only run up to the compiler.
   } else if ((PhaseArg = DAL.getLastArg(options::OPT_fsyntax_only)) ||
+             (IsCLMode() &&
+              (PhaseArg = DAL.getLastArg(options::OPT__SLASH_Zs))) ||
              (PhaseArg = DAL.getLastArg(options::OPT_print_supported_cpus)) ||
              (PhaseArg =
                   DAL.getLastArg(options::OPT_print_enabled_extensions)) ||
@@ -5330,7 +5337,7 @@ Action *Driver::ConstructPhaseAction(
         OutputTy = types::TY_ModuleFile;
     }
 
-    if (Args.hasArg(options::OPT_fsyntax_only)) {
+    if (isSyntaxOnly(C.getDriver(), Args)) {
       // Syntax checks should not emit a PCH file
       OutputTy = types::TY_Nothing;
     }
@@ -5338,7 +5345,7 @@ Action *Driver::ConstructPhaseAction(
     return C.MakeAction<PrecompileJobAction>(Input, OutputTy);
   }
   case phases::Compile: {
-    if (Args.hasArg(options::OPT_fsyntax_only))
+    if (isSyntaxOnly(C.getDriver(), Args))
       return C.MakeAction<CompileJobAction>(Input, types::TY_Nothing);
     if (Args.hasArg(options::OPT_rewrite_objc))
       return C.MakeAction<CompileJobAction>(Input, types::TY_RewrittenObjC);
@@ -5455,7 +5462,7 @@ void Driver::BuildJobs(Compilation &C) const {
         ++NumOutputs;
       else if (A->getKind() == Action::OffloadClass &&
                A->getType() == types::TY_Nothing &&
-               !C.getArgs().hasArg(options::OPT_fsyntax_only))
+               !isSyntaxOnly(*this, C.getArgs()))
         NumOutputs += A->size();
     }
 

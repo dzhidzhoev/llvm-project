@@ -3854,16 +3854,34 @@ static void RenderHLSLOptions(const Driver &D, const ArgList &Args,
   }
   if (Arg *A = Args.getLastArg(options::OPT_dxc_Zsb))
     A->claim(); // /Zsb is the default behavior, no need to forward it to llc.
-  bool Zi = Args.hasArg(options::OPT_g_Flag);
+
+  bool Zs = Args.hasArg(options::OPT__SLASH_Zs);
+  bool Zi = Args.hasArg(options::OPT_g_Flag) && !Zs;
+
+  if (Args.hasArg(options::OPT_g_Flag) && Zs)
+    D.Diag(diag::err_drv_dxc_Zi_Zs_mutually_exclusive);
+
+  if (Args.hasArg(options::OPT_dxc_source_in_debug_module) && Zs)
+    D.Diag(diag::err_drv_dxc_Zs_source_in_debug_module_mutually_exclusive);
+
+  if (Zs) {
+    CmdArgs.push_back("-mllvm");
+    CmdArgs.push_back("-dx-Zs");
+  }
+
   bool Qembed_debug = Args.hasArg(options::OPT_dxc_Qembed_debug);
+  if (Qembed_debug && Zs)
+    D.Diag(diag::err_drv_dxc_Zs_embed_debug_incompatible);
+  if (Qembed_debug && !Zi)
+    D.Diag(diag::err_drv_no_debug_info_for_embed_debug);
+
   Arg *Fd = Args.getLastArg(options::OPT_dxc_Fd);
   if (Zi && !Fd && !Qembed_debug) {
     D.Diag(diag::warn_drv_dxc_no_output_for_debug);
     Qembed_debug = true;
   }
-  if (Qembed_debug && !Zi)
-    D.Diag(diag::err_drv_no_debug_info_for_embed_debug);
-  if (Fd && !Zi)
+  bool DebugInfo = Zi || Zs;
+  if (Fd && !DebugInfo)
     D.Diag(diag::err_drv_no_debug_info_for_Fd);
   if (Qembed_debug) {
     CmdArgs.push_back("-mllvm");
@@ -4595,6 +4613,8 @@ renderDebugOptions(const ToolChain &TC, const Driver &D, const llvm::Triple &T,
            SplitDWARFInlining))
         DwarfFission = DwarfFissionKind::None;
     }
+  } else if (Args.hasArg(options::OPT__SLASH_Zs) && D.IsDXCMode()) {
+    DebugInfoKind = llvm::codegenoptions::DebugInfoConstructor;
   }
 
   // If a debugger tuning argument appeared, remember it.
@@ -8735,11 +8755,13 @@ void Clang::AddClangCLArgs(const ArgList &Args, types::ID InputType,
     CmdArgs.push_back("-P");
   }
 
- if (Args.hasFlag(options::OPT__SLASH_Zc_dllexportInlines_,
-                  options::OPT__SLASH_Zc_dllexportInlines,
-                  false)) {
-  CmdArgs.push_back("-fno-dllexport-inlines");
- }
+  if (Args.hasArg(options::OPT__SLASH_Zs))
+    CmdArgs.push_back("-fsyntax-only");
+
+  if (Args.hasFlag(options::OPT__SLASH_Zc_dllexportInlines_,
+                   options::OPT__SLASH_Zc_dllexportInlines, false)) {
+    CmdArgs.push_back("-fno-dllexport-inlines");
+  }
 
  if (Args.hasFlag(options::OPT__SLASH_Zc_wchar_t_,
                   options::OPT__SLASH_Zc_wchar_t, false)) {
