@@ -800,6 +800,14 @@ public:
         dsts);
   }
 
+  template <typename OpT>
+  Instruction
+  buildOpWithPreciseMask(uint32_t /*preciseMask*/, Location loc,
+                         const std::array<dxsa::DstOperandAttr, 0> &,
+                         const std::array<dxsa::SrcOperandAttr, 0> &) {
+    return OpT::create(builder, loc);
+  }
+
   Instruction buildDclInput(dxsa::DstOperandAttr operand, Location loc) {
     return dxsa::DclInput::create(builder, loc, operand);
   }
@@ -2389,6 +2397,12 @@ public:
       return PLAIN_OP(UShr, 1, 2);
     case D3D10_SB_OPCODE_XOR:
       return PLAIN_OP(Xor, 1, 2);
+    case D3D10_SB_OPCODE_EMIT:
+      return PLAIN_OP(Emit, 0, 0);
+    case D3D10_SB_OPCODE_EMITTHENCUT:
+      return PLAIN_OP(EmitThenCut, 0, 0);
+    case D3D10_SB_OPCODE_CUT:
+      return PLAIN_OP(Cut, 0, 0);
     }
 #undef SATURABLE_OP
 #undef PLAIN_OP

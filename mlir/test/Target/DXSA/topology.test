@@ -1,0 +1,15 @@
+// RUN: mlir-translate --import-dxsa-hex %s | FileCheck %s
+// RUN: mlir-translate --import-dxsa-hex %s | mlir-opt --verify-roundtrip
+
+// CHECK:      dxsa.module {
+
+// CHECK-NEXT:   dxsa.emit
+0x01000013
+
+// CHECK-NEXT:   dxsa.emit_then_cut
+0x01000014
+
+// CHECK-NEXT:   dxsa.cut
+0x01000009
+
+// CHECK-NEXT: }
