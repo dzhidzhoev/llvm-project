@@ -1155,6 +1155,29 @@ def DXSA_DclTgsmStructured : DXSA_Op<"dcl_tgsm_structured"> {
   let hasVerifier = 1;
 }
 
+def DXSA_DclImmediateConstantBuffer : DXSA_Op<"dcl_immediate_constant_buffer"> {
+  let summary = "declares an immediate constant buffer";
+  let description = [{
+    The `dxsa.dcl_immediate_constant_buffer` operation declares an immediate
+    constant buffer (`icb`) whose contents are embedded in the shader bytecode
+    as a sequence of 4-tuples of 32-bit values interpreted as floats.
+
+    Example:
+
+    ```mlir
+    dxsa.dcl_immediate_constant_buffer
+                   [
+                     1.000000e+00, 0.000000e+00, 0.000000e+00, 0.000000e+00,
+                     0.000000e+00, 1.000000e+00, 0.000000e+00, 0.000000e+00,
+                     0.000000e+00, 0.000000e+00, 1.000000e+00, 0.000000e+00,
+                     0.000000e+00, 0.000000e+00, 0.000000e+00, 1.000000e+00
+                   ]
+    ```
+  }];
+  let arguments = (ins DenseF32ArrayAttr:$values);
+  let assemblyFormat = "$values attr-dict";
+}
+
 def DXSA_DclConstantBuffer : DXSA_Op<"dcl_constant_buffer"> {
   let summary = "declares a constant buffer";
   let description = [{
