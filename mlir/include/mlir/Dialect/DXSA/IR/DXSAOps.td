@@ -1425,7 +1425,7 @@ def DXSA_DclThreadGroup : DXSA_Op<"dcl_thread_group"> {
   let hasVerifier = 1;
 }
 
-def DXSA_Nop : DXSA_NullaryOp<"nop"> {
+def DXSA_Nop : DXSA_NoOperandOp<"nop"> {
   let summary = "no operation";
   let description = [{
     The `dxsa.nop` operation has no effect.

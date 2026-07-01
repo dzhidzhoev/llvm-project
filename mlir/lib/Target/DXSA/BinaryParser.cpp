@@ -2629,7 +2629,7 @@ public:
       return PLAIN_OP(Ret, 0, 0, HasPreciseAttr::No);
     // Other instructions
     case D3D10_SB_OPCODE_NOP:
-      return PLAIN_OP(Nop, 0, 0);
+      return PLAIN_OP(Nop, 0, 0, HasPreciseAttr::No);
     case D3D11_SB_OPCODE_SYNC:
       return parseSync(*opcodeToken0, beginOffset, instructionLengthInTokens,
                        getLocation());
