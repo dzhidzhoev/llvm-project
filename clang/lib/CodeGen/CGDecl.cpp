@@ -111,16 +111,22 @@ void CodeGenFunction::EmitDecl(const Decl &D, bool EvaluateConditionDecl) {
     llvm_unreachable("Declaration should not be in declstmts!");
   case Decl::Record:    // struct/union/class X;
   case Decl::CXXRecord: // struct/union/class X; [C++]
-    if (CGDebugInfo *DI = getDebugInfo())
+    if (CGDebugInfo *DI = getDebugInfo()) {
+      // TODO are we registering a correct thing?
+      DI->recordDeclarationLexicalScope(D);
       if (cast<RecordDecl>(D).getDefinition())
         DI->EmitAndRetainType(
             getContext().getCanonicalTagType(cast<RecordDecl>(&D)));
+    }
     return;
   case Decl::Enum:      // enum X;
-    if (CGDebugInfo *DI = getDebugInfo())
+    if (CGDebugInfo *DI = getDebugInfo()) {
+      // TODO are we registering a correct thing?
+      DI->recordDeclarationLexicalScope(D);
       if (cast<EnumDecl>(D).getDefinition())
         DI->EmitAndRetainType(
             getContext().getCanonicalTagType(cast<EnumDecl>(&D)));
+    }
     return;
   case Decl::Function:     // void X();
   case Decl::EnumConstant: // enum ? { X = ? }
@@ -197,8 +203,11 @@ void CodeGenFunction::EmitDecl(const Decl &D, bool EvaluateConditionDecl) {
   case Decl::Typedef:      // typedef int X;
   case Decl::TypeAlias: {  // using X = int; [C++0x]
     QualType Ty = cast<TypedefNameDecl>(D).getUnderlyingType();
-    if (CGDebugInfo *DI = getDebugInfo())
+    if (CGDebugInfo *DI = getDebugInfo()) {
+      // TODO are we registering a correct thing?
+      DI->recordDeclarationLexicalScope(D);
       DI->EmitAndRetainType(Ty);
+    }
     if (Ty->isVariablyModifiedType())
       EmitVariablyModifiedType(Ty);
     return;
