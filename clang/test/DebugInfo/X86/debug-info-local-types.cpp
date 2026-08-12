@@ -40,10 +40,27 @@ void test() {
     union U { int i; char c; };
     U u = { 256 };
   }
+
+  // Opaque complete declaration.
+#line 80
+  {
+    enum OpaqueE : int;
+    OpaqueE opaqueE{};
+// With #include between forward declaration of the enum, and its definition,
+// this code block should be split into two DILexicalBlocks.
+#include "Inputs/noop.inc"
+    enum OpaqueE : int { a };
+  }
+
+#line 90
+  {
+    enum NeverDefinedOpaqueE : int;
+    NeverDefinedOpaqueE neverDefinedOpaqueE{};
+  }
 }
 
 // CHECK: ![[SP:[0-9]+]] = distinct !DISubprogram(name: "test", {{.*}}, spFlags: DISPFlagDefinition, {{.*}}, retainedNodes: ![[RN:[0-9]+]]
-// CHECK: ![[RN]] = !{![[STRUCT:[0-9]+]], ![[CLASS:[0-9]+]], ![[TYPEDEF:[0-9]+]], ![[USING:[0-9]+]], ![[ENUM:[0-9]+]], ![[ENUM_CLASS:[0-9]+]], ![[UNION:[0-9]+]]}
+// CHECK: ![[RN]] = !{![[STRUCT:[0-9]+]], ![[CLASS:[0-9]+]], ![[TYPEDEF:[0-9]+]], ![[USING:[0-9]+]], ![[ENUM:[0-9]+]], ![[ENUM_CLASS:[0-9]+]], ![[UNION:[0-9]+]], ![[OPAQUE_ENUM:[0-9]+]], ![[ND_ENUM:[0-9]+]]}
 
 // CHECK: ![[STRUCT]] = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "S", scope: ![[LBSCOPE_1:[0-9]+]]
 // CHECK: ![[LBSCOPE_1]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 10,
@@ -56,6 +73,10 @@ void test() {
 // CHECK: ![[ENUM_CLASS]] = !DICompositeType(tag: DW_TAG_enumeration_type, name: "T", scope: ![[LBSCOPE_3]]
 // CHECK: ![[UNION]] = distinct !DICompositeType(tag: DW_TAG_union_type, name: "U", scope: ![[LBSCOPE_4:[0-9]+]]
 // CHECK: ![[LBSCOPE_4]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 70,
+// CHECK: ![[OPAQUE_ENUM]] = !DICompositeType(tag: DW_TAG_enumeration_type, name: "OpaqueE", scope: ![[LBSCOPE_5:[0-9]+]]
+// CHECK: ![[LBSCOPE_5]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 80,
+// CHECK: ![[ND_ENUM]] = !DICompositeType(tag: DW_TAG_enumeration_type, name: "NeverDefinedOpaqueE", scope: ![[LBSCOPE_6:[0-9]+]]
+// CHECK: ![[LBSCOPE_6]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 90,
 
 // CHECK: !DILocalVariable(name: "s", scope: ![[LBSCOPE_1]]
 // CHECK-SAME:                        type: ![[STRUCT:]]
