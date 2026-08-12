@@ -423,9 +423,7 @@ llvm::DIScope *CGDebugInfo::getContextDescriptor(const Decl *Context,
 void CGDebugInfo::recordDeclarationLexicalScope(const Decl &D) {
   if (LexicalBlockStack.empty())
     return;
-
-  if (!LexicalBlockMap.insert({&D, LexicalBlockStack.back()}).second)
-    llvm_unreachable("D is already mapped to a lexical block scope");
+  LexicalBlockMap[&D].reset(LexicalBlockStack.back());
 }
 
 llvm::DIScope *CGDebugInfo::getDeclarationLexicalScope(const Decl *D) {
@@ -4035,7 +4033,7 @@ llvm::DIType *CGDebugInfo::CreateEnumType(const EnumType *Ty) {
     // entered into the ReplaceMap: finalize() will replace the first
     // FwdDecl with the second and then replace the second with
     // complete type.
-    llvm::DIScope *EDContext = getDeclarationLexicalScope(ED);
+    llvm::DIScope *EDContext = getDeclarationLexicalScope(ED->getCanonicalDecl());
     llvm::DIFile *DefUnit = getOrCreateFile(ED->getLocation());
     llvm::TempDIScope TmpContext(DBuilder.createReplaceableCompositeType(
         llvm::dwarf::DW_TAG_enumeration_type, "", TheCU, DefUnit, 0));
@@ -4075,7 +4073,7 @@ llvm::DIType *CGDebugInfo::CreateTypeDefinition(const EnumType *Ty) {
 
   llvm::DIFile *DefUnit = getOrCreateFile(ED->getLocation());
   unsigned Line = getLineNumber(ED->getLocation());
-  llvm::DIScope *EnumContext = getDeclarationLexicalScope(ED);
+  llvm::DIScope *EnumContext = getDeclarationLexicalScope(ED->getCanonicalDecl());
   llvm::DIType *ClassTy = getOrCreateType(ED->getIntegerType(), DefUnit);
   return DBuilder.createEnumerationType(
       EnumContext, ED->getName(), DefUnit, Line, Size, Align, EltArray, ClassTy,
