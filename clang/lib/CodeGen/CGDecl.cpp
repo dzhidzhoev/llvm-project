@@ -121,8 +121,7 @@ void CodeGenFunction::EmitDecl(const Decl &D, bool EvaluateConditionDecl) {
     return;
   case Decl::Enum:      // enum X;
     if (CGDebugInfo *DI = getDebugInfo()) {
-      // TODO are we registering a correct thing?
-      DI->recordDeclarationLexicalScope(D);
+      DI->recordDeclarationLexicalScope(*D.getCanonicalDecl());
       if (cast<EnumDecl>(D).getDefinition())
         DI->EmitAndRetainType(
             getContext().getCanonicalTagType(cast<EnumDecl>(&D)));
