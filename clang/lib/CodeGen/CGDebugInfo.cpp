@@ -427,9 +427,10 @@ void CGDebugInfo::recordDeclarationLexicalScope(const Decl &D) {
 }
 
 llvm::DIScope *CGDebugInfo::getDeclarationLexicalScope(const Decl *D) {
-  if (auto I = LexicalBlockMap.find(D); I != LexicalBlockMap.end())
-    return I->second;
-  return getDeclContextDescriptor(cast<Decl>(D->getCanonicalDecl()));
+  D = D->getCanonicalDecl();
+  if (llvm::DIScope *S = LexicalBlockMap.lookup(D))
+    return S;
+  return getDeclContextDescriptor(cast<Decl>(D));
 }
 
 PrintingPolicy CGDebugInfo::getPrintingPolicy() const {
