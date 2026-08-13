@@ -423,16 +423,13 @@ llvm::DIScope *CGDebugInfo::getContextDescriptor(const Decl *Context,
 void CGDebugInfo::recordDeclarationLexicalScope(const Decl &D) {
   if (LexicalBlockStack.empty())
     return;
-  LexicalBlockMap[&D].reset(LexicalBlockStack.back());
+  LexicalBlockMap[D.getCanonicalDecl()].reset(LexicalBlockStack.back());
 }
 
 llvm::DIScope *CGDebugInfo::getDeclarationLexicalScope(const Decl *D) {
-  // TODO do we need debugger tuning?
-  // if (CGM.getCodeGenOpts().getDebuggerTuning() == llvm::DebuggerKind::GDB) {
   if (auto I = LexicalBlockMap.find(D); I != LexicalBlockMap.end())
     return I->second;
-  // }
-  return getDeclContextDescriptor(cast<Decl>(D));
+  return getDeclContextDescriptor(cast<Decl>(D->getCanonicalDecl()));
 }
 
 PrintingPolicy CGDebugInfo::getPrintingPolicy() const {
@@ -3336,7 +3333,7 @@ llvm::DIType *CGDebugInfo::CreateType(const RecordType *Ty) {
   if (T || shouldOmitDefinition(DebugKind, DebugTypeExtRefs, RD,
                                 CGM.getLangOpts())) {
     if (!T)
-      T = getOrCreateRecordFwdDecl(Ty, getDeclContextDescriptor(RD));
+      T = getOrCreateRecordFwdDecl(Ty, getDeclarationLexicalScope(RD));
     return T;
   }
 
@@ -4033,7 +4030,7 @@ llvm::DIType *CGDebugInfo::CreateEnumType(const EnumType *Ty) {
     // entered into the ReplaceMap: finalize() will replace the first
     // FwdDecl with the second and then replace the second with
     // complete type.
-    llvm::DIScope *EDContext = getDeclarationLexicalScope(ED->getCanonicalDecl());
+    llvm::DIScope *EDContext = getDeclarationLexicalScope(ED);
     llvm::DIFile *DefUnit = getOrCreateFile(ED->getLocation());
     llvm::TempDIScope TmpContext(DBuilder.createReplaceableCompositeType(
         llvm::dwarf::DW_TAG_enumeration_type, "", TheCU, DefUnit, 0));
@@ -4073,7 +4070,7 @@ llvm::DIType *CGDebugInfo::CreateTypeDefinition(const EnumType *Ty) {
 
   llvm::DIFile *DefUnit = getOrCreateFile(ED->getLocation());
   unsigned Line = getLineNumber(ED->getLocation());
-  llvm::DIScope *EnumContext = getDeclarationLexicalScope(ED->getCanonicalDecl());
+  llvm::DIScope *EnumContext = getDeclarationLexicalScope(ED);
   llvm::DIType *ClassTy = getOrCreateType(ED->getIntegerType(), DefUnit);
   return DBuilder.createEnumerationType(
       EnumContext, ED->getName(), DefUnit, Line, Size, Align, EltArray, ClassTy,
