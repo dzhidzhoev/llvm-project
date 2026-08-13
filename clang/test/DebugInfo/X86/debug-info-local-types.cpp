@@ -1,5 +1,5 @@
-// RUN: %clang_cc1 -triple x86_64-none-linux-gnu -emit-llvm -debug-info-kind=limited -debugger-tuning=gdb %s -o - | FileCheck %s --check-prefixes=CHECK
-// RUN: %clang_cc1 -triple x86_64-none-linux-gnu -emit-llvm -debug-info-kind=unused-types -debugger-tuning=gdb %s -o - | FileCheck %s --check-prefixes=UNUSED_TYPES
+// RUN: %clang_cc1 -triple x86_64-none-linux-gnu -emit-llvm -debug-info-kind=limited %s -o - | FileCheck %s --check-prefixes=CHECK
+// RUN: %clang_cc1 -triple x86_64-none-linux-gnu -emit-llvm -debug-info-kind=unused-types %s -o - | FileCheck %s --check-prefixes=UNUSED_TYPES
 
 void test() {
 #line 10
@@ -56,11 +56,23 @@ void test() {
   {
     enum NeverDefinedOpaqueE : int;
     NeverDefinedOpaqueE neverDefinedOpaqueE{};
+
+    struct ForwardS;
+    ForwardS *ptr;
+    struct ForwardS {
+      int a;
+    };
+
+    struct SWithForwardDecl;
+    struct SWithForwardDecl {
+      int a;
+    };
+    SWithForwardDecl sWithForwardDecl;
   }
 }
 
 // CHECK: ![[SP:[0-9]+]] = distinct !DISubprogram(name: "test", {{.*}}, spFlags: DISPFlagDefinition, {{.*}}, retainedNodes: ![[RN:[0-9]+]]
-// CHECK: ![[RN]] = !{![[STRUCT:[0-9]+]], ![[CLASS:[0-9]+]], ![[TYPEDEF:[0-9]+]], ![[USING:[0-9]+]], ![[ENUM:[0-9]+]], ![[ENUM_CLASS:[0-9]+]], ![[UNION:[0-9]+]], ![[OPAQUE_ENUM:[0-9]+]], ![[ND_ENUM:[0-9]+]]}
+// CHECK: ![[RN]] = !{![[STRUCT:[0-9]+]], ![[CLASS:[0-9]+]], ![[TYPEDEF:[0-9]+]], ![[USING:[0-9]+]], ![[ENUM:[0-9]+]], ![[ENUM_CLASS:[0-9]+]], ![[UNION:[0-9]+]], ![[OPAQUE_ENUM:[0-9]+]], ![[ND_ENUM:[0-9]+]], ![[FWD_STRUCT:[0-9]+]], ![[S_WITH_FWD:[0-9]+]]}
 
 // CHECK: ![[STRUCT]] = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "S", scope: ![[LBSCOPE_1:[0-9]+]]
 // CHECK: ![[LBSCOPE_1]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 10,
@@ -77,6 +89,9 @@ void test() {
 // CHECK: ![[LBSCOPE_5]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 80,
 // CHECK: ![[ND_ENUM]] = !DICompositeType(tag: DW_TAG_enumeration_type, name: "NeverDefinedOpaqueE", scope: ![[LBSCOPE_6:[0-9]+]]
 // CHECK: ![[LBSCOPE_6]] = distinct !DILexicalBlock(scope: ![[SP]], {{.*}}, line: 90,
+// CHECK: ![[FWD_STRUCT]] = !DICompositeType(tag: DW_TAG_structure_type, name: "ForwardS", scope: ![[LBSCOPE_6]]
+// CHECK-SAME:                               flags: DIFlagFwdDecl
+// CHECK: ![[S_WITH_FWD]] = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "SWithForwardDecl", scope: ![[LBSCOPE_6]]
 
 // CHECK: !DILocalVariable(name: "s", scope: ![[LBSCOPE_1]]
 // CHECK-SAME:                        type: ![[STRUCT:]]
