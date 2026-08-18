@@ -208,9 +208,9 @@ public:
   /// Find or create an abstract lexical scope.
   LLVM_ABI LexicalScope *getOrCreateAbstractScope(const DILocalScope *Scope);
 
-  /// Get function to which the given subprogram is attached, if exists.
-  const Function *getFunction(const DISubprogram *SP) const {
-    return FunctionMap.lookup(SP);
+  /// Check if a definition subprogram is inlined somewhere in module.
+  bool isInlined(const DISubprogram *SP) const {
+    return !NonInlinedSubprograms.contains(SP);
   }
 
 private:
@@ -240,10 +240,12 @@ private:
   assignInstructionRanges(SmallVectorImpl<InsnRange> &MIRanges,
                           DenseMap<const MachineInstr *, LexicalScope *> &M);
 
+  void scanSubprogramsAtLocation(const DISubprogram *CurrentSP, const DILocation *DL);
+
   const MachineFunction *MF = nullptr;
 
-  /// Mapping between DISubprograms and IR functions.
-  DenseMap<const DISubprogram *, const Function *> FunctionMap;
+  /// Definition subprograms that are not inlined anywhere in the module.
+  SmallPtrSet<const DISubprogram *, 8> NonInlinedSubprograms;
 
   /// Tracks the scopes in the current function.
   // Use an unordered_map to ensure value pointer validity over insertion.
