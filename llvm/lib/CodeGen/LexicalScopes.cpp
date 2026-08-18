@@ -47,7 +47,7 @@ static bool skipSubprogram(const DISubprogram *SP) {
 }
 
 void LexicalScopes::resetModule() {
-  NonInlinedSubprograms.clear();
+  ConcreteSubprograms.clear();
   resetFunction();
 }
 
@@ -67,7 +67,7 @@ void LexicalScopes::initialize(const Module &M) {
   for (const Function &F : M) {
     DISubprogram *SP = F.getSubprogram();
     if (SP && (!SP->getUnit() || !skipUnit(SP->getUnit())))
-      NonInlinedSubprograms.insert(SP);
+      ConcreteSubprograms[SP] = false;
   }
 
   for (const Function &F : M) {
@@ -91,7 +91,9 @@ void LexicalScopes::initialize(const Module &M) {
 void LexicalScopes::scanSubprogramsAtLocation(const DISubprogram *CurrentSP, const DILocation *DL) {
   DISubprogram *SP = DL->getScope()->getSubprogram();
   if (SP != CurrentSP)
-    NonInlinedSubprograms.erase(SP);
+    if (auto I = ConcreteSubprograms.find(SP);
+        I != ConcreteSubprograms.end())
+      I->second = true;
   if (DILocation *IA = DL->getInlinedAt())
     scanSubprogramsAtLocation(CurrentSP, IA);
 }

@@ -210,7 +210,7 @@ public:
 
   /// Check if a definition subprogram is inlined somewhere in module.
   bool isInlined(const DISubprogram *SP) const {
-    return !NonInlinedSubprograms.contains(SP);
+    return ConcreteSubprograms.lookup_or(SP, true);
   }
 
 private:
@@ -245,7 +245,7 @@ private:
   const MachineFunction *MF = nullptr;
 
   /// Definition subprograms that are not inlined anywhere in the module.
-  SmallPtrSet<const DISubprogram *, 8> NonInlinedSubprograms;
+  DenseMap<const DISubprogram *, bool> ConcreteSubprograms;
 
   /// Tracks the scopes in the current function.
   // Use an unordered_map to ensure value pointer validity over insertion.
