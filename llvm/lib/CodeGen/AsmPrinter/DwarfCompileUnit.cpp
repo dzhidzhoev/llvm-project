@@ -1968,13 +1968,10 @@ DIE *DwarfCompileUnit::getOrCreateContextDIE(const DIScope *Context) {
 DIE *DwarfCompileUnit::getOrCreateSubprogramDIE(const DISubprogram *SP,
                                                 const Function *F,
                                                 bool Minimal) {
-  if (!F && SP->isDefinition()) {
-    if (DD->getLexicalScopes().isInlined(SP)) {
-      // SP may belong to another CU. Determine the CU similarly
-      // to DwarfDebug::constructAbstractSubprogramScopeDIE.
-      return &DD->getOrCreateAbstractSubprogramCU(SP, *this)
-                  .getOrCreateAbstractSubprogramDIE(SP);
-    }
+  if (!F && SP->isDefinition() && DD->getLexicalScopes().isInlined(SP)) {
+    // SP may belong to another CU. Determine the CU similarly
+    // to DwarfDebug::constructAbstractSubprogramScopeDIE.
+    return &DD->getOrCreateAbstractSubprogramCU(SP, *this).getOrCreateAbstractSubprogramDIE(SP);
   }
 
   return DwarfUnit::getOrCreateSubprogramDIE(SP, F, Minimal);
