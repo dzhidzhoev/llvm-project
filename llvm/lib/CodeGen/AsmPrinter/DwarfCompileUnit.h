@@ -80,8 +80,7 @@ class DwarfCompileUnit final : public DwarfUnit {
   DenseMap<const DILocalScope *, DIE *> LexicalBlockDIEs;
 
   // List of abstract local scopes (either DISubprogram or DILexicalBlock).
-  DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
-  SmallPtrSet<const DISubprogram *, 8> FinalizedAbstractSubprograms;
+  DwarfFile::AbstractScopesMap AbstractLocalScopeDIEs;
 
   // List of inlined lexical block scopes that belong to subprograms within this
   // CU.
@@ -142,7 +141,7 @@ class DwarfCompileUnit final : public DwarfUnit {
 
   bool isDwoUnit() const override;
 
-  DenseMap<const DILocalScope *, DIE *> &getAbstractScopeDIEs() {
+  DwarfFile::AbstractScopesMap &getAbstractScopeDIEs() {
     if (isDwoUnit() && !DD->shareAcrossDWOCUs())
       return AbstractLocalScopeDIEs;
     return DU->getAbstractScopeDIEs();
@@ -152,12 +151,6 @@ class DwarfCompileUnit final : public DwarfUnit {
     if (isDwoUnit() && !DD->shareAcrossDWOCUs())
       return AbstractEntities;
     return DU->getAbstractEntities();
-  }
-
-  auto &getFinalizedAbstractSubprograms() {
-    if (isDwoUnit() && !DD->shareAcrossDWOCUs())
-      return FinalizedAbstractSubprograms;
-    return DU->getFinalizedAbstractSubprograms();
   }
 
   /// \returns true if \ref ScopeNode contains a GlobalVariable.
