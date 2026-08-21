@@ -1441,7 +1441,8 @@ bool DwarfUnit::applySubprogramDefinitionAttributes(const DISubprogram *SP,
   StringRef LinkageName = SP->getLinkageName();
   // Always emit linkage name for abstract subprograms.
   if (DeclLinkageName != LinkageName &&
-      (DD->useAllLinkageNames() || DU->getAbstractScopeDIEs().lookup(SP)))
+      (DD->useAllLinkageNames() ||
+       DU->getAbstractScopeDIEs().lookup(SP).getPointer()))
     addLinkageName(SPDie, LinkageName);
 
   if (!DeclDie)
