@@ -54,6 +54,12 @@ struct RangeSpanList {
 };
 
 class DwarfFile {
+public:
+  using AbstractScopesMap =
+      DenseMap<const DILocalScope *,
+               PointerIntPair<DIE *, 1, bool /* IsFinalized */>>;
+
+private:
   // Target of Dwarf emission, used for sizing of abbreviations.
   AsmPrinter *Asm;
 
@@ -93,12 +99,11 @@ class DwarfFile {
   using LabelList = SmallVector<DbgLabel *, 4>;
   DenseMap<LexicalScope *, LabelList> ScopeLabels;
 
-  // Collection of abstract subprogram DIEs.
-  DenseMap<const DILocalScope *, DIE *> AbstractLocalScopeDIEs;
-  DenseMap<const DINode *, std::unique_ptr<DbgEntity>> AbstractEntities;
-  /// Keeps track of abstract subprograms to populate them only once.
+  /// Collection of abstract local scope DIEs.
+  /// Keeps track of abstract scopes to populate them only once.
   // FIXME: merge creation and population of abstract scopes.
-  SmallPtrSet<const DISubprogram *, 8> FinalizedAbstractSubprograms;
+  AbstractScopesMap AbstractLocalScopeDIEs;
+  DenseMap<const DINode *, std::unique_ptr<DbgEntity>> AbstractEntities;
 
   /// Maps MDNodes for type system with the corresponding DIEs. These DIEs can
   /// be shared across CUs, that is why we keep the map here instead
@@ -171,16 +176,10 @@ public:
     return ScopeLabels;
   }
 
-  DenseMap<const DILocalScope *, DIE *> &getAbstractScopeDIEs() {
-    return AbstractLocalScopeDIEs;
-  }
+  AbstractScopesMap &getAbstractScopeDIEs() { return AbstractLocalScopeDIEs; }
 
   DenseMap<const DINode *, std::unique_ptr<DbgEntity>> &getAbstractEntities() {
     return AbstractEntities;
-  }
-
-  auto &getFinalizedAbstractSubprograms() {
-    return FinalizedAbstractSubprograms;
   }
 
   void insertDIE(const MDNode *TypeMD, DIE *Die) {
