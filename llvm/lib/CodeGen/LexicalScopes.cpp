@@ -66,7 +66,7 @@ void LexicalScopes::initialize(const Module &M) {
 
   for (const Function &F : M) {
     DISubprogram *SP = F.getSubprogram();
-    if (SP && (!SP->getUnit() || !skipUnit(SP->getUnit())))
+    if (SP && !skipSubprogram(SP))
       AttachedSubprograms[SP] = false;
   }
 
