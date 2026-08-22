@@ -178,6 +178,9 @@ class DwarfCompileUnit final : public DwarfUnit {
                            const MachineLocation &Location,
                            ArrayRef<uint64_t> Expr);
 
+  /// Create a new empty lexical block and attach it to parent.
+  DIE *createAndAddLexicalBlock(DIE &Parent);
+
 public:
   DwarfCompileUnit(unsigned UID, const DICompileUnit *Node, AsmPrinter *A,
                    DwarfDebug *DW, DwarfFile *DWU,
@@ -308,6 +311,10 @@ public:
   /// by \ref constructAbstractSubprogramScopeDIE.
   DIE &getOrCreateAbstractSubprogramDIE(const DISubprogram *SP);
   void constructAbstractSubprogramScopeDIE(LexicalScope *Scope);
+
+  /// Create an abstract lexical block DIE, that should later be populated
+  /// by \ref constructScopeDIE.
+  DIE *getOrCreateAbstractLexicalBlockDIE(const DILexicalBlock *LB);
 
   /// Whether to use the GNU analog for a DWARF5 tag, attribute, or location
   /// atom. Only applicable when emitting otherwise DWARF4-compliant debug info.
