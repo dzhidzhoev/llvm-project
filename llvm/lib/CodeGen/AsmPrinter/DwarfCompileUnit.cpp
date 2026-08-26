@@ -612,6 +612,17 @@ void DwarfCompileUnit::constructScopeDIE(LexicalScope *Scope,
   if (DD->isLexicalScopeDIENull(Scope))
     return;
 
+#ifndef NDEBUG
+  // Mark lexical scope as finalized and assert if its abstract lexical block is
+  // populated twice.
+  if (Scope->isAbstractScope()) {
+    auto &AbsDef = getAbstractScopeDIEs()[DS];
+    assert(!AbsDef.getInt() &&
+           "Abstract DIE for this scope should not be finalized twice!");
+    AbsDef.setInt(true);
+  }
+#endif
+
   // Emit lexical blocks.
   DIE *ScopeDIE = getOrCreateLexicalBlockDIE(Scope, ParentScopeDIE);
   assert(ScopeDIE && "Scope DIE should not be null.");
@@ -1333,7 +1344,7 @@ void DwarfCompileUnit::constructAbstractSubprogramScopeDIE(
   auto *SP = cast<DISubprogram>(Scope->getScopeNode());
 
   // Populate subprogram DIE only once.
-  auto AbsDefInfo = getAbstractScopeDIEs().try_emplace(SP).first->second;
+  auto &AbsDefInfo = getAbstractScopeDIEs().try_emplace(SP).first->second;
   if (AbsDefInfo.getInt())
     return;
   AbsDefInfo.setInt(true);
