@@ -1282,8 +1282,9 @@ DIE *DwarfCompileUnit::createAndAddScopeChildren(LexicalScope *Scope,
     // Create a concrete lexical block for a scope with an abstract lexical
     // block to ensure visibility of scope-local types and static variables
     // within the scope range.
-    if (getAbstractScopeDIEs().lookup(DS))
+    if (getAbstractScopeDIEs().lookup(DS).getPointer())
       return false;
+    // TODO do we need to return false if the scope is created but not finalized?
     auto Vars = DU->getScopeVariables().lookup(S);
     if (!Vars.Args.empty() || !Vars.Locals.empty())
       return false;
