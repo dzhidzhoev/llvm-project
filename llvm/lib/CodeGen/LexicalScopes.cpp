@@ -42,7 +42,6 @@ static bool skipUnit(const DICompileUnit *CU) {
 }
 
 void LexicalScopes::resetModule() {
-  FunctionMap.clear();
   resetFunction();
 }
 
@@ -54,15 +53,6 @@ void LexicalScopes::resetFunction() {
   InlinedLexicalScopeMap.clear();
   AbstractScopesList.clear();
   DominatedBlocks.clear();
-}
-
-void LexicalScopes::initialize(const Module &M) {
-  resetModule();
-  for (const Function &F : M) {
-    DISubprogram *SP = F.getSubprogram();
-    if (SP && (!SP->getUnit() || !skipUnit(SP->getUnit())))
-      FunctionMap[SP] = &F;
-  }
 }
 
 void LexicalScopes::scanFunction(const MachineFunction &Fn) {
