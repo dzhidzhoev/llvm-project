@@ -852,7 +852,13 @@ class DIE : IntrusiveBackListNode, public DIEValueList {
 
   explicit DIE(dwarf::Tag Tag) : Tag(Tag) {}
 
+  DIE *getPhysicalParent() const;
+
 public:
+  /// Internal tag for temporary containers. Such DIEs must be removed before
+  /// abbreviation generation or emission.
+  static constexpr dwarf::Tag PlaceholderTag = dwarf::DW_TAG_null;
+
   DIE() = delete;
   DIE(const DIE &RHS) = delete;
   DIE(DIE &&RHS) = delete;
@@ -878,6 +884,8 @@ public:
     return Size;
   }
   bool hasChildren() const { return !Children.empty(); }
+  /// Returns true if DIE is a temporary placeholder.
+  bool isPlaceholder() const { return getTag() == PlaceholderTag; }
 
   using child_iterator = IntrusiveBackList<DIE>::iterator;
   using const_child_iterator = IntrusiveBackList<DIE>::const_iterator;

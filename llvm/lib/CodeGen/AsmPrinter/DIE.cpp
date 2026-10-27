@@ -168,7 +168,16 @@ void DIEAbbrevSet::Emit(const AsmPrinter *AP, MCSection *Section) const {
 // DIE Implementation
 //===----------------------------------------------------------------------===//
 
-DIE *DIE::getParent() const { return dyn_cast_if_present<DIE *>(Owner); }
+DIE *DIE::getPhysicalParent() const {
+  return dyn_cast_if_present<DIE *>(Owner);
+}
+
+DIE *DIE::getParent() const {
+  DIE *Parent = getPhysicalParent();
+  assert((!Parent || !Parent->isPlaceholder()) &&
+      "Parent must not be requested when DIE is in a temporary placeholder");
+  return Parent;
+}
 
 void DIE::removeChild(DIE &Child) {
   assert(Child.getParent() == this && "Not a child of this DIE");
