@@ -869,6 +869,10 @@ public:
     return new (Alloc) DIE(Tag);
   }
 
+  static DIE *getPlaceholder(BumpPtrAllocator &Alloc) {
+    return DIE::get(Alloc, PlaceholderTag);
+  }
+
   // Accessors.
   unsigned getAbbrevNumber() const { return AbbrevNumber; }
   dwarf::Tag getTag() const { return Tag; }
@@ -951,14 +955,14 @@ public:
 
   /// Add a child to the DIE.
   DIE &addChild(DIE *Child) {
-    assert(!Child->getParent() && "Child should be orphaned");
+    assert(!Child->getPhysicalParent() && "Child should be orphaned");
     Child->Owner = this;
     Children.push_back(*Child);
     return Children.back();
   }
 
   DIE &addChildFront(DIE *Child) {
-    assert(!Child->getParent() && "Child should be orphaned");
+    assert(!Child->getPhysicalParent() && "Child should be orphaned");
     Child->Owner = this;
     Children.push_front(*Child);
     return Children.front();
