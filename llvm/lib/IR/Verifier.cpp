@@ -1579,6 +1579,20 @@ void Verifier::visitDICompositeType(const DICompositeType &N) {
           "DIBlockByRefStruct on DICompositeType is no longer supported", &N);
   CheckDI(llvm::all_of(N.getElements(), [](const DINode *N) { return N; }),
           "DICompositeType contains null entry in `elements` field", &N);
+  if (N.getTag() == dwarf::DW_TAG_structure_type ||
+      N.getTag() == dwarf::DW_TAG_union_type ||
+      N.getTag() == dwarf::DW_TAG_class_type) {
+    for (DINode *Elt : N.getElements()) {
+      if (DIScope *EltWithScope = dyn_cast<DIScope>(Elt)) {
+        // TODO make it less fragile to wrong scope etc.
+        DIScope *EltScope = EltWithScope->getScope();
+        CheckDI(!EltScope || !isa<DIType>(EltScope) || EltScope == &N,
+                "DICompositeType contains an element that is in scope of "
+                "another type",
+                &N, EltWithScope, EltScope);
+      }
+    }
+  }
 
   if (N.isVector()) {
     const DINodeArray Elements = N.getElements();

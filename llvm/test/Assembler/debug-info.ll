@@ -123,5 +123,5 @@
 ; CHECK: !DICompositeType(tag: DW_TAG_structure_type, name: "SpecificationType", file: !10, size: 64, identifier: "SpecificationType", specification: !46)
 !50 = !DICompositeType(tag: DW_TAG_structure_type, name: "SpecificationType", file: !12, size: 64, identifier: "SpecificationType", specification: !49)
 
-; CHECK: distinct !DICompositeType(tag: DW_TAG_class_type, name: "SimpleType", file: !10, size: 8, flags: DIFlagTypePassByValue | DIFlagNameIsSimplified, elements: !20, templateParams: !18, identifier: "_ZTS10SimpleTypeIiE")
-!51 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "SimpleType", file: !12, size: 8, flags: DIFlagTypePassByValue | DIFlagNameIsSimplified, elements: !22, templateParams: !20, identifier: "_ZTS10SimpleTypeIiE")
+; CHECK: distinct !DICompositeType(tag: DW_TAG_class_type, name: "SimpleType", file: !10, size: 8, flags: DIFlagTypePassByValue | DIFlagNameIsSimplified, elements: !11, templateParams: !18, identifier: "_ZTS10SimpleTypeIiE")
+!51 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "SimpleType", file: !12, size: 8, flags: DIFlagTypePassByValue | DIFlagNameIsSimplified, elements: !13, templateParams: !20, identifier: "_ZTS10SimpleTypeIiE")
