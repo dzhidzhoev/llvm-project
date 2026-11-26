@@ -88,7 +88,7 @@ createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
     return SP != SPClonedWithinModule;
   };
 
-  return [=](const Metadata *MD) {
+  auto PredicateImpl = [=](auto &&Self, const Metadata *MD) {
     // Avoid cloning compile units.
     if (isa<DICompileUnit>(MD))
       return true;
@@ -127,14 +127,21 @@ createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
         DTy && !DTy->getScope())
       return false;
 
-    auto *LScope = dyn_cast_or_null<DILocalScope>(Type->getScope());
-    if (!LScope)
+    DIScope *TypeScope = Type->getScope();
+    if (!TypeScope)
       return true;
 
-    if (ShouldKeep(LScope->getSubprogram()))
+    auto *LScope = dyn_cast<DILocalScope>(TypeScope);
+    if (!LScope) {
+      if (isa<DIType>(TypeScope))
+        return Self(Self, TypeScope);
       return true;
+    }
 
-    return false;
+    return ShouldKeep(LScope->getSubprogram());
+  };
+  return [PredicateImpl](const Metadata *MD) -> bool {
+    return PredicateImpl(PredicateImpl, MD);
   };
 }
 
