@@ -88,7 +88,7 @@ createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
     return SP != SPClonedWithinModule;
   };
 
-  auto PredicateImpl = [=](auto &&Self, const Metadata *MD) {
+  return [=](const Metadata *MD) {
     // Avoid cloning compile units.
     if (isa<DICompileUnit>(MD))
       return true;
@@ -121,27 +121,18 @@ createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
     if (SPClonedWithinModule == nullptr)
       return true;
 
-    // Scopeless types may be derived from local types (e.g. pointers to local
-    // types). They may need cloning.
-    if (const DIDerivedType *DTy = dyn_cast_or_null<DIDerivedType>(Type);
-        DTy && !DTy->getScope())
-      return false;
-
-    DIScope *TypeScope = Type->getScope();
-    if (!TypeScope)
-      return true;
-
-    auto *LScope = dyn_cast<DILocalScope>(TypeScope);
-    if (!LScope) {
-      if (isa<DIType>(TypeScope))
-        return Self(Self, TypeScope);
-      return true;
+    while (Type) {
+      DIScope *TypeScope = Type->getScope();
+      if (!TypeScope) {
+        // Scopeless types may be derived from local types (e.g. pointers to local
+        // types). They may need cloning.
+        return !isa<DIDerivedType>(Type);
+      }
+      if (auto *LScope = dyn_cast<DILocalScope>(TypeScope))
+        return ShouldKeep(LScope->getSubprogram());
+      Type = dyn_cast<DIType>(TypeScope);
     }
-
-    return ShouldKeep(LScope->getSubprogram());
-  };
-  return [PredicateImpl](const Metadata *MD) -> bool {
-    return PredicateImpl(PredicateImpl, MD);
+    return true;
   };
 }
 
