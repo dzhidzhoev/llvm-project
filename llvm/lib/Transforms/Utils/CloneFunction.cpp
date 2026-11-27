@@ -93,17 +93,13 @@ createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
     if (isa<DICompileUnit>(MD))
       return true;
 
-    if (auto *SP = dyn_cast<DISubprogram>(MD))
-      return ShouldKeep(SP);
+    // Avoid cloning local variables of subprograms that won't be cloned.
+    if (auto *DV = dyn_cast<DILocalVariable>(MD))
+      MD = DV->getScope();
 
     // If a subprogram isn't going to be cloned skip its lexical blocks as well.
     if (auto *LScope = dyn_cast<DILocalScope>(MD))
       return ShouldKeep(LScope->getSubprogram());
-
-    // Avoid cloning local variables of subprograms that won't be cloned.
-    if (auto *DV = dyn_cast<DILocalVariable>(MD))
-      if (auto *S = dyn_cast_or_null<DILocalScope>(DV->getScope()))
-        return ShouldKeep(S->getSubprogram());
 
     // DIGlobalVariableExpression representing static local variable may be
     // encountered in DISubprogram's retainedNodes list. Do not remap it, and
