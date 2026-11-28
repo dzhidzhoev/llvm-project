@@ -1013,6 +1013,45 @@ TEST(CloneFunction, CloneFunctionWithInlinedSubprograms) {
             cast<DILexicalBlock>(ClonedDbgLoc.getScope()));
 }
 
+TEST(CloneFunction, CloneFunctionNotDefinition) {
+  StringRef ImplAssembly = R"(
+    define void @test() !dbg !3 {
+      ret void
+    }
+
+    declare void @cloned()
+
+    !llvm.dbg.cu = !{!0}
+    !llvm.module.flags = !{!2}
+    !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1)
+    !1 = !DIFile(filename: "test.cpp",  directory: "")
+    !2 = !{i32 1, !"Debug Info Version", i32 3}
+    !3 = distinct !DISubprogram(name: "test", scope: !0, type: !4, spFlags: 0)
+    !4 = !DISubroutineType(types: !5)
+    !5 = !{null}
+  )";
+
+  LLVMContext Context;
+  SMDiagnostic Error;
+
+  auto ImplModule = parseAssemblyString(ImplAssembly, Error, Context);
+  EXPECT_TRUE(ImplModule != nullptr);
+  auto *Func = ImplModule->getFunction("test");
+  auto *ClonedFunc = ImplModule->getFunction("cloned");
+
+  ValueToValueMapTy VMap;
+  SmallVector<ReturnInst *, 8> Returns;
+  ClonedCodeInfo CCI;
+  CloneFunctionInto(ClonedFunc, Func, VMap,
+                    CloneFunctionChangeType::GlobalChanges, Returns, "", &CCI);
+  EXPECT_FALSE(verifyModule(*ImplModule, &errs()));
+
+  // Verifier does not prohibit attaching subprograms without SPFlagDefinition
+  // to a Function. Check that such a subprogram is cloned.
+  EXPECT_TRUE(Func->getSubprogram() && ClonedFunc->getSubprogram());
+  EXPECT_NE(Func->getSubprogram(), ClonedFunc->getSubprogram());
+}
+
 TEST(CloneFunction, CloneFunctionToDifferentModule) {
   StringRef ImplAssembly = R"(
     define void @foo() {

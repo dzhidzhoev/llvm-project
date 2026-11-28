@@ -74,45 +74,41 @@ static void collectDebugInfoFromInstructions(const Function &F,
     DIFinder.processInstruction(*M, I);
 }
 
-// Create a predicate that matches the metadata that should be identity mapped
-// during function cloning.
-static MetadataPredicate
-createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
-  if (Changes >= CloneFunctionChangeType::DifferentModule)
-    return [](const Metadata *MD) { return false; };
+struct IdentityMDPredicate {
+  const DISubprogram *SPClonedWithinModule;
+  IdentityMDPredicate(const DISubprogram *SPClonedWithinModule)
+      : SPClonedWithinModule(SPClonedWithinModule) {}
 
-  DISubprogram *SPClonedWithinModule = F.getSubprogram();
-
-  // Don't clone inlined subprograms.
-  auto ShouldKeep = [SPClonedWithinModule](const DISubprogram *SP) -> bool {
+  bool shouldKeepDefinitionSubprogram(const DISubprogram *SP) {
     return SP != SPClonedWithinModule;
-  };
+  }
 
-  return [=](const Metadata *MD) {
-    // Avoid cloning compile units.
-    if (isa<DICompileUnit>(MD))
-      return true;
-
-    // Avoid cloning local variables of subprograms that won't be cloned.
-    if (auto *DV = dyn_cast<DILocalVariable>(MD))
-      MD = DV->getScope();
-
-    // If a subprogram isn't going to be cloned skip its lexical blocks as well.
-    if (auto *LScope = dyn_cast<DILocalScope>(MD))
-      return ShouldKeep(LScope->getSubprogram());
-
-    // DIGlobalVariableExpression representing static local variable may be
-    // encountered in DISubprogram's retainedNodes list. Do not remap it, and
-    // remove it from retainedNodes after mapping.
-    if (isa<DIGlobalVariableExpression>(MD))
-      return true;
-
-    // Clone types that are local to subprograms being cloned.
-    // Avoid cloning other types.
-    auto *Type = dyn_cast<DIType>(MD);
-    if (!Type)
+  bool shouldKeepDeclarationSubprogram(const DISubprogram *SP) {
+    // Verifier does not prohibit attaching a declaration DISubprogram to a
+    // Function. The same checks applied to definitions are applied to
+    // declarations.
+    if (!shouldKeepDefinitionSubprogram(SP))
       return false;
+    // If a declaration is a type member, it may be listed in the type's
+    // elements: field. It should be cloned with its parent type, to preserve
+    // proper scoping of type's elements.
+    // TODO: tests.
+    if (auto *Type = dyn_cast_or_null<DIType>(SP->getScope()))
+      return shouldKeepType(Type);
+    return true;
+  }
 
+  bool shouldKeepSubprogram(const DISubprogram *SP) {
+    return SP->isDefinition() ? shouldKeepDefinitionSubprogram(SP)
+                              : shouldKeepDeclarationSubprogram(SP);
+  }
+
+  bool shouldKeepLocalScope(const DILocalScope *LScope) {
+    // If a subprogram isn't going to be cloned skip its lexical blocks as well.
+    return shouldKeepSubprogram(LScope->getSubprogram());
+  }
+
+  bool shouldKeepType(const DIType *Type) {
     // No need to clone types if subprograms are not cloned.
     if (SPClonedWithinModule == nullptr)
       return true;
@@ -120,16 +116,52 @@ createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
     while (Type) {
       DIScope *TypeScope = Type->getScope();
       if (!TypeScope) {
-        // Scopeless types may be derived from local types (e.g. pointers to local
-        // types). They may need cloning.
+        // Scopeless types may be derived from local types (e.g. pointers to
+        // local types). They may need cloning.
         return !isa<DIDerivedType>(Type);
       }
+      // Clone types that are local to subprograms being cloned.
+      // Avoid cloning other types.
       if (auto *LScope = dyn_cast<DILocalScope>(TypeScope))
-        return ShouldKeep(LScope->getSubprogram());
+        return shouldKeepLocalScope(LScope);
       Type = dyn_cast<DIType>(TypeScope);
     }
     return true;
-  };
+  }
+
+  bool operator()(const Metadata *MD) {
+    // Avoid cloning compile units.
+    if (isa<DICompileUnit>(MD))
+      return true;
+
+    // Avoid cloning local variables of subprograms that won't be cloned.
+    if (auto *DV = dyn_cast<DILocalVariable>(MD))
+      return shouldKeepLocalScope(DV->getScope());
+
+    // If a subprogram isn't going to be cloned skip its lexical blocks as well.
+    if (auto *LScope = dyn_cast<DILocalScope>(MD))
+      return shouldKeepLocalScope(LScope);
+
+    // DIGlobalVariableExpression representing static local variable may be
+    // encountered in DISubprogram's retainedNodes list. Do not remap it, and
+    // remove it from retainedNodes after mapping.
+    if (isa<DIGlobalVariableExpression>(MD))
+      return true;
+
+    if (auto *Type = dyn_cast<DIType>(MD))
+      return shouldKeepType(Type);
+    return false;
+  }
+};
+
+// Create a predicate that matches the metadata that should be identity mapped
+// during function cloning.
+static MetadataPredicate
+createIdentityMDPredicate(const Function &F, CloneFunctionChangeType Changes) {
+  if (Changes >= CloneFunctionChangeType::DifferentModule)
+    return [](const Metadata *MD) { return false; };
+
+  return IdentityMDPredicate(F.getSubprogram());
 }
 
 /// See comments in Cloning.h.
